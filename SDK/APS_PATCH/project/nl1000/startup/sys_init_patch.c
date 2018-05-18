@@ -277,6 +277,10 @@ void Main_DriverInit_patch(void)
 	{
 		ps_wait_xtal_ready();
 		Hal_Sys_ApsClkTreeSetup(ASP_CLKTREE_SRC_XTAL, 0, 0);
+
+		// TODO: Revision will be provided by Ophelia after peripheral restore mechanism completed
+		uart1_mode_set_default();
+		uart1_mode_set_at();
 	}
 }
 

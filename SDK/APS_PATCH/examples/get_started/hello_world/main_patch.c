@@ -81,7 +81,7 @@ static osPoolId g_tAppMemPoolId;
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
-static void Main_AppInit_patch(void);
+void Main_AppInit_patch(void);
 static void Main_AppThread_1(void *argu);
 static void Main_AppThread_2(void *argu);
 static osStatus Main_AppMessageQSend(S_MessageQ *ptMsg);
@@ -129,7 +129,7 @@ static void __Patch_EntryPoint(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppInit_patch(void)
+void Main_AppInit_patch(void)
 {
     osThreadDef_t tThreadDef;
     osMessageQDef_t tMessageDef;

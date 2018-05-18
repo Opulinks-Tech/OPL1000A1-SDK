@@ -855,7 +855,8 @@ void Hal_SysPinMuxAppInit_patch(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp |= ((0x1 << 1) | (0x1 << 0));
+    tmp &= ~(0x1 << 0);
+    tmp |= (0x1 << 1);
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -894,7 +895,8 @@ void Hal_SysPinMuxAppInit_patch(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp &= ~((0x1 << 9) | (0x1 << 8) | (0x1 << 7) | (0x1 << 6));
+    tmp &= ~((0x1 << 8) | (0x1 << 6));
+    tmp |= ((0x1 << 9) | (0x1 << 7));
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -933,7 +935,8 @@ void Hal_SysPinMuxAppInit_patch(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp &= ~((0x1 << 9) | (0x1 << 8) | (0x1 << 3) | (0x1 << 2));
+    tmp &= ~((0x1 << 9) | (0x1 << 2));
+    tmp |= ((0x1 << 8) | (0x1 << 3));
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -965,7 +968,8 @@ void Hal_SysPinMuxAppInit_patch(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp &= ~((0x1 << 7) | (0x1 << 6) | (0x1 << 5) | (0x1 << 4));
+    tmp &= ~((0x1 << 6) | (0x1 << 4));
+    tmp |= ((0x1 << 7) | (0x1 << 5));
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -1030,7 +1034,8 @@ void Hal_SysPinMuxAppInit_patch(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp |= ((0x1 << 17) | (0x1 << 16));
+    tmp &= ~(0x1 << 17);
+    tmp |= (0x1 << 16);
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -1132,11 +1137,6 @@ void Hal_SysPinMuxDownloadInit(void)
 
 // GPIO
     // IO0(Input), IO1(Input)
-    // input
-    tmp = AOS->RG_PD_DIR;
-    tmp |= ((0x1 << 1) | (0x1 << 0));
-    AOS->RG_PD_DIR = tmp;
-    
     // input Enable
     tmp = AOS->RG_PD_IE;
     tmp |= ((0x1 << 1) | (0x1 << 0));
@@ -1144,8 +1144,13 @@ void Hal_SysPinMuxDownloadInit(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp &= ~((0x1 << 1) | (0x1 << 0));
+    tmp |= ((0x1 << 1) | (0x1 << 0));
     AOS->RG_PD_PE = tmp;
+
+    // input
+    tmp = AOS->RG_PD_DIR;
+    tmp |= ((0x1 << 1) | (0x1 << 0));
+    AOS->RG_PD_DIR = tmp;
     
     // GPIO pin
     tmp = AOS->RG_PDOC_MODE;
@@ -1189,7 +1194,8 @@ void Hal_SysPinMuxDownloadInit(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp |= ((0x1 << 9) | (0x1 << 8));
+    tmp &= ~(0x1 << 8);
+    tmp |= (0x1 << 9);
     AOS->RG_PD_PE = tmp;
 
     // function pin
@@ -1229,7 +1235,8 @@ void Hal_SysPinMuxDownloadInit(void)
 
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
-    tmp |= ((0x1 << 5) | (0x1 << 4));
+    tmp &= ~(0x1 << 4);
+    tmp |= (0x1 << 5);
     AOS->RG_PD_PE = tmp;
 
     // function pin

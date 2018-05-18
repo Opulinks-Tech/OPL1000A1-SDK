@@ -8,7 +8,6 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
-
 /**
  * @file at_cmd_task.c
  * @author Michael Liao

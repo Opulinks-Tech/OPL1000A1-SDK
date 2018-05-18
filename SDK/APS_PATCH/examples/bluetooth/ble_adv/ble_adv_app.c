@@ -39,7 +39,7 @@ static UINT8 gBleAdvertData[] =
 	UINT16_LO(DEFAULT_DESIRED_MIN_CONN_INTERVAL),
 	UINT16_HI(DEFAULT_DESIRED_MIN_CONN_INTERVAL),  
 	UINT16_LO(DEFAULT_DESIRED_MAX_CONN_INTERVAL),
-	UINT16_HI(DEFAULT_DESIRED_MAX_CONN_INTERVAL), 
+	UINT16_HI(DEFAULT_DESIRED_MAX_CONN_INTERVAL),  
 	0x02,
 	GAP_ADTYPE_POWER_LEVEL,
 	0
@@ -47,9 +47,9 @@ static UINT8 gBleAdvertData[] =
 
 static UINT8 gBleScanRspData[] =
 {
-	0x10,
+	0x0f,
 	GAP_ADTYPE_LOCAL_NAME_COMPLETE,   
-	'O', 'P', 'L', '1', '0', '0', '0', ' ', 'A', 'D', 'V', ' ', 'A', 'P', 'P'
+	'N', 'L', '1', '0', '0', '0', ' ', 'A', 'D', 'V', ' ', 'A', 'P', 'P'
 };
 
 
@@ -88,7 +88,7 @@ static void BleAppCmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 			BLE_APP_PRINT("LE_CM_MSG_INIT_COMPLETE_CFM\r\n");
             LeGapSetAdvData(sizeof(gBleAdvertData), gBleAdvertData);
             LeSetScanRspData(sizeof(gBleScanRspData), gBleScanRspData);
-            BleAppSetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_SCAN_IND, LE_HCI_OWN_ADDR_PUBLIC, 0, LE_HCI_ADV_FILT_NONE);
+            BleAppSetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_NONCONN_IND, LE_HCI_OWN_ADDR_PUBLIC, 0, LE_HCI_ADV_FILT_NONE);
 
             gTheBle.state = APP_STATE_IDLE;
         }
@@ -101,6 +101,7 @@ static void BleAppCmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 		case LE_CM_MSG_SET_SCAN_RSP_DATA_CFM:
         {
 			BLE_APP_PRINT("LE_CM_MSG_SET_SCAN_RSP_DATA_CFM - Status = %x\r\n", ((LE_CM_MSG_SET_SCAN_RSP_DATA_CFM_T *)message)->status);
+            BleAppSetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_NONCONN_IND, LE_HCI_OWN_ADDR_PUBLIC, 0, LE_HCI_ADV_FILT_NONE);
         }
 		break;
 

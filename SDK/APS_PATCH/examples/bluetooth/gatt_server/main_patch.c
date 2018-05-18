@@ -73,7 +73,7 @@ Declaration of static Global Variables & Functions
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
-static void Main_AppInit_patch(void);
+void Main_AppInit_patch(void);
 
 
 /***********
@@ -118,7 +118,7 @@ static void __Patch_EntryPoint(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppInit_patch(void)
+void Main_AppInit_patch(void)
 {
 	BleAppInit();
 }

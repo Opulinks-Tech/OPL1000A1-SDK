@@ -160,40 +160,64 @@ void blewifi_ctrl_task_create(void)
 
 int blewifi_ctrl_task_send(xBleWifiCtrlMessage_t *txMsg)
 {
-    xBleWifiCtrlMessage_t *pMsg;
+    int iRet = -1;
+    xBleWifiCtrlMessage_t *pMsg = NULL;
 
     if (txMsg == NULL)
-        return -1;
+        goto done;
 
     /* Mem pool allocate */
     pMsg = (xBleWifiCtrlMessage_t *)osPoolCAlloc(BleWifiCtrlMemPoolId);
+
+    if(pMsg == NULL)
+    {
+        goto done;
+    }
+
     pMsg->event = txMsg->event;
     pMsg->length = txMsg->length;
-    if(txMsg->length != 0)
+    pMsg->pcMessage = NULL;
+
+    if((txMsg->pcMessage) && (txMsg->length))
     {
         /* Malloc buffer */
         pMsg->pcMessage = (void *)malloc(txMsg->length);
 
-        if(txMsg->pcMessage != NULL)
+        if(pMsg->pcMessage != NULL)
         {
             memcpy(pMsg->pcMessage, txMsg->pcMessage, txMsg->length);
         }
         else
         {
             BLEWIFI_ERROR("BLEWIFI: ctrl task message allocate fail \r\n");
-            return -1;
+            goto done;
         }
     }
 
     if (osMessagePut(BleWifiCtrlQueueId, (uint32_t)pMsg, osWaitForever) != osOK)
     {
         BLEWIFI_ERROR("BLEWIFI: ctrl task message send fail \r\n");
-        return -1;
+        goto done;
     }
 
-    return 0;
-}
+    iRet = 0;
 
+done:
+    if(iRet)
+    {
+        if(pMsg)
+        {
+            if(pMsg->pcMessage)
+            {
+                free(pMsg->pcMessage);
+            }
+
+            osPoolFree(BleWifiCtrlMemPoolId, pMsg);
+        }
+    }
+
+    return iRet;
+}
 
 int blewifi_ctrl_msg_send(int msg_type, uint8_t *data, int data_len)
 {

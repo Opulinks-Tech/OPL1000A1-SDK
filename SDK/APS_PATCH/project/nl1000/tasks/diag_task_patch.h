@@ -21,6 +21,10 @@ typedef struct
     char buf[RBUF_SIZE_PATCH];                       // Buffer
 } uart_buffer_patch_t;
 
+typedef uint32_t (*ParseParam_fp_t)(char *sCmd, char **ppbParam, uint32_t dwNum);
+
+extern ParseParam_fp_t ParseParam;
+
 void diag_task_patch_func_init(void);
 void uartdbg_rx_int_patch_handler(uint32_t u32Data);
 

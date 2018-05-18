@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_wifi_patch.c
@@ -142,7 +142,7 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
         case AT_CMD_MODE_READ:
             state = wpas_get_state();
 
-            if(state == WPA_COMPLETED)
+            if(state == WPA_COMPLETED || state == WPA_ASSOCIATED)
             {
                 memset(bssid, 0, MAC_ADDR_LEN);
                 memset(ssid, 0, MAX_LEN_OF_SSID + 1);
@@ -159,7 +159,7 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
             }
             else
             {
-                msg_print_uart1("\r\n+CWJAP:\r\n");
+                msg_print_uart1("\r\nNo AP connected\r\n");
             }
             msg_print_uart1("\r\nOK\r\n");
             break;
@@ -409,11 +409,9 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
 {
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0, i;
-    u8 automode;
-    u8 ap_num;
+    u8 automode, ap_num, act_num = 0;
     MwFimAutoConnectCFG_t ac_cfg;
     auto_conn_info_t ac_info;
-    //mw_wifi_auto_connect_ap_info_t ac_info;
     
     _at_cmd_buf_to_argc_argv(buf, &argc, argv);
 
@@ -428,7 +426,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
             break;
 
         case AT_CMD_MODE_SET:
-            if (argc == 2) { //mode
+            if (argc >= 2) { //mode
                 automode = atoi(argv[1]);
                 
                 if (automode > AUTO_CONNECT_ENABLE) {
@@ -441,7 +439,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                 write_auto_conn_mode_to_flash(automode);
             }
 
-            if (argc == 3) { //AP number
+            if (argc >= 3) { //AP number
                 ap_num = atoi(argv[2]);
 
                 if (ap_num == 0 || ap_num > MAX_NUM_OF_AUTO_CONNECT) {
@@ -450,28 +448,48 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                     return FALSE;
                 }
 
-                if (ap_num < ac_cfg.max_save_num) {
-                    set_auto_connect_save_ap_num(ap_num);
-                    get_auto_connect_ap_cfg(&ac_cfg);
-                    write_auto_connect_ap_cfg_to_flash(&ac_cfg);
-
-                    set_auto_connect_ap_num(ap_num);
-                    
-                    /* clear all AP info in FIM */
-                    memset(&ac_info, 0, sizeof(mw_wifi_auto_connect_ap_info_t));
-                    for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
-                        write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
-                    }
-
-                    /* write AP info by new ap number setting */
-                    for (i=0; i<ap_num; i++) {
-                        get_auto_connect_info(i, &ac_info);
-                        write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
-                    }
-
-                    write_auto_connect_ap_num_to_flash(ap_num);
+                if (get_auto_connect_ap_num() == 0) {
+                    return false;
                 }
-      
+               
+                /* clear all AP info in FIM */
+                memset(&ac_info, 0, sizeof(mw_wifi_auto_connect_ap_info_t));
+                for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
+                    write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
+                }
+
+                /* write AP info by new ap number setting */
+                for (i=0; i<ap_num; i++) {
+                    get_auto_connect_info(i, &ac_info);
+                    if (ac_info.ap_channel != 0) {
+                        write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
+                        act_num++;
+                    }
+                }
+                
+                set_auto_connect_ap_num(act_num);
+                write_auto_connect_ap_num_to_flash(act_num);
+
+                /* clear all AP info in global variable */
+                memset(&ac_info, 0, sizeof(auto_conn_info_t));
+                for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
+                    set_auto_connect_info(i, &ac_info);
+                }
+
+                /* read AP info from FIM */
+                for (i=0; i<act_num; i++) {
+                    read_auto_conn_ap_info_from_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
+                    set_auto_connect_info(i, &ac_info);
+                }
+
+                /* update ap cfg */
+                get_auto_connect_ap_cfg(&ac_cfg);
+                ac_cfg.max_save_num = ap_num;
+                ac_cfg.flag = false;
+                ac_cfg.front = -1;
+                ac_cfg.rear = act_num-1;
+                set_auto_connect_ap_cfg(&ac_cfg);
+                write_auto_connect_ap_cfg_to_flash(&ac_cfg);    
             }
             
             msg_print_uart1("\r\nOK\r\n");

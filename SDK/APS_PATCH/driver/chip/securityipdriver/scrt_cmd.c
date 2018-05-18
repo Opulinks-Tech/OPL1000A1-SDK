@@ -21,6 +21,7 @@
 #include "scrt_patch.h"
 #include "le_smp_util.h"
 #include "diag_task.h"
+#include "diag_task_patch.h"
 
 
 //#define SCRT_KEY_PAIR_1
@@ -273,7 +274,7 @@ uint32_t g_u32aSwPubKey[16] = {0};
 volatile uint8_t g_bScrtSutTaskRun = 0;
 osThreadId g_taScrtSutThreadId[SCRT_SUT_TASK_NUM] = {0};
 
-char *g_saScrtSutTaskName[SCRT_SUT_TASK_NUM] = 
+const char *g_saScrtSutTaskName[SCRT_SUT_TASK_NUM] = 
 {
     "scrt_sut_1", 
     "scrt_sut_2", 
@@ -1290,7 +1291,7 @@ int scrt_sut_task_create_impl(uint8_t bValue)
     for(i = 0; i < SCRT_SUT_TASK_NUM; i++)
     {
         //create task
-        tThreadDef.name = g_saScrtSutTaskName[i];
+        tThreadDef.name = (char *)g_saScrtSutTaskName[i];
         tThreadDef.stacksize = SCRT_SUT_TASK_STACK_SIZE;
         tThreadDef.tpriority = g_tScrtSutTaskPri[i];
         tThreadDef.pthread = g_fpaScrtSutTaskMain[i];
@@ -1314,35 +1315,6 @@ done:
     }
 
     return iRet;
-}
-
-uint32_t ParseParam(char *sCmd, char **ppbParam, uint32_t dwNum)
-{
-    uint32_t dwParamNum = 0;
-    char *sStart = sCmd;
-    char *sToken = NULL;
-
-    do
-    {
-        if(dwParamNum >= dwNum)
-        {
-            break;
-        }
-
-        sToken = strtok(sStart, " ");
-
-        if(sToken == NULL)
-        {
-            break;
-        }
-
-        ppbParam[dwParamNum] = sToken;
-        dwParamNum += 1;
-        sStart = NULL;
-    }
-    while(1);
-
-    return dwParamNum;
 }
 
 void nl_scrt_cmd_impl(char *sCmd)

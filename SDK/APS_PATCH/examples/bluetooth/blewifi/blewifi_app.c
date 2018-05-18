@@ -212,6 +212,8 @@ void wifi_event_loop_ind(uint32_t type)
 
 int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
 {
+    uint8_t reason = *((uint8_t*)data);
+
     switch(event_id) {
     case WIFI_EVENT_STA_START:
         printf("\r\nWi-Fi Start \r\n");
@@ -225,11 +227,12 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
         //blewifi_build_disconnect_req();
         break;
     case WIFI_EVENT_STA_CONNECTED:
+        lwip_net_start(WIFI_MODE_STA);
         printf("\r\nWi-Fi Connected \r\n");
         wifi_ind_connection(data, length);
         break;
     case WIFI_EVENT_STA_DISCONNECTED:
-        printf("\r\nWi-Fi Disconnected \r\n");
+        printf("\r\nWi-Fi Disconnected , reason %d\r\n", reason);
         wifi_ind_disconnection(data, length);
         break;
     case WIFI_EVENT_SCAN_COMPLETE:
@@ -238,10 +241,11 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
         break;
     case WIFI_EVENT_STA_GOT_IP:
         printf("\r\nWi-Fi Got IP \r\n");
-        //lwip_get_ip_info("st1");
         break;
     case WIFI_EVENT_STA_CONNECTION_FAILED:
-        printf("\r\nWi-Fi Connected failed\r\n");
+        printf("\r\nWi-Fi Connected failed, reason %d\r\n", reason);
+        //open     - sucess:0, failed:1
+        //security - sucess:2, failed:3
         wifi_ind_connection(data, length);
         break;
     default:

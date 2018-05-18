@@ -451,7 +451,7 @@ int wifi_config_get_listen_interval(uint8_t *interval);
 int wifi_config_set_listen_interval(uint8_t interval);
 
 /**
-  * @brief  quickly connect to the current AP if the currently scanned AP ID has been connected
+  * @brief  Get the current connection type    
   * 
   * @return    0  : success
   * @return    other : failed
@@ -460,118 +460,25 @@ int wifi_config_set_listen_interval(uint8_t interval);
 int wifi_get_fast_conn_mode(void);
 
 /**
-  * @brief Set automatic connection mode
+  * @brief Set the connection type 
   * 
-  * @param[in]   mode: Configure the auto connect mode ,0 means disable automatic connection 
-  *                    and 1 enable the automatic connection mode
-  * 
+  * @param[in] Connection Type
+  *            - WIFI_MODE_STA 
+  *            - WIFI_MODE_AP (currently not support)
   * @return    0  : success
   * @return    other : failed
   * 
 */
 int wifi_auto_connect_set_mode(u8 mode);
-
-/**
-  * @brief Get the status of the current automatic connection mode
-  * 
-  * @return    0  : off 
-  * @return    1  : on
-  * 
-*/
-int wifi_auto_connect_get_mode(void);
-
-/**
-  * @brief Get the number of automatically connected aps that have been saved in the flash
-  * 
-  * @return    0-3 ap number
-  * 
-*/
-int wifi_auto_connect_get_ap_num(void);
-
-/**
-  * @brief Save the number of automatically connected ap to flash
-  * 
-  * @param[in] Connection Type
-
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
+u8 wifi_auto_connect_get_mode(void);
+u8 wifi_auto_connect_get_ap_num(void);
 int wifi_auto_connect_set_ap_num(u8 num);
-
-/**
-  * @brief Get ap detailed information saved in flash
-  * 
-  * @param[in] index : Index of ap information,The range is 0 to 3
-  * @param[in] info  : wifi_auto_connect_info_f array to hold the found APs
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
 int wifi_auto_connect_get_ap_info(u8 index, wifi_auto_connect_info_f *info);
-
-/**
-  * @brief Delete automatically connected AP information stored in flash
-  * 
-  * @param[in] index : Index of ap information,The range is 0 to 3
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
 int wifi_auto_connect_del_ap_info(u8 index);
-
-/**
-  * @brief Initialize wifi automatic connection
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
 int wifi_auto_connect_init(void);
-
-/**
-  * @brief Start wifi automatic connection process
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
 int wifi_auto_connect_start(void);
-
-/**
-  * @brief Get the status of AP fast connection
-  * 
-  * @param[in] ap_index : Index of ap information,The range is 0 to 3
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
-int wifi_fast_connect_get_mode(u8 ap_index);
-
-/**
-  * @brief Set the fast connection type 
-  * 
-  * @param[in] mode : Configure the fast connect mode ,0 means disable fast connection,
-  *                   and 1 enable the fast connection mode
-  * 
-  * @param[in] ap_index : Index of ap information,The range is 0 to 3
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
+u8 wifi_fast_connect_get_mode(u8 ap_index);
 int wifi_fast_connect_set_mode(u8 mode, u8 ap_index);
-
-/**
-  * @brief Start the fast connection process
-  * 
-  * @return    0  : success
-  * @return    other : failed
-  * 
-*/
 int wifi_fast_connect_start(void);
 
 

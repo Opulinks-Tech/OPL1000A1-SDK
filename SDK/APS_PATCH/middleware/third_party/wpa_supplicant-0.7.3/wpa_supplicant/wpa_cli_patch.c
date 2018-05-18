@@ -277,6 +277,7 @@ static void debug_auto_connect(void)
     msg_print(LOG_HIGH_LEVEL, "AP num = %d\r\n", get_auto_connect_ap_num());
     
     get_auto_connect_ap_cfg(&cfg);
+    msg_print(LOG_HIGH_LEVEL, "AP cfg flag = %d, front = %d, rear = %d\r\n", cfg.flag, cfg.front, cfg.rear);
     msg_print(LOG_HIGH_LEVEL, "AP cfg max_save_num = %d\r\n", cfg.max_save_num);
 
     for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {

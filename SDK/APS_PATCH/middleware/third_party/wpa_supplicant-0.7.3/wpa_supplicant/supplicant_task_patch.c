@@ -40,6 +40,62 @@
 
 extern struct wpa_supplicant *wpa_s;
 extern auto_connect_cfg_t g_AutoConnect; //Fast Connect Report
+extern RET_DATA osPoolId        supplicantMemPoolId;
+
+osStatus supplicant_task_send_patch(xSupplicantMessage_t txMsg)
+{
+    osStatus ret = osErrorOS;
+    xSupplicantMessage_t    *pMsg = NULL;
+
+    //Mem pool allocate
+    pMsg = (xSupplicantMessage_t *)osPoolCAlloc (supplicantMemPoolId);         // get Mem Block
+
+    if(pMsg == NULL)
+    {
+        goto done;
+    }
+
+    pMsg->event = txMsg.event;
+    pMsg->length = txMsg.length;
+    pMsg->pcMessage = NULL;
+
+    if((txMsg.pcMessage) && (txMsg.length))
+    {
+        //malloc buffer
+        pMsg->pcMessage = (void *)malloc(txMsg.length);
+
+        if(pMsg->pcMessage == NULL)
+        {
+            msg_print(LOG_HIGH_LEVEL, "Supplicant task message allocate fail \r\n");
+            goto done;
+        }
+
+        memcpy(pMsg->pcMessage, txMsg.pcMessage, txMsg.length);
+    }
+
+    if(osMessagePut (xSupplicantQueue, (uint32_t)pMsg, osWaitForever) != osOK) // Send Message
+    {
+        goto done;
+    }
+
+    ret = osOK;
+
+done:
+    if(ret != osOK)
+    {
+        if(pMsg)
+        {
+            if(pMsg->pcMessage)
+            {
+                free(pMsg->pcMessage);
+            }
+
+            osPoolFree(supplicantMemPoolId, pMsg);
+        }
+    }
+
+    return ret;
+}
 
 void supplicant_task_evt_handle_patch(uint32_t evt_type)
 {
@@ -136,5 +192,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
 void wpa_supplicant_task_func_init_patch(void)
 {
     supplicant_task_evt_handle = supplicant_task_evt_handle_patch;
+    supplicant_task_send = supplicant_task_send_patch;
 }
 

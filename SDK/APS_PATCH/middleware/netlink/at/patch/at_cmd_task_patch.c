@@ -8,7 +8,6 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
-
 /**
  * @file at_cmd_task_patch.c
  * @author Vincent Tai
@@ -110,6 +109,103 @@ void at_task_create_patch(void)
     //stub function
 }
 
+/*
+ * @brief Send message to AT CMD task
+ *
+ * @param [in] txMsg
+ *
+ * @return  0 osOK non-0 other status codes
+ *
+ */
+osStatus at_task_send_patch(xATMessage txMsg)
+{
+    osStatus ret = osErrorOS;
+    xATMessage *pMsg = NULL;
+
+    /** Mem pool allocate */
+    pMsg = (xATMessage *)osPoolCAlloc (AtMemPoolId); /** get Mem Block */
+
+    if(pMsg == NULL)
+    {
+        goto done;
+    }
+
+    pMsg->event = txMsg.event;
+    pMsg->length = txMsg.length;
+    pMsg->pcMessage = NULL;
+
+    if((txMsg.pcMessage) && (txMsg.length))
+    {
+        /** malloc buffer */
+        pMsg->pcMessage = (void *)malloc(txMsg.length);
+
+        if(pMsg->pcMessage == NULL)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "at task message allocate fail \r\n");
+            msg_print_uart1("at task message allocate fail \r\n");
+            goto done;
+        }
+        
+        memcpy((void *)pMsg->pcMessage, (void *)txMsg.pcMessage, txMsg.length);
+    }
+
+    if(osMessagePut (xAtQueue, (uint32_t)pMsg, osWaitForever) != osOK) /** Send Message */
+    {
+        goto done;
+    }
+
+    ret = osOK;
+
+done:
+    if(ret != osOK)
+    {
+        if(pMsg)
+        {
+            if(pMsg->pcMessage)
+            {
+                free(pMsg->pcMessage);
+            }
+    
+            osPoolFree(AtMemPoolId, pMsg);
+        }
+    }
+
+    return ret;
+}
+
+/*
+ * @brief AT CMD task body
+ *
+ * @param [in] pvParameters Task parameters
+ *
+ */
+void at_task_patch(void *pvParameters)
+{
+    osEvent rxEvent;
+    xATMessage *rxMsg;
+    at_uart_buffer_t *pData;
+
+    tracer_cli(LOG_HIGH_LEVEL, "AT task is created successfully! \r\n");
+    msg_print_uart1("\r\n>");
+
+    for(;;)
+    {
+        /** wait event */
+        rxEvent = osMessageGet(xAtQueue, osWaitForever);
+        if(rxEvent.status != osEventMessage) continue;
+
+        rxMsg = (xATMessage *) rxEvent.value.p;
+        if(rxMsg->event == AT_UART1_EVENT)
+        {
+            pData = (at_uart_buffer_t *)rxMsg->pcMessage;
+			at_task_cmd_process(pData->buf, strlen(pData->buf));
+            at_clear_uart_buffer();
+        }
+
+        if(rxMsg->pcMessage != NULL) free(rxMsg->pcMessage);
+        osPoolFree (AtMemPoolId, rxMsg);
+    }
+}
 
 /*
  * @brief AT Command Interface Initialization for AT Command Task
@@ -119,5 +215,7 @@ void at_task_func_init_patch(void)
 {
     at_task_create = at_task_create_patch;
     at_task_cmd_process = at_task_cmd_process_patch;
+    at_task_send = at_task_send_patch;
+    at_task = at_task_patch;
 }
 

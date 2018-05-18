@@ -42,7 +42,7 @@ extern "C" {
 
 // Sec 1: Include File
 #include "mw_fim.h"
-
+#include "le_ctrl_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the file ID
@@ -53,9 +53,12 @@ extern "C" {
 typedef enum
 {
     MW_FIM_IDX_GP04_START = 0x00040000,             // the start IDX of group 04
-    
+    MW_FIM_IDX_LE_CFG,
     MW_FIM_IDX_GP04_MAX
 } E_MwFimIdxGroup04;
+
+#define MW_FIM_IDX_LE_CFG_SIZE   sizeof(le_cfg_t)
+#define MW_FIM_LE_CFG_NUM        1
 
 
 /******************************

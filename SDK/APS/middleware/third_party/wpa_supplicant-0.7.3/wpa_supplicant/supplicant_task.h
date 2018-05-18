@@ -8,7 +8,6 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
-
 #ifndef __SUPPLICANT_TASK_H__
 #define __SUPPLICANT_TASK_H__
 

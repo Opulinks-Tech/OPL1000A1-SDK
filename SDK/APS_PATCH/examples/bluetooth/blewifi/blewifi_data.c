@@ -30,6 +30,15 @@
 #include "blewifi_ctrl.h"
 #include "blewifi_server_app.h"
 
+typedef struct {
+    uint16_t total_len;
+    uint16_t remain;
+    uint16_t offset;
+    uint8_t *aggr_buf;
+} blewifi_rx_packet_t;
+
+blewifi_rx_packet_t g_rx_packet;
+
 #if 1
 //for command test
 static void blewifi_data_encap_input(uint16_t type_id, uint8_t *data, int data_len)
@@ -270,16 +279,39 @@ void blewifi_data_send_encap(uint16_t type_id, uint8_t *data, int total_data_len
     free(hdr);
 }
 
-void blewifi_data_recv_handler(uint8_t *data, int len)
+void blewifi_data_recv_handler(uint8_t *data, int data_len)
 {
-    blewifi_hdr_t *hdr = (blewifi_hdr_t*)data;
-    uint8_t *aggr_buf = hdr->data;
-    int total_data_len = hdr->data_len;
+    blewifi_hdr_t *hdr = NULL;
+    int hdr_len = sizeof(blewifi_hdr_t);
 
-    /* 1.aggregate fragment data packet */
-
+    /* 1.aggregate fragment data packet, only first frag packet has header */
     /* 2.handle blewifi data packet, if data frame is aggregated completely */
-    blewifi_protocol_handler(hdr->type, aggr_buf, total_data_len);
-}
+    if (g_rx_packet.offset == 0)
+    {
+        hdr = (blewifi_hdr_t*)data;
+        g_rx_packet.total_len = hdr->data_len + hdr_len;
+        g_rx_packet.remain = g_rx_packet.total_len;
+        g_rx_packet.aggr_buf = malloc(g_rx_packet.total_len);
 
+        if (g_rx_packet.aggr_buf == NULL) {
+           BLEWIFI_ERROR("%s no mem, len %d\n", __func__, g_rx_packet.total_len);
+           return;
+        }
+    }
+
+    memcpy(g_rx_packet.aggr_buf + g_rx_packet.offset, data, data_len);
+    g_rx_packet.offset += data_len;
+    g_rx_packet.remain -= data_len;
+
+    /* no frag or last frag packet */
+    if (g_rx_packet.remain == 0)
+    {
+        hdr = (blewifi_hdr_t*)g_rx_packet.aggr_buf;
+        blewifi_protocol_handler(hdr->type, g_rx_packet.aggr_buf + hdr_len,  (g_rx_packet.total_len - hdr_len));
+        g_rx_packet.offset = 0;
+        g_rx_packet.remain = 0;
+        free(g_rx_packet.aggr_buf);
+        g_rx_packet.aggr_buf = NULL;
+    }
+}
 

@@ -10,12 +10,12 @@
       <TargetName>NL1000_APS_App</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060422::V5.06 update 4 (build 422)::ARMCC</pCCUsed>
+      <pCCUsed>5060183::V5.06 update 2 (build 183)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>ARMCM3</Device>
           <Vendor>ARM</Vendor>
-          <PackID>ARM.CMSIS.5.3.0</PackID>
+          <PackID>ARM.CMSIS.5.1.1</PackID>
           <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x20000) IROM(0x00000000,0x40000) CPUTYPE("Cortex-M3") CLOCK(12000000) ESEL ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
@@ -330,7 +330,6 @@
             <vShortWch>1</vShortWch>
             <v6Lto>0</v6Lto>
             <v6WtE>0</v6WtE>
-            <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--preinclude=sys_common.h</MiscControls>
               <Define>__noSIMULATOR__ __BLE__ __LE_HOST_USE_CMD__ __LWIP_TASK__ __WPA_SUPPLICANT__ __noHW_CRYPTO_ENGINE__ __WIFI_MAC_TASK__ __noTI_C2654MOND__ __NL1000_A0__ __PMP_ENABLE__ __PMP_REGION__ __HEAP_REGION__ noLWIP_DYNAMIC_DEBUG_ENABLE __NO_EMBEDDED_ASM</Define>
@@ -348,7 +347,6 @@
             <NoWarn>0</NoWarn>
             <uSurpInc>1</uSurpInc>
             <useXO>0</useXO>
-            <uClangAs>0</uClangAs>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define></Define>
@@ -369,7 +367,7 @@
             <ScatterFile>.\nl1000_a0_app_m3.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--datacompressor off</Misc>
+            <Misc>--datacompressor off --entry Main_AppInit_patch</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -395,25 +393,19 @@
               <FilePath>..\..\..\..\APS\project\nl1000\object\symdefs.o</FilePath>
             </File>
             <File>
-              <FileName>nl1000_a0_sdk_at_m3.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</FilePath>
-            </File>
-            <File>
               <FileName>nl1000_a0_patch_at_m3.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_patch_at_m3.lib</FilePath>
+            </File>
+            <File>
+              <FileName>nl1000_a0_sdk_at_m3.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</FilePath>
             </File>
           </Files>
         </Group>
       </Groups>
     </Target>
   </Targets>
-
-  <RTE>
-    <apis/>
-    <components/>
-    <files/>
-  </RTE>
 
 </Project>

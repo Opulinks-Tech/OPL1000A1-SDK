@@ -54,7 +54,7 @@ extern "C" {
 #define MW_FIM_VER01        0x03    // system & driver
 #define MW_FIM_VER02        0x05    //for WIFI
 #define MW_FIM_VER03        0x03    // calibration data
-#define MW_FIM_VER04        0x01
+#define MW_FIM_VER04        0x02    // for LE Controller
 #define MW_FIM_VER05        0x01
 #define MW_FIM_VER06        0x01
 #define MW_FIM_VER07        0x04	// For BLE

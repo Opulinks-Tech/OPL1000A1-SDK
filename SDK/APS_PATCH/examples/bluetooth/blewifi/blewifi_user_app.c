@@ -52,7 +52,6 @@ void blewifi_user_app_task(void *args)
 
     /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
     lwip_network_init(WIFI_MODE_STA);
-    lwip_net_start(WIFI_MODE_STA);
 
     /* Waiting for connection & got IP from DHCP server */
     lwip_net_ready();
@@ -113,30 +112,57 @@ void blewifi_user_app_task_create(void)
 
 osStatus blewifi_user_app_task_send(xBleWifiUserAppMessage_t txMsg)
 {
-    osStatus ret = osOK;
-    xBleWifiUserAppMessage_t *pMsg;
+    osStatus ret = osErrorOS;
+    xBleWifiUserAppMessage_t *pMsg = NULL;
 
     /* Mem pool allocate */
     pMsg = (xBleWifiUserAppMessage_t *)osPoolCAlloc(BleWifiUserAppMemPoolId);
+
+    if(pMsg == NULL)
+    {
+        goto done;
+    }
+
     pMsg->event = txMsg.event;
     pMsg->length = txMsg.length;
-    if(txMsg.length != 0)
+    pMsg->pcMessage = NULL;
+
+    if((txMsg.pcMessage) && (txMsg.length))
     {
         /* Malloc buffer */
         pMsg->pcMessage = (void *)malloc(txMsg.length);
 
-        if(txMsg.pcMessage != NULL)
+        if(pMsg->pcMessage != NULL)
         {
             memcpy(pMsg->pcMessage, txMsg.pcMessage, txMsg.length);
         }
         else
         {
-            ret = osErrorOS;
             msg_print(LOG_HIGH_LEVEL, "BLEWIFI: user app task message allocate fail \r\n");
+            goto done;
         }
     }
-    if(ret == osOK)
-        osMessagePut(BleWifiUserAppQueueId, (uint32_t)pMsg, osWaitForever);
+
+    if(osMessagePut(BleWifiUserAppQueueId, (uint32_t)pMsg, osWaitForever) != osOK)
+    {
+        goto done;
+    }
+
+    ret = osOK;
+
+done:
+    if(ret != osOK)
+    {
+        if(pMsg)
+        {
+            if(pMsg->pcMessage)
+            {
+                free(pMsg->pcMessage);
+            }
+
+            osPoolFree(BleWifiUserAppMemPoolId, pMsg);
+        }
+    }
 
     return ret;
 }

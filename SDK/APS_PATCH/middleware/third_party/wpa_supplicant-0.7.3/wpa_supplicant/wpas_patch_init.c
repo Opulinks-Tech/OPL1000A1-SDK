@@ -8,7 +8,6 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
-
 #include "driver_netlink.h"
 #include "driver_netlink_patch.h"
 #include "events_netlink_patch.h"

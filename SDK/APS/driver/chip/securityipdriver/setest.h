@@ -1,6 +1,6 @@
 /*
  * Security IP low level test functions
- * Copyright (c) 2016-2017, Opulinks
+ * Copyright (c) 2016-2017, Netlink
  *
  * This program is used to do low level test for security IP functions.
  *

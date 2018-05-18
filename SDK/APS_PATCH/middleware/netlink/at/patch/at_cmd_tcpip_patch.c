@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_tcpip_patch.c
@@ -1169,30 +1169,54 @@ static int at_data_task_post(at_event_msg_t *msg, uint32_t timeout)
 
 int at_data_task_send(at_event_msg_t *msg)
 {
-    at_event_msg_t *lmsg;
+    int iRet = -1;
+    at_event_msg_t *lmsg = NULL;
 
     if (msg == NULL) {
-        return -1;
+        goto done;
     }
 
     if (at_tx_task_queue_id == NULL) {
-        return -1;
+        goto done;
     }
 
     lmsg = (at_event_msg_t *)osPoolCAlloc(at_tx_task_pool_id);
-    memcpy(lmsg, msg, sizeof(at_event_msg_t));
 
-    if (msg->length != 0) {
+    if(lmsg == NULL)
+    {
+        goto done;
+    }
+
+    memcpy(lmsg, msg, sizeof(at_event_msg_t));
+    lmsg->param = NULL;
+
+    if ((msg->param) && (msg->length)) {
         lmsg->param = (void *)malloc(msg->length);
         if(lmsg->param != NULL) {
             memcpy((void *)lmsg->param, (void *)msg->param, msg->length);
         } else {
             printf("FATAL: at data tx task loop send message allocate fail \r\n");
-            return -1;
+            goto done;
         }
     }
 
-    return at_data_task_post(lmsg, osWaitForever);
+    iRet = at_data_task_post(lmsg, osWaitForever);
+
+done:
+    if(iRet)
+    {
+        if(lmsg)
+        {
+            if(lmsg->param)
+            {
+                free(lmsg->param);
+            }
+
+            osPoolFree(at_tx_task_pool_id, lmsg);
+        }
+    }
+
+    return iRet;
 }
 
 void at_data_tx_task(void *arg)

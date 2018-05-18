@@ -6,9 +6,8 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
-
 /**
  * @file at_cmd_sys_patch.c
  * @author Michael Liao
@@ -39,6 +38,7 @@
 #include "mw_fim_default_group01.h"
 #include "at_cmd_common_patch.h"
 #include "hal_dbg_uart_patch.h"
+#include "ps.h"
 
 #define CMD_TOKEN_SIZE          16
 #define AT_CMD_SYS_WAIT_TIME    5   // ms
@@ -372,6 +372,11 @@ int _at_cmd_sys_gmr(char *buf, int len, int mode)
     return true;
 }
 
+void _at_cmd_sys_gslp_wakeup_callback()
+{
+	msg_print_uart1("\r\nWAKEUP\r\n");
+};
+
 /*
  * @brief Command at+gslp
  *
@@ -384,6 +389,26 @@ int _at_cmd_sys_gmr(char *buf, int len, int mode)
  */
 int _at_cmd_sys_gslp(char *buf, int len, int mode)
 {
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+
+	switch (mode)		
+	{
+		case AT_CMD_MODE_SET:
+		{
+			int sleep_duration_ms = atoi(argv[1]);
+			msg_print_uart1("\r\nOK\r\n");
+			ps_sleep_requested_by_app(sleep_duration_ms * 1000, _at_cmd_sys_gslp_wakeup_callback);
+			break;
+		}
+
+		default:
+			msg_print_uart1("\r\ndefault\r\n");
+			break;
+	}
+
     return true;
 }
 
@@ -524,6 +549,26 @@ int _at_cmd_sys_uartdef(char *buf, int len, int mode)
  */
 int _at_cmd_sys_sleep(char *buf, int len, int mode)
 {
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+
+	switch (mode)		
+	{
+		case AT_CMD_MODE_SET:
+		{
+			int is_enable = atoi(argv[1]);
+			msg_print_uart1("\r\nOK\r\n");
+			ps_enable(is_enable);
+			break;
+		}
+
+		default:
+			msg_print_uart1("\r\ndefault\r\n");
+			break;
+	}
+
     return true;
 }
 

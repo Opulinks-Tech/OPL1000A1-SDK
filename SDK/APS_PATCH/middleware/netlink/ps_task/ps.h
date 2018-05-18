@@ -104,6 +104,8 @@ typedef struct
 
 typedef struct
 {
+	uint32_t last_status;
+
 	t_ps_proc_ctrl proc_ctrl;
 	t_ps_busy_flag busy_flag;
 	t_ps_snap_time snap_time;
@@ -115,6 +117,7 @@ typedef struct
 	uint8_t wakeup_cost_precise;
 
 	uint8_t app_apply_sleep;
+	uint8_t app_active_sleep;
 
 } t_ps_conf;
 
@@ -125,6 +128,7 @@ void ps_init(void);
 void ps_wait_xtal_ready(void);
 void ps_update_processing_time(e_ps_proc_type type);
 int  ps_sleep(void);
+void ps_sleep_requested_by_app(uint32_t sleep_duration_us, void (*callback)(void));
 void ps_enable(uint8_t is_enable);
 void ps_parse_command(char *pbuf, int len);
 
