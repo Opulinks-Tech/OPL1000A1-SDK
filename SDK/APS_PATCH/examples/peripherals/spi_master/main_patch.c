@@ -82,7 +82,7 @@ Declaration of static Global Variables & Functions
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
-static void Main_AppInit_patch(void);
+void Main_AppInit_patch(void);
 static void spi_flash_test(void);
 static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manufacturer, uint32_t *pu32MemoryType, uint32_t *pu32MemoryDensity);
 
@@ -148,7 +148,7 @@ void App_Pin_InitConfig(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppInit_patch(void)
+void Main_AppInit_patch(void)
 {
     // init the pin assignment
     App_Pin_InitConfig();

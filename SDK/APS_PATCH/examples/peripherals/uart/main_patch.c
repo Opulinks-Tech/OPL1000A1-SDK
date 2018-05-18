@@ -103,7 +103,7 @@ static osPoolId g_tAppMemPoolId;
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
-static void Main_AppInit_patch(void);
+void Main_AppInit_patch(void);
 static void Main_AppThread_1(void *argu);
 static void Main_AppThread_2(void *argu);
 static void Main_AppMessageQSend(uint32_t ulData);
@@ -176,7 +176,7 @@ void App_Pin_InitConfig(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppInit_patch(void)
+void Main_AppInit_patch(void)
 {
     // init the pin assignment
     App_Pin_InitConfig();
