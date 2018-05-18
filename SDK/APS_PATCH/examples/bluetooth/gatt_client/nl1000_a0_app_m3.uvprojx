@@ -367,7 +367,7 @@
             <ScatterFile>.\nl1000_a0_app_m3.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--datacompressor off</Misc>
+            <Misc>--datacompressor off --entry Main_AppInit_patch</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -403,14 +403,14 @@
               <FilePath>..\..\..\..\APS\project\nl1000\object\symdefs.o</FilePath>
             </File>
             <File>
-              <FileName>nl1000_a0_sdk_at_m3.lib</FileName>
-              <FileType>4</FileType>
-              <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</FilePath>
-            </File>
-            <File>
               <FileName>nl1000_a0_patch_at_m3.lib</FileName>
               <FileType>4</FileType>
               <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_patch_at_m3.lib</FilePath>
+            </File>
+            <File>
+              <FileName>nl1000_a0_sdk_at_m3.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</FilePath>
             </File>
           </Files>
         </Group>

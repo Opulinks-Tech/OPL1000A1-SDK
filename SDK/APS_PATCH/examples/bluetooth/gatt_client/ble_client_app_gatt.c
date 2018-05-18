@@ -14,6 +14,29 @@
 #include "ble_gatt_if.h"
 #include "ble_uuid.h"
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void BleAppGattMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 {
 	BLE_APP_DATA_T *theApp = BleAppGetEntity();
