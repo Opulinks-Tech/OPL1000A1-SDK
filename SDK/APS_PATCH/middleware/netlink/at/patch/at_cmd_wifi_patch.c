@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_wifi_patch.c
@@ -38,6 +38,8 @@
 #include "controller_wifi_com_patch.h"
 #include "at_cmd_msg_ext_patch.h"
 #include "wpa_common_patch.h"
+#include "wifi_nvm_patch.h"
+#include "driver_netlink_patch.h"
 
 //#define AT_CMD_WIFI_DBG
 
@@ -48,13 +50,13 @@
     #define AT_LOG(...)
 #endif
 
-#define AT_CMD_OUTPUT           msg_print_uart1
 
 char *g_wifi_argv[AT_MAX_CMD_ARGS] = {0};
 int g_wifi_argc = 0;
 extern struct wpa_config conf;
 extern int g_wpa_mode;
 extern int wpas_get_state(void);
+u8 g_skip_dtim = 0;
 
 /*
  * @brief Command at+cwmode
@@ -72,7 +74,7 @@ int _at_cmd_wifi_cwmode(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
@@ -135,7 +137,7 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
     u8 ssid[MAX_LEN_OF_SSID + 1] = {0};
     int freq;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
@@ -198,7 +200,7 @@ int _at_cmd_wifi_cwlapopt(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
@@ -239,7 +241,7 @@ int _at_cmd_wifi_cwlap(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0, i, iRet;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     g_wifi_argc = argc;
 
@@ -325,7 +327,7 @@ int _at_cmd_wifi_cwqap(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
     wpa_cli_disconnect_handler(argc, argv);
     msg_print_uart1("\r\nOK\r\n");
     return true;
@@ -413,7 +415,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
     MwFimAutoConnectCFG_t ac_cfg;
     auto_conn_info_t ac_info;
     
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
@@ -448,8 +450,10 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                     return FALSE;
                 }
 
-                if (get_auto_connect_ap_num() == 0) {
-                    return false;
+                /* ignore the same setting */
+                if (get_auto_connect_ap_num() == ap_num) {
+                    msg_print_uart1("\r\nOK\r\n");
+                    return TRUE;
                 }
                
                 /* clear all AP info in FIM */
@@ -507,7 +511,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
     automode = atoi(argv[1]);
     
     if (automode < AUTO_CONNECT_DISABLE || automode > AUTO_CONNECT_ENABLE) {
-        AT_CMD_OUTPUT("\r\nERROR\r\n");
+        at_output("\r\nERROR\r\n");
         return FALSE;
     }
     
@@ -534,7 +538,7 @@ int _at_cmd_wifi_cwfastconn(char *buf, int len, int mode)
     u8 en, ap_idx;
     mw_wifi_auto_connect_ap_info_t info;
     
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
     
     switch(mode)
     {
@@ -614,16 +618,16 @@ int _at_cmd_wifi_cwhostname(char *buf, int len, int mode)
 
     if(mode == AT_CMD_MODE_READ)
     {
-        AT_CMD_OUTPUT("\r\n+CWHOPSTNAME:");
+        at_output("\r\n+CWHOPSTNAME:");
 
         if((g_wpa_mode == WPA_MODE_STA) || (g_wpa_mode == WPA_MODE_STA_AP))
         {
-            AT_CMD_OUTPUT("\"%s\"", g_sLwipHostName);
+            at_output("\"%s\"", g_sLwipHostName);
         }
     }
     else if(mode == AT_CMD_MODE_SET)
     {
-        if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+        if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
         {
             AT_LOG("[%s %d] _at_cmd_buf_to_argc_argv fail\n", __func__, __LINE__);
             goto done;
@@ -662,11 +666,11 @@ int _at_cmd_wifi_cwhostname(char *buf, int len, int mode)
 done:
     if(iRet)
     {
-        AT_CMD_OUTPUT("\r\nOK\r\n");
+        at_output("\r\nOK\r\n");
     }
     else
     {
-        AT_CMD_OUTPUT("\r\nERROR\r\n");
+        at_output("\r\nERROR\r\n");
     }
 
     return iRet;
@@ -790,7 +794,7 @@ int _at_cmd_wifi_cwscan(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
     wpa_cli_scan_handler(argc, argv);
     msg_print_uart1("\r\nOK\r\n");
     return true;
@@ -1388,12 +1392,81 @@ int _at_cmd_wifi_sample(void)
     return true;
 }
 
+/*
+ * @brief Command at+wifi_mac_cfg
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
+{
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int cfg_id;
+    int argc = 0;
+    
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+
+    switch(mode)
+    {
+        case AT_CMD_MODE_READ:
+            wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &g_skip_dtim);
+            
+            msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, g_skip_dtim);
+            msg_print_uart1("\r\nOK\r\n");
+            break;
+        case AT_CMD_MODE_SET:
+            if(argc > 1) {
+                cfg_id = atoi(argv[1]);
+
+                if (cfg_id > AT_WIFI_MAX_NUM) {
+                    msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
+                    msg_print_uart1("\r\nERROR\r\n");
+                    return false;
+                }
+
+                //TODO
+                //should not invoke function from driver_netlink
+
+                switch(cfg_id) {
+                    case AT_WIFI_SKIP_DTIM_CFG:
+                        g_skip_dtim = atoi(argv[2]);
+
+                        //if (skip_dtim > WIFI_MAX_SKIP_DTIM_PERIODS) {
+                        //    msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
+                        //    msg_print_uart1("\r\nERROR\r\n");
+                        //    return false;     
+                        //}
+                        
+                        //TODO
+                        //Update FIM
+                        wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &g_skip_dtim);
+                        msg_print_uart1("\r\nOK\r\n");
+                        break;
+                    default:
+                        msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
+                        msg_print_uart1("\r\nERROR\r\n");
+                        break;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+
+    return true;
+}
+
 /**
   * @brief AT Command Table for Wi-Fi Module
   *
   */
 _at_command_t _gAtCmdTbl_Wifi[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "at+cwmode",                  _at_cmd_wifi_cwmode,       "Wi-Fi mode" },
     { "at+cwjap",                   _at_cmd_wifi_cwjap,        "Connect to AP" },
     { "at+cwlapopt",                _at_cmd_wifi_cwlapopt,     "Configuration for at+cwlap" },
@@ -1449,6 +1522,8 @@ _at_command_t _gAtCmdTbl_Wifi[] =
     { "at+joinap_wps",              _at_cmd_wifi_joinap_wps,         "Use WPS to connect the remote AP" },
     { "at+wifiscan_wps",            _at_cmd_wifiscan_wps,            "Show APs which can support WPS" },
     { "at+wifi_ap_wps_reg_stop",    _at_cmd_wifi_ap_wps_reg_stop,    "Show APs which can support WPS" },
+    { "at+wifimaccfg",              at_cmd_wifi_mac_cfg,          "Set related to Wi-Fi mac configuration" },
+#endif
     { NULL,                         NULL,                           NULL},
 };
 

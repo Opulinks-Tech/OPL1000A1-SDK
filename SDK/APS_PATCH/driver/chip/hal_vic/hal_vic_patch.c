@@ -74,7 +74,7 @@ typedef struct
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global  variable
-RET_DATA T_Gpio_CallBack GpioCallBack[GPIO_IDX_MAX];
+RET_DATA T_Gpio_CallBack g_taHalVicGpioCallBack[GPIO_IDX_MAX];
 
 // Sec 5: declaration of global function prototype
 
@@ -91,6 +91,7 @@ Declaration of static Global Variables &  Functions
 C Functions
 ***********/
 // Sec 8: C Functions
+
 /*************************************************************************
 * FUNCTION:
 *  Hal_Vic_GpioCallBackFuncSet
@@ -114,7 +115,7 @@ void Hal_Vic_GpioCallBackFuncSet(E_GpioIdx_t eIdx, T_Gpio_CallBack tFunc)
     if(eIdx >= GPIO_IDX_MAX)
         return;
     
-    GpioCallBack[eIdx] = tFunc;
+    g_taHalVicGpioCallBack[eIdx] = tFunc;
 }
 
 /*************************************************************************
@@ -164,13 +165,13 @@ void Hal_Vic_GpioInit(void)
 *   1. eIdx : Index of call-back GPIO
 *
 * RETURNS
-*   0: low
-*   1: high
+*   GPIO_LEVEL_LOW  : low
+*   GPIO_LEVEL_HIGH : high
 * 
 * GLOBALS AFFECTED
 * 
 *************************************************************************/
-uint8_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx)
+E_GpioLevel_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx)
 {
     volatile uint32_t ulRet;
     
@@ -178,7 +179,7 @@ uint8_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx)
     ulRet &= (0x1 << eIdx);
     ulRet = ulRet >> eIdx;
     
-    return (uint8_t)ulRet;
+    return (E_GpioLevel_t)ulRet;
 }
 
 /*************************************************************************
@@ -192,23 +193,20 @@ uint8_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx)
 *
 * PARAMETERS
 *   1. eIdx     : Index of call-back GPIO
-*   2. ubLevel  : the output level, 0: low  1: high
+*   2. tLevel   : the output level
 *
 * RETURNS
 * 
 * GLOBALS AFFECTED
 * 
 *************************************************************************/
-void Hal_Vic_GpioOutput(E_GpioIdx_t eIdx, uint8_t ubLevel)
+void Hal_Vic_GpioOutput(E_GpioIdx_t eIdx, E_GpioLevel_t tLevel)
 {
     volatile uint32_t tmp;
     
-    // error handle
-    ubLevel = ubLevel & 0x01;
-    
     tmp = PIN->RG_GPO;
     tmp &= ~(0x1 << eIdx);
-    tmp |= (ubLevel << eIdx);
+    tmp |= (tLevel << eIdx);
     PIN->RG_GPO = tmp;
 }
 
@@ -238,4 +236,59 @@ void Hal_Vic_GpioDirection(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection)
     tmp &= ~(0x1 << eIdx);
     tmp |= (tDirection << eIdx);
     PIN->RG_PD_DIR = tmp;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_Vic_GpioPinmux
+*
+* DESCRIPTION:
+*   set the pinmux to input or output
+*
+* CALLS
+*
+* PARAMETERS
+*   1. eIdx           : Index of call-back GPIO
+*   2. tDirection     : the GPIO direction
+*   2. tOutputLevel   : the output level
+*
+* RETURNS
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+void Hal_Vic_GpioPinmux(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection, E_GpioLevel_t tOutputLevel)
+{
+    volatile uint32_t tmp;
+    
+    // input enable
+    tmp = PIN->RG_PD_IE;
+    tmp |= (0x1 << eIdx);
+    PIN->RG_PD_IE = tmp;
+
+    // pull-up / pull-down disable
+    tmp = PIN->RG_PD_PE;
+    tmp &= ~(0x1 << eIdx);
+    PIN->RG_PD_PE = tmp;
+
+    // output level
+    tmp = PIN->RG_GPO;
+    tmp &= ~(0x1 << eIdx);
+    tmp |= (tOutputLevel << eIdx);
+    PIN->RG_GPO = tmp;
+
+    // GPIO direction
+    tmp = PIN->RG_PD_DIR;
+    tmp &= ~(0x1 << eIdx);
+    tmp |= (tDirection << eIdx);
+    PIN->RG_PD_DIR = tmp;
+
+    // GPIO pin
+    tmp = PIN->RG_PDOC_MODE;
+    tmp &= ~(0x1 << eIdx);
+    PIN->RG_PDOC_MODE = tmp;
+
+    tmp = PIN->RG_PDOV_MODE;
+    tmp &= ~(0x1 << eIdx);
+    PIN->RG_PDOV_MODE = tmp;
 }

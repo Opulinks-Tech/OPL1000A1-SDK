@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_others_patch.c
@@ -198,6 +198,7 @@ int _at_cmd_other_secondary_uart_write(char *buf, int len, int mode)
   */
 _at_command_t _gAtCmdTbl_Others[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "at+ir_tx_init",              _at_cmd_other_ir_tx_init,            "Open IR tx" },
     { "at+ir_tx_down",              _at_cmd_other_ir_tx_down,            "Close IR tx" },
     { "at+ir_tx",                   _at_cmd_other_ir_tx,                 "Do IR tx" },
@@ -209,6 +210,7 @@ _at_command_t _gAtCmdTbl_Others[] =
     { "at+secondary_uart_start",    _at_cmd_other_secondary_uart_start,  "Start second UART interface" },
     { "at+secondary_uart_stop",     _at_cmd_other_secondary_uart_stop,   "Stop second UART interface" },
     { "at+secondary_uart_write",    _at_cmd_other_secondary_uart_write,  "Send data to second UART interface" },
+#endif
     { NULL,                         NULL,                               NULL},
 };
 

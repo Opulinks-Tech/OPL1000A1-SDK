@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlink Communication Corp. (C) 2017
 ******************************************************************************/
 
 /******************************************************************************
@@ -90,6 +90,10 @@ Head Block of The File
 #define I2C_STATUS_TX_EMPTY      (1<<2)
 #define I2C_STATUS_TX_NOT_FULL   (1<<1)
 
+#define I2C_INT_TX_ABRT          (1<<6)
+#define I2C_INT_RD_REQ           (1<<5)
+#define I2C_INT_RX_FULL          (1<<2)
+
 #define I2C_ENABLE_EN            1
 
 #define I2C_ENABLE_STATUS_EN     1
@@ -159,6 +163,8 @@ extern T_Hal_I2c_WaitForMasterCompleted _Hal_I2c_WaitForMasterCompleted;
 /* Master mode relative */
 
 /* Slave mode relative */
+T_Hal_I2c_SlaveIntTxCallBack g_tHalI2cIntTxCallback;
+T_Hal_I2c_SlaveIntRxCallBack g_tHalI2cIntRxCallback;
 
 // Sec 5: declaration of global function prototype
 
@@ -176,6 +182,55 @@ Declaration of static Global Variables &  Functions
 C Functions
 ***********/
 // Sec 8: C Functions
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_I2c_IntHandler
+*
+* DESCRIPTION:
+*   the handler of I2C
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+void Hal_I2c_IntHandler(void)
+{
+    uint32_t ulIrqClr;
+    uint8_t u8Data;
+
+    // slave write
+	if (I2C->INTR_STAT & I2C_INT_RD_REQ)
+    {
+        if (g_tHalI2cIntTxCallback != 0)
+            g_tHalI2cIntTxCallback();
+        
+        // clear IRQ
+        ulIrqClr = I2C->CLR_RD_REQ;
+    }
+    
+    // slave read
+    if (I2C->INTR_STAT & I2C_INT_RX_FULL)
+    {
+        Hal_I2c_SlaveReceive(&u8Data, 1);
+        if (g_tHalI2cIntRxCallback != 0)
+            g_tHalI2cIntRxCallback(u8Data);
+        
+        // automatically clear IRQ
+    }
+    
+    // tx abort
+	if (I2C->INTR_STAT & I2C_INT_TX_ABRT)
+    {
+        // clear IRQ
+        ulIrqClr = I2C->CLR_TX_ABRT;
+    }
+    
+    (void)ulIrqClr;
+}
 
 /*************************************************************************
 * FUNCTION:
@@ -227,11 +282,208 @@ uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed
     // Speed
     Hal_I2c_SpeedSet( eSpeed );
 
-    // Mask all interrupt
-    I2C->INTR_MASK = 0;
+    // Mask all interrupt, handle Tx abort
+    I2C->INTR_MASK = I2C_INT_TX_ABRT;
     
     // <--- Enable modules
     _Hal_I2c_Eanble( 1 );
     
+    // VIC 1) Clear interrupt
+    Hal_Vic_IntClear(I2C_IRQn);
+    // VIC 2) un-Mask VIC
+    Hal_Vic_IntMask(I2C_IRQn, 0);
+    // VIC 3) Enable VIC
+    Hal_Vic_IntEn(I2C_IRQn, 1);
+
+    // NVIC 1) Clean NVIC
+    NVIC_ClearPendingIRQ(I2C_IRQn);
+    // NVIC 2) Set prority
+    NVIC_SetPriority(I2C_IRQn, IRQ_PRIORITY_I2C);
+    // NVIC 3) Enable NVIC
+    NVIC_EnableIRQ(I2C_IRQn);
+    
     return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SlaveInit
+* 
+* DESCRIPTION:
+*   1. Initial I2c as salve mode
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. eAddrMode      : 7/10bit Address mode. refer to E_I2cAddrMode_t
+*   2. u16SlaveAddr   : Slave address
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_SlaveInit_patch(E_I2cAddrMode_t eAddrMode, uint16_t u16SlaveAddr)
+{
+    // Enable clock of module
+    Hal_Sys_ApsClkEn(1, APS_CLK_I2C);
+    // Reset module
+    Hal_Sys_ApsModuleRst(ASP_RST_I2C);
+    
+    // ---> Disable first, to set registers 
+    _Hal_I2c_Eanble( 0 );
+    
+    // Slave Mode, and restart enable
+    I2C->CON = I2C_CON_RESTART_EN;
+    
+    // Address Bits
+    if(eAddrMode == I2C_10BIT)
+    {
+        // 10-Bit Master
+        I2C->CON |= I2C_CON_SLAVE_10BIT;
+    }
+    
+    // Set FIFO
+    I2C->RX_TL = 0;
+    I2C->TX_TL = 0;
+    
+    // Speed, recommend set to max speed available 
+    Hal_I2c_SpeedSet( I2C_SPEED_FAST );
+
+    // Mask all interrupt, handle Tx abort
+    I2C->INTR_MASK = I2C_INT_TX_ABRT;
+    
+    // Slave address
+    I2C->SAR = u16SlaveAddr & I2C_SAR_SLAVE_ADDR_MASK;
+    
+    // <--- Enable modules
+    _Hal_I2c_Eanble( 1 );
+    
+    // VIC 1) Clear interrupt
+    Hal_Vic_IntClear(I2C_IRQn);
+    // VIC 2) un-Mask VIC
+    Hal_Vic_IntMask(I2C_IRQn, 0);
+    // VIC 3) Enable VIC
+    Hal_Vic_IntEn(I2C_IRQn, 1);
+
+    // NVIC 1) Clean NVIC
+    NVIC_ClearPendingIRQ(I2C_IRQn);
+    // NVIC 2) Set prority
+    NVIC_SetPriority(I2C_IRQn, IRQ_PRIORITY_I2C);
+    // NVIC 3) Enable NVIC
+    NVIC_EnableIRQ(I2C_IRQn);
+    
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SlaveIntTxEn
+* 
+* DESCRIPTION:
+*   1. enable / disable the slave Tx interrupt
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. u8Enable: 1 for enable/0 for disable
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_SlaveIntTxEn(uint8_t u8Enable)
+{
+    if(u8Enable)
+    {
+        I2C->INTR_MASK |= I2C_INT_RD_REQ;
+    }
+    else
+    {
+        I2C->INTR_MASK &= ~I2C_INT_RD_REQ;
+    }
+    
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SlaveIntRxEn
+* 
+* DESCRIPTION:
+*   1. enable / disable the slave Rx interrupt
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. u8Enable: 1 for enable/0 for disable
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_SlaveIntRxEn(uint8_t u8Enable)
+{
+    if(u8Enable)
+    {
+        I2C->INTR_MASK |= I2C_INT_RX_FULL;
+    }
+    else
+    {
+        I2C->INTR_MASK &= ~I2C_INT_RX_FULL;
+    }
+    
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SlaveIntTxCallBackFuncSet
+* 
+* DESCRIPTION:
+*   1. set the slave Tx callback fucntion
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. tFunc: the callback function for slave Tx
+* 
+* RETURNS
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+void Hal_I2c_SlaveIntTxCallBackFuncSet(T_Hal_I2c_SlaveIntTxCallBack tFunc)
+{
+    g_tHalI2cIntTxCallback = tFunc;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SlaveIntRxCallBackFuncSet
+* 
+* DESCRIPTION:
+*   1. set the slave Rx callback fucntion
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. tFunc: the callback function for slave Rx
+* 
+* RETURNS
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+void Hal_I2c_SlaveIntRxCallBackFuncSet(T_Hal_I2c_SlaveIntRxCallBack tFunc)
+{
+    g_tHalI2cIntRxCallback = tFunc;
 }

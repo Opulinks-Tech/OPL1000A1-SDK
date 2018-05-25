@@ -11,6 +11,11 @@
 
 #ifndef __AT_CMD_COMMOM_PATCH_H__
 #define __AT_CMD_COMMOM_PATCH_H__
+
+
+#include "at_cmd_common.h"
+
+
 /**
  * @file at_cmd_common_patch.h
  * @author Michael Liao
@@ -58,7 +63,7 @@ typedef enum {
 #define at_memcmp(s1,s2,n)          memcmp(s1,s2,n)
 #define at_malloc(size)             malloc(size)
 #define at_free(ptr)                free(ptr)
-
+#define at_output                   msg_print_uart1
 
 /**
  * @brief Function Pointer Type for API _uart1_rx_int_at_data_receive_ble
@@ -96,7 +101,7 @@ extern _uart1_rx_int_at_data_receive_tcpip_fp_t _uart1_rx_int_at_data_receive_tc
  */
 extern set_echo_on_fp_t set_echo_on;
 
-int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[]);
+int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[], int iArgvNum);
 char *at_cmd_param_trim(char *sParam);
 
 void at_cmd_common_func_init_patch(void);

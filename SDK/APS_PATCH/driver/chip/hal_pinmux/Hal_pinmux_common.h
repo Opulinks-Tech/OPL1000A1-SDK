@@ -41,7 +41,7 @@ typedef enum {
 typedef struct  
 {
     uint8_t sour;         /**< IO sour */
-    uint16_t dist;        /**< IO dist */
+    E_GpioIdx_t dist;        /**< IO dist */
 } T_Pin_Unit;
 
 /**

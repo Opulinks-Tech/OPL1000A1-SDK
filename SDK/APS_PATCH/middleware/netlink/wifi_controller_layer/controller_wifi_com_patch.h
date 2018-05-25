@@ -16,6 +16,8 @@
 #include "controller_wifi_com.h"
 #include "mw_fim_default_group02.h"
 
+#define FLAG_OF_CBS_READ_WRITE_INFO
+
 /**
  * @brief Attribute write data type from the client
  */
@@ -37,6 +39,8 @@ typedef enum
     MLME_CMD_PS_FORCE_STA = MLME_CMD_TIMEOUT+1, /*!< arg1: force power-saving mode with WifiSta_PSForceMode_t */
     MLME_CMD_BSS_LISTEN_INV,                    /*!< arg1: listen interval. MIN: 1, MAX: 255                  */
     MLME_CMD_FAST_CONNECT,
+    MLME_CMD_SET_PARAM,                         /* arg1: parameter id. prvData: Value or pointer to be set */
+    MLME_CMD_GET_PARAM,                         /* arg1: parameter id. */
 } mlme_cmd_type_ext_e;
 
 /* Used for arg1 of MLME command of MLME_CMD_PS_FORCE_STA */
@@ -72,13 +76,32 @@ typedef enum
 //    MLME_EVT_NUM,
 
 //    MLME_EVT_DEAUTH_NACK,   //Private event
-    MLME_EVT_AUTO_CONNECT_START = MLME_EVT_DEAUTH_NACK + 1,       //For Auto connect use
+    MLME_EVT_SET_PARAM_CNF  = MLME_EVT_DEAUTH_NACK,
+    MLME_EVT_GET_PARAM_CNF,
+    MLME_EVT_UPDATE_DTIM,
+
+    //For Auto connect use
+    MLME_EVT_AUTO_CONNECT_START = 100,       
     MEML_EVT_AUTO_CONNECT_FAILED_IND,
     MLME_EVT_AUTO_CONNECT,
     MLME_EVT_FAST_CONNECT_START,
 } mlme_evt_type_ext_e;
 
-/* Fast Connect Report and Info*/
+/* For CBS use */
+#define STA_INFO_MAX_MANUF_NAME_SIZE   32
+
+/* WIFI STA configuration */
+#define WIFI_MAX_SKIP_DTIM_PERIODS      10
+
+typedef enum {   
+    E_WIFI_PARAM_MAC_ADDRESS=0,    
+    E_WIFI_PARAM_SKIP_DTIM_PERIODS,
+    
+    /* Read only parameters */
+    E_WIFI_PARAM_BSS_DTIM_PERIOD=200,
+}E_WIFI_PARAM_ID;
+
+/* Auto Connect Report and Info*/
 #define MAX_NUM_OF_AUTO_CONNECT 3
 #define MAX_NUM_OF_AUTO_CONNECT_RETRY  1
 #define MAX_LEN_OF_PASSPHRASE 64 //please refer to #define MAX_LEN_OF_PASSWD
@@ -165,10 +188,14 @@ typedef struct
 
 typedef int (*wifi_sta_join_fast_fp_t)(u8 ap_index);
 typedef auto_connect_cfg_t * (*wifi_get_ac_result_fp_t)(void);
+typedef int (*wifi_set_sta_cfg_req_fp_t)(u8 idx, u8 *value);
+typedef int (*wifi_get_sta_cfg_from_share_memory_fp_t)(u8 cfg_idx, void *ptr);
 
 /* Export interface funtion pointer */
 extern wifi_sta_join_fast_fp_t wifi_sta_join_fast;
 extern wifi_get_ac_result_fp_t wifi_get_ac_result;
+extern wifi_set_sta_cfg_req_fp_t wifi_set_sta_cfg_req;
+extern wifi_get_sta_cfg_from_share_memory_fp_t wifi_get_sta_cfg_from_share_memory;
 
 int write_auto_conn_mode_to_flash(u8 mode);
 int auto_connect_init(void);
@@ -199,6 +226,7 @@ u8 get_fast_connect_mode(u8 ap_idx);
 u8 set_fast_connect_mode(u8 ap_idx, u8 mode);
 u8 get_auto_connect_info(u8 idx, auto_conn_info_t *info);
 u8 set_auto_connect_info(u8 idx, auto_conn_info_t *info);
+void wifi_sta_info_init(void);
 
 #endif  //__CONTROLLER_WIFI_COM_PATCH_H__
 

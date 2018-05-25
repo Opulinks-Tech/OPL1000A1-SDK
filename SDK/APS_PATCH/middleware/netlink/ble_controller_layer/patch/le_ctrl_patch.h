@@ -51,6 +51,7 @@ typedef struct {
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
+extern t_vendor_specific_exit_hci_mode_command_handler_fp vendor_specific_exit_hci_mode_command_handler;
 extern t_vendor_specific_send_control_pdu_event_handler_fp vendor_specific_send_control_pdu_event_handler;
 extern t_send_vendor_specific_set_bd_addr_command_fp send_vendor_specific_set_bd_addr_command;
 
@@ -62,6 +63,8 @@ extern t_send_vendor_specific_set_bd_addr_command_fp send_vendor_specific_set_bd
 void le_ctrl_pre_patch_init(void);
 void le_ctrl_init_patch(void);
 
+//	0x3F.01 Vendor-Specific Exit HCI Mode Command
+void vendor_specific_exit_hci_mode_command_handler_patch(hci_command_packet_01 *cmd_packet);
 //	0x3F.16 Vendor-Specific Set BD_ADDR Command
 void send_vendor_specific_set_bd_addr_command_impl(le_cfg_t *cfg);
 

@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK 
 *
 ******************************************************************************/
 /***********************
@@ -33,21 +33,14 @@ Head Block of The File
 // Sec 0: Comment block of the file
 /******************************************************************************
 *  Test code brief
-*  These examples show how to configure uart settings and use uart driver APIs.
+*  These examples show how to configure PWM settings and use PWM driver APIs.
 *
-*  uart_int_test() is an example that read and write data on UART0, and send
-*  the rx data to thread when the rx data is received by UART0 interrupt.
-*  - port: UART0
-*  - interrupt: on
-*  - flow control: off
-*  - pin assignment: tx(io2), rx(io3)
-*
-*  uart_echo_test() is an example that read and write data on UART1, and the
-*  hardware flow control is turning on.
-*  - port: UART1
-*  - interrupt: off
-*  - flow control: on
-*  - pin assignment: tx(io8), rx(io9), rts(io6), cts(io7)
+*  App_Pin_InitConfig() function complete PWM port pin assignment and parameter setting.
+*  All PWM port pin definition and parameters are defined in global structure OPL1000_periph
+*  PWM port number is defined by OPL1000_periph.pwm_num
+*  Each PWM port pin assignment and parameters are defined by OPL1000_periph.pwm[i]  
+*  After implementing App_Pin_InitConfig, waveform will be generated on defined PWM port.  
+*  Note: For multiple PWM port, their clock source shall be same, either 22MHz or 32kHz. 
 ******************************************************************************/
 
 
@@ -129,7 +122,7 @@ static void __Patch_EntryPoint(void)
 *   App_Pin_InitConfig
 *
 * DESCRIPTION:
-*   init the pin assignment
+*   Initialize  the pin assignment
 *
 * PARAMETERS
 *   none
@@ -140,10 +133,27 @@ static void __Patch_EntryPoint(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
-    Hal_Pinmux_Pwm_Init(&OPL1000_periph.pwm[0]);
+    uint8_t pwm_num = OPL1000_periph.pwm_num;
+	  uint8_t i,pwm_index_mask = 0, pwm_idx; 
+	
+	  if(pwm_num > 0) 
+		{	
+			Hal_Pinmux_Pwm_Init();
+			
+			// Disable all PWM output 
+			Hal_Pinmux_Pwm_Disable(HAL_PWM_IDX_ALL);
+			
+			for (i=0; i<pwm_num;i++)
+			{
+				pwm_idx = Hal_PinMux_Get_Index(OPL1000_periph.pwm[i].pin);
+				pwm_index_mask =  pwm_index_mask | pwm_idx;				
+				// pwm[0] corresponding to PWM4 - IO19, complex mode config   
+				Hal_Pinmux_Pwm_Config(&OPL1000_periph.pwm[i]);
+			}
+			
+			Hal_Pinmux_Pwm_Enable(pwm_index_mask);
+	  }	
 }
-
-
 
 
 /*************************************************************************
@@ -165,9 +175,8 @@ void Main_AppInit_patch(void)
     // init the pin assignment
     App_Pin_InitConfig();
     
-    printf("config end \r\n");
-
-    // do the uart_echo_test
+    printf("configuration is finished \r\n");
+	
     pwm_test();
 }
 
@@ -189,17 +198,17 @@ static void Main_AppThread(void *argu)
 {
     while (1)
     {
-        osDelay(500);      // delay 500 ms
+        osDelay(1500);      // delay 500 ms
+		//printf("Running pwm example project. \r\n");
     }
 }
 
 /*************************************************************************
 * FUNCTION:
-*   uart_echo_test
+*   pwm test 
 *
 * DESCRIPTION:
-*   an example that read and write data on UART1, and the hardware flow
-*   control is turning on.
+*   This is a blank function, just create a thread for debug aim 
 *
 * PARAMETERS
 *   none

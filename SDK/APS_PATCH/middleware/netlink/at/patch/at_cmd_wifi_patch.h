@@ -26,6 +26,11 @@
 #define AT_WIFI_SHOW_MAC_BIT        0x00000008U
 #define AT_WIFI_SHOW_CHANNEL_BIT    0x00000010U
 
+typedef enum {
+    AT_WIFI_SKIP_DTIM_CFG,
+    AT_WIFI_MAX_NUM,
+} at_wifi_mac_cfg_e;
+
 void _at_cmd_wifi_func_init(void);
 
 #endif

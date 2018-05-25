@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlink Communication Corp. (C) 2017
 ******************************************************************************/
 #include <stdlib.h>
 #include "common.h"
@@ -27,6 +27,9 @@ extern struct wpa_supplicant *wpa_s;
 RET_DATA wpa_driver_netlink_show_scan_results_fp_t wpa_driver_netlink_show_scan_results;
 RET_DATA wpa_driver_netlink_scan_results_free_fp_t wpa_driver_netlink_scan_results_clear;
 RET_DATA wpa_driver_netlink_fast_connect_fp_t wpa_driver_netlink_fast_connect;
+RET_DATA wpa_driver_netlink_sta_cfg_fp_t wpa_driver_netlink_sta_cfg;
+RET_DATA wpa_driver_netlink_get_sta_cfg_fp_t wpa_driver_netlink_get_sta_cfg;
+
 Boolean wpa_driver_netlink_get_scan_results_patch(struct wpa_scan_results * scan_res)
 {
     scan_report_t *result = NULL;
@@ -155,6 +158,37 @@ Boolean wpa_driver_netlink_scan_patch(int mode)
     return TRUE;
 }
 
+Boolean wpa_driver_netlink_sta_cfg_patch(u8 mode, u8 cmd_idx, u8 *value)
+{
+    if (mode != MLME_CMD_SET_PARAM && mode != MLME_CMD_GET_PARAM) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid Parameter \r\n");
+        return FALSE;
+    }
+
+    if (value == NULL) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid Parameter \r\n");
+        return FALSE;
+    }
+
+    if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid wpa state \r\n");
+        return FALSE;
+    }
+
+    switch (mode) {
+        case MLME_CMD_GET_PARAM:
+            wifi_get_sta_cfg_from_share_memory(cmd_idx, value);
+            break;
+        case MLME_CMD_SET_PARAM:
+            wifi_set_sta_cfg_req(cmd_idx, value);
+            break;
+        default:
+            break;
+    }
+    
+    return TRUE;
+}
+
 Boolean wpa_driver_netlink_fast_connect_patch(u8 mode, u8 index)
 {
     auto_connect_cfg_t *pac_info = NULL;
@@ -184,7 +218,22 @@ Boolean wpa_driver_netlink_fast_connect_patch(u8 mode, u8 index)
     mw_ac_info.fast_connect = mode;
     write_auto_connect_ap_info_to_flash(index, &mw_ac_info);
     
-    //wifi_sta_join_fast(index);
+    wifi_sta_join_fast(index);
+    return TRUE;
+}
+
+Boolean wpa_driver_netlink_get_sta_cfg_patch(u8 cfg_idx, void *ptr)
+{
+    if (ptr == NULL) {
+        return false;
+    }
+    
+    if (cfg_idx > E_WIFI_PARAM_BSS_DTIM_PERIOD) {
+        return false;
+    }
+
+    wifi_get_sta_cfg_from_share_memory(cfg_idx, ptr);
+    
     return TRUE;
 }
 
@@ -200,6 +249,8 @@ void wpa_driver_func_init_patch(void)
     wpa_driver_netlink_get_ssid = wpa_driver_netlink_get_ssid_patch;
     wpa_driver_netlink_scan = wpa_driver_netlink_scan_patch;
     wpa_driver_netlink_fast_connect = wpa_driver_netlink_fast_connect_patch;
+    wpa_driver_netlink_sta_cfg = wpa_driver_netlink_sta_cfg_patch;
+    wpa_driver_netlink_get_sta_cfg = wpa_driver_netlink_get_sta_cfg_patch;
     return;
 }
 

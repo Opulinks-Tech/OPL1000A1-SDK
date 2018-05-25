@@ -50,6 +50,12 @@ typedef enum
     GPIO_INPUT      = 1
 } E_GpioDirection_t;
 
+typedef enum
+{
+    GPIO_LEVEL_LOW  = 0,
+    GPIO_LEVEL_HIGH = 1
+} E_GpioLevel_t;
+
 /********************************************
 Declaration of Global Variables & Functions
 ********************************************/
@@ -69,11 +75,14 @@ typedef void (*T_Gpio_CallBack)(E_GpioIdx_t eIdx);
 C Functions
 ***********/
 // Sec 8: C Functions
-extern T_Gpio_CallBack GpioCallBack[GPIO_IDX_MAX];
-void Hal_Vic_GpioInit(void);
-uint8_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx);                    // 0: low       1: high
-void Hal_Vic_GpioOutput(E_GpioIdx_t eIdx, uint8_t ubLevel);     // 0: low       1: high
-void Hal_Vic_GpioDirection(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection);
+extern T_Gpio_CallBack g_taHalVicGpioCallBack[GPIO_IDX_MAX];
 void Hal_Vic_GpioCallBackFuncSet(E_GpioIdx_t eIdx, T_Gpio_CallBack tFunc);
+
+void Hal_Vic_GpioInit(void);
+E_GpioLevel_t Hal_Vic_GpioInput(E_GpioIdx_t eIdx);
+void Hal_Vic_GpioOutput(E_GpioIdx_t eIdx, E_GpioLevel_t tLevel);
+void Hal_Vic_GpioDirection(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection);
+
+void Hal_Vic_GpioPinmux(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection, E_GpioLevel_t tOutputLevel);
 
 #endif

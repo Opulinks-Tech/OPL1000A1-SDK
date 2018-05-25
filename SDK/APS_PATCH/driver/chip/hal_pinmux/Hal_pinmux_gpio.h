@@ -17,8 +17,7 @@
 #include "hal_vic.h"
 #include "hal_vic_patch.h"
 
-#define   LEV_HIGH       1
-#define   LEV_LOW        0
+
 
 /**
  * @brief  Pinmux gpio init    

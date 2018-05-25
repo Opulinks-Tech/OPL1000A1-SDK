@@ -38,6 +38,7 @@ Head Block of The File
 #include "hal_vic_patch.h"
 #include "hal_uart.h"
 #include "hal_tmr_patch.h"
+#include "hal_i2c_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 
@@ -123,8 +124,8 @@ void GPIO_IRQHandler_Patch_patch(void)
             }
 
             // Hook here...
-            if(GpioCallBack[eGpioIdx] != 0)
-                GpioCallBack[eGpioIdx](eGpioIdx);
+            if(g_taHalVicGpioCallBack[eGpioIdx] != 0)
+                g_taHalVicGpioCallBack[eGpioIdx](eGpioIdx);
             
             // Clear module interrupt
             Hal_Vic_GpioIntClear(eGpioIdx);
@@ -275,6 +276,31 @@ void TIM1_IRQHandler_Patch_patch(void)
 
 /*************************************************************************
 * FUNCTION:
+*  I2C_IRQHandler_Patch_patch
+* 
+* DESCRIPTION:
+*   1. The function implements patch of I2C ISR function.
+* 
+* CALLS
+* 
+* PARAMETERS
+* 
+* RETURNS
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+void I2C_IRQHandler_Patch_patch(void)
+{
+    // handle the I2C interrupt
+    Hal_I2c_IntHandler();
+    
+    // Clear VIC interrupt
+    Hal_Vic_IntClear(I2C_IRQn);
+}
+
+/*************************************************************************
+* FUNCTION:
 *  isr_patch_init
 * 
 * DESCRIPTION:
@@ -296,4 +322,5 @@ void isr_patch_init(void)
     UART1_IRQHandler_Patch = UART1_IRQHandler_Patch_patch;
     TIM0_IRQHandler_Patch  = TIM0_IRQHandler_Patch_patch;
     TIM1_IRQHandler_Patch  = TIM1_IRQHandler_Patch_patch;
+    I2C_IRQHandler_Patch   = I2C_IRQHandler_Patch_patch;
 }

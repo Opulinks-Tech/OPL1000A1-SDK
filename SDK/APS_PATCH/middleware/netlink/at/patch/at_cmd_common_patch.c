@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_common_patch.c
@@ -91,6 +91,48 @@ static char *at_result_string[AT_RESULT_CODE_MAX] = {
     NULL,
 };
 
+
+/*
+ * @brief UART1 Mode Setting's Handler
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int uart1_mode_set_patch(int argc, char *argv[])
+{
+    int mode = UART1_MODE_DEFAULT;
+	extern unsigned int g_uart1_mode;
+
+    if(argc > 1) {
+        mode = atoi(argv[1]);
+        if ((mode >= UART1_MODE_NUM) || (mode < UART1_MODE_AT)) return false;
+    }
+    g_uart1_mode = mode;
+
+    switch (mode) {
+    	case UART1_MODE_AT:
+            /** Do something when set AT mode */
+            uart1_mode_set_at();
+    		break;
+        case UART1_MODE_BLE_HCI:
+            /** Do something when set BLE HCI mode */
+            uart1_mode_set_default();
+            uart1_mode_set_ble_hci();
+    		break;
+        case UART1_MODE_OTHERS:
+            /** Do something when set Others mode */
+            uart1_mode_set_others();
+            break;
+    	default:
+    		break;
+	}
+
+    return true;
+}
 
 /*
  * @brief UART1 RX Data Handler of BLE (Reserved)
@@ -263,13 +305,16 @@ done:
     return sRet;
 }
 
-int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[])
+int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[], int iArgvNum)
 {
     int count = 0;
     char *p = NULL;
     char *pTrim = NULL;
 
-    if(pbuf == 0) return 0;
+    if((!pbuf) || (!argc) || (!argv) || (!iArgvNum))
+    {
+        return 0;
+    }
 
     /** Get the first word */
     p = strtok(pbuf, "=");
@@ -277,8 +322,13 @@ int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[])
     //msg_print_uart1("\r\n _at_cmd_buf_to_argc_argv, argv[%d]:%s ", count, argv[count]);
     count++;
 
-	while ((p = strtok(NULL, ",")) != NULL)
+    while ((p = strtok(NULL, ",")) != NULL)
     {
+        if(count >= iArgvNum)
+        {
+            break;
+        }
+
 	    //argv[count] = p;
         //msg_print_uart1("\r\n _at_cmd_buf_to_argc_argv, argv[%d]:%s ", count, argv[count]);
         pTrim = at_cmd_param_trim(p);
@@ -292,7 +342,7 @@ int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[])
     }
     *argc = count;
 
-	return true;
+    return true;
 }
 
 void at_uart1_write_buffer(char *buf, int len)
@@ -345,7 +395,8 @@ int wpas_get_assoc_freq(void)
 void at_cmd_common_func_init_patch(void)
 {
 	memset(&at_rx_buf, 0, sizeof(at_uart_buffer_t));
-
+    
+    uart1_mode_set = uart1_mode_set_patch;
     uart1_rx_int_do_at = _uart1_rx_int_do_at_impl;
     _uart1_rx_int_at_data_receive_ble = _uart1_rx_int_at_data_receive_ble_impl;
     _uart1_rx_int_at_data_receive_tcpip = _uart1_rx_int_at_data_receive_tcpip_impl;

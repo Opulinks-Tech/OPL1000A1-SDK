@@ -13,12 +13,7 @@
 #define __MSG_PATCH_H__
 
 
-#include "sys_os_config.h"
-
-
 #define TRACER_TASK_NAME            "tracer"
-#define TRACER_TASK_PRIORITY        OS_TASK_PRIORITY_TRACER
-#define TRACER_TASK_STACK_SIZE      OS_TASK_STACK_SIZE_TRACER // number of uint32_t
 
 #define TRACER_ISR_NAME_PREFIX      "ISR_"
 #define TRACER_ISR_HANDLE_MASK      0xFF
@@ -56,6 +51,9 @@ typedef void (*T_TracerCmdFp)(char *sCmd);
 extern T_TracerTaskInfoGetFp tracer_task_info_get;
 extern T_TracerDefLevelFp tracer_def_level_set;
 extern T_TracerCmdFp tracer_cmd;
+
+extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX];
+extern T_TracerTaskInfo g_taTracerExtTaskInfoBody[TRACER_EXT_TASK_NUM_MAX];
 
 
 void Tracer_PatchInit(void);

@@ -614,11 +614,6 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
 #ifdef __WIFI_AUTO_CONNECT__
     /* Set successfully connect info to Auto Connect list */
     switch(get_auto_connect_mode()) {
-        case AUTO_CONNECT_ENABLE:
-            break;
-        case AUTO_CONNECT_DISABLE:
-            add_auto_connect_list();
-            break;
         case AUTO_CONNECT_MANUAL:
             add_auto_connect_list();
             //compatible auto/manual connect

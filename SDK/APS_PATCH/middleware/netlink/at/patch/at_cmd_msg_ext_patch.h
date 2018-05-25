@@ -54,6 +54,10 @@ typedef enum {
     ERR_WIFI_CWFASTCONN_PARAMETER_TOO_FEW,
 } at_wifi_error_code_cwfastconn;
 
+typedef enum {
+    ERR_COMM_DONE,
+    ERR_COMM_INVALID,
+} at_wifi_error_common_e;
 
 /**
  * @brief AT Extending Message for WIFI

@@ -109,7 +109,7 @@ void peripheral_patch_init(void)
     // vic and GPIO
     for(eGpioIdx = GPIO_IDX_00; eGpioIdx<GPIO_IDX_MAX; eGpioIdx++)
     {
-        GpioCallBack[eGpioIdx] = 0;
+        g_taHalVicGpioCallBack[eGpioIdx] = 0;
     }
 
     // system (AOS+sys_reg)
@@ -140,7 +140,10 @@ void peripheral_patch_init(void)
     Hal_Flash_Reset             = Hal_Flash_Reset_patch;
 
     // i2c
+    g_tHalI2cIntTxCallback = 0;
+    g_tHalI2cIntRxCallback = 0;
     Hal_I2c_MasterInit = Hal_I2c_MasterInit_patch;
+    Hal_I2c_SlaveInit  = Hal_I2c_SlaveInit_patch;
 
     // tmr
     Tmr_CallBack[0] = NULL;

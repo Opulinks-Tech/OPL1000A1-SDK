@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlink Communication Corp. (C) 2017
 ******************************************************************************/
 
 /******************************************************************************
@@ -45,6 +45,8 @@ Head Block of The File
 Declaration of data structure
 ********************************************/
 // Sec 3: structure, uniou, enum, linked list...
+typedef void (*T_Hal_I2c_SlaveIntTxCallBack)(void);
+typedef void (*T_Hal_I2c_SlaveIntRxCallBack)(uint8_t);
 
 
 /********************************************
@@ -71,10 +73,20 @@ C Functions
 // Sec 8: C Functions
 
 /* Internal */
+extern void Hal_I2c_IntHandler(void);
 
 /* Master mode relative */
 extern uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed);
 
 /* Slave mode relative */
+extern T_Hal_I2c_SlaveIntTxCallBack g_tHalI2cIntTxCallback;
+extern T_Hal_I2c_SlaveIntRxCallBack g_tHalI2cIntRxCallback;
+
+extern uint32_t Hal_I2c_SlaveInit_patch(E_I2cAddrMode_t eAddrMode, uint16_t u16SlaveAddr);
+extern uint32_t Hal_I2c_SlaveIntTxEn(uint8_t u8Enable);
+extern uint32_t Hal_I2c_SlaveIntRxEn(uint8_t u8Enable);
+extern void Hal_I2c_SlaveIntTxCallBackFuncSet(T_Hal_I2c_SlaveIntTxCallBack tFunc);
+extern void Hal_I2c_SlaveIntRxCallBackFuncSet(T_Hal_I2c_SlaveIntRxCallBack tFunc);
+
 
 #endif

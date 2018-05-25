@@ -250,11 +250,6 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
     else { //Open connection
         /* Set successfully connect info to Auto Connect list */
         switch(get_auto_connect_mode()) {
-            case AUTO_CONNECT_ENABLE:
-                break;
-            case AUTO_CONNECT_DISABLE:
-                add_auto_connect_list();
-                break;
             case AUTO_CONNECT_MANUAL:
                 add_auto_connect_list();
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);

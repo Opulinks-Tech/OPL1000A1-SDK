@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_ble_patch.c
@@ -26,6 +26,8 @@
 #include "at_cmd_common.h"
 #include "at_cmd_ble_patch.h"
 #include "at_cmd_patch.h"
+#include "at_cmd_common_patch.h"
+
 
 /*
  * @brief Command at+bleinit
@@ -399,35 +401,39 @@ int _at_cmd_ble_disconn(char *buf, int len, int mode)
  */
 int _at_cmd_ble_mode(char *buf, int len, int mode)
 {
-#if 0
-	if (argc == 2)
-	{
-		int param = strtol(argv[1], NULL, 10);
-		switch (param)
-		{
-			case 1:
-				ble_uart_mode = 1;
-				le_ctrl_data.is_uart_hci_mode = 1;
-				printf("\r\nOK\r\n");
-                msg_print_uart1("\r\nOK\r\n"); /** For UART1 */
-				break;
-			case 2:
-				ble_uart_mode = 2;
-				printf("\r\nOK\r\n");
-                msg_print_uart1("\r\nOK\r\n"); /** For UART1 */
-				break;
-			default:
-				printf("\r\nERROR\r\n");
-                msg_print_uart1("\r\nERROR\r\n"); /** For UART1 */
-				break;
-		}
-	}
-	else
-	{
-		printf("\r\nERROR\r\n");
-        msg_print_uart1("\r\nERROR\r\n"); /** For UART1 */
-	}
-#endif
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+    int uart_mode = UART1_MODE_DEFAULT;
+    extern unsigned int g_uart1_mode;
+
+    
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+    
+    if(argc > 1) {
+        uart_mode = atoi(argv[1]);
+        if ((uart_mode >= UART1_MODE_NUM) || (uart_mode < UART1_MODE_AT)) return false;
+    }
+    
+    g_uart1_mode = uart_mode;
+    
+    switch (uart_mode)
+    {
+        case UART1_MODE_AT:
+            uart1_mode_set_at();
+            break;
+        case UART1_MODE_BLE_HCI:
+            uart1_mode_set_ble_hci();
+            break;
+/*
+        case UART1_MODE_BLE_HOST:
+            break;
+*/
+        case UART1_MODE_OTHERS:
+            uart1_mode_set_others();
+            break;
+        default:
+            break;
+    }
 	return true;
 }
 
@@ -973,6 +979,7 @@ int _at_cmd_ble_sample(void)
 
 _at_command_t _gAtCmdTbl_Ble[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "at+bleinit",          _at_cmd_ble_init,           "Bluetooth Low Energy (BLE) initialization" },
     { "at+bleaddr",          _at_cmd_ble_addr,           "Sets BLE device's address" },
     { "at+blescanparam",     _at_cmd_ble_scanparam,      "Sets parameters of BLE scanning" },
@@ -1032,6 +1039,7 @@ _at_command_t _gAtCmdTbl_Ble[] =
     { "at+bt_rfcomm_send",   _at_cmd_bt_rfcomm_send,     "BT client sends RFCOMM data" },
     { "at+bt_scan",          _at_cmd_bt_scan,            "Do BT scan" },
     { "at+btstatus",         _at_cmd_btstatus,           "Show BT status" },
+#endif
     { NULL,                  NULL,                      NULL},
 };
 

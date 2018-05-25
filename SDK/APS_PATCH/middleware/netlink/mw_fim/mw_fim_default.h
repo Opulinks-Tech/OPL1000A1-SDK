@@ -52,7 +52,7 @@ extern "C" {
 // the version of group
 #define MW_FIM_VER00        0x01    // reserve for swap
 #define MW_FIM_VER01        0x03    // system & driver
-#define MW_FIM_VER02        0x05    //for WIFI
+#define MW_FIM_VER02        0x02    //for WIFI
 #define MW_FIM_VER03        0x03    // calibration data
 #define MW_FIM_VER04        0x02    // for LE Controller
 #define MW_FIM_VER05        0x01
@@ -91,19 +91,19 @@ extern "C" {
 #define MW_FIM_VER38        0x01
 
 // the information of zone
-#define MW_FIM_ZONE0_BASE_ADDR      0x00080000
+#define MW_FIM_ZONE0_BASE_ADDR      0x00077000
 #define MW_FIM_ZONE0_BLOCK_SIZE     0x1000
 #define MW_FIM_ZONE0_BLOCK_NUM      9               // swap + used
 
-#define MW_FIM_ZONE1_BASE_ADDR      0x00089000
+#define MW_FIM_ZONE1_BASE_ADDR      0x00080000
 #define MW_FIM_ZONE1_BLOCK_SIZE     0x1000
 #define MW_FIM_ZONE1_BLOCK_NUM      0               // swap + used
 
-#define MW_FIM_ZONE2_BASE_ADDR      0x0008B000
+#define MW_FIM_ZONE2_BASE_ADDR      0x00081000
 #define MW_FIM_ZONE2_BLOCK_SIZE     0x1000
 #define MW_FIM_ZONE2_BLOCK_NUM      0               // swap + used
 
-#define MW_FIM_ZONE3_BASE_ADDR      0x0008C000
+#define MW_FIM_ZONE3_BASE_ADDR      0x00082000
 #define MW_FIM_ZONE3_BLOCK_SIZE     0x1000
 #define MW_FIM_ZONE3_BLOCK_NUM      0               // swap + used
 

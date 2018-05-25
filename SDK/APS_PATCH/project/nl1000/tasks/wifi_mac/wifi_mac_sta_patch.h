@@ -50,6 +50,7 @@ typedef struct {
     // 41st
     uint8_t     u8AssocRsqReTtlCnt;
     uint8_t     u8ScrtConnReTtlCnt;
+    uint8_t     u8SkipDtimPeriods;
     // N bytes
 
     u8      reserved[214];   // 256 - N bytes

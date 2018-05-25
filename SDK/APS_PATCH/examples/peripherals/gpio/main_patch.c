@@ -151,9 +151,10 @@ static void __Patch_EntryPoint(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
-
+    // GPIO2  OUTPUT
     Hal_Pinmux_Gpio_Init(&OPL1000_periph.gpio[0]);
-
+    // GPIO3  OUTPUT
+    Hal_Pinmux_Gpio_Init(&OPL1000_periph.gpio[1]);
 }
 
 /*************************************************************************
@@ -288,8 +289,8 @@ static void Main_AppThread_2(void *argu)
     while (1)
     {
         printf("Count = %d\n", ulCount);
-        Hal_Vic_GpioOutput(GPIO_IDX_02, ulCount % 2);
-        Hal_Vic_GpioOutput(GPIO_IDX_03, ulCount % 2);
+        Hal_Vic_GpioOutput(GPIO_IDX_02, (E_GpioLevel_t)(ulCount % 2));
+        Hal_Vic_GpioOutput(GPIO_IDX_03,  (E_GpioLevel_t)(ulCount % 2));
         ulCount++;
         
         osDelay(2000);      // delay 2000 ms
@@ -360,14 +361,7 @@ done:
 *************************************************************************/
 static void gpio_int_test(void)
 {
-    // GPIO2
-    Hal_Vic_GpioDirection(GPIO_IDX_02, GPIO_OUTPUT);
-    Hal_Vic_GpioOutput(GPIO_IDX_02, 0);
-    
-    // GPIO3
-    Hal_Vic_GpioDirection(GPIO_IDX_03, GPIO_OUTPUT);
-    Hal_Vic_GpioOutput(GPIO_IDX_03, 0);
-    
+
     // GPIO4
     Hal_Vic_GpioDirection(GPIO_IDX_04, GPIO_INPUT);
     Hal_Vic_GpioCallBackFuncSet(GPIO_IDX_04, gpio_int_callback);

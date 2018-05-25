@@ -38,6 +38,8 @@
 #include "controller_wifi_com_patch.h"
 #include "wifi_api.h"
 #include "wpa_common_patch.h"
+#include "wifi_nvm_patch.h"
+#include "wpa_cli_patch.h"
 
 #ifndef WPA_CLI_DBG
 #define WPA_CLI_DBG TRUE
@@ -52,6 +54,7 @@
 #define WPA_CLI_CMD_CONN_MODE "wpa_conn_mode"
 #define WPA_CLI_CMD_CLEAR_AC_LIST "wpa_clear_ac"
 #define WPA_CLI_CMD_FAST_CONNECT "wpa_fast_connect"
+#define WPA_CLI_CMD_DBG      "wpa_dbg"
 
 extern struct wpa_config conf;
 extern struct wpa_ssid ssid_data;
@@ -60,6 +63,9 @@ extern u8 g_bssid[6];
 extern struct wpa_supplicant *wpa_s;
 extern auto_connect_cfg_t g_AutoConnect;
 extern u8 gAutoConnMode;
+extern struct wpa_supplicant *wpa_s;
+
+u8 gsta_cfg_mac[MAC_ADDR_LEN];
 
 void wpa_cli_showscanresults_handler_patch(int argc, char *argv[])
 {
@@ -242,6 +248,10 @@ int wpa_cli_clear_ac_list(int argc, char *argv[])
     
     reset_auto_connect_list();
     delete_auto_connect_cfg_from_flash();
+
+    //Reset Sta information
+    MwFim_FileWriteDefault(MW_FIM_IDX_STA_INFO_CFG, 0);
+    
     return TRUE;
 }
 
@@ -267,12 +277,104 @@ int wpa_cli_fast_connect(int argc, char *argv[])
     return TRUE;
 }
 
-static void debug_auto_connect(void)
+int wpa_cli_conn_mode(int argc, char *argv[])
+{
+    if (argc == 2) {
+        s8 mode = atoi(argv[1]);
+
+        if (mode < AUTO_CONNECT_DISABLE || mode > AUTO_CONNECT_ENABLE) {
+            return FALSE;
+        }
+
+        write_auto_conn_mode_to_flash(mode);
+        gAutoConnMode = mode;
+        g_AutoConnect.retryCount = 0; //restart fasct connect
+        g_AutoConnect.targetIdx = 0;
+        
+        msg_print(LOG_HIGH_LEVEL, "connection mode = %d (0:disable, 1:fast connect)\r\n", get_auto_connect_mode());
+        
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+int wpa_cli_scan_handler_patch(int argc, char *argv[])
+{
+    int mode = SCAN_MODE_MIX_EXT;
+
+    if(argc > 1) {
+        mode = atoi(argv[1]);
+        if (mode < SCAN_MODE_ACTIVE_EXT || mode > SCAN_MODE_MIX_EXT) {
+            msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
+            return FALSE;
+        }
+    }
+
+    msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: scan mode=%d \r\n", mode);
+    return wpa_cli_scan(mode);
+}
+
+void wpa_cli_getmac_patch(u8 *mac)
+{
+    if(mac == NULL) return;
+	//wpa_driver_netlink_get_mac(mac);
+	
+    wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, mac);
+    //wpa_driver_netlink_get_sta_cfg(E_WIFI_PARAM_MAC_ADDRESS, mac);
+}
+
+void wpa_cli_setmac_patch(u8 *mac)
+{
+    if(mac == NULL) return;
+	//wpa_driver_netlink_set_mac(mac);
+
+    if ((mac[0] == 0x00 && mac[1] == 0x00) ||
+        (mac[0] == 0xFF) || (mac[0] == 0x01)) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+        return;
+    }
+    
+    if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid wpa state \r\n");
+        return;
+    }
+    
+    memset(&gsta_cfg_mac[0], 0, MAC_ADDR_LEN);
+    memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
+    wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, &gsta_cfg_mac[0]);
+
+    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, gsta_cfg_mac);
+}
+
+void wpa_cli_mac_by_param_patch(int argc, char *argv[])
+{
+    u8 mac[6] = {0};
+
+    if(argc == 1) //show mac
+    {
+        memset(mac, 0, sizeof(mac)/sizeof(mac[0]));
+        wpa_cli_getmac(mac);
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: mac=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
+                                  mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+
+    }
+    else if (argc == 2) //set mac
+    {
+        memset(mac, 0, sizeof(mac)/sizeof(mac[0]));
+        hwaddr_aton2(argv[1], mac);
+        wpa_cli_setmac(mac);
+    }
+}
+
+void debug_auto_connect(void)
 {
     int i;
     MwFimAutoConnectCFG_t cfg;
     auto_conn_info_t info;
-
+    u8 name[STA_INFO_MAX_MANUF_NAME_SIZE] = {0};
+    u8 mac[MAC_ADDR_LEN] = {0};
+    
     msg_print(LOG_HIGH_LEVEL, "AP mode = %d\r\n", get_auto_connect_mode());
     msg_print(LOG_HIGH_LEVEL, "AP num = %d\r\n", get_auto_connect_ap_num());
     
@@ -291,50 +393,45 @@ static void debug_auto_connect(void)
         msg_print(LOG_HIGH_LEVEL, "AP[%d] info psk = %02x %02x %02x %02x %02x\r\n",
                     i, info.psk[0], info.psk[1], info.psk[2], info.psk[3], info.psk[4]);
     }
+    
+    wpa_cli_getmac(&mac[0]);
+    wifi_nvm_sta_info_read(WIFI_NVM_STA_INFO_MANUFACTURE_NAME, STA_INFO_MAX_MANUF_NAME_SIZE, &name[0]);
+    
+    msg_print(LOG_HIGH_LEVEL, "STA info mac = %02x %02x %02x %02x %02x %02x\r\n", 
+               mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+    msg_print(LOG_HIGH_LEVEL, "STA info manufacture = %s\r\n", name);
 }
 
-int wpa_cli_conn_mode(int argc, char *argv[])
+/* debug use */
+int wpa_cli_dbg(int argc, char *argv[])
 {
-    if (argc == 2) {
-        /* debug use */
-        if (!strcmp(argv[1], "d")) {
-            debug_auto_connect();
-            return TRUE;
-        }
-
-        s8 mode = atoi(argv[1]);
-
-        if (mode < AUTO_CONNECT_DISABLE || mode > AUTO_CONNECT_ENABLE) {
-            return FALSE;
-        }
-
-        write_auto_conn_mode_to_flash(mode);
-        gAutoConnMode = mode;
-        g_AutoConnect.retryCount = 0; //restart fasct connect
-        g_AutoConnect.targetIdx = 0;
-        
-        msg_print(LOG_HIGH_LEVEL, "connection mode = %d (0:disable, 1:fast connect)\r\n", get_auto_connect_mode());
-        
+    u8 mac[MAC_ADDR_LEN] = {0};
+    
+    if (!strcmp(argv[1], "h")) {
+        msg_print(LOG_HIGH_LEVEL, "wpa debug :\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   h : help\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   p : print memory variable of auto connect/CBS ...\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   ia : Test input mac addr/manufacture name for CBS\r\n");
+        return TRUE;
+    }
+    
+    if (!strcmp(argv[1], "p") || argc == 1) {
+        debug_auto_connect();
         return TRUE;
     }
 
-    return FALSE;
-}
-
-int wpa_cli_scan_handler_patch(int argc, char *argv[])
-{
-    int mode = SCAN_MODE_MIX_EXT;
-
-    if(argc > 1) {
-        mode = atoi(argv[1]);
-        if (mode < SCAN_MODE_ACTIVE_EXT || mode > SCAN_MODE_MIX_EXT) {
-            msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
-            return FALSE;
+    if (!strcmp(argv[1], "ia")) {
+        if (argc >= 3) { // debug for CBS
+            hwaddr_aton2(argv[2], mac);
+            wpa_cli_setmac(mac);
+        }
+        
+        if (argc >= 4) {
+            wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_MANUFACTURE_NAME, STA_INFO_MAX_MANUF_NAME_SIZE, (u8 *)argv[3]);
         }
     }
-
-    msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: scan mode=%d \r\n", mode);
-    return wpa_cli_scan(mode);
+    
+    return TRUE;
 }
 
 uint32_t wpa_cli_cmd_handler_patch(int argc, char *argv[])
@@ -389,7 +486,7 @@ uint32_t wpa_cli_cmd_handler_patch(int argc, char *argv[])
     }
 //#endif
 
-    else if (os_strncasecmp(WPA_CLI_CMD_DBG_MODE, argv[0], os_strlen(argv[0])) == 0) {
+    else if (os_strncasecmp(WPA_CLI_CMD_DBG_MODE, argv[0], os_strlen(WPA_CLI_CMD_DBG_MODE)) == 0) {
         wpa_cli_setdbgmode_by_param(argc, argv);
     }
     else if (os_strncasecmp(WPA_CLI_CMD_CONN_MODE, argv[0], os_strlen(argv[0])) == 0) {
@@ -400,6 +497,9 @@ uint32_t wpa_cli_cmd_handler_patch(int argc, char *argv[])
     }
     else if (os_strncasecmp(WPA_CLI_CMD_FAST_CONNECT, argv[0], os_strlen(argv[0])) == 0){
         wpa_cli_fast_connect(argc, argv);
+    }
+    else if (os_strncasecmp(WPA_CLI_CMD_DBG, argv[0], os_strlen(WPA_CLI_CMD_DBG)) == 0){
+        wpa_cli_dbg(argc, argv);
     }
     else {
         //nothing
@@ -430,6 +530,9 @@ void wpa_cli_func_init_patch(void)
     wpa_cli_cmd_handler = wpa_cli_cmd_handler_patch;
     wpa_cli_getrssi = wpa_cli_getrssi_patch;
     wpa_cli_scan_handler = wpa_cli_scan_handler_patch;
+    wpa_cli_mac_by_param = wpa_cli_mac_by_param_patch;
+    wpa_cli_getmac = wpa_cli_getmac_patch;
+    wpa_cli_setmac = wpa_cli_setmac_patch;
     return;
 }
 

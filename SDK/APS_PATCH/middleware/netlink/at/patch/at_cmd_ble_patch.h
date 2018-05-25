@@ -19,6 +19,7 @@
  *
  */
 
+int _at_cmd_ble_mode(char *buf, int len, int mode);
 void _at_cmd_ble_func_init(void);
 
 #endif //__AT_CMD_BLE_PATCH_H__

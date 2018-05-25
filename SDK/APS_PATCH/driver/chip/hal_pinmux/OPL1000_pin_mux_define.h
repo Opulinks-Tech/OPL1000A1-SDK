@@ -181,8 +181,8 @@ typedef struct {
 
 typedef enum
 {
-    CLK_32KHz = 0,    // 32KHz clock  
-    CLK_22MHz         // 22MHz clock  
+    CLK_32KHz = 0x01,    // 32KHz clock, equals HAL_PWM_CLK_32K  
+    CLK_22MHz            // 22MHz clock, equals HAL_PWM_CLK_22M   
 } E_PwmClkSrc_t;    // PWM clock source 
 
 typedef enum

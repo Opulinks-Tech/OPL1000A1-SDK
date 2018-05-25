@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2018
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_data_process.c
@@ -30,6 +30,7 @@
 #include "at_cmd_patch.h"
 #include "at_cmd_common_patch.h"
 #include "ble_cmd_app_cmd.h"
+#include "at_cmd_ble_patch.h"
 
 RET_DATA int g_at_lock;
 RET_DATA int g_at_ble_data_len;
@@ -40,6 +41,7 @@ extern uint8_t at_state;
 extern _at_command_t *_g_AtCmdTbl_Wifi_Ptr;
 extern _at_command_t *_g_AtCmdTbl_Tcpip_Ptr;
 extern _at_command_t *_g_AtCmdTbl_Sys_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Rf_Ptr;
 
 void data_process_init(void)
 {
@@ -133,7 +135,12 @@ int data_process_wifi(char *pbuf, int len, int mode)
 int data_process_ble(char *pbuf, int len, int mode)
 {
     //1. Check ble table, if it's ble command, return true; else return false;
-
+    if (strncasecmp(pbuf, "at+blemode", strlen("at+blemode"))==0)
+    {
+        msg_print_uart1("\r\nOK\r\n");
+        _at_cmd_ble_mode(pbuf, len, mode);
+        return true;
+    }
     //2. Find the specified command handler, do it
 
     //Be noticed, as to BLE case, the pbuf is transfered to BLE protocol stack, and the command will be handled at that time in BLE statck
@@ -179,9 +186,17 @@ int data_process_sys(char *pbuf, int len, int mode)
 
 int data_process_rf(char *pbuf, int len, int mode)
 {
-    //1. Check RF table, if it's ble command, return true; else return false;
+    const _at_command_t *cmd_ptr = NULL;
 
-    //2. Find the specified command handler, do it
+    if(pbuf == 0) return false;
+
+    for(cmd_ptr=_g_AtCmdTbl_Rf_Ptr; cmd_ptr->cmd; cmd_ptr++)
+    {
+        if(strncasecmp(pbuf, cmd_ptr->cmd, strlen(cmd_ptr->cmd))) continue;
+        msg_print_uart1("\r\n");
+        cmd_ptr->cmd_handle(pbuf, len, mode);
+        return true;
+    }
 
     return false;
 }

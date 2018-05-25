@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_tcpip_patch.c
@@ -47,6 +47,7 @@
 #include "wifi_api.h"
 #include "network_config.h"
 #include "at_cmd_app.h"
+#include "controller_wifi_com_patch.h"
 
 
 /******************************************************
@@ -62,7 +63,6 @@
 
 #define AT_LOGI(fmt,arg...)             printf(("[AT]: "fmt"\r\n"), ##arg)
 
-#define AT_CMD_OUTPUT                   msg_print_uart1
 
 /******************************************************
  *                    Constants
@@ -141,6 +141,8 @@ osMessageQId at_tx_task_queue_id = NULL;
 osPoolId     at_tx_task_pool_id = NULL;
 
 osPoolDef (at_tx_task_pool, AT_DATA_TASK_QUEUE_SIZE, at_event_msg_t);
+
+extern u8 gsta_cfg_mac[MAC_ADDR_LEN];
 
 
 /******************************************************
@@ -1674,7 +1676,7 @@ int _at_cmd_tcpip_cipdomain(char *buf, int len, int mode)
     int cnt = 1;
     int ret = false;
 
-    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
     {
         AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
         goto exit;
@@ -1742,7 +1744,7 @@ int _at_cmd_tcpip_cipstart(char *buf, int len, int mode)
     at_socket_t *link;
     uint8_t ret = AT_RESULT_CODE_ERROR;
 
-    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
     {
         AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
         goto exit;
@@ -2251,7 +2253,7 @@ int _at_cmd_tcpip_cipserver(char *buf, int len, int mode)
     //at_socket_t *link;
     uint8_t ret = AT_RESULT_CODE_ERROR;
 
-    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
     {
         AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
         goto exit;
@@ -2394,7 +2396,7 @@ int _at_cmd_tcpip_cipsto(char *buf, int len, int mode)
 
         case AT_CMD_MODE_SET:
 
-            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
             {
                 AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
                 goto exit;
@@ -2493,7 +2495,7 @@ int _at_cmd_tcpip_cipdinfo(char *buf, int len, int mode)
             break;
 
         case AT_CMD_MODE_SET:
-            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
             {
                 AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
                 goto exit;
@@ -2551,7 +2553,7 @@ int _at_cmd_tcpip_cipsntpcfg(char *buf, int len, int mode)
 
     at_memset(server, 0x0, sizeof(server));
 
-    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
     {
         AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
         goto exit;
@@ -2669,7 +2671,7 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
 
             break;
         case AT_CMD_MODE_SET:
-            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv)) {
+            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS)) {
                 AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
                 goto exit;
             }
@@ -2684,9 +2686,17 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
                 AT_LOGI("Invalid param\r\n");
                 goto exit;
             }
-            printf("%s\n",pstr);
+            //printf("%s\n",pstr);
             hwaddr_aton2(pstr, mac);
+            
+            if ((mac[0] == 0x00 && mac[1] == 0x00) ||
+                (mac[0] == 0xFF) || (mac[0] == 0x01)) {
+                goto exit;
+            }
+
+            //wpa_cli_setmac(mac);
             wpa_cli_setmac(mac);
+            
             ret = AT_RESULT_CODE_OK;
 
             break;
@@ -2795,7 +2805,7 @@ int _at_cmd_tcpip_ping(char *buf, int len, int mode)
         goto done;
     }
 
-    if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv))
+    if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
     {
         AT_LOG("[%s %d] _at_cmd_buf_to_argc_argv fail\n", __func__, __LINE__);
         goto done;
@@ -2877,11 +2887,11 @@ int _at_cmd_tcpip_ping(char *buf, int len, int mode)
 done:
     if(iRet)
     {
-        AT_CMD_OUTPUT("\r\n+PING:%u\r\nOK\r\n", g_tPingResult.avg_time);
+        at_output("\r\n+PING:%u\r\nOK\r\n", g_tPingResult.avg_time);
     }
     else
     {
-        AT_CMD_OUTPUT("\r\n+PING:TIMEOUT\r\nERROR\r\n");
+        at_output("\r\n+PING:TIMEOUT\r\nERROR\r\n");
     }
 
     return iRet;
@@ -3625,6 +3635,7 @@ int _at_cmd_tcpip_sample(void)
   */
 _at_command_t _gAtCmdTbl_Tcpip[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "AT+CIPSTATUS",        _at_cmd_tcpip_cipstatus,   "Get connection status" },
     { "AT+CIPDOMAIN",        _at_cmd_tcpip_cipdomain,   "DNS domain function" },
     { "AT+CIPSTART",         _at_cmd_tcpip_cipstart,    "Establish TCP connection, UDP transmission" },
@@ -3642,7 +3653,6 @@ _at_command_t _gAtCmdTbl_Tcpip[] =
     { "AT+CIPSNTPCFG",       _at_cmd_tcpip_cipsntpcfg,  "Configuration for SNTP server" },
     { "AT+CIPSNTPTIME",      _at_cmd_tcpip_cipsntptime, "Query SNTP time" },
     { "AT+CIPSTAMAC",        _at_cmd_tcpip_cipstamac,    "Set MAC address of station " },
-    //{ "AT+CIPAPMAC",         _at_cmd_tcpip_cipstamac,    "Set MAC address of station " },
     { "AT+CIPSTA",           _at_cmd_tcpip_cipsta,       "Set Station IP" },
     { "AT+CIPAP",            _at_cmd_tcpip_cipap,        "Set softAP IP" },
     { "AT+PING",             _at_cmd_tcpip_ping,        "Function PING" },
@@ -3695,6 +3705,7 @@ _at_command_t _gAtCmdTbl_Tcpip[] =
     { "AT+SSDP_SEND_MSEARCH",           _at_cmd_tcpip_ssdp_send_msearch,         "Send M-Search request" },
     { "AT+SHOW_DNS_INFO",               _at_cmd_tcpip_show_dns_info,             "Show DNS server information" },
     { "AT+SET_DNS_SVR",                 _at_cmd_tcpip_set_dns_svr,               "Set DNS server" },
+#endif
     { NULL,                             NULL,                                   NULL},
 };
 

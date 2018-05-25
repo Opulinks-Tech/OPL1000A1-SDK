@@ -175,7 +175,7 @@ T_Pin Hal_Get_Point(uint8_t io,E_OPLXXX_Periph periph_pin)
 
     for(i=0;i<pin_cnt;i++)
     {
-        HAL_PINMUX_PRINT("point = %p,find GPIO = %d,curr GPIO = %d \r\n",pin_p,table[io_index].dist,(*pin_p).io);
+        //HAL_PINMUX_PRINT("point = %p,find GPIO = %d,curr GPIO = %d \r\n",pin_p,table[io_index].dist,(*pin_p).io);
         if((*pin_p).io == table[io_index].dist)
         {
             //HAL_PINMUX_PRINT("OPL1000 IO = %d,point entry = %p \r\n",(*pin_p).io,pin_p);

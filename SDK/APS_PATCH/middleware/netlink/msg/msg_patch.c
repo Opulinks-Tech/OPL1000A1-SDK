@@ -22,6 +22,11 @@
 #include "cmsis_os.h"
 #include "msg_patch.h"
 #include "diag_task_patch.h"
+#include "sys_os_config.h"
+
+
+#define TRACER_TASK_PRIORITY        OS_TASK_PRIORITY_TRACER
+#define TRACER_TASK_STACK_SIZE      OS_TASK_STACK_SIZE_TRACER // number of uint32_t
 
 
 T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = 
@@ -230,24 +235,30 @@ void tracer_init_patch(void)
     tPoolDef.item_sz = sizeof(T_TracerMsg);
 
     //create memory pool
-    g_tTracerPoolId = osPoolCreate(&tPoolDef);
-
     if(g_tTracerPoolId == NULL)
     {
-        TRACER_DBG("[%s %d] osPoolCreate fail\n", __func__, __LINE__);
-        goto done;
+        g_tTracerPoolId = osPoolCreate(&tPoolDef);
+    
+        if(g_tTracerPoolId == NULL)
+        {
+            TRACER_DBG("[%s %d] osPoolCreate fail\n", __func__, __LINE__);
+            goto done;
+        }
     }
 
     //create message queue
     tQueueDef.item_sz = sizeof(T_TracerMsg);
     tQueueDef.queue_sz = g_dwTracerQueueNum;
 
-    g_tTracerQueueId = osMessageCreate(&tQueueDef, NULL);
-
     if(g_tTracerQueueId == NULL)
     {
-        TRACER_DBG("[%s %d] osMessageCreate fail\n", __func__, __LINE__);
-        goto done;
+        g_tTracerQueueId = osMessageCreate(&tQueueDef, NULL);
+    
+        if(g_tTracerQueueId == NULL)
+        {
+            TRACER_DBG("[%s %d] osMessageCreate fail\n", __func__, __LINE__);
+            goto done;
+        }
     }
 
     //create task
@@ -715,33 +726,19 @@ void Tracer_PatchInit(void)
     g_ptTracerExtTaskInfo = g_taTracerExtTaskInfoBody;
 
     g_bTracerLogMode = TRACER_MODE_NORMAL;
-    g_bTracerLogDefLevel = TRACER_DEF_LEVEL;
     g_iTracerPriority = TRACER_TASK_PRIORITY;
     g_dwTracerStackSize = TRACER_TASK_STACK_SIZE;
     g_dwTracerQueueNum = TRACER_QUEUE_NUM_PATCH;
     g_dwTracerQueueSize = TRACER_QUEUE_SIZE_PATCH;
-    //g_ptTracerOpt = g_taTracerOptBody;
 
-    //tracer_proc = tracer_proc_patch;
-    //tracer_msg_free = tracer_msg_free_patch;
     tracer_opt_entry_add = tracer_opt_entry_add_patch;
-    //tracer_task_name_get = tracer_task_name_get_patch;
-    //tracer_task_main = tracer_task_main_patch;
-    //tracer_task_handle_get = tracer_task_handle_get_patch;
     tracer_level_get = tracer_level_get_patch;
     tracer_task_info_get = tracer_task_info_get_patch;
     
     // external
     tracer_init = tracer_init_patch;
     tracer_log_level_set = tracer_log_level_set_patch;
-    //tracer_log_mode_set = tracer_log_mode_set_patch;
-    //tracer_log_mode_get = tracer_log_mode_get_patch;
-    //tracer_log_def_level_set = tracer_log_def_level_set_patch;
-    //tracer_log_def_level_get = tracer_log_def_level_get_patch;
-    //tracer_priority_set = tracer_priority_set_patch;
     tracer_dump = tracer_dump_patch;
-    //tracer_name_display = tracer_name_display_patch;
-    //tracer_drct_printf = tracer_drct_printf_patch;
     tracer_msg = tracer_msg_patch;
     tracer_def_level_set = tracer_def_level_set_patch;
     tracer_cmd = tracer_cmd_patch;

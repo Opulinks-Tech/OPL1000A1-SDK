@@ -296,7 +296,11 @@ void Main_ServiceInit_patch(void)
     Main_ServiceInit_impl();
 
     //Auto connect
-    auto_connect_init();    
+    auto_connect_init();
+
+#ifdef FLAG_OF_CBS_READ_WRITE_INFO // for CBS read/write information request
+    wifi_sta_info_init();
+#endif
 }
 
 void Main_IdleHook_patch(void)

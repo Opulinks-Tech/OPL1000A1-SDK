@@ -2,18 +2,18 @@
 #define _SVN_VERSION_H_
 
 // Highest committed revision number in the working copy
-#define SVN_REVISION            1516
+#define SVN_REVISION            1620
 
 // True if local modifications found
-#define SVN_LOCAL_MODIFICATIONS 1
+#define SVN_LOCAL_MODIFICATIONS 0
 
 // Date of highest committed revision
-#define SVN_DATE                "2018/05/10 10:21:13"
+#define SVN_DATE                "2018/05/17 18:03:00"
 
 // Current system date & time
-#define SVN_TIME_NOW            "2018/05/10 17:49:03"
+#define SVN_TIME_NOW            "2018/05/17 18:11:33"
 
 // Repository URL of the working copy
-#define SVN_URL                 "svn://190.168.1.109/repos/SL1000_repo/Tag_Release/NL1000_A0_SDK/OPL1000_001_002_017/NL1000_A0_ROM_r1516"
+#define SVN_URL                 "svn://190.168.1.109/repos/SL1000_repo/Tag_Release/NL1000_A0_SDK/OPL1000_001_002_018/NL1000_A0_ROM_r1620"
 
 #endif

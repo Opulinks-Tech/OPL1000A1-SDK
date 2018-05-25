@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_sys_patch.c
@@ -36,6 +36,7 @@
 #include "svn_rev.h"
 #include "mw_fim.h"
 #include "mw_fim_default_group01.h"
+#include "mw_fim_default_group02.h"
 #include "at_cmd_common_patch.h"
 #include "hal_dbg_uart_patch.h"
 #include "ps.h"
@@ -392,7 +393,7 @@ int _at_cmd_sys_gslp(char *buf, int len, int mode)
     int argc = 0;
     char *argv[AT_MAX_CMD_ARGS] = {0};
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
 	switch (mode)		
 	{
@@ -430,6 +431,14 @@ int _at_cmd_sys_restore(char *buf, int len, int mode)
         MwFim_FileWriteDefault(MW_FIM_IDX_GP01_UART_CFG, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_GP01_UART_CFG, 1);
 
+        // reset Auto connect configuartion and Info
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_MODE, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_CFG, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 1);
+        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 2);
+        
         msg_print_uart1("\r\nOK\r\n");
 
         // wait the output of Uart
@@ -552,7 +561,7 @@ int _at_cmd_sys_sleep(char *buf, int len, int mode)
     int argc = 0;
     char *argv[AT_MAX_CMD_ARGS] = {0};
 
-    _at_cmd_buf_to_argc_argv(buf, &argc, argv);
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
 	switch (mode)		
 	{
@@ -593,6 +602,54 @@ int _at_cmd_sys_ram(char *buf, int len, int mode)
     return true;
 }
 
+void sys_cmd_reg(int argc, char *argv[])
+{
+    uint32_t addr, val, old;
+
+    if (strcmp(argv[1], "r") == 0 && argc >=3)
+    {
+        addr = strtoul(argv[2], NULL, 16);
+        addr &= 0xFFFFFFFC;
+
+        if (argc > 3)
+        {
+            uint32_t length;
+
+            at_output("\nStart address: 0x%08X\n", addr);
+            length = strtoul(argv[3], NULL, 0);
+            for (uint32_t i=0; i<length; i++)
+            {
+                if ((i&0x3) == 0x0)
+                    at_output("\n%08X:", addr+i*4);
+                at_output("    %08X", reg_read(addr+i*4));
+            }
+            at_output("\n");
+        }
+        else
+        {
+            val = reg_read(addr);
+            at_output("0x%X: 0x%08X\n", addr, val);
+        }
+    }
+    else if (strcmp(argv[1], "w") == 0 && argc == 4)
+    {
+        addr = strtoul(argv[2], NULL, 16);
+        addr &= 0xFFFFFFFC;
+        val = strtoul(argv[3], NULL, 16);
+        old = reg_read(addr);
+        reg_write(addr, val);
+        val = reg_read(addr);
+
+        at_output("REG:0x%08X: 0x%08X, (old:0x%08X)\n", addr, val, old);
+    }
+    else
+    {
+        at_output("Usage:");
+        at_output("\treg r <addr> [<length>]\r\n");
+        at_output("\treg w <addr> <value>\r\n");
+    }
+}
+
 /*
  * @brief Command at+reg
  *
@@ -605,7 +662,38 @@ int _at_cmd_sys_ram(char *buf, int len, int mode)
  */
 int _at_cmd_sys_reg(char *buf, int len, int mode)
 {
-#if 0
+#if 1
+    int iRet = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+
+    if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+    {
+        goto done;
+    }
+
+    if((argc < 1) || (argc > AT_MAX_CMD_ARGS))
+    {
+        at_output("invalid param number\r\n");
+        goto done;
+    }
+
+    sys_cmd_reg(argc, argv);
+
+    iRet = 1;
+
+done:
+    if(!iRet)
+    {
+        at_output("ERROR\r\n");
+    }
+    else
+    {
+        at_output("OK\r\n");
+    }
+
+    return iRet;
+#else
     /** at+reg=0x40009040 --> 2 */
     /** at+reg=0x40009040,0x3F4154 --> 3 */
     volatile uint32_t u32Value = 0;
@@ -628,8 +716,8 @@ int _at_cmd_sys_reg(char *buf, int len, int mode)
 
     printf("ok\r\n");
     msg_print_uart1("ok\r\n");
-#endif
     return true;
+#endif
 }
 
 /*
@@ -878,6 +966,7 @@ int _at_cmd_sys_sample(void)
   */
 _at_command_t _gAtCmdTbl_Sys[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "at+rst",                 _at_cmd_sys_rst,           "Restart module" },
     { "at+gmr",                 _at_cmd_sys_gmr,           "View version info" },
     { "at+gslp",                _at_cmd_sys_gslp,          "Enter deep-sleep mode" },
@@ -900,6 +989,7 @@ _at_command_t _gAtCmdTbl_Sys[] =
     { "at+ota_svr_stop",        _at_cmd_sys_ota_svr_stop,  "Close OTA FW Upgrade(HTTP) function" },
     { "at+dbguart",             _at_cmd_sys_dbg_uart_ctrl, "Enable/Disable the Rx part of debug UART" },
     { "at+download",            _at_cmd_sys_download,      "Download the patch image" },
+#endif
     { NULL,                     NULL,                     NULL},
 };
 

@@ -13,7 +13,7 @@
 #include "Hal_pinmux_pwm.h"
 
 
-uint8_t Get_Pwm_Index(uint8_t pin)
+uint8_t Hal_PinMux_Get_Index(uint8_t pin)
 {
     uint8_t pwm_index =0;
 
@@ -43,17 +43,48 @@ uint8_t Get_Pwm_Index(uint8_t pin)
     return pwm_index;
 }
 
-ERR_CODE Hal_Pinmux_Pwm_Init(T_OPL1000_Pwm *pwm)
+ERR_CODE Hal_Pinmux_Pwm_Init()
+{
+    Hal_Pwm_Init();	
+	  return RET_SUCCESS;
+}
+ERR_CODE Hal_Pinmux_Pwm_Disable(uint8_t ubIdxMask)
+{
+	  if((ubIdxMask > HAL_PWM_IDX_ALL) || (ubIdxMask < HAL_PWM_IDX_0))
+	  {
+			printf("PWM index exceed limitation! \r\n");
+			return RET_FAIL;
+		}
+		else 
+		{
+	    Hal_Pwm_Disable(ubIdxMask);	
+			return RET_SUCCESS;
+		}
+}
+ERR_CODE Hal_Pinmux_Pwm_Enable(uint8_t ubIdxMask)
+{
+	  if((ubIdxMask > HAL_PWM_IDX_ALL) || (ubIdxMask < HAL_PWM_IDX_0)) 
+	  {
+			printf("PWM index exceed limitation! \r\n");
+			return RET_FAIL;
+		}
+		else 
+		{
+	    Hal_Pwm_Enable(ubIdxMask);	
+			return RET_SUCCESS;
+		}
+}
+ERR_CODE Hal_Pinmux_Pwm_Config(T_OPL1000_Pwm *pwm)
 {
     uint8_t pwm_index = 0;
     S_Hal_Pwm_Config_t sConfig;
 
     if(pwm->pin > OPL1000_IO18_PIN && pwm->pin < OPL1000_IO23_PIN)
     {
-        Hal_Pwm_Init();
+        //Hal_Pwm_Init();			  
 
-        pwm_index = Get_Pwm_Index(pwm->pin);
-        printf("pwm_index = %d \r\n",pwm_index);
+        pwm_index = Hal_PinMux_Get_Index(pwm->pin);			
+        printf("pwm_index = %d , clock source = %d \r\n",pwm_index,pwm->clkSrc);
         Hal_Pwm_ClockSourceSet(pwm->clkSrc);
         if(pwm->cfgType == CFG_SIMPLE)
         {
@@ -79,9 +110,9 @@ ERR_CODE Hal_Pinmux_Pwm_Init(T_OPL1000_Pwm *pwm)
     else
     {
         printf("pwm init failed\r\n");
+			  return RET_FAIL;
     }
 
-    Hal_Pwm_Enable(pwm_index);
     return RET_SUCCESS;
 }
 

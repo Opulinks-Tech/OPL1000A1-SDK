@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_pip_patch.c
@@ -258,6 +258,7 @@ int _at_cmd_pip_uart_write(char *buf, int len, int mode)
   */
 _at_command_t _gAtCmdTbl_Pip[] =
 {
+#if defined(__AT_CMD_ENABLE__)
     { "at+pipfun1",              _at_cmd_pip_fun1,                   "Perpherial IP function 1" },
     { "at+piprsv",               _at_cmd_pip_rsv,                    "Perpherial IP Reserved" },
     { "at+spi_master_init",      _at_cmd_pip_spi_master_init,        "Open SPI Master and initialize buffer" },
@@ -273,6 +274,7 @@ _at_command_t _gAtCmdTbl_Pip[] =
     { "at+uart_start",           _at_cmd_pip_uart_start,             "Start UART interface" },
     { "at+uart_stop",            _at_cmd_pip_uart_stop,              "Stop UART interface" },
     { "at+uart_write",           _at_cmd_pip_uart_write,             "Send data to UART interface" },
+#endif
     { NULL,                      NULL,                               NULL},
 };
 
