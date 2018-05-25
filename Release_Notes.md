@@ -1,4 +1,34 @@
 ## Release Version:
+SDK Package: 1.0.1.18
+Patch_Lib : 1622 
+ROM_CODE: 809    
+
+## Release Date:  2018/05/25
+
+## Function & Feature Update
+1. Below documents are updated: 
+ 1.1 OPL1000-AT-instruction-set-and-examples: R03, correct some description errors. 
+ 1.2 OPL1000-WIFI-BLE-API-guide: v1.0.1.18, updated several APIs' parameters description.   
+2. Add three new example codes:
+ 2.1 I2C slave example. User need to connect an external I2C Master device to communicate with OPL1000 DEVKIT 
+ 2.2 Log on/off setting example. This example shows how to enable/disable ROM internal module and user application log information   
+ 2.3 http request example, provides two solution. One is based on CMSIS RTOS, the other is based on FreeRTOS.   
+3. Update peripheral PWM example. Provide a complex setting mode to reach higher precision duty rate. 
+4. Improved stability on AP connection    
+5. http request example location: SDK\APS_PATCH\examples\protocols   
+6. Log on/off setting example location: SDK\APS_PATCH\examples\get_started\log
+7. I2C slave example location: SDK\APS_PATCH\examples\peripherals\i2c_slave
+
+## Bug Fix List 
+1. Fix a bug in auto-connection operation
+2. Fix several bugs in BLE AT commands 
+
+## Notes List 
+1. Protocol examples such as https, tcp client/server etc. are on-developing 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.17 
 Patch_Lib : 1516 
 ROM_CODE: 809    
