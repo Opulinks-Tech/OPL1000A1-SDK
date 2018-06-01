@@ -90,12 +90,13 @@ const mw_wifi_auto_connect_ap_info_t gMwFimDefaultAutoConnectAPInfo = {
 
 /* Default value of Wifi Sta configuration */
 // please refer to WifiSta_StaInfoInit()
-const mw_wifi_sta_info_t gMwFimDefaultWifiStaCfg = {
-    .au8Dot11MACAddress = {0x22, 0x33, 0x44, 0x55, 0x66, 0x76},
-    .u8SkipDtimPeriods = 0,
+const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN] = { //[0000526]
+    0x22, 0x33, 0x44, 0x55, 0x66, 0x76
 };
 
-const uint8_t gMwFimDefaultManufName [STA_INFO_MAX_MANUF_NAME_SIZE] = {
+const uint8_t gMwFimDefaultwifiStaSkipDtim = 0; //[0000526]
+
+const uint8_t gMwFimDefaultManufName[STA_INFO_MAX_MANUF_NAME_SIZE] = {
      /* C.B.S XXX, encoding GB2312 */
      0x43, 0x2E, 0x42, 0x2E, 0x53, 0x20, 
      0xB4, 0xB4,
@@ -116,7 +117,10 @@ static uint32_t gMwFimAddrAutoConnectAPNum[MW_FIM_AUTO_CONN_AP_NUM];
 static uint32_t gMwFimAddrBufferFastConnectApInfo[MW_FIM_AUTO_CONN_INFO_NUM];
 
 /* WIFI STA Information configuration */
-static uint32_t gMwFimAddrBufferWifiStaInfo[MW_FIM_STA_INFO_NUM];
+static uint32_t gMwFimAddrWifiStaMacAddr[MW_FIM_STA_MAC_ADDR_NUM]; //[0000526]
+
+static uint32_t gMwFimAddrWifiStaSkipDtim[MW_FIM_STA_SKIP_DTIM_NUM]; //[0000526]
+
 
 /* For blewifi CBS store use */
 static uint32_t gMwFimAddrManufName[MW_FIM_DEVICE_MANUF_NAME_NUM];
@@ -128,7 +132,8 @@ const T_MwFimFileInfo g_taMwFimGroupTable02[] =
     {MW_FIM_IDX_WIFI_AUTO_CONN_CFG,       MW_FIM_IDX_WIFI_AUTO_CONN_CFG_NUM, MW_FIM_IDX_WIFI_AUTO_CONN_CFG_SIZE, (uint8_t*)&gMwFimDefaultAutoConnectCfg,    gMwFimAddrAutoConnectCfg},
     {MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM,    MW_FIM_AUTO_CONN_AP_NUM,        MW_FIM_AUTO_COMM_AP_SIZE,              (uint8_t*)&gMwFimDefaultAutoConnectAPNum,  gMwFimAddrAutoConnectAPNum},
     {MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO,   MW_FIM_AUTO_CONN_INFO_NUM,      MW_FIM_AUTO_CONN_INFO_SIZE,            (uint8_t*)&gMwFimDefaultAutoConnectAPInfo, gMwFimAddrBufferFastConnectApInfo},
-    {MW_FIM_IDX_STA_INFO_CFG,             MW_FIM_STA_INFO_NUM,            MW_FIM_STA_INFO_SIZE,                  (uint8_t*)&gMwFimDefaultWifiStaCfg,         gMwFimAddrBufferWifiStaInfo},
+    {MW_FIM_IDX_STA_MAC_ADDR,             MW_FIM_STA_MAC_ADDR_NUM,        MW_FIM_STA_MAC_ADDR_SIZE,              (uint8_t*)&gMwFimDefaultWifiStaMacAddr,    gMwFimAddrWifiStaMacAddr}, /* [0000526] */
+    {MW_FIM_IDX_STA_SKIP_DTIM,            MW_FIM_STA_SKIP_DTIM_NUM,       MW_FIM_STA_SKIP_DTIM_SIZE,             (uint8_t*)&gMwFimDefaultwifiStaSkipDtim,   gMwFimAddrWifiStaSkipDtim}, /* [0000526] */
     {MW_FIM_IDX_DEVICE_MANUF_NAME,        MW_FIM_DEVICE_MANUF_NAME_NUM,   MW_FIM_DEVICE_MANUF_NAME_SIZE,         (uint8_t*)&gMwFimDefaultManufName,          gMwFimAddrManufName},
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}

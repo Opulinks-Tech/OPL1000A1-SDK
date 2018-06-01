@@ -52,9 +52,6 @@ extern T_TracerTaskInfoGetFp tracer_task_info_get;
 extern T_TracerDefLevelFp tracer_def_level_set;
 extern T_TracerCmdFp tracer_cmd;
 
-extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX];
-extern T_TracerTaskInfo g_taTracerExtTaskInfoBody[TRACER_EXT_TASK_NUM_MAX];
-
 
 void Tracer_PatchInit(void);
 

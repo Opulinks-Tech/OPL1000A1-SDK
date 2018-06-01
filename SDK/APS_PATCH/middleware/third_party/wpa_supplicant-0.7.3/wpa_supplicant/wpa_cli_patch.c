@@ -250,7 +250,8 @@ int wpa_cli_clear_ac_list(int argc, char *argv[])
     delete_auto_connect_cfg_from_flash();
 
     //Reset Sta information
-    MwFim_FileWriteDefault(MW_FIM_IDX_STA_INFO_CFG, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_STA_MAC_ADDR, 0); //[0000526]
+    MwFim_FileWriteDefault(MW_FIM_IDX_STA_SKIP_DTIM, 0); //[0000526]
     
     return TRUE;
 }
@@ -329,12 +330,25 @@ void wpa_cli_setmac_patch(u8 *mac)
     if(mac == NULL) return;
 	//wpa_driver_netlink_set_mac(mac);
 
-    if ((mac[0] == 0x00 && mac[1] == 0x00) ||
-        (mac[0] == 0xFF) || (mac[0] == 0x01)) {
+	//[0000526]_add_beg
+    if(is_multicast_ether_addr(mac)) {
         msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
         return;
     }
     
+    if (mac[0] == 0x00 && mac[1] == 0x00 && mac[2] == 0x00 && 
+        mac[3] == 0x00 && mac[4] == 0x00 && mac[5] == 0x00) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+        return;
+    }
+
+    if (mac[0] == 0xFF && mac[1] == 0xFF && mac[2] == 0xFF && 
+        mac[3] == 0xFF && mac[4] == 0xFF && mac[5] == 0xFF) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+        return;
+    }
+    //[0000526]_add_end
+
     if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
         msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid wpa state \r\n");
         return;
@@ -342,9 +356,9 @@ void wpa_cli_setmac_patch(u8 *mac)
     
     memset(&gsta_cfg_mac[0], 0, MAC_ADDR_LEN);
     memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
-    wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, &gsta_cfg_mac[0]);
+    //wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, &gsta_cfg_mac[0]);
 
-    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, gsta_cfg_mac);
+    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, &gsta_cfg_mac[0]); //[0000526]
 }
 
 void wpa_cli_mac_by_param_patch(int argc, char *argv[])
@@ -392,6 +406,7 @@ void debug_auto_connect(void)
         msg_print(LOG_HIGH_LEVEL, "AP[%d] info ssid = %s\r\n", i, info.ssid);
         msg_print(LOG_HIGH_LEVEL, "AP[%d] info psk = %02x %02x %02x %02x %02x\r\n",
                     i, info.psk[0], info.psk[1], info.psk[2], info.psk[3], info.psk[4]);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] dtim period = %d\r\n", i, info.dtim_prod); //[0000560]
     }
     
     wpa_cli_getmac(&mac[0]);

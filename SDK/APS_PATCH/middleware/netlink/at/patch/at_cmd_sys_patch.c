@@ -438,6 +438,10 @@ int _at_cmd_sys_restore(char *buf, int len, int mode)
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 1);
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 2);
+
+        // rest STA information
+        MwFim_FileWriteDefault(MW_FIM_IDX_STA_MAC_ADDR, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_STA_SKIP_DTIM, 0);
         
         msg_print_uart1("\r\nOK\r\n");
 

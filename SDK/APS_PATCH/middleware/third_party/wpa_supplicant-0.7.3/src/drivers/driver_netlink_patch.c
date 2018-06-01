@@ -170,10 +170,10 @@ Boolean wpa_driver_netlink_sta_cfg_patch(u8 mode, u8 cmd_idx, u8 *value)
         return FALSE;
     }
 
-    if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
-        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid wpa state \r\n");
-        return FALSE;
-    }
+    //if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
+    //    msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid wpa state \r\n");
+    //    return FALSE;
+    //}
 
     switch (mode) {
         case MLME_CMD_GET_PARAM:

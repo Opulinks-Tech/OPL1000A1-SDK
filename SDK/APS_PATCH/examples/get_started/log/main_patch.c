@@ -94,6 +94,9 @@ void User_Demo(void);
 static void Main_AppThread_1(void *argu);
 static void Main_AppThread_2(void *argu);
 
+extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[];
+extern T_TracerTaskInfo g_taTracerExtTaskInfoBody[];
+
 /***********
 C Functions
 ***********/

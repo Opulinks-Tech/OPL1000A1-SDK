@@ -76,7 +76,7 @@ typedef enum
 //    MLME_EVT_NUM,
 
 //    MLME_EVT_DEAUTH_NACK,   //Private event
-    MLME_EVT_SET_PARAM_CNF  = MLME_EVT_DEAUTH_NACK,
+    MLME_EVT_SET_PARAM_CNF  = MLME_EVT_DEAUTH_NACK+1, /* [0000560] */
     MLME_EVT_GET_PARAM_CNF,
     MLME_EVT_UPDATE_DTIM,
 
@@ -189,7 +189,7 @@ typedef struct
 typedef int (*wifi_sta_join_fast_fp_t)(u8 ap_index);
 typedef auto_connect_cfg_t * (*wifi_get_ac_result_fp_t)(void);
 typedef int (*wifi_set_sta_cfg_req_fp_t)(u8 idx, u8 *value);
-typedef int (*wifi_get_sta_cfg_from_share_memory_fp_t)(u8 cfg_idx, void *ptr);
+typedef int (*wifi_get_sta_cfg_from_share_memory_fp_t)(u8 cfg_idx, u8 *ptr); //[0000526]
 
 /* Export interface funtion pointer */
 extern wifi_sta_join_fast_fp_t wifi_sta_join_fast;

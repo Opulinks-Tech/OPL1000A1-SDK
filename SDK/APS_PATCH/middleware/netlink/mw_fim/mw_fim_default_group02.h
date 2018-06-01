@@ -45,10 +45,12 @@ extern "C" {
 #include "common.h"
 #include "controller_wifi_com_patch.h"
 
-typedef struct {
-    uint8_t     au8Dot11MACAddress[MAC_ADDR_LEN];
-    uint8_t     u8SkipDtimPeriods;
-} mw_wifi_sta_info_t;
+//[0000526]_beg
+//typedef struct {
+//    uint8_t     au8Dot11MACAddress[MAC_ADDR_LEN];
+//    uint8_t     u8SkipDtimPeriods;
+//} mw_wifi_sta_info_t;
+//[0000526]_end
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the file ID
@@ -63,7 +65,8 @@ typedef enum
     MW_FIM_IDX_WIFI_AUTO_CONN_CFG,
     MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM,
     MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO,
-    MW_FIM_IDX_STA_INFO_CFG,
+    MW_FIM_IDX_STA_MAC_ADDR,  /* [0000526] */
+    MW_FIM_IDX_STA_SKIP_DTIM, /* [0000526] */
     MW_FIM_IDX_DEVICE_MANUF_NAME,
     MW_FIM_IDX_GP02_MAX
 } E_MwFimIdxGroup02;
@@ -82,8 +85,13 @@ typedef enum
 #define MW_FIM_AUTO_CONN_INFO_NUM         3
 #define MW_FIM_AUTO_CONN_INFO_SIZE        sizeof(mw_wifi_auto_connect_ap_info_t)
 
-#define MW_FIM_STA_INFO_NUM          1
-#define MW_FIM_STA_INFO_SIZE         sizeof(mw_wifi_sta_info_t)
+//[0000526]_add_beg
+#define MW_FIM_STA_MAC_ADDR_NUM          1
+#define MW_FIM_STA_MAC_ADDR_SIZE         MAC_ADDR_LEN
+
+#define MW_FIM_STA_SKIP_DTIM_NUM         1
+#define MW_FIM_STA_SKIP_DTIM_SIZE        1
+//[0000526]_add_end
 
 #define MW_FIM_DEVICE_MANUF_NAME_NUM         1
 #define MW_FIM_DEVICE_MANUF_NAME_SIZE        STA_INFO_MAX_MANUF_NAME_SIZE
@@ -99,7 +107,10 @@ Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
 extern const T_MwFimFileInfo g_taMwFimGroupTable02[];
-extern const mw_wifi_sta_info_t gMwFimDefaultWifiStaCfg;
+//extern const mw_wifi_sta_info_t gMwFimDefaultWifiStaCfg; //[0000526]
+extern const uint8_t gMwFimDefaultManufName[STA_INFO_MAX_MANUF_NAME_SIZE];
+extern const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN]; //[0000526]
+extern const uint8_t gMwFimDefaultwifiStaSkipDtim; //[0000526]
 
 // Sec 5: declaration of global function prototype
 

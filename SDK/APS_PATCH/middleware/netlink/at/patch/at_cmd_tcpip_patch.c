@@ -799,11 +799,11 @@ void receive_from_peer(at_socket_t *plink)
                 if (ipd_info_enable == true) {
                     if (at_ipMux) {
                         header_len = sprintf(data, "\r\n+IPD,%d,%d,"IPSTR",%d:",plink->link_id, len,
-                                IP2STR(&(plink->remote_ip)), ntohs(plink->remote_port));
+                                IP2STR(&(plink->remote_ip)), (plink->remote_port));
                     }
                     else {
                         header_len = sprintf(data, "\r\n+IPD,%d,"IPSTR",%d:", len,
-                                IP2STR(&(plink->remote_ip)), ntohs(plink->remote_port));
+                                IP2STR(&(plink->remote_ip)), (plink->remote_port));
 
                     }
                 } else {
@@ -1092,11 +1092,11 @@ void at_process_recv_socket(at_socket_t *plink)
                 if (ipd_info_enable == true) {
                     if (at_ipMux) {
                         header_len = sprintf(data, "\r\n+IPD,%d,%d,"IPSTR",%d:",plink->link_id, len,
-                                IP2STR(&(plink->remote_ip)), ntohs(plink->remote_port));
+                                IP2STR(&(plink->remote_ip)), plink->remote_port);
                     }
                     else {
                         header_len = sprintf(data, "\r\n+IPD,%d,"IPSTR",%d:", len,
-                                IP2STR(&(plink->remote_ip)), ntohs(plink->remote_port));
+                                IP2STR(&(plink->remote_ip)), plink->remote_port);
 
                     }
                 } else {
@@ -1410,41 +1410,41 @@ void at_socket_server_listen_task(void *arg)
         if (client_sock < 0)
             break;
 
-            //AT_SOCKET_LOCK();
+        //AT_SOCKET_LOCK();
         for (loop = 0; loop < AT_LINK_MAX_NUM; loop++) {
                 plink = at_link_get_id(loop);
                 if (plink->sock < 0) {
                     break;
                 }
-            }
+        }
 
-            if (loop < AT_LINK_MAX_NUM)
-            {
+        if (loop < AT_LINK_MAX_NUM)
+        {
             if ((plink->recv_buf = (char *)malloc(AT_DATA_RX_BUFSIZE * sizeof(char))) == NULL) {
                 AT_LOGI("rx buffer alloc fail\r\n");
                 goto task_exit;
             }
-                plink->link_state = AT_LINK_CONNECTED;
-                inet_addr_to_ip4addr(ip_2_ip4(&plink->remote_ip), &sa.sin_addr);
-                plink->remote_port = ntohs(sa.sin_port);
-                plink->repeat_time = 0;
-                plink->sock = client_sock;
-                plink->terminal_type = AT_REMOTE_CLIENT;
-                plink->server_timeout = 0;
-                at_sprintf(tmp,"%d,CONNECT\r\n",loop);
-                msg_print_uart1(tmp);
+            plink->link_state = AT_LINK_CONNECTED;
+            inet_addr_to_ip4addr(ip_2_ip4(&plink->remote_ip), &sa.sin_addr);
+            plink->remote_port = ntohs(sa.sin_port);
+            plink->repeat_time = 0;
+            plink->sock = client_sock;
+            plink->terminal_type = AT_REMOTE_CLIENT;
+            plink->server_timeout = 0;
+            plink->link_type = AT_LINK_TYPE_TCP;//SSL
+            at_sprintf(tmp,"%d,CONNECT\r\n",loop);
+            msg_print_uart1(tmp);
 
             at_socket_client_create_task(plink);
             //AT_SOCKET_UNLOCK();
-
-            }
-            else
-            {
-                //AT_SOCKET_UNLOCK();
-                at_sprintf(tmp,"connect reach max\r\n");
-                msg_print_uart1(tmp);
-                close(client_sock);
-            }
+        }
+        else
+        {
+            //AT_SOCKET_UNLOCK();
+            at_sprintf(tmp,"connect reach max\r\n");
+            msg_print_uart1(tmp);
+            close(client_sock);
+        }
     }
 
 task_exit:
@@ -1473,7 +1473,7 @@ int at_socket_server_create_task(int sock)
     task_def.stacksize = 512;
     task_def.tpriority = OS_TASK_PRIORITY_APP;
     task_def.pthread = at_socket_server_listen_task;
-    at_tcp_server_task_handle = osThreadCreate(&task_def, (void*)&sock);
+    at_tcp_server_task_handle = osThreadCreate(&task_def, (void*)&tcp_server_socket);
     if(at_tcp_server_task_handle == NULL)
     {
         AT_LOGI("at tcp server task create fail \r\n");
@@ -1509,6 +1509,7 @@ int at_socket_server_cleanup_task(int sock)
     if (sock >= 0) {
         close(sock);
         sock = -1;
+        tcp_server_socket = -1;
     }
 
     //close all accept client connection socket
@@ -2661,7 +2662,8 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
     uint8_t mac[6] = {0};
     char temp[64]={0};
     char *pstr;
-
+    int state;
+    
     switch (mode) {
         case AT_CMD_MODE_READ:
             wpa_cli_getmac(mac);
@@ -2688,15 +2690,21 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
             }
             //printf("%s\n",pstr);
             hwaddr_aton2(pstr, mac);
+
+            state = wpas_get_state();
+            if(state == WPA_COMPLETED || state == WPA_ASSOCIATED) {
+                AT_LOGI("In connected, set mac address failed\r\n");
+                ret = AT_RESULT_CODE_FAIL;
+                goto exit;
+            }
             
             if ((mac[0] == 0x00 && mac[1] == 0x00) ||
                 (mac[0] == 0xFF) || (mac[0] == 0x01)) {
                 goto exit;
             }
 
-            //wpa_cli_setmac(mac);
             wpa_cli_setmac(mac);
-            
+
             ret = AT_RESULT_CODE_OK;
 
             break;

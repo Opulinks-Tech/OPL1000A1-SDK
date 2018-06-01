@@ -81,7 +81,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>D:\sdk\From_TW\OPL1000_001_002_018_20180517_1622\A0\SDK\APS_PATCH\examples\get_started\log_dong\opl1000_app_m3.bat</UserProg1Name>
+            <UserProg1Name>.\opl1000_app_m3.bat</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>1</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>

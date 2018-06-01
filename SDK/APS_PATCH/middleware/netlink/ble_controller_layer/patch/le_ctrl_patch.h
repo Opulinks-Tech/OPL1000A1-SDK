@@ -63,6 +63,7 @@ extern t_send_vendor_specific_set_bd_addr_command_fp send_vendor_specific_set_bd
 void le_ctrl_pre_patch_init(void);
 void le_ctrl_init_patch(void);
 
+void le_enhanced_connection_complete_event_handler_patch(hci_event_packet_04 *event_packet);
 //	0x3F.01 Vendor-Specific Exit HCI Mode Command
 void vendor_specific_exit_hci_mode_command_handler_patch(hci_command_packet_01 *cmd_packet);
 //	0x3F.16 Vendor-Specific Set BD_ADDR Command

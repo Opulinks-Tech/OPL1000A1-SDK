@@ -56,7 +56,7 @@ int g_wifi_argc = 0;
 extern struct wpa_config conf;
 extern int g_wpa_mode;
 extern int wpas_get_state(void);
-u8 g_skip_dtim = 0;
+// [0000526] u8 g_skip_dtim = 0;
 
 /*
  * @brief Command at+cwmode
@@ -1407,15 +1407,15 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int cfg_id;
     int argc = 0;
+    u8 skip_dtim = 0; //[0000526]
     
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
         case AT_CMD_MODE_READ:
-            wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &g_skip_dtim);
-            
-            msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, g_skip_dtim);
+            wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &skip_dtim); //[0000526]
+            msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, skip_dtim); //[0000526]
             msg_print_uart1("\r\nOK\r\n");
             break;
         case AT_CMD_MODE_SET:
@@ -1428,12 +1428,10 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
                     return false;
                 }
 
-                //TODO
-                //should not invoke function from driver_netlink
-
                 switch(cfg_id) {
                     case AT_WIFI_SKIP_DTIM_CFG:
-                        g_skip_dtim = atoi(argv[2]);
+                        //[0000526] g_skip_dtim = atoi(argv[2]);
+                        skip_dtim = atoi(argv[2]);
 
                         //if (skip_dtim > WIFI_MAX_SKIP_DTIM_PERIODS) {
                         //    msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
@@ -1441,9 +1439,9 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
                         //    return false;     
                         //}
                         
-                        //TODO
-                        //Update FIM
-                        wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &g_skip_dtim);
+                        //Update share memory by M0
+                        wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &skip_dtim); //[0000526]
+                        wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_SKIP_DTIM, 1, &skip_dtim); //[0000526]
                         msg_print_uart1("\r\nOK\r\n");
                         break;
                     default:

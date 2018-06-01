@@ -191,6 +191,9 @@ void Main_DriverInit_patch(void)
 
     // Set pin-mux
     Hal_SysPinMuxAppInit();
+    
+    // change the IO interface of Aps debug Uart port
+    Hal_SysPinMuxDownloadInit();
 
     // Init VIC
     Hal_Vic_Init();
@@ -245,18 +248,8 @@ void Main_DriverInit_patch(void)
     // cold boot
     if (0 == Boot_CheckWarmBoot())
     {
-        // ICE or JTag
-        if ((BOOT_MODE_ICE == Hal_Sys_StrapModeRead()) || (BOOT_MODE_JTAG == Hal_Sys_StrapModeRead()))
-        {
-            // the default is on
-            Hal_DbgUart_RxIntEn(1);
-        }
-        // others
-        else
-        {
-            // the default is off
-            Hal_DbgUart_RxIntEn(0);
-        }
+        // the default is on
+        Hal_DbgUart_RxIntEn(1);
     }
     // warm boot
     else

@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK 
 *
 ******************************************************************************/
 /***********************
@@ -55,7 +55,6 @@ Head Block of The File
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define DUMMY          0x00
 
-
 /********************************************
 Declaration of data structure
 ********************************************/
@@ -85,7 +84,7 @@ static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
 static void spi_flash_test(void);
 static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manufacturer, uint32_t *pu32MemoryType, uint32_t *pu32MemoryDensity);
-
+static void spi_send_data(void);
 
 /***********
 C Functions
@@ -131,6 +130,8 @@ static void __Patch_EntryPoint(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
+	  // SPI parameters setting has been executed in Hal_Pinmux_Spi_Init
+	  printf("SPI init \r\n");
     Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[0]);
 }
 
@@ -154,8 +155,13 @@ void Main_AppInit_patch(void)
     App_Pin_InitConfig();
     
     // do the spi_flash_test
-    spi_flash_test();
+	  spi_flash_test();
+	
+	  // send data to SPI slave device 
+    spi_send_data();
 }
+
+
 
 /*************************************************************************
 * FUNCTION:
@@ -188,6 +194,7 @@ static void spi_flash_test(void)
     printf("Manufacturer ID[0x%X] Type[0x%X] Density[0x%X]\n", u32Manufacturer, u32MemoryType, u32MemoryDensity);
 }
 
+
 static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manufacturer, uint32_t *pu32MemoryType, uint32_t *pu32MemoryDensity)
 {
     uint32_t u32Temp = 0;
@@ -216,4 +223,38 @@ static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manu
     return 0;
 }
 
+/*************************************************************************
+* FUNCTION:
+*   spi_send_data
+*
+* DESCRIPTION:
+*   an example that send a string to external SPI slave device. 
+*   SPI port and parameter are defined in OPL1000_periph of OPL1000_pin_mux_define.c 
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void spi_send_data(void)
+{
+    char output_str[] = "Hello from SPI2 ";   
+    uint32_t u32Data, i;
+    T_OPL1000_Spi *spi;
+	
+	  spi = &OPL1000_periph.spi[0];
+	
+    printf("Send data to exernal SPI slave device \r\n");    
+    
+    for(i=0;i<strlen(output_str);i++)
+    {
+        u32Data = output_str[i];
+        Hal_Spi_Data_Send(spi->index,u32Data);
+    } 
+
+    while(1);
+
+}
 
