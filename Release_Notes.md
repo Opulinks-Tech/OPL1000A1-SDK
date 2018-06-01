@@ -1,4 +1,41 @@
 ## Release Version:
+SDK Package: 1.0.1.19
+Patch_Lib : 1679 
+ROM_CODE: 809    
+
+## Release Date:  2018/06/01
+
+## Function & Feature Update
+1. Documents updating: 
+ 1.1 OPL1000-AT-instruction-set-and-examples: R04, add new AT command and fix some description errors. 
+ 1.2 OPL1000-DEVKIT-getting-start-guide: R02_V03, AT and APS UART port usage are updated.   
+ 1.3 OPL1000-SDK-getting-start-guide: R02_V03, firmware upgrade introduction is updated. 
+ 1.4 OPL1000-SDK-Development-guide: R02_V04, update section 2 SDK content introduction.
+ 1.5 OPL1000-patch-download-tool-user-guide: R03, updated according to v0.16 version SW.
+ 1.6 OPL1000-pinmux-tool-user-guide: R02, updated according to v0.5 version SW.  
+ 1.7 Add a new document "OPL1000_peripheral_PWM_application_notes", introduces how to use PWM module.   
+2. Example codes updating:
+ 2.1 Add a new example TCP client, folder: SDK\APS_PATCH\examples\protocols\tcp_client 
+ 2.2 Update SPI_master example, folder: SDK\APS_PATCH\examples\peripherals\spi_master  
+ 2.3 Add a new demo folder "Demo\TCP_Client", introduce how to verify TCP client function.   
+3. Tool version information:
+ 3.1 download tool: v0.16, mini-USB is mapped to APS UART and can be used for "on-line FW upgrade"    
+ 3.2 pin-mux tool: v0.5. pwm and SPI setting are changed.    
+4. WIFI AP connection stability is improved.     
+5. Update and add several AT commands    
+6. Add a new demo of TCP_Client, corresponding folder: Demo\TCP_Client
+
+## Bug Fix List 
+1. fix bug in AT+CIPSTAMAC
+2. fix SPI setting bug in pinmux tool
+3. fix "wpa2_station wifi connection dropped" issue   
+
+## Notes List 
+1. More protocol examples such as mDNS, SNTP development is on-going. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.18
 Patch_Lib : 1622 
 ROM_CODE: 809    
