@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  SH SDK 
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -35,11 +35,15 @@ Head Block of The File
 *  Test code brief
 *  These examples show how to configure spi settings and use spi driver APIs.
 *
-*  spi_flash_test() is an example that read and write data on SPI2 to get the
-*  Manufacturer ID of spi flash.
-*  - port: SPI2
-*  - interrupt: off
-*  - pin assignment: cs(io5), clk(io4), mosi(io3), miso(io2)
+*  spi_flash_test() is an example of using SPI0 to access SPI flash. The operation is *   (1) write a block data to certain area. 
+*   (2) then read it back and compare with original data.  
+*   Flash area address begins from 0x00090000, size 1600 bytes. 
+*       
+*  spi_send_data() is an example of access an external SPI slave device through 
+           SPI1 and SPI2 port 
+*  
+*  SPI1 and SPI2 signal pin and parameters are defined by OPL1000_periph.spi
+* 
 ******************************************************************************/
 
 
@@ -50,15 +54,24 @@ Head Block of The File
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 #include "Hal_pinmux_spi.h"
-
+#include "hal_flash_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define DUMMY          0x00
+#define SPI1_IDX       0 
+#define SPI2_IDX       1
+#define TEST_SPI       SPI2_IDX
+
+#define FLASH_START_ADDR  0x90   // 0x00090000
+#define BLOCK_DATA_SIZE   1600   // bytes
+#define SECTION_INDEX     0      // one section is 4 kbytes  
+#define MIN_DATA_VALUE    50 
+#define MAX_DATA_VALUE    200    // note:(MAX_DATA_VALUE + MIN_DATA_VALUE) < 255 
 
 /********************************************
 Declaration of data structure
 ********************************************/
-// Sec 3: structure, uniou, enum, linked list
+// Sec 3: structure, union, enum, linked list
 
 
 /********************************************
@@ -83,8 +96,9 @@ static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x0042000
 static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
 static void spi_flash_test(void);
-static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manufacturer, uint32_t *pu32MemoryType, uint32_t *pu32MemoryDensity);
-static void spi_send_data(void);
+static void spi_send_data(int idx);
+
+
 
 /***********
 C Functions
@@ -130,9 +144,9 @@ static void __Patch_EntryPoint(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
-	  // SPI parameters setting has been executed in Hal_Pinmux_Spi_Init
-	  printf("SPI init \r\n");
-    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[0]);
+    printf("SPI initialization  \r\n");
+    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[SPI1_IDX]);
+    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[SPI2_IDX]);    
 }
 
 /*************************************************************************
@@ -154,22 +168,22 @@ void Main_AppInit_patch(void)
     // init the pin assignment
     App_Pin_InitConfig();
     
-    // do the spi_flash_test
-	  spi_flash_test();
-	
-	  // send data to SPI slave device 
-    spi_send_data();
+    // call spi_flash_test, use SPI0 to access on board SPI flash 
+    spi_flash_test();
+    
+    spi_send_data(SPI1_IDX);
+    
+    spi_send_data(SPI2_IDX);    
+    
+    while(1);
 }
-
-
 
 /*************************************************************************
 * FUNCTION:
 *   spi_flash_test
 *
 * DESCRIPTION:
-*   an example that read and write data on SPI2 to get the Manufacturer
-*   ID of spi flash.
+*   an example that read and write data on SPI0 to access on board spi flash.
 *
 * PARAMETERS
 *   none
@@ -180,81 +194,55 @@ void Main_AppInit_patch(void)
 *************************************************************************/
 static void spi_flash_test(void)
 {
-    uint32_t u32Manufacturer;
-    uint32_t u32MemoryType;
-    uint32_t u32MemoryDensity;
+    uint8_t u8BlockData[BLOCK_DATA_SIZE],u8ReadData[BLOCK_DATA_SIZE] = {0};
+    uint32_t i,u32Length,u32SectorAddr32bit;
+    uint16_t u16SectorAddr;
+    bool match_flag = true; 
     
-    // init spi2
-    Hal_Spi_Init(SPI_IDX_2, SystemCoreClockGet()/2, SPI_CLK_PLOAR_HIGH_ACT,
-                 SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
+    u32Length = BLOCK_DATA_SIZE;
+      
+    // prepare test block data 
+    for (i=0; i<u32Length; i++)
+        u8BlockData[i] = (i%MAX_DATA_VALUE) + MIN_DATA_VALUE;
+      
+    u16SectorAddr = FLASH_START_ADDR + SECTION_INDEX; // one section is 4k Bytes 
+      
+    u32SectorAddr32bit =  (((uint32_t)u16SectorAddr) << 12) & 0x000ff000;
+    // Erase flash firstly  
+    Hal_Flash_4KSectorAddrErase_patch(SPI_IDX_0, u32SectorAddr32bit);
+    // Write u8BlockData into flash   
+    Hal_Flash_AddrProgram(SPI_IDX_0, u32SectorAddr32bit, 0, u32Length, u8BlockData);
+    // Read flash content from SectorAddr32bit
 
-    // get the Manufacturer ID, Memory Type and Memory Density
-    spi_Flash_ManufDeviceId(SPI_IDX_2, &u32Manufacturer, &u32MemoryType, &u32MemoryDensity);
-    
-    printf("Manufacturer ID[0x%X] Type[0x%X] Density[0x%X]\n", u32Manufacturer, u32MemoryType, u32MemoryDensity);
+    Hal_Flash_AddrRead(SPI_IDX_0, u32SectorAddr32bit, 0, u32Length, u8ReadData );
+    for(i=0; i<u32Length; i++)
+    {
+        if(u8BlockData[i] != u8ReadData[i] )
+        {
+            printf("No.%d data error. write %x, read %x \r\n",i+1, u8BlockData[i],u8ReadData[i]);
+            match_flag = false;
+        }
+    }
+    if (match_flag == true)
+    {
+        printf("Write and read %d bytes data on flash @%x successfully \r\n",u32Length, u32SectorAddr32bit); 
+    }
 }
 
 
-static uint32_t spi_Flash_ManufDeviceId(E_SpiIdx_t u32SpiIdx, uint32_t *pu32Manufacturer, uint32_t *pu32MemoryType, uint32_t *pu32MemoryDensity)
+
+static void spi_send_data(int idx)
 {
-    uint32_t u32Temp = 0;
-
-    if(u32SpiIdx >= SPI_IDX_MAX)
-        return 1;
-    
-    // Command: 0x9F
-    // Tx MOSI: (w)8 bits command | (w)8 bits dummy | (w)8 bits dummy | (w)8 bits dummy
-    // Rx MISO: (r)8 bits dummy   | (r)8 bits data  | (r)8 bits data  | (r)8 bits data
-
-    u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x9F;
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-    u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | DUMMY;
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-    u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | DUMMY;
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-    u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_1_BIT | TAG_WRITE | DUMMY;  // compelete
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-    
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-    Hal_Spi_Data_Recv(u32SpiIdx, pu32Manufacturer);
-    Hal_Spi_Data_Recv(u32SpiIdx, pu32MemoryType);
-    Hal_Spi_Data_Recv(u32SpiIdx, pu32MemoryDensity);
-
-    return 0;
-}
-
-/*************************************************************************
-* FUNCTION:
-*   spi_send_data
-*
-* DESCRIPTION:
-*   an example that send a string to external SPI slave device. 
-*   SPI port and parameter are defined in OPL1000_periph of OPL1000_pin_mux_define.c 
-*
-* PARAMETERS
-*   none
-*
-* RETURNS
-*   none
-*
-*************************************************************************/
-static void spi_send_data(void)
-{
-    char output_str[] = "Hello from SPI2 ";   
+    char output_str[32]= {0};   
     uint32_t u32Data, i;
     T_OPL1000_Spi *spi;
-	
-	  spi = &OPL1000_periph.spi[0];
-	
-    printf("Send data to exernal SPI slave device \r\n");    
-    
+
+    sprintf(output_str,"Hello from SPI%d \r\n",idx+1);
+    spi = &OPL1000_periph.spi[idx];
+    printf("Send data to external SPI%d slave device \r\n",idx+1);    
     for(i=0;i<strlen(output_str);i++)
     {
         u32Data = output_str[i];
         Hal_Spi_Data_Send(spi->index,u32Data);
-    } 
-
-    while(1);
-
+    }    
 }
-

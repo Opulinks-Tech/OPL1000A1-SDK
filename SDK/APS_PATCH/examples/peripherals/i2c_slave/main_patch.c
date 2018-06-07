@@ -179,7 +179,6 @@ void Main_AppInit_patch(void)
 *************************************************************************/
 static void Main_AppThread_1(void *argu)
 {
-    uint16_t uwAddr = 0;
     uint8_t ubaData[4] = {0xaa,0xb,0xcc,0xdd};
     uint8_t i = 0;
     
@@ -188,7 +187,7 @@ static void Main_AppThread_1(void *argu)
     {
         if(!Hal_I2c_SlaveReceive(ubaData,4))
         {
-            for(uint8_t i = 0; i < 4; i++)
+            for(i = 0; i < 4; i++)
             {
                 printf("%x",ubaData[i]);
             }

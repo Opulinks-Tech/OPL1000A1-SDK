@@ -114,7 +114,7 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
         printf("\r\nWi-Fi Connected \r\n");
 
         uart_printf(UART_IDX_0,"UART0：OPL1000 connected! \r\n");
-        Hal_Vic_GpioOutput(GPIO_IDX_04,1);
+        Hal_Vic_GpioOutput(GPIO_IDX_04,GPIO_LEVEL_HIGH);
     
         break;
     case WIFI_EVENT_STA_DISCONNECTED:
@@ -122,7 +122,7 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
         wifi_do_scan(WIFI_SCAN_TYPE_ACTIVE);
 
         uart_printf(UART_IDX_0,"UART0：OPL1000 disconnected! \r\n");
-        Hal_Vic_GpioOutput(GPIO_IDX_04,0);
+        Hal_Vic_GpioOutput(GPIO_IDX_04,GPIO_LEVEL_LOW);
     
         break;
     case WIFI_EVENT_SCAN_COMPLETE:

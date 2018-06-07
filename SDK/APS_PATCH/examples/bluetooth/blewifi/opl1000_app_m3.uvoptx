@@ -22,7 +22,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>NL1000_APS_App</TargetName>
+    <TargetName>OPL1000_APS_App</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -110,7 +110,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile>.\nl1000_a0_app_m3.ini</tIfile>
+        <tIfile>.\opl1000_app_m3.ini</tIfile>
         <pMon>Segger\JL2CM3.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
