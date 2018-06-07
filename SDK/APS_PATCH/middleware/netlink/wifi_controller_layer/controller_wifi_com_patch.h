@@ -79,13 +79,20 @@ typedef enum
     MLME_EVT_SET_PARAM_CNF  = MLME_EVT_DEAUTH_NACK+1, /* [0000560] */
     MLME_EVT_GET_PARAM_CNF,
     MLME_EVT_UPDATE_DTIM,
-
+    MLME_EVT_PORT_SCRT_DONE,
+    
     //For Auto connect use
     MLME_EVT_AUTO_CONNECT_START = 100,       
     MEML_EVT_AUTO_CONNECT_FAILED_IND,
     MLME_EVT_AUTO_CONNECT,
     MLME_EVT_FAST_CONNECT_START,
 } mlme_evt_type_ext_e;
+
+typedef enum
+{
+    CONNECT_OPEN_DONE,
+    CONNECT_PORT_SCRT_DONE,
+} connect_done_st_e;
 
 /* For CBS use */
 #define STA_INFO_MAX_MANUF_NAME_SIZE   32
@@ -109,6 +116,8 @@ typedef enum {
 #define AUTO_CONNECT_DISABLE 0
 #define AUTO_CONNECT_ENABLE  1
 #define AUTO_CONNECT_MANUAL  2  //Internal use, for compatible Auto and Manual mode
+
+#define AUTO_CONNECT_REASON_CODE_FAILED   200
 
 typedef struct
 {
@@ -227,6 +236,7 @@ u8 set_fast_connect_mode(u8 ap_idx, u8 mode);
 u8 get_auto_connect_info(u8 idx, auto_conn_info_t *info);
 u8 set_auto_connect_info(u8 idx, auto_conn_info_t *info);
 void wifi_sta_info_init(void);
+int send_port_security_done_event(void);
 
 #endif  //__CONTROLLER_WIFI_COM_PATCH_H__
 

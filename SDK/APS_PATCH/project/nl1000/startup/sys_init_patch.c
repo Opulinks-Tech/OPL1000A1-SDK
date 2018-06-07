@@ -81,6 +81,8 @@ Head Block of The File
 #include "msg_patch.h"
 #include "le_ctrl_patch.h"
 #include "controller_wifi_patch.h"
+#include "agent.h"
+#include "wifi_mac_tx_data_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define BOOT_MODE_ICE       0x2
@@ -294,6 +296,12 @@ void Main_ServiceInit_patch(void)
 #ifdef FLAG_OF_CBS_READ_WRITE_INFO // for CBS read/write information request
     wifi_sta_info_init();
 #endif
+
+    // Agent
+    agent_init();
+
+    // Load param from FIM for Tracer
+    tracer_load();
 }
 
 void Main_IdleHook_patch(void)
@@ -349,7 +357,8 @@ void SysInit_EntryPoint(void)
     wifi_mac_crypto_func_init_patch();
     wifi_mac_task_func_init_patch();
     wifi_mac_rx_data_func_init_patch();
-
+    wifi_mac_txdata_func_init_patch();
+     
     //wifi control
     wifi_ctrl_patch_init();
     /** SCRT Driver Patch Initialization */
@@ -388,6 +397,9 @@ void SysInit_EntryPoint(void)
 
     // os
     os_patch_init();
+
+    // Agent
+    agent_patch_init();
 
     // Tracer
     Tracer_PatchInit();

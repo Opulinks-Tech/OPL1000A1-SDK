@@ -136,7 +136,8 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
     u8 bssid[MAC_ADDR_LEN] = {0};
     u8 ssid[MAX_LEN_OF_SSID + 1] = {0};
     int freq;
-
+    u8 ret = FALSE;
+    
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
@@ -155,7 +156,7 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
 
                 msg_print_uart1("\r\n+CWJAP:");
                 msg_print_uart1("%s,", ssid);
-                msg_print_uart1("%x:%x:%x:%x:%x:%x,", bssid[0], bssid[1], bssid[2],bssid[3], bssid[4], bssid[5]);
+                msg_print_uart1("%02x:%02x:%02x:%02x:%02x:%02x,", bssid[0], bssid[1], bssid[2],bssid[3], bssid[4], bssid[5]);
                 msg_print_uart1("%d,", freq);
                 msg_print_uart1("%d\r\n", rssi);
             }
@@ -171,7 +172,20 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
             break;
 
         case AT_CMD_MODE_SET:
-            wpa_cli_connect_handler(argc, argv);
+            if (argc == 3) {
+                if (strlen(argv[2]) >= MAX_LEN_OF_PASSWD) {
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_PWD_INVALID);
+                    msg_print_uart1("\r\nERROR\r\n");
+                }
+            }
+
+            ret = wpa_cli_connect_handler(argc, argv);
+            
+            if (ret == FALSE) {
+                msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_NO_AP);
+                msg_print_uart1("\r\nERROR\r\n");
+            }
+            
             break;
 
         case AT_CMD_MODE_TESTING:

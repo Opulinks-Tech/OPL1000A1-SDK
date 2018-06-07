@@ -104,7 +104,7 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
 	    case MLME_EVT_ASSOC:
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-EVENT_ASSOC \r\n\r\n");
             msg_print(LOG_HIGH_LEVEL, "connected\r\n\r\n");
-            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, MSG_WIFI_CONNECTED_OPEN);
+            //_at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, MSG_WIFI_CONNECTED_OPEN);
             wpa_clr_key_info();
             wpa_supplicant_event_assoc(wpa_s, NULL);
             wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATED);

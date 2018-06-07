@@ -21,7 +21,8 @@
 #include "at_cmd_app.h"
 #include "at_cmd_common_patch.h"
 #include "at_cmd_tcpip_patch.h"
-#include "controller_wifi_com_patch.h"
+#include "at_cmd_msg_ext.h"
+#include "at_cmd_msg_ext_patch.h"
 
 osThreadId at_app_task_id;
 
@@ -56,12 +57,13 @@ int at_wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t leng
 
     switch(event_id) {
     case WIFI_EVENT_STA_START:
-        wifi_auto_connect_req();
+        wifi_auto_connect_start();
         break;
     case WIFI_EVENT_STA_CONNECTED:
         lwip_net_start(WIFI_MODE_STA);
         at_wifi_status = WIFI_EVENT_STA_CONNECTED;
-        printf("\r\nWiFi Connected\r\n");
+        _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, reason);
+        printf("\r\nWiFi Connect, reason %d\r\n", reason);
         break;
     case WIFI_EVENT_STA_DISCONNECTED:
         printf("\r\nWiFi Disconnect, reason %d\r\n", reason);
@@ -84,8 +86,6 @@ int at_wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t leng
     case WIFI_EVENT_STA_CONNECTION_FAILED:
         printf("\r\nWiFi Connected failed\r\n");
         at_wifi_reason = STATION_CONNECT_FAIL;
-        break;
-    case WIFI_EVENT_STA_AUTO_CONNECT_FAILED_IND:
         break;
     default:
         printf("\r\n Unknown Event %d \r\n", event_id);

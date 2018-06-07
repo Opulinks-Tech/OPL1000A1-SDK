@@ -33,6 +33,7 @@
 #include "wpa_patch.h"
 #include "controller_wifi_com_patch.h"
 #include "wifi_api.h"
+#include "wifi_mac_tx_data_patch.h"
 
 extern struct ieee802_1x_hdr msg_1_4_hdr;
 extern struct wpa_ptk g_ptk;
@@ -610,7 +611,9 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
     //wpa_printf_dbg(MSG_INFO, "\r\nsecured connected\r\n\r\n");
     //msg_print(LOG_HIGH_LEVEL, "\r\nsecured connected\r\n\r\n");
     wifi_sta_join_complete(1); // 1 means success
-
+    send_port_security_done_event();
+    wifi_mac_set_encrypt_eapol_frame(true);
+    
 #ifdef __WIFI_AUTO_CONNECT__
     /* Set successfully connect info to Auto Connect list */
     switch(get_auto_connect_mode()) {
@@ -1274,7 +1277,9 @@ int wpa_sm_rx_eapol_patch(struct wpa_sm *sm, const u8 *src_addr,
             
             //Save key_info of message 3/4
             g_key_info_3_4 = key_info;
-
+            
+            wifi_mac_set_encrypt_eapol_frame(false);
+            
 			/* 3/4 4-Way Handshake */
 			wpa_supplicant_process_3_of_4(sm, key, ver);
 		} else { //enter

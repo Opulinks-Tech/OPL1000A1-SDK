@@ -93,7 +93,6 @@ typedef enum
     WIFI_EVENT_STA_DISCONNECTED,        /**< station disconnected from AP */
     WIFI_EVENT_STA_CONNECTION_FAILED,   /**< Connection has failed. For the reason code, please refer to #wifi_reason_code_t. */
     WIFI_EVENT_STA_GOT_IP,              /**< station got IP from connected AP */
-    WIFI_EVENT_STA_AUTO_CONNECT_FAILED_IND, /**< station auto connect failed indication */
     WIFI_EVENT_MAX
 } wifi_event_t;
 
@@ -147,6 +146,8 @@ typedef enum {
     WIFI_REASON_CODE_INVALID_RSNE_CAPABILITIES,           /**<  22  Invalid RSN information element capabilities. */
     WIFI_REASON_CODE_IEEE_802_1X_AUTH_FAILED,             /**<  23  IEEE 802.1X authentication failed. */
     WIFI_REASON_CODE_CIPHER_REJECTED,                     /**<  24  Cipher suite rejected because of the security policy. */
+
+    WIFI_REASON_CODE_AUTO_CONNECT_FAILED = 200,          /**<  200  Auto connect failed. */
 } wifi_reason_code_t;
 
 /** @brief This enumeration defines the wireless STA scan type

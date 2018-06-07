@@ -93,7 +93,8 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
     char passwd[MAX_LEN_OF_PASSWD] = {0};
     int len_passwd = 0;
     int len_ssid = 0;
-
+    u8 ret = FALSE;
+    
     if(argc <= 1) {
         msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
         return FALSE;
@@ -215,8 +216,9 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
     }
 #endif
 
-    wpa_cli_connect(&conf);
-
+    ret = wpa_cli_connect(&conf);
+    if (ret == FALSE) return FALSE;
+    
     if (conf.ssid->ssid) {
         os_free(conf.ssid->ssid);
         conf.ssid->ssid = NULL;
@@ -449,6 +451,16 @@ int wpa_cli_dbg(int argc, char *argv[])
     return TRUE;
 }
 
+int wpa_cli_connect_patch(struct wpa_config * conf)
+{
+    u8 ret = FALSE;
+    if (conf == NULL) return FALSE;
+    if (conf->ssid == NULL) return FALSE;
+    ret = wpa_driver_netlink_connect(conf);
+    if (ret == FALSE) return FALSE;
+    return TRUE;
+}
+
 uint32_t wpa_cli_cmd_handler_patch(int argc, char *argv[])
 {
     if (argc < 1) return FALSE;
@@ -548,6 +560,7 @@ void wpa_cli_func_init_patch(void)
     wpa_cli_mac_by_param = wpa_cli_mac_by_param_patch;
     wpa_cli_getmac = wpa_cli_getmac_patch;
     wpa_cli_setmac = wpa_cli_setmac_patch;
+    wpa_cli_connect = wpa_cli_connect_patch;
     return;
 }
 

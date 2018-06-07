@@ -43,6 +43,7 @@ extern "C" {
 // Sec 1: Include File
 #include "mw_fim.h"
 #include "hal_uart_patch.h"
+#include "msg_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -56,6 +57,10 @@ typedef enum
     MW_FIM_IDX_GP01_START = 0x00010000,             // the start IDX of group 01
     MW_FIM_IDX_GP01_UART_CFG,
     
+    MW_FIM_IDX_GP01_TRACER_CFG,
+    MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO,
+    MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO,
+    
     MW_FIM_IDX_GP01_MAX
 } E_MwFimIdxGroup01;
 
@@ -67,6 +72,15 @@ Declaration of data structure
 // the information of Uart config
 #define MW_FIM_UART_CFG_SIZE    sizeof(T_HalUartConfig)
 #define MW_FIM_UART_CFG_NUM     2
+
+#define MW_FIM_TRACER_CFG_SIZE              sizeof(T_TracerCfg)
+#define MW_FIM_TRACER_CFG_NUM               1
+
+#define MW_FIM_TRACER_INT_TASK_INFO_SIZE    sizeof(T_TracerTaskInfo)
+#define MW_FIM_TRACER_INT_TASK_INFO_NUM     TRACER_INT_TASK_NUM_MAX
+
+#define MW_FIM_TRACER_EXT_TASK_INFO_SIZE    sizeof(T_TracerTaskInfo)
+#define MW_FIM_TRACER_EXT_TASK_INFO_NUM     TRACER_EXT_TASK_NUM_MAX
 
 
 /********************************************

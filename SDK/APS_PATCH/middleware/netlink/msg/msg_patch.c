@@ -23,46 +23,62 @@
 #include "msg_patch.h"
 #include "diag_task_patch.h"
 #include "sys_os_config.h"
+#include "mw_fim.h"
+#include "mw_fim_default_group01.h"
+#include "agent.h"
 
 
 #define TRACER_TASK_PRIORITY        OS_TASK_PRIORITY_TRACER
 #define TRACER_TASK_STACK_SIZE      OS_TASK_STACK_SIZE_TRACER // number of uint32_t
 
+#define TRACER_GET_MSG_LEN
 
-T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = 
+
+const T_TracerTaskInfo g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = 
 {
     // ROM
-    {"diag",            LOG_NONE_LEVEL},
-    {"wifi_mac",        LOG_NONE_LEVEL},
-    {"supplicant",      LOG_NONE_LEVEL},
-    {"controller_task", LOG_NONE_LEVEL},
-    {"le",              LOG_NONE_LEVEL},
-    {"event_loop",      LOG_NONE_LEVEL},
-    {"tcpip_thread",    LOG_NONE_LEVEL},
-    {"ping_thread",     LOG_NONE_LEVEL},
-    {"iperf",           LOG_NONE_LEVEL},
-    {TRACER_ISR_NAME_PREFIX,    LOG_NONE_LEVEL},
-    //{"tracer",        LOG_NONE_LEVEL},
+    {"diag",                LOG_NONE_LEVEL, 0},
+    {"wifi_mac",            LOG_NONE_LEVEL, 0},
+    {"supplicant",          LOG_NONE_LEVEL, 0},
+    {"controller_task",     LOG_NONE_LEVEL, 0},
+    {"le",                  LOG_NONE_LEVEL, 0},
+    {"event_loop",          LOG_NONE_LEVEL, 0},
+    {"tcpip_thread",        LOG_NONE_LEVEL, 0},
+    {"ping_thread",         LOG_NONE_LEVEL, 0},
+    {"iperf",               LOG_NONE_LEVEL, 0},
+    {AGENT_TASK_NAME,       LOG_NONE_LEVEL, 0},
+    {TRACER_ISR_NAME_PREFIX,LOG_NONE_LEVEL, 0},
+    //{"tracer",              LOG_NONE_LEVEL, 0},
 
     // Patch
-    {"at_wifi_app",     LOG_NONE_LEVEL},
-    {"AT",              LOG_NONE_LEVEL},
-    {"at_tx_data",      LOG_NONE_LEVEL},
-    {"socket",          LOG_NONE_LEVEL},
-    {"server",          LOG_NONE_LEVEL},
+    {"at_wifi_app",         LOG_NONE_LEVEL, 0},
+    {"AT",                  LOG_NONE_LEVEL, 0},
+    {"at_tx_data",          LOG_NONE_LEVEL, 0},
+    {"socket",              LOG_NONE_LEVEL, 0},
+    {"server",              LOG_NONE_LEVEL, 0},
 
-    {"",                LOG_NONE_LEVEL}, // end
+    {"",                    LOG_NONE_LEVEL, 0}, // end
 };
 
+T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = {0};
 T_TracerTaskInfo g_taTracerExtTaskInfoBody[TRACER_EXT_TASK_NUM_MAX] = {0};
 
+// internal
 RET_DATA uint8_t g_bTracerIntTaskNum;
 RET_DATA uint8_t g_bTracerExtTaskNum;
-RET_DATA uint8_t g_bTracerIntTaskDefLevel;
 RET_DATA uint8_t g_bTracerExtTaskDefLevel;
+RET_DATA T_TracerTaskInfo *g_ptTracerDefIntTaskInfo;
 RET_DATA T_TracerTaskInfo *g_ptTracerIntTaskInfo;
 RET_DATA T_TracerTaskInfo *g_ptTracerExtTaskInfo;
+RET_DATA T_TracerCommonFp tracer_load;
+RET_DATA T_TracerTaskCfgSaveFp tracer_cfg_save;
+RET_DATA T_TracerTaskInfoSaveFp tracer_int_task_info_save;
+RET_DATA T_TracerTaskInfoSaveFp tracer_ext_task_info_save;
+RET_DATA T_TracerCommonFp tracer_cfg_reset;
+RET_DATA T_TracerCommonFp tracer_int_task_reset;
+RET_DATA T_TracerCommonFp tracer_ext_task_reset;
 
+// external
 RET_DATA T_TracerTaskInfoGetFp tracer_task_info_get;
 RET_DATA T_TracerDefLevelFp tracer_def_level_set;
 RET_DATA T_TracerCmdFp tracer_cmd;
@@ -118,15 +134,13 @@ T_TracerTaskInfo *tracer_task_info_get_patch(char *baName, T_TracerTaskInfo *taT
 
     for(i = 0; i < bTaskNum; i++)
     {
-        if(taTaskInfo[i].baName[0] == 0)
+        if(taTaskInfo[i].baName[0])
         {
-            break;
-        }
-
-        if(!strncmp(baName, taTaskInfo[i].baName, strlen(taTaskInfo[i].baName)))
-        {
-            ptInfo = &(taTaskInfo[i]);
-            break;
+            if(!strncmp(baName, taTaskInfo[i].baName, strlen(taTaskInfo[i].baName)))
+            {
+                ptInfo = &(taTaskInfo[i]);
+                break;
+            }
         }
     }
 
@@ -152,24 +166,29 @@ void tracer_opt_entry_add_patch(uint32_t dwHandle, uint8_t bLevel)
 
     for(i = 0; i < g_bTracerExtTaskNum; i++)
     {
-        if(g_ptTracerExtTaskInfo[i].baName[0] == 0)
+        if(g_ptTracerExtTaskInfo[i].baName[0])
         {
-            iUnusedIdx = i;
-            break;
+            if(!strncmp(baName, g_ptTracerExtTaskInfo[i].baName, strlen(g_ptTracerExtTaskInfo[i].baName)))
+            {
+                ptInfo = &(g_ptTracerExtTaskInfo[i]);
+                break;
+            }
         }
-
-        if(!strncmp(baName, g_ptTracerExtTaskInfo[i].baName, strlen(g_ptTracerExtTaskInfo[i].baName)))
+        else
         {
-            ptInfo = &(g_ptTracerExtTaskInfo[i]);
-            break;
+            if(iUnusedIdx == -1)
+            {
+                iUnusedIdx = i;
+            }
         }
     }
 
     if((!ptInfo) && (iUnusedIdx > -1))
     {
         // add external task info
-        g_ptTracerExtTaskInfo[iUnusedIdx].bLevel = bLevel;
         snprintf(g_ptTracerExtTaskInfo[iUnusedIdx].baName, sizeof(g_ptTracerExtTaskInfo[iUnusedIdx].baName), "%s", baName);
+        g_ptTracerExtTaskInfo[iUnusedIdx].bLevel = bLevel;
+        g_ptTracerExtTaskInfo[iUnusedIdx].bStatus = 0;
     }
 
 done:
@@ -212,23 +231,92 @@ int tracer_level_get_patch(uint32_t dwHandle, uint8_t *pbLevel)
     return iRet;
 }
 
+void tracer_load_patch(void)
+{
+    uint8_t i = 0;
+    T_TracerCfg tCfg = {0};
+    T_TracerTaskInfo tInfo = {0};
+
+    if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
+    {
+        TRACER_DBG("[%s %d] MwFim_FileRead fail\n", __func__, __LINE__);
+
+        if(tracer_cfg_save())
+        {
+            TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
+        }
+    }
+    else
+    {
+        g_bTracerLogMode = tCfg.bMode;
+        g_bTracerExtTaskDefLevel = tCfg.bExtTaskDefLevel;
+        g_iTracerPriority = tCfg.iPriority;
+        g_dwTracerStackSize = tCfg.dwStackSize;
+        g_dwTracerQueueNum = tCfg.dwQueueNum;
+        g_dwTracerQueueSize = tCfg.dwQueueSize;
+
+        g_bTracerNameDisplay = tCfg.bNameDisplay;
+    }
+
+    for(i = 0; i < g_bTracerIntTaskNum; i++)
+    {
+        if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, i, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
+        {
+            TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
+
+            if(tracer_int_task_info_save(i))
+            {
+                TRACER_DBG("[%s %d] tracer_int_task_info_save[%d] fail\n", __func__, __LINE__, i);
+            }
+            else
+            {
+                g_ptTracerIntTaskInfo[i].bStatus = 1;
+            }
+        }
+        else
+        {
+            snprintf(g_ptTracerIntTaskInfo[i].baName, sizeof(g_ptTracerIntTaskInfo[i].baName), "%s", tInfo.baName);
+            g_ptTracerIntTaskInfo[i].bLevel = tInfo.bLevel;
+            g_ptTracerIntTaskInfo[i].bStatus = 1;
+        }
+    }
+
+    for(i = 0; i < g_bTracerExtTaskNum; i++)
+    {
+        if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, i, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
+        {
+            TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
+
+            if(tracer_ext_task_info_save(i))
+            {
+                TRACER_DBG("[%s %d] tracer_ext_task_info_save[%d] fail\n", __func__, __LINE__, i);
+            }
+            else
+            {
+                g_ptTracerExtTaskInfo[i].bStatus = 1;
+            }
+        }
+        else
+        {
+            snprintf(g_ptTracerExtTaskInfo[i].baName, sizeof(g_ptTracerExtTaskInfo[i].baName), "%s", tInfo.baName);
+            g_ptTracerExtTaskInfo[i].bLevel = tInfo.bLevel;
+            g_ptTracerExtTaskInfo[i].bStatus = 1;
+        }
+    }
+
+    return;
+}
+
 void tracer_init_patch(void)
 {
     osPoolDef_t tPoolDef = {0};
-    //osPoolDef(TracerPool, TRACER_QUEUE_NUM, T_TracerMsg);
     osThreadDef_t tThreadDef = {0};
     osMessageQDef_t tQueueDef = {0};
-    uint8_t i = 0;
 
     if(g_bTracerInit)
     {
         TRACER_DBG("[%s %d] Tracer already init\n", __func__, __LINE__);
         goto done;
-    }
-
-    for(i = 0; i < g_bTracerIntTaskNum; i++)
-    {
-        g_ptTracerIntTaskInfo[i].bLevel = g_bTracerIntTaskDefLevel;
     }
 
     tPoolDef.pool_sz = g_dwTracerQueueNum;
@@ -285,7 +373,6 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
     int iRet = -1;
     va_list tList;
     T_TracerMsg *ptMsg = NULL;
-    osStatus tStatus = osErrorOS;
     int iBufSize = 0;
     uint8_t bListUsed = 0;
     uint32_t dwHandle = 0;
@@ -295,6 +382,7 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
     uint8_t bTruncated = 0;
 
     #ifdef TRACER_GET_MSG_LEN
+    char baTmp[4] = {0};
     #else
     char baTmp[TRACER_MSG_MAX_SIZE] = {0};
     #endif
@@ -407,8 +495,12 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
         bListUsed = 1;
     
         #ifdef TRACER_GET_MSG_LEN
-        // it should be supported by C99
-        iBufSize = vsnprintf(NULL, 0, sFmt, tList);
+        // With C99, it should return total length of string without writing anything.
+        // But on A0 FPGA, it will write string to address 0x00000000! Something wrong!
+        //iBufSize = vsnprintf(NULL, 0, sFmt, tList);
+
+        // With C99, it will write one byte ('\0') to baTmp and return total length of string.
+        iBufSize = vsnprintf(baTmp, 1, sFmt, tList);
         #else
         iBufSize = vsnprintf(baTmp, TRACER_MSG_MAX_SIZE, sFmt, tList);
         #endif
@@ -448,18 +540,13 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
             ptMsg->ptCb->baBuf[iBufSize] = '\n';
             ptMsg->ptCb->baBuf[iBufSize + 1] = 0;
         }
-    
-        va_end(tList);
-        bListUsed = 0;
 
         ptMsg->ptCb->tInfo.bType = bType;
         ptMsg->ptCb->tInfo.bLevel = bTaskLevel;
         ptMsg->ptCb->tInfo.dwHandle = dwHandle;
     }
 
-    tStatus = osMessagePut(g_tTracerQueueId, (uint32_t)ptMsg, 0);
-
-    if(tStatus != osOK)
+    if(osMessagePut(g_tTracerQueueId, (uint32_t)ptMsg, 0) != osOK)
     {
         TRACER_DBG("[%s %d] osMessagePut fail\n", __func__, __LINE__);
         goto done;
@@ -489,29 +576,177 @@ int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
 
         for(i = 0; i < g_bTracerIntTaskNum; i++)
         {
-            g_ptTracerIntTaskInfo[i].bLevel = bLevel;
+            if(bLevel != g_ptTracerIntTaskInfo[i].bLevel)
+            {
+                g_ptTracerIntTaskInfo[i].bLevel = bLevel;
+    
+                if(tracer_int_task_info_save(i))
+                {
+                    TRACER_DBG("[%s %d] tracer_int_task_info_save[%d] fail\n", __func__, __LINE__, i);
+                }
+            }
         }
     
         for(i = 0; i < g_bTracerExtTaskNum; i++)
         {
-            g_ptTracerExtTaskInfo[i].bLevel = bLevel;
+            if(bLevel != g_ptTracerExtTaskInfo[i].bLevel)
+            {
+                g_ptTracerExtTaskInfo[i].bLevel = bLevel;
+    
+                if(tracer_ext_task_info_save(i))
+                {
+                    TRACER_DBG("[%s %d] tracer_ext_task_info_save[%d] fail\n", __func__, __LINE__, i);
+                }
+            }
         }
     }
     else
     {
-        if(bIdx < TRACER_INT_TASK_NUM_MAX)
+        if(bIdx < g_bTracerIntTaskNum)
         {
             // internal task
-            g_ptTracerIntTaskInfo[bIdx].bLevel = bLevel;
+            if(bLevel != g_ptTracerIntTaskInfo[bIdx].bLevel)
+            {
+                g_ptTracerIntTaskInfo[bIdx].bLevel = bLevel;
+    
+                if(tracer_int_task_info_save(bIdx))
+                {
+                    TRACER_DBG("[%s %d] tracer_int_task_info_save[%d] fail\n", __func__, __LINE__, bIdx);
+                }
+            }
         }
         else
         {
             // external task
-            g_ptTracerExtTaskInfo[bIdx - TRACER_INT_TASK_NUM_MAX].bLevel = bLevel;
+            uint8_t bExtIdx = bIdx - g_bTracerIntTaskNum;
+
+            if(bLevel != g_ptTracerExtTaskInfo[bExtIdx].bLevel)
+            {
+                g_ptTracerExtTaskInfo[bExtIdx].bLevel = bLevel;
+    
+                if(tracer_ext_task_info_save(bExtIdx))
+                {
+                    TRACER_DBG("[%s %d] tracer_ext_task_info_save[%d] fail\n", __func__, __LINE__, bExtIdx);
+                }
+            }
         }
     }
 
     return 0;
+}
+
+int tracer_cfg_save_patch(void)
+{
+    int iRet = -1;
+    T_TracerCfg tCfg = {0};
+
+    tCfg.bMode = g_bTracerLogMode;
+    tCfg.bExtTaskDefLevel = g_bTracerExtTaskDefLevel;
+    tCfg.iPriority = g_iTracerPriority;
+    tCfg.dwStackSize = g_dwTracerStackSize;
+    tCfg.dwQueueNum = g_dwTracerQueueNum;
+    tCfg.dwQueueSize = g_dwTracerQueueSize;
+
+    tCfg.bNameDisplay = g_bTracerNameDisplay;
+
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
+    {
+        TRACER_DBG("[%s %d] MwFim_FileWrite fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    iRet = 0;
+
+done:
+    return iRet;
+}
+
+int tracer_int_task_info_save_patch(uint8_t bIdx)
+{
+    int iRet = -1;
+
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, bIdx, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerIntTaskInfo[bIdx])) != MW_FIM_OK)
+    {
+        TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
+        goto done;
+    }
+
+    g_ptTracerIntTaskInfo[bIdx].bStatus = 1;
+
+    iRet = 0;
+
+done:
+    return iRet;
+}
+
+int tracer_ext_task_info_save_patch(uint8_t bIdx)
+{
+    int iRet = -1;
+
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, bIdx, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerExtTaskInfo[bIdx])) != MW_FIM_OK)
+    {
+        TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
+        goto done;
+    }
+
+    g_ptTracerExtTaskInfo[bIdx].bStatus = 1;
+
+    iRet = 0;
+
+done:
+    return iRet;
+}
+
+void tracer_log_mode_set_patch(uint8_t bMode)
+{
+    if(!g_bTracerInit)
+    {
+        TRACER_DBG("[%s %d] Tracer not init yet\n", __func__, __LINE__);
+        //goto done;
+    }
+
+    if(bMode < TRACER_MODE_MAX)
+    {
+        if(bMode != g_bTracerLogMode)
+        {
+            g_bTracerLogMode = bMode;
+
+            if(tracer_cfg_save())
+            {
+                TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
+            }
+        }
+    }
+
+//done:
+    return;
+}
+
+void tracer_priority_set_patch(int iPriority)
+{
+    if(g_tTracerThreadId != NULL)
+    {
+        if(iPriority != g_iTracerPriority)
+        {
+            g_iTracerPriority = iPriority;
+    
+            if(tracer_cfg_save())
+            {
+                TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
+            }
+
+            if(osThreadSetPriority(g_tTracerThreadId, (osPriority)iPriority) != osOK)
+            {
+                TRACER_DBG("[%s %d] osThreadSetPriority fail\n", __func__, __LINE__);
+            }
+        }
+    }
+    else
+    {
+        TRACER_DBG("[%s %d] g_tTracerThreadId is NULL\n", __func__, __LINE__);
+    }
+
+    return;
 }
 
 void tracer_dump_patch(void)
@@ -520,43 +755,49 @@ void tracer_dump_patch(void)
     uint8_t j = 0;
 
     tracer_cli(LOG_HIGH_LEVEL, "\nTracer Mode       [%d]\t0:disable/1:normal/2:print directly\n", g_bTracerLogMode);
-    tracer_cli(LOG_HIGH_LEVEL, "Display Task Name [%d]\t0:not display/1:display\n", g_bTracerNameDisplay);
-    tracer_cli(LOG_HIGH_LEVEL, "Tracer Priority   [%d]\tosPriorityIdle(%d) ~ osPriorityRealtime(%d)\n\n", g_iTracerPriority, osPriorityIdle, osPriorityRealtime);
-    tracer_cli(LOG_HIGH_LEVEL, "Default Level for Internal Tasks  [0x%02X]\n", g_bTracerIntTaskDefLevel);
-    tracer_cli(LOG_HIGH_LEVEL, "Default Level for App Tasks       [0x%02X]\n", g_bTracerExtTaskDefLevel);
+    tracer_cli(LOG_HIGH_LEVEL, "Display Task Name [%d]\t0:disable/1:enable\n", g_bTracerNameDisplay);
+    tracer_cli(LOG_HIGH_LEVEL, "Priority          [%d]\tosPriorityIdle(%d) ~ osPriorityRealtime(%d)\n", g_iTracerPriority, osPriorityIdle, osPriorityRealtime);
+    tracer_cli(LOG_HIGH_LEVEL, "Stack Size        [%u]\tnumber of uint_32\n", g_dwTracerStackSize);
+    tracer_cli(LOG_HIGH_LEVEL, "Queue Number      [%u]\tmax number of log\n", g_dwTracerQueueNum);
+    tracer_cli(LOG_HIGH_LEVEL, "Queue Size        [%u]\tmax length of log\n", g_dwTracerQueueSize);
+    tracer_cli(LOG_HIGH_LEVEL, "Log Level         [0x00:None/0x01:Low/0x02:Med/0x04:High/0x07:All]\n", g_bTracerExtTaskDefLevel);
+    tracer_cli(LOG_HIGH_LEVEL, "\nDefault Level for App Tasks\t[0x%02X]\n", g_bTracerExtTaskDefLevel);
 
     tracer_cli(LOG_HIGH_LEVEL, "\n%4s %20s: %s\n", "Index", "Name", "Level");
 
+    tracer_cli(LOG_HIGH_LEVEL, "---------------------------------- Internal Tasks (Start from Index 0)\n");
+
     for(i = 0; i < g_bTracerIntTaskNum; i++)
     {
-        if(g_ptTracerIntTaskInfo[i].baName[0] == 0)
+        if(g_ptTracerIntTaskInfo[i].baName[0])
         {
-            break;
+            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X\n", i, g_ptTracerIntTaskInfo[i].baName, g_ptTracerIntTaskInfo[i].bLevel);
         }
-
-        tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X\n", i, g_ptTracerIntTaskInfo[i].baName, g_ptTracerIntTaskInfo[i].bLevel);
     }
 
-    if(g_ptTracerExtTaskInfo[0].baName[0])
-    {
-        tracer_cli(LOG_HIGH_LEVEL, "\n------ Start of App Tasks ----------\n\n");
-    }
+    tracer_cli(LOG_HIGH_LEVEL, "---------------------------------- App Tasks (Start from Index %d)\n", g_bTracerIntTaskNum);
 
-    j = TRACER_INT_TASK_NUM_MAX;
+    j = g_bTracerIntTaskNum;
 
     for(i = 0; i < g_bTracerExtTaskNum; i++)
     {
-        if(g_ptTracerExtTaskInfo[i].baName[0] == 0)
+        if(g_ptTracerExtTaskInfo[i].baName[0])
         {
-            break;
-        }
+            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X", j, g_ptTracerExtTaskInfo[i].baName, g_ptTracerExtTaskInfo[i].bLevel);
 
-        tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X\n", j, g_ptTracerExtTaskInfo[i].baName, g_ptTracerExtTaskInfo[i].bLevel);
+            if(!(g_ptTracerExtTaskInfo[i].bStatus))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "  not saved yet");
+            }
+    
+            tracer_cli(LOG_HIGH_LEVEL, "\n");
+        }
+        
         ++j;
     }
 
-    tracer_cli(LOG_HIGH_LEVEL, "\n");
-
+    tracer_cli(LOG_HIGH_LEVEL, "\n\n");
+    
     return;
 }
 
@@ -571,13 +812,21 @@ int tracer_def_level_set_patch(uint8_t bType, uint8_t bLevel)
 
     if(bType == TRACER_TASK_TYPE_INTERNAL)
     {
-        // for internal task
-        g_bTracerIntTaskDefLevel = bLevel;
+        // ignore for internal task
+        goto done;
     }
     else if(bType == TRACER_TASK_TYPE_APP)
     {
         // for external task
-        g_bTracerExtTaskDefLevel = bLevel;
+        if(bLevel != g_bTracerExtTaskDefLevel)
+        {
+            g_bTracerExtTaskDefLevel = bLevel;
+
+            if(tracer_cfg_save())
+            {
+                TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
+            }
+        }
     }
 
     iRet = 0;
@@ -591,6 +840,7 @@ void tracer_cmd_patch(char *sCmd)
     char *baParam[8] = {0};
     uint32_t dwNum = 8;
     uint32_t dwParamNum = 0;
+    uint8_t i = 0;
 
     dwParamNum = ParseParam(sCmd, baParam, dwNum);
 
@@ -600,7 +850,6 @@ void tracer_cmd_patch(char *sCmd)
     {
         if(dwParamNum != 4)
         {
-            tracer_dump();
             tracer_cli(LOG_HIGH_LEVEL, "Usage: tracer level <task_index> <task_level:hex>\n");
             tracer_cli(LOG_HIGH_LEVEL, "\ttask_index: 0 ~ %d. Set %d to apply level to all tasks\n", TRACER_TASK_NUM_MAX - 1, TRACER_TASK_IDX_MAX);
             tracer_cli(LOG_HIGH_LEVEL, "\ttask_level: 0x00 ~ 0xFF\n");
@@ -631,15 +880,21 @@ void tracer_cmd_patch(char *sCmd)
         }
 
         bDisplay = (uint8_t)strtoul(baParam[2], NULL, 10);
+
+        if(bDisplay)
+        {
+            bDisplay = 1;
+        }
+
         tracer_name_display(bDisplay);
 
         if(bDisplay)
         {
-            tracer_cli(LOG_HIGH_LEVEL, "display task name\n");
+            tracer_cli(LOG_HIGH_LEVEL, "enable task name display\n");
         }
         else
         {
-            tracer_cli(LOG_HIGH_LEVEL, "do not display task name\n");
+            tracer_cli(LOG_HIGH_LEVEL, "disable task name display\n");
         }
     }
     else if(!strcmp(baParam[1], "mode"))
@@ -671,6 +926,8 @@ void tracer_cmd_patch(char *sCmd)
         bType = (uint8_t)strtoul(baParam[2], NULL, 10);
         bLevel = (uint8_t)strtoul(baParam[3], NULL, 16);
         tracer_def_level_set(bType, bLevel);
+
+        tracer_cli(LOG_HIGH_LEVEL, "set default level to [%d]\n", bLevel);
     }
     else if(!strcmp(baParam[1], "pri"))
     {
@@ -683,8 +940,308 @@ void tracer_cmd_patch(char *sCmd)
         }
 
         iPriority = atoi(baParam[2]);
+
+        if((iPriority < osPriorityIdle) || (iPriority > osPriorityRealtime))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid priority[%d]\n", iPriority);
+            goto done;
+        }
+
         tracer_priority_set(iPriority);
         tracer_cli(LOG_HIGH_LEVEL, "set priority to [%d]\n", iPriority);
+    }
+    else if(!strcmp(baParam[1], "stack"))
+    {
+        uint32_t dwStackSize = 0;
+
+        if(dwParamNum < 3)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        dwStackSize = strtoul(baParam[2], NULL, 10);
+
+        if(dwStackSize < TRACER_TASK_STACK_SIZE_PATCH)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid stack size[%u]\n", dwStackSize);
+            goto done;
+        }
+
+        if(dwStackSize != g_dwTracerStackSize)
+        {
+            g_dwTracerStackSize = dwStackSize;
+    
+            if(tracer_cfg_save())
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+            }
+        }
+
+        tracer_cli(LOG_HIGH_LEVEL, "set stacksize to [%u]\n", g_dwTracerStackSize);
+    }
+    else if(!strcmp(baParam[1], "qnum"))
+    {
+        uint32_t dwNum = 0;
+
+        if(dwParamNum < 3)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        dwNum = strtoul(baParam[2], NULL, 10);
+
+        if(!dwNum)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid queue number[%u]\n", dwNum);
+            goto done;
+        }
+
+        if(dwNum != g_dwTracerQueueNum)
+        {
+            g_dwTracerQueueNum = dwNum;
+    
+            if(tracer_cfg_save())
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+            }
+        }
+
+        tracer_cli(LOG_HIGH_LEVEL, "set queue number to [%u]\n", g_dwTracerQueueNum);
+    }
+    else if(!strcmp(baParam[1], "qsize"))
+    {
+        uint32_t dwSize = 0;
+
+        if(dwParamNum < 3)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        dwSize = strtoul(baParam[2], NULL, 10);
+
+        if(!dwSize)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid queue size[%u]\n", dwSize);
+            goto done;
+        }
+
+        #ifdef TRACER_GET_MSG_LEN
+        #else
+        if(dwSize >= TRACER_MSG_MAX_SIZE)
+        {
+            dwSize = TRACER_MSG_MAX_SIZE - 1;
+        }
+        #endif
+
+        if(dwSize != g_dwTracerQueueSize)
+        {
+            g_dwTracerQueueSize = dwSize;
+    
+            if(tracer_cfg_save())
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+            }
+        }
+
+        tracer_cli(LOG_HIGH_LEVEL, "set queue size to [%u]\n", g_dwTracerQueueSize);
+    }
+    else if(!strcmp(baParam[1], "app_level"))
+    {
+        uint8_t bIdx = 0;
+        uint8_t bLevel = 0;
+        uint8_t bExtIdx = 0;
+        char *sName = NULL;
+
+        if(dwParamNum < 5)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        bIdx = (uint8_t)strtoul(baParam[2], NULL, 10);
+
+        if((bIdx < g_bTracerIntTaskNum) || (bIdx >= g_bTracerIntTaskNum + g_bTracerExtTaskNum))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid index[%d] for app task\n", bIdx);
+            goto done;
+        }
+
+        bLevel = (uint8_t)strtoul(baParam[4], NULL, 16);
+
+        bExtIdx = bIdx - g_bTracerIntTaskNum;
+
+        sName = baParam[3];
+
+        if((sName[0] == '0') && (sName[1] == 0))
+        {
+            // clear entry
+            g_ptTracerExtTaskInfo[bExtIdx].baName[0] = 0;
+            bLevel = 0;
+        }
+        else
+        {
+            for(i = 0; i < g_bTracerIntTaskNum; i++)
+            {
+                if(g_ptTracerIntTaskInfo[i].baName[0])
+                {
+                    if(!strncmp(sName, g_ptTracerIntTaskInfo[i].baName, strlen(g_ptTracerIntTaskInfo[i].baName)))
+                    {
+                        tracer_cli(LOG_HIGH_LEVEL, "invalid name[%s] for app task\n", sName);
+                        goto done;
+                    }
+                }
+            }
+
+            snprintf(g_ptTracerExtTaskInfo[bExtIdx].baName, sizeof(g_ptTracerExtTaskInfo[bExtIdx].baName), "%s", sName);
+        }
+
+        g_ptTracerExtTaskInfo[bExtIdx].bLevel = bLevel;
+
+        if(tracer_ext_task_info_save(bExtIdx))
+        {
+            TRACER_DBG("[%s %d] tracer_ext_task_info_save[%d] fail\n", __func__, __LINE__, bExtIdx);
+        }
+
+        tracer_cli(LOG_HIGH_LEVEL, "set entry[%d] for app task\n", bIdx);
+    }
+    else if(!strcmp(baParam[1], "save"))
+    {
+        if(tracer_cfg_save())
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+        }
+
+        for(i = 0; i < g_bTracerIntTaskNum; i++)
+        {
+            if(tracer_int_task_info_save(i))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_int_task_info_save[%d] fail\n", i);
+            }
+        }
+
+        for(i = 0; i < g_bTracerExtTaskNum; i++)
+        {
+            if(tracer_ext_task_info_save(i))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_ext_task_info_save[%d] fail\n", i);
+            }
+        }
+
+        tracer_cli(LOG_HIGH_LEVEL, "done\n");
+    }
+    else if(!strcmp(baParam[1], "default"))
+    {
+        uint32_t dwType = 0;
+
+        if(dwParamNum < 3)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        dwType = strtoul(baParam[2], NULL, 10);
+
+        if(dwType > 3)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "invalid parameter\n");
+            goto done;
+        }
+
+        switch(dwType)
+        {
+        case 0:
+            tracer_cfg_reset();
+
+            if(tracer_cfg_save())
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+            }
+
+            tracer_int_task_reset();
+
+            for(i = 0; i < g_bTracerIntTaskNum; i++)
+            {
+                if(tracer_int_task_info_save(i))
+                {
+                    tracer_cli(LOG_HIGH_LEVEL, "tracer_int_task_info_save[%d] fail\n", i);
+                }
+            }
+            
+            tracer_ext_task_reset();
+
+            for(i = 0; i < g_bTracerExtTaskNum; i++)
+            {
+                if(tracer_ext_task_info_save(i))
+                {
+                    tracer_cli(LOG_HIGH_LEVEL, "tracer_ext_task_info_save[%d] fail\n", i);
+                }
+            }
+            
+            tracer_cli(LOG_HIGH_LEVEL, "reset all\n");
+            break;
+
+        case 1:
+            tracer_cfg_reset();
+
+            if(tracer_cfg_save())
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_cfg_save fail\n");
+            }
+
+            tracer_cli(LOG_HIGH_LEVEL, "reset tracer cfg\n");
+            break;
+
+        case 2:
+            tracer_int_task_reset();
+
+            for(i = 0; i < g_bTracerIntTaskNum; i++)
+            {
+                if(tracer_int_task_info_save(i))
+                {
+                    tracer_cli(LOG_HIGH_LEVEL, "tracer_int_task_info_save[%d] fail\n", i);
+                }
+            }
+
+            tracer_cli(LOG_HIGH_LEVEL, "reset internal tasks\n");
+            break;
+
+        case 3:
+            tracer_ext_task_reset();
+
+            for(i = 0; i < g_bTracerExtTaskNum; i++)
+            {
+                if(tracer_ext_task_info_save(i))
+                {
+                    tracer_cli(LOG_HIGH_LEVEL, "tracer_ext_task_info_save[%d] fail\n", i);
+                }
+            }
+
+            tracer_cli(LOG_HIGH_LEVEL, "reset external tasks\n");
+            break;
+
+        default:
+            tracer_cli(LOG_HIGH_LEVEL, "unknown type[%u]\n", dwType);
+            goto done;
+        }
+    }
+    else if(!strcmp(baParam[1], "cmd"))
+    {
+        tracer_cli(LOG_HIGH_LEVEL, "Tracer Command List:\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer mode <0:disable/1:normal/2:print directly>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer def_level <1:app tasks> <level:hex>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer level <task_index> <level:hex>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer app_level <index:%d ~ %d> <name:0 for empty string> <level:hex>\n", g_bTracerIntTaskNum, g_bTracerIntTaskNum + g_bTracerExtTaskNum - 1);
+        tracer_cli(LOG_HIGH_LEVEL, "tracer save\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer default <0:reset all/1:reset config/2:reset internal tasks/3:reset external tasks>\n");
+
+        tracer_cli(LOG_HIGH_LEVEL, "tracer pri <osPriority:%d ~ %d>\n", osPriorityIdle, osPriorityRealtime);
+        tracer_cli(LOG_HIGH_LEVEL, "tracer stack <number of uint32>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer qnum <queue number>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer qsize <queue size>\n");
+        tracer_cli(LOG_HIGH_LEVEL, "tracer disp_name <0:disable/1:enable>\n");
     }
     #ifdef TRACER_SUT
     else if(!strcmp(baParam[1], "sut"))
@@ -703,15 +1260,50 @@ void tracer_cmd_patch(char *sCmd)
     else
     {
         tracer_dump();
-        tracer_cli(LOG_HIGH_LEVEL, "\nTracer Command List:\n");
-        tracer_cli(LOG_HIGH_LEVEL, "tracer mode <0:disable/1:normal/2:print directly>\n");
-        tracer_cli(LOG_HIGH_LEVEL, "tracer disp_name <0:not display/1:display>\n");
-        tracer_cli(LOG_HIGH_LEVEL, "tracer def_level <0:internal tasks/1:app tasks> <level:hex>\n");
-        tracer_cli(LOG_HIGH_LEVEL, "tracer level <task_index> <level:hex>\n");
-        tracer_cli(LOG_HIGH_LEVEL, "tracer pri <osPriority:%d ~ %d>\n", osPriorityIdle, osPriorityRealtime);
     }
 
 done:
+    return;
+}
+
+void tracer_name_display_patch(uint8_t bDisplay)
+{
+    if(bDisplay != g_bTracerNameDisplay)
+    {
+        g_bTracerNameDisplay = bDisplay;
+
+        if(tracer_cfg_save())
+        {
+            TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
+        }
+    }
+
+    return;
+}
+
+void tracer_cfg_reset_patch(void)
+{
+    g_bTracerExtTaskDefLevel = LOG_ALL_LEVEL;
+
+    g_bTracerLogMode = TRACER_MODE_NORMAL;
+    g_iTracerPriority = TRACER_TASK_PRIORITY;
+    g_dwTracerStackSize = TRACER_TASK_STACK_SIZE_PATCH;
+    g_dwTracerQueueNum = TRACER_QUEUE_NUM_PATCH;
+    g_dwTracerQueueSize = TRACER_QUEUE_SIZE_PATCH;
+
+    g_bTracerNameDisplay = 0;
+    return;
+}
+
+void tracer_int_task_reset_patch(void)
+{
+    memcpy(g_ptTracerIntTaskInfo, g_ptTracerDefIntTaskInfo, sizeof(T_TracerTaskInfo) * g_bTracerIntTaskNum);
+    return;
+}
+
+void tracer_ext_task_reset_patch(void)
+{
+    memset(g_ptTracerExtTaskInfo, 0, sizeof(T_TracerTaskInfo) * g_bTracerExtTaskNum);
     return;
 }
 
@@ -720,29 +1312,36 @@ void Tracer_PatchInit(void)
     // internal
     g_bTracerIntTaskNum = TRACER_INT_TASK_NUM_MAX;
     g_bTracerExtTaskNum = TRACER_EXT_TASK_NUM_MAX;
-    g_bTracerIntTaskDefLevel = LOG_NONE_LEVEL;
-    g_bTracerExtTaskDefLevel = LOG_ALL_LEVEL;
+
+    g_ptTracerDefIntTaskInfo = (T_TracerTaskInfo *)g_taTracerDefIntTaskInfoBody;
     g_ptTracerIntTaskInfo = g_taTracerIntTaskInfoBody;
     g_ptTracerExtTaskInfo = g_taTracerExtTaskInfoBody;
-
-    g_bTracerLogMode = TRACER_MODE_NORMAL;
-    g_iTracerPriority = TRACER_TASK_PRIORITY;
-    g_dwTracerStackSize = TRACER_TASK_STACK_SIZE;
-    g_dwTracerQueueNum = TRACER_QUEUE_NUM_PATCH;
-    g_dwTracerQueueSize = TRACER_QUEUE_SIZE_PATCH;
 
     tracer_opt_entry_add = tracer_opt_entry_add_patch;
     tracer_level_get = tracer_level_get_patch;
     tracer_task_info_get = tracer_task_info_get_patch;
+    tracer_load = tracer_load_patch;
+    tracer_cfg_save = tracer_cfg_save_patch;
+    tracer_int_task_info_save = tracer_int_task_info_save_patch;
+    tracer_ext_task_info_save = tracer_ext_task_info_save_patch;
+    tracer_cfg_reset = tracer_cfg_reset_patch;
+    tracer_int_task_reset = tracer_int_task_reset_patch;
+    tracer_ext_task_reset = tracer_ext_task_reset_patch;
     
     // external
     tracer_init = tracer_init_patch;
     tracer_log_level_set = tracer_log_level_set_patch;
+    tracer_log_mode_set = tracer_log_mode_set_patch;
+    tracer_priority_set = tracer_priority_set_patch;
     tracer_dump = tracer_dump_patch;
+    tracer_name_display = tracer_name_display_patch;
     tracer_msg = tracer_msg_patch;
     tracer_def_level_set = tracer_def_level_set_patch;
     tracer_cmd = tracer_cmd_patch;
 
+    tracer_cfg_reset();
+    tracer_int_task_reset();
+    tracer_ext_task_reset();
     return;
 }
 

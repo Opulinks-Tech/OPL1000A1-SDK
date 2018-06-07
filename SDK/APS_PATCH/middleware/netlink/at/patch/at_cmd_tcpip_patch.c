@@ -2691,15 +2691,26 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
             //printf("%s\n",pstr);
             hwaddr_aton2(pstr, mac);
 
+            if(is_multicast_ether_addr(mac)) {
+                AT_LOGI("Invalid mac address \r\n");
+                goto exit;
+            }
+
+            if ((mac[0] | mac[1] | mac[2] | mac[3] | mac[4] | mac[5]) == 0x00) {
+                AT_LOGI("Invalid mac address \r\n");
+                goto exit;
+            }
+
+            if (mac[0] == 0xFF && mac[1] == 0xFF && mac[2] == 0xFF && 
+                mac[3] == 0xFF && mac[4] == 0xFF && mac[5] == 0xFF) {
+                AT_LOGI("Invalid mac address \r\n");
+                goto exit;
+            }
+    
             state = wpas_get_state();
             if(state == WPA_COMPLETED || state == WPA_ASSOCIATED) {
                 AT_LOGI("In connected, set mac address failed\r\n");
                 ret = AT_RESULT_CODE_FAIL;
-                goto exit;
-            }
-            
-            if ((mac[0] == 0x00 && mac[1] == 0x00) ||
-                (mac[0] == 0xFF) || (mac[0] == 0x01)) {
                 goto exit;
             }
 

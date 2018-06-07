@@ -11,7 +11,7 @@ ROM_CODE: 809
  1.2 OPL1000-DEVKIT-getting-start-guide: R02_V04, add DEVKIT USB driver installation on WinXP/Win10 introduction.   
  1.3 OPL1000-SDK-getting-start-guide: R02_V04, update project setting related description. 
  1.4 OPL1000-SDK-Development-guide: R01_V05, update release package file list and project setting related description .
- 1.5 Add a new document OPL1000-系统初始化流程简介.pdf to introduce OPL1000 boot procedure.   
+ 1.5 Add a new document OPL1000-system-initialization-brief-introduction.pdf to introduce OPL1000 boot procedure.   
 2. Example codes updating:
  2.1 Update SPI_master example, add SPI0 access on-board flash code, folder: SDK\APS_PATCH\examples\peripherals\spi_master   
  2.2 Update all example project setting, unify chip name to OPL1000
