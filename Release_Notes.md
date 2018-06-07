@@ -1,4 +1,37 @@
 ## Release Version:
+SDK Package: 1.0.1.20
+Patch_Lib : 1731 
+ROM_CODE: 809    
+
+## Release Date:  2018/06/08
+
+## Function & Feature Update
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.20, several WIFI APIs are updated.  
+ 1.2 OPL1000-DEVKIT-getting-start-guide: R02_V04, add DEVKIT USB driver installation on WinXP/Win10 introduction.   
+ 1.3 OPL1000-SDK-getting-start-guide: R02_V04, update project setting related description. 
+ 1.4 OPL1000-SDK-Development-guide: R01_V05, update release package file list and project setting related description .
+ 1.5 Add a new document OPL1000-系统初始化流程简介.pdf to introduce OPL1000 boot procedure.   
+2. Example codes updating:
+ 2.1 Update SPI_master example, add SPI0 access on-board flash code, folder: SDK\APS_PATCH\examples\peripherals\spi_master   
+ 2.2 Update all example project setting, unify chip name to OPL1000
+3. Tool version information:
+ 3.1 download tool: v0.16. No change since v1.0.1.19     
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. DEVKIT USB driver (CP210x USB to UART bridge) is updated. Win10/WinXP drivers are provided. Refer OPL1000-DEVKIT-getting-start-guide section 3.1 to know how to install driver.     
+5. Add README.md to introduce release package content briefly. 
+6. WIFI AP connection/ping operation compatibility is improved. 
+
+## Bug Fix List 
+1. fix timer print log operation cause stack overflow issue in blink example code. 
+2. fix download tool AT UART port on Win10 system not working issue. User needs to update CP210x driver.
+
+## Notes List 
+1. More protocol examples such as mDNS, SNTP development are on-going. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.19
 Patch_Lib : 1679 
 ROM_CODE: 809    

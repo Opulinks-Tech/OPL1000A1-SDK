@@ -78,7 +78,7 @@
     #define SCRT_ASSERT(a)    \
     if(!(a))    \
     {     \
-        tracer_drct_printf("TS_ASSERT FAILED '" #a "' %s %s:%d\n", __func__, __FILE__, __LINE__);   \
+        tracer_drct_printf("SCRT_ASSERT FAILED '" #a "' %s %s:%d\n", __func__, __FILE__, __LINE__);   \
         while(1);    \
     }
 #else

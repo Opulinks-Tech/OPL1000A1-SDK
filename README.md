@@ -12,7 +12,9 @@ Refer OPL1000-DEVKIT-getting-start-guide.pdf under "Doc" folder to know how to u
 Refer OPL1000-AT-instruction-set-and-examples.pdf to know how to use AT command to evaluate OPL1000 features. 
 
 # Download firmware  
-Refer OPL1000-patch-download-tool-user-guide.pdf under "Doc" folder to know how to download firmware. 
+- Refer OPL1000-patch-download-tool-user-guide.pdf under "Doc" folder to know how to download firmware. 
+
+- If DEVKIT board AT UART port cannot work, please install USB driver according to "OPL1000-DEVKIT-getting-start-guide" document section 3.1 
 
 # Define external peripheral resource
 Refer OPL1000-pinmux-tool-user-guide.pdf under "Doc" folder to know how to configure OPL1000 external peripheral resource. 
@@ -22,4 +24,3 @@ Refer OPL1000-SDK-getting-start-guide.pdf and OPL1000-SDK-Development-guide.pdf 
 
 # Development tool 
 Please use Keil uVision 5 on Windows system to develop application
- 
