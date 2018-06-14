@@ -36,6 +36,7 @@
 #include "at_cmd_data_process.h"
 #include "wpa_at_if.h"
 #include "controller_wifi_com_patch.h"
+#include "at_cmd_msg_ext.h"
 #include "at_cmd_msg_ext_patch.h"
 #include "wpa_common_patch.h"
 #include "wifi_nvm_patch.h"
@@ -182,8 +183,7 @@ int _at_cmd_wifi_cwjap(char *buf, int len, int mode)
             ret = wpa_cli_connect_handler(argc, argv);
             
             if (ret == FALSE) {
-                msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_NO_AP);
-                msg_print_uart1("\r\nERROR\r\n");
+                _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_NO_AP);
             }
             
             break;

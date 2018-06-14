@@ -265,18 +265,32 @@ void _at_msg_ext_wifi_connect_patch(int cusType, int msg_code)
         case AT_MSG_EXT_ESPRESSIF:
             switch(msg_code)
             {
-                case MSG_WIFI_CONNECTED_OPEN:
+                case ERR_WIFI_CWJAP_DONE:
                     msg_print_uart1("\r\nOK\r\n");
                     msg_print_uart1("\r\nWIFI CONNECTED\r\n");
                     break;
-                case MSG_WIFI_CONNECTED_SECURITY:
-                    msg_print_uart1("\r\nOK\r\n");
-                    msg_print_uart1("\r\nWIFI CONNECTED\r\n");
+                case ERR_WIFI_CWJAP_TO:
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_TO);
+                    msg_print_uart1("\r\nERROR\r\n");
                     break;
-                case MSG_WIFI_DISCONNECTED:
-                    msg_print_uart1("\r\nWIFI DISCONNECT\r\n");
+                case ERR_WIFI_CWJAP_PWD_INVALID:
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_PWD_INVALID);
+                    msg_print_uart1("\r\nERROR\r\n");
+                    break;
+                case ERR_WIFI_CWJAP_NO_AP:
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_NO_AP);
+                    msg_print_uart1("\r\nERROR\r\n");
+                    break;
+                case ERR_WIFI_CWJAP_FAIL:
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_FAIL);
+                    msg_print_uart1("\r\nERROR\r\n");
+                    break;
+                case ERR_WIFI_CWJAP_FAIL_OTHERS:
+                    msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_FAIL_OTHERS);
+                    msg_print_uart1("\r\nERROR\r\n");
                     break;
                 default:
+                    msg_print_uart1("\r\nWIFI DISCONNECT\r\n");
                     break;
             }
             break;
@@ -512,6 +526,36 @@ void _at_msg_ext_wifi_show_ap_by_filter_patch(void)
     
 }
 
+void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason)
+{
+    switch(reason) {
+        case WIFI_REASON_CODE_MIC_FAILURE:
+        case WIFI_REASON_CODE_DIFFERENT_INFO_ELEM:
+            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_PWD_INVALID);
+            break;
+        case WIFI_REASON_CODE_4_WAY_HANDSHAKE_TIMEOUT:
+        case WIFI_REASON_CODE_GROUP_KEY_UPDATE_TIMEOUT:
+            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_FAIL);
+            break;
+        case WIFI_REASON_CODE_AUTO_CONNECT_FAILED:
+            if (connected) {
+                _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_DISCONNECT);
+            }
+            else {
+                _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_FAIL);
+            }
+            break;
+        case WIFI_REASON_CODE_CONNECT_NOT_FOUND:
+            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_NO_AP);
+            break;
+        case WIFI_REASON_CODE_CONNECT_TIMEOUT:
+            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_TO);
+            break;            
+        default:
+            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_DISCONNECT);
+            break;
+    }
+}
 /*
  * @brief An external Function at_msg_ext_wifi_err prototype declaration retention attribute segment
  *

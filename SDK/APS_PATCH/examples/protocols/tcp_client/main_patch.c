@@ -42,6 +42,7 @@ Head Block of The File
 #include "tcp_client.h"
 #include "msg_patch.h"
 
+extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[];
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
 
@@ -118,9 +119,34 @@ static void __Patch_EntryPoint(void)
 *   none
 *
 *************************************************************************/
+
+void Internal_Module_Log_Config(char* module_name, bool on_off_set)
+{
+	  uint8_t log_level_set,i,module_index; 	
+	
+    if(on_off_set == true) 
+        log_level_set = LOG_ALL_LEVEL;
+    else
+        log_level_set = LOG_NONE_LEVEL;	
+    
+		for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
+		{
+			if (strcmp(module_name,g_taTracerIntTaskInfoBody[i].baName) == 0)
+			{
+				module_index = i;
+				break;
+			}
+		}
+		if(module_index < TRACER_INT_TASK_NUM_MAX) 
+		{
+		    g_taTracerIntTaskInfoBody[module_index].bLevel = log_level_set;
+    } 
+} 
+
 void Main_AppInit_patch(void)
 {
-	  tracer_def_level_set (TRACER_TASK_TYPE_INTERNAL, LOG_ALL_LEVEL);
-	
+    Internal_Module_Log_Config("wifi_mac",true);			
+    Internal_Module_Log_Config("controller_task",true);
+    Internal_Module_Log_Config("event_loop",true);	
     WifiAppInit();
 }

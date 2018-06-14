@@ -19,8 +19,8 @@
 extern "C" {
 #endif
 
-#define WIFI_SSID               "iPhone"
-#define WIFI_PASSWORD           "1234567890"
+#define WIFI_SSID               "Opulinks-TEST-AP"
+#define WIFI_PASSWORD           "1234abcd"
 
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
 #define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"

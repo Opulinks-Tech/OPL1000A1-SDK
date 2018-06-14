@@ -148,6 +148,8 @@ typedef enum {
     WIFI_REASON_CODE_CIPHER_REJECTED,                     /**<  24  Cipher suite rejected because of the security policy. */
 
     WIFI_REASON_CODE_AUTO_CONNECT_FAILED = 200,          /**<  200  Auto connect failed. */
+    WIFI_REASON_CODE_CONNECT_NOT_FOUND,                  /**<  201  The target AP is not found. */
+    WIFI_REASON_CODE_CONNECT_TIMEOUT,                    /**<  202  Connect to AP timeout. */
 } wifi_reason_code_t;
 
 /** @brief This enumeration defines the wireless STA scan type

@@ -103,28 +103,41 @@ C Functions
 
 // Sec 8: C Functions
 
-void Internal_Module_Log_Config(bool on_off_set)
+void Internal_Module_Log_Set(char* module_name, bool on_off_set)
 {
-    uint8_t module_num = TRACER_INT_TASK_NUM_MAX, i;
-	uint8_t log_level_set; 
-	
+	  uint8_t log_level_set,i,module_index; 	
 	
     if(on_off_set == true) 
         log_level_set = LOG_ALL_LEVEL;
     else
         log_level_set = LOG_NONE_LEVEL;	
-
-    for (i=0;i<module_num;i++)
-    {
-		g_taTracerIntTaskInfoBody[i].bLevel = log_level_set;
+    
+		for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
+		{
+			if (strcmp(module_name,g_taTracerIntTaskInfoBody[i].baName) == 0)
+			{
+				module_index = i;
+				break;
+			}
+		}
+		if(module_index < TRACER_INT_TASK_NUM_MAX) 
+		{
+		    g_taTracerIntTaskInfoBody[module_index].bLevel = log_level_set;
     } 
-}    
- 
+} 
+
 void App_Log_Config(uint8_t log_idx, char* app_name , uint8_t level_set)
 {
     //user log
     g_taTracerExtTaskInfoBody[log_idx].bLevel = level_set;
     strcpy(g_taTracerExtTaskInfoBody[log_idx].baName,app_name);
+}
+
+void Internal_Module_Log_Config(bool on_off_set)
+{
+	  Internal_Module_Log_Set("wifi_mac",true);			
+    Internal_Module_Log_Set("controller_task",true);
+    Internal_Module_Log_Set("event_loop",true);	
 }
 
 /*************************************************************************

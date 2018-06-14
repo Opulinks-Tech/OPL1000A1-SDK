@@ -59,7 +59,7 @@ Head Block of The File
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define DUMMY          0x00
 #define SPI1_IDX       0 
-#define SPI2_IDX       1
+#define SPI2_IDX       0   // it is corresponding to the index in spi
 #define TEST_SPI       SPI2_IDX
 
 #define FLASH_START_ADDR  0x90   // 0x00090000
@@ -89,7 +89,7 @@ extern T_Main_AppInit_fp Main_AppInit;
 Declaration of static Global Variables & Functions
 ***************************************************/
 // Sec 6: declaration of static global variable
-
+static osThreadId g_tAppThread;
 
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
@@ -97,8 +97,8 @@ static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
 static void spi_flash_test(void);
 static void spi_send_data(int idx);
-
-
+static void Main_AppThread(void *argu);
+static void spi_test(void);
 
 /***********
 C Functions
@@ -133,7 +133,7 @@ static void __Patch_EntryPoint(void)
 *   App_Pin_InitConfig
 *
 * DESCRIPTION:
-*   init the pin assignment
+*   init the pin assignment. PinMux is determined by OPL1000_periph 
 *
 * PARAMETERS
 *   none
@@ -145,7 +145,6 @@ static void __Patch_EntryPoint(void)
 void App_Pin_InitConfig(void)
 {
     printf("SPI initialization  \r\n");
-    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[SPI1_IDX]);
     Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[SPI2_IDX]);    
 }
 
@@ -166,16 +165,40 @@ void App_Pin_InitConfig(void)
 void Main_AppInit_patch(void)
 {
     // init the pin assignment
-    App_Pin_InitConfig();
-    
-    // call spi_flash_test, use SPI0 to access on board SPI flash 
-    spi_flash_test();
-    
-    spi_send_data(SPI1_IDX);
-    
-    spi_send_data(SPI2_IDX);    
-    
-    while(1);
+    App_Pin_InitConfig();	
+	
+		// flash write and read demo, use SPI0 to access on board SPI flash 
+		spi_flash_test();				
+		
+		// communicate with external SPI slave device 
+		spi_send_data(SPI2_IDX); 
+
+	  // create a thread and run SPI access function 
+    spi_test();
+
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_AppThread
+*
+* DESCRIPTION:
+*   the application thread 2
+*
+* PARAMETERS
+*   1. argu     : [In] the input argument
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_AppThread(void *argu)
+{
+    while (1)
+    {	
+        osDelay(1500);      // delay 1500 ms		
+        printf("SPI Running \r\n");			
+    }
 }
 
 /*************************************************************************
@@ -194,6 +217,7 @@ void Main_AppInit_patch(void)
 *************************************************************************/
 static void spi_flash_test(void)
 {
+ 	
     uint8_t u8BlockData[BLOCK_DATA_SIZE],u8ReadData[BLOCK_DATA_SIZE] = {0};
     uint32_t i,u32Length,u32SectorAddr32bit;
     uint16_t u16SectorAddr;
@@ -206,7 +230,7 @@ static void spi_flash_test(void)
         u8BlockData[i] = (i%MAX_DATA_VALUE) + MIN_DATA_VALUE;
       
     u16SectorAddr = FLASH_START_ADDR + SECTION_INDEX; // one section is 4k Bytes 
-      
+
     u32SectorAddr32bit =  (((uint32_t)u16SectorAddr) << 12) & 0x000ff000;
     // Erase flash firstly  
     Hal_Flash_4KSectorAddrErase_patch(SPI_IDX_0, u32SectorAddr32bit);
@@ -223,14 +247,28 @@ static void spi_flash_test(void)
             match_flag = false;
         }
     }
+
     if (match_flag == true)
     {
         printf("Write and read %d bytes data on flash @%x successfully \r\n",u32Length, u32SectorAddr32bit); 
-    }
+    }	
+		
 }
 
-
-
+/*************************************************************************
+* FUNCTION:
+*   spi_send_data
+*
+* DESCRIPTION:
+*   an example of write data to external SPI slave device.
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
 static void spi_send_data(int idx)
 {
     char output_str[32]= {0};   
@@ -246,3 +284,35 @@ static void spi_send_data(int idx)
         Hal_Spi_Data_Send(spi->index,u32Data);
     }    
 }
+
+/*************************************************************************
+* FUNCTION:
+*   SPI test 
+*
+* DESCRIPTION:
+*   This is a blank function, just create a thread 
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void spi_test(void)
+{
+    osThreadDef_t tThreadDef;
+    
+    // create the thread for AppThread
+    tThreadDef.name = "App";
+    tThreadDef.pthread = Main_AppThread;
+    tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
+    tThreadDef.instances = 0;                           // reserved, it is no used
+    tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
+    g_tAppThread = osThreadCreate(&tThreadDef, NULL);
+    if (g_tAppThread == NULL)
+    {
+        printf("To create the thread for AppThread is fail.\n");
+    }	
+}
+

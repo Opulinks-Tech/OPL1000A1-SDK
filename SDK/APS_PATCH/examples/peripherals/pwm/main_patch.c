@@ -199,7 +199,7 @@ static void Main_AppThread(void *argu)
     while (1)
     {
         osDelay(1500);      // delay 500 ms
-		//printf("Running pwm example project. \r\n");
+		printf("PWM Running \r\n");
     }
 }
 

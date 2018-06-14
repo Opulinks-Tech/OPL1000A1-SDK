@@ -138,7 +138,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
             msg_print(LOG_HIGH_LEVEL, "\r\n\r\ndisconnected \r\n\r\n");
             wpa_supplicant_set_state(wpa_s, WPA_DISCONNECTED);
             wpa_clr_key_info();
-            _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, MSG_WIFI_DISCONNECTED);
             /* Set successfully connect info to Auto Connect list */
             if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);
@@ -149,9 +148,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-MLME_EVT_AUTH_TIMED_OUT \r\n");
             msg_print(LOG_HIGH_LEVEL, "\r\n\r\nconnect time out\r\n\r\n");
             wpa_supplicant_set_state(wpa_s, WPA_INACTIVE);
-            if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
-                at_msg_ext_wifi_err(AT_MSG_EXT_ESPRESSIF, "+CWJAP", ERR_WIFI_CWJAP_TO);
-            }
             /* Set successfully connect info to Auto Connect list */
             if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);
@@ -173,9 +169,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
         case MLME_EVT_ASSOC_TIMED_OUT:
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-MLME_EVT_ASSOC_TIMED_OUT \r\n");
             msg_print(LOG_HIGH_LEVEL, "\r\n\r\nconnect time out\r\n\r\n");
-            if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
-                at_msg_ext_wifi_err(AT_MSG_EXT_ESPRESSIF, "+CWJAP", ERR_WIFI_CWJAP_TO);
-            }
             /* Set successfully connect info to Auto Connect list */
             if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);
@@ -184,9 +177,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
 
         case MLME_EVT_ASSOC_REJECT:
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-MLME_EVT_ASSOC_REJECT \r\n");
-            if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
-                at_msg_ext_wifi_err(AT_MSG_EXT_ESPRESSIF, "+CWJAP", ERR_WIFI_CWJAP_FAIL);
-            }
             /* Set successfully connect info to Auto Connect list */
             if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);

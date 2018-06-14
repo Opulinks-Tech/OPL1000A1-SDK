@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -78,14 +78,14 @@ extern T_Main_AppInit_fp Main_AppInit;
 Declaration of static Global Variables & Functions
 ***************************************************/
 // Sec 6: declaration of static global variable
-static osThreadId g_tAppThread_1;
+static osThreadId g_tAppThread;
 
 
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
-static void Main_AppThread_1(void *argu);
+static void Main_AppThread(void *argu);
 static void i2c_test(void);
 
 
@@ -165,10 +165,10 @@ void Main_AppInit_patch(void)
 
 /*************************************************************************
 * FUNCTION:
-*   Main_AppThread_1
+*   Main_AppThread
 *
 * DESCRIPTION:
-*   the application thread 1
+*   the application thread
 *
 * PARAMETERS
 *   1. argu     : [In] the input argument
@@ -177,14 +177,15 @@ void Main_AppInit_patch(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppThread_1(void *argu)
+static void Main_AppThread(void *argu)
 {
-    uint8_t ubaData[4] = {0xaa,0xb,0xcc,0xdd};
+    uint8_t ubaData[4] = {0xaa,0xbb,0xcc,0xdd};
     uint8_t i = 0;
     
-    printf("Main_AppThread_1.\r\n");
+    printf("Main_AppThread.\r\n");
     while (1)
     {
+        printf("I2C Slave Running \n");
         if(!Hal_I2c_SlaveReceive(ubaData,4))
         {
             for(i = 0; i < 4; i++)
@@ -215,18 +216,18 @@ static void i2c_test(void)
 {
     osThreadDef_t tThreadDef;
     
-    // create the thread for AppThread_1
-    tThreadDef.name = "App_1";
-    tThreadDef.pthread = Main_AppThread_1;
+    // create the thread for AppThread
+    tThreadDef.name = "App";
+    tThreadDef.pthread = Main_AppThread;
     tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
     tThreadDef.instances = 0;                           // reserved, it is no used
     tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
-    g_tAppThread_1 = osThreadCreate(&tThreadDef, NULL);
-    if (g_tAppThread_1 == NULL)
+    g_tAppThread = osThreadCreate(&tThreadDef, NULL);
+    if (g_tAppThread == NULL)
     {
-        printf("To create the thread for AppThread_1 is fail.\n");
+        printf("To create the thread for AppThread is fail.\n");
     }
-    printf("create the thread for AppThread_1.\r\n");
+    printf("create the thread for AppThread.\r\n");
     
     //Hal_I2c_SlaveInit(I2C_07BIT, 0xf0);
 }

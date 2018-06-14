@@ -39,12 +39,11 @@ T_OPL1000_Periph OPL1000_periph = {
        I2C_07BIT,
        0,
        MASTER_NO_STOP},
-  2,{
+  1,{
+		/*
       {SPI_IDX_1,
        OPL1000_IO6_PIN,
        OPL1000_IO7_PIN,
-//       OPL1000_IO2_PIN,
-//       OPL1000_IO3_PIN,
        OPL1000_IO9_PIN,
        OPL1000_IO8_PIN,
        BLANK_PIN,
@@ -54,7 +53,7 @@ T_OPL1000_Periph OPL1000_periph = {
        SPI_CLK_PHASE_START,
        SPI_FMT_MOTOROLA,
        SPI_DFS_08_bit,
-       QMODE_DISABLE},
+       QMODE_DISABLE}, */
       {SPI_IDX_2,
        OPL1000_IO5_PIN,
        OPL1000_IO4_PIN,
@@ -68,6 +67,19 @@ T_OPL1000_Periph OPL1000_periph = {
        SPI_FMT_MOTOROLA,
        SPI_DFS_08_bit,
        QMODE_DISABLE},
+      {SPI_IDX_MAX,
+       BLANK_PIN,
+       BLANK_PIN,
+       BLANK_PIN,
+       BLANK_PIN,
+       BLANK_PIN,
+       BLANK_PIN,
+       0,
+       SPI_CLK_PLOAR_HIGH_ACT,
+       SPI_CLK_PHASE_START,
+       SPI_FMT_MOTOROLA,
+       SPI_DFS_08_bit,
+       QMODE_DISABLE}			
     },
   0,{{BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
        {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},

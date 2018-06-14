@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -84,7 +84,7 @@ static osThreadId g_tAppThread_1;
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
-static void Main_AppThread_1(void *argu);
+static void Main_AppThread(void *argu);
 static void i2c_eeprom_test(void);
 
 
@@ -162,10 +162,10 @@ void Main_AppInit_patch(void)
 
 /*************************************************************************
 * FUNCTION:
-*   Main_AppThread_1
+*   Main_AppThread
 *
 * DESCRIPTION:
-*   the application thread 1
+*   the application thread 
 *
 * PARAMETERS
 *   1. argu     : [In] the input argument
@@ -174,7 +174,7 @@ void Main_AppInit_patch(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppThread_1(void *argu)
+static void Main_AppThread(void *argu)
 {
     uint16_t uwAddr = 0;
     uint8_t ubaData[4];
@@ -183,6 +183,8 @@ static void Main_AppThread_1(void *argu)
     {
         // SDA: (w)8 bits high byte address | (w)8 bits low byte address | (w)8 bits data
         
+        printf("I2C Running\n");
+			
         // write the data
         ubaData[0] = (uwAddr >> 8) & 0xFF;              // high byte address
         ubaData[1] = uwAddr & 0xFF;                     // low byte address
@@ -227,15 +229,15 @@ static void i2c_eeprom_test(void)
     osThreadDef_t tThreadDef;
     
     // create the thread for AppThread_1
-    tThreadDef.name = "App_1";
-    tThreadDef.pthread = Main_AppThread_1;
+    tThreadDef.name = "App";
+    tThreadDef.pthread = Main_AppThread;
     tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
     tThreadDef.instances = 0;                           // reserved, it is no used
     tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
     g_tAppThread_1 = osThreadCreate(&tThreadDef, NULL);
     if (g_tAppThread_1 == NULL)
     {
-        printf("To create the thread for AppThread_1 is fail.\n");
+        printf("To create the thread for AppThread is fail.\n");
     }
     
 }

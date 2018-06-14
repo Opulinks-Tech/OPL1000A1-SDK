@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -47,7 +47,7 @@ Head Block of The File
 *  - port: UART1
 *  - interrupt: off
 *  - flow control: on
-*  - pin assignment: tx(io8), rx(io9), rts(io6), cts(io7)
+*  - pin assignment: tx(io4), rx(io5), rts(io6), cts(io7)
 ******************************************************************************/
 
 
@@ -155,12 +155,12 @@ static void __Patch_EntryPoint(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
-    //Hal_PinMux_Uart_Init(&OPL1000_periph.uart[0]);
-    Hal_PinMux_Uart_Init(&OPL1000_periph.uart[1]);
+	  uint8_t i; 
+	  for (i=0;i<OPL1000_periph.uart_num;i++)
+	  {
+			Hal_PinMux_Uart_Init(&OPL1000_periph.uart[i]);
+    }
 }
-
-
-
 
 /*************************************************************************
 * FUNCTION:
@@ -181,6 +181,9 @@ void Main_AppInit_patch(void)
     // init the pin assignment
     App_Pin_InitConfig();
     
+    // Indicate UART test example is running 
+   	printf("UART Running \n");
+	
     // do the uart_int_test
     uart_int_test();
     

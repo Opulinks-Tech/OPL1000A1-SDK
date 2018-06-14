@@ -18,6 +18,9 @@
 
 #define FLAG_OF_CBS_READ_WRITE_INFO
 
+#define WIFIS_EID_RSN		48
+#define WIFIS_EID_VENDOR_SPECIFIC		221
+#define WPAS_IE_VENDOR_TYPE		0x0050f201
 /**
  * @brief Attribute write data type from the client
  */
@@ -118,6 +121,8 @@ typedef enum {
 #define AUTO_CONNECT_MANUAL  2  //Internal use, for compatible Auto and Manual mode
 
 #define AUTO_CONNECT_REASON_CODE_FAILED   200
+#define CONNECT_AP_REASON_CODE_NOT_FOUND     201
+#define CONNECT_AP_REASON_CODE_TIMEOUT       202
 
 typedef struct
 {

@@ -29,11 +29,13 @@
  *
  */
 typedef enum {
-    ERR_WIFI_CWJAP_TO = 1,
+    ERR_WIFI_CWJAP_DONE,
+    ERR_WIFI_CWJAP_TO,
     ERR_WIFI_CWJAP_PWD_INVALID,
     ERR_WIFI_CWJAP_NO_AP,
     ERR_WIFI_CWJAP_FAIL,
-    ERR_WIFI_CWJAP_FAIL_OTHERS
+    ERR_WIFI_CWJAP_FAIL_OTHERS,
+    ERR_WIFI_CWJAP_DISCONNECT = 10, 
 } at_wifi_error_code_cwjap;
 
 /**
@@ -109,6 +111,7 @@ extern at_msg_ext_wifi_sorting_fp_t at_msg_ext_wifi_sorting;
 void _at_msg_ext_wifi_show_one_ap_patch(int argc, char *argv[]);
 
 void _at_msg_ext_init(void);
+void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason);
 
 #endif
 
