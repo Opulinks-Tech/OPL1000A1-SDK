@@ -39,7 +39,7 @@ Head Block of The File
 #include "sys_init_patch.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
-
+#include "hal_dbg_uart_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
@@ -135,6 +135,7 @@ void Main_AppInit_patch(void)
     osMessageQDef_t tMessageDef;
     osPoolDef_t tMemPoolDef;
     
+    Hal_DbgUart_RxIntEn(1);   
     // create the thread for AppThread_1
     tThreadDef.name = "App_1";
     tThreadDef.pthread = Main_AppThread_1;

@@ -38,8 +38,8 @@ typedef struct {
     u8      u8RetryThr1;        // The threshold to exchange RTS/CTS when u8RetryCnt of g_DcfInfo reaches
     u8      u8RetryThr2;        // The threshold to decrease current rate when u8RetryCnt of g_DcfInfo is the power of
     // 29th
-    u8      u8ListenInv;
-    uint8_t     u8Reserved__1;
+    uint16_t    u16ListenInv;   //u8 -> u16, merge 30th byte
+    //uint8_t     u8Reserved__1;//Merge to u16ListenInv
     // 31st
     uint16_t    u16PrbRsqTimeout;
     uint16_t    u16AuthRsqTimeout;

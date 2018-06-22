@@ -225,6 +225,7 @@ static void Main_AppThread_1(void *argu)
     // do the timer_periodic_test
     timer_periodic_test();
     
+	  printf("Timer Running \r\n");
     while (1)
     {
         // receive the message from AppMessageQ

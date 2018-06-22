@@ -60,6 +60,11 @@ typedef enum
 #define MW_FIM_IDX_LE_CFG_SIZE   sizeof(le_cfg_t)
 #define MW_FIM_LE_CFG_NUM        1
 
+#define FIM_HCI_Version          0x08
+#define FIM_HCI_Revision         0x0001
+#define FIM_LMP_PAL_Version      0x08
+#define FIM_Manufacturer_Name    0x0000  // TODO: not manufacturer name currently
+#define FIM_LMP_PAL_Subversion   0x0001
 
 /******************************
 Declaration of data structure

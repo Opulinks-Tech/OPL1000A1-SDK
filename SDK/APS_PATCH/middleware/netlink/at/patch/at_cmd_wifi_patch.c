@@ -39,8 +39,7 @@
 #include "at_cmd_msg_ext.h"
 #include "at_cmd_msg_ext_patch.h"
 #include "wpa_common_patch.h"
-#include "wifi_nvm_patch.h"
-#include "driver_netlink_patch.h"
+#include "wifi_api.h"
 
 //#define AT_CMD_WIFI_DBG
 
@@ -424,17 +423,15 @@ int _at_cmd_wifi_cwdhcps(char *buf, int len, int mode)
 int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
 {
     char *argv[AT_MAX_CMD_ARGS] = {0};
-    int argc = 0, i;
-    u8 automode, ap_num, act_num = 0;
-    MwFimAutoConnectCFG_t ac_cfg;
-    auto_conn_info_t ac_info;
+    int argc = 0;
+    u8 automode, ap_num;
     
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
         case AT_CMD_MODE_READ:
-            msg_print_uart1("\r\n+CWAUTOCONN:%d,%d\r\n", get_auto_connect_mode(), get_auto_connect_save_ap_num());
+            msg_print_uart1("\r\n+CWAUTOCONN:%d,%d\r\n", wifi_auto_connect_get_mode(), wifi_auto_connect_get_ap_num());
             msg_print_uart1("\r\nOK\r\n");
             break;
 
@@ -451,8 +448,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                     return FALSE;
                 }
                 
-                set_auto_connect_mode(automode);
-                write_auto_conn_mode_to_flash(automode);
+                wifi_auto_connect_set_mode(automode);
             }
 
             if (argc >= 3) { //AP number
@@ -465,49 +461,18 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                 }
 
                 /* ignore the same setting */
-                if (get_auto_connect_ap_num() == ap_num) {
-                    msg_print_uart1("\r\nOK\r\n");
-                    return TRUE;
-                }
                
                 /* clear all AP info in FIM */
-                memset(&ac_info, 0, sizeof(mw_wifi_auto_connect_ap_info_t));
-                for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
-                    write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
-                }
 
                 /* write AP info by new ap number setting */
-                for (i=0; i<ap_num; i++) {
-                    get_auto_connect_info(i, &ac_info);
-                    if (ac_info.ap_channel != 0) {
-                        write_auto_connect_ap_info_to_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
-                        act_num++;
-                    }
-                }
                 
-                set_auto_connect_ap_num(act_num);
-                write_auto_connect_ap_num_to_flash(act_num);
+                wifi_auto_connect_set_ap_num(ap_num);
 
                 /* clear all AP info in global variable */
-                memset(&ac_info, 0, sizeof(auto_conn_info_t));
-                for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
-                    set_auto_connect_info(i, &ac_info);
-                }
 
                 /* read AP info from FIM */
-                for (i=0; i<act_num; i++) {
-                    read_auto_conn_ap_info_from_flash(i, (mw_wifi_auto_connect_ap_info_t *)&ac_info);
-                    set_auto_connect_info(i, &ac_info);
-                }
 
                 /* update ap cfg */
-                get_auto_connect_ap_cfg(&ac_cfg);
-                ac_cfg.max_save_num = ap_num;
-                ac_cfg.flag = false;
-                ac_cfg.front = -1;
-                ac_cfg.rear = act_num-1;
-                set_auto_connect_ap_cfg(&ac_cfg);
-                write_auto_connect_ap_cfg_to_flash(&ac_cfg);    
             }
             
             msg_print_uart1("\r\nOK\r\n");
@@ -521,16 +486,8 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
             break;
     }
 
-#if 0
-    automode = atoi(argv[1]);
     
-    if (automode < AUTO_CONNECT_DISABLE || automode > AUTO_CONNECT_ENABLE) {
-        at_output("\r\nERROR\r\n");
-        return FALSE;
-    }
     
-    msg_print_uart1("\r\nOK\r\n");
-#endif
 
     return true;
 }
@@ -1421,14 +1378,15 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int cfg_id;
     int argc = 0;
-    u8 skip_dtim = 0; //[0000526]
+    u32 skip_dtim = 0; //[0000526]
+    u8 ret;
     
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
     switch(mode)
     {
         case AT_CMD_MODE_READ:
-            wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &skip_dtim); //[0000526]
+            wifi_config_get_skip_dtim((uint8 *)&skip_dtim);
             msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, skip_dtim); //[0000526]
             msg_print_uart1("\r\nOK\r\n");
             break;
@@ -1453,10 +1411,21 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
                         //    return false;     
                         //}
                         
+                        if (skip_dtim > WIFI_MAX_SKIP_DTIM_PERIODS) {
+                            msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
+                            msg_print_uart1("\r\nERROR\r\n");
+                        }
+                        else {
                         //Update share memory by M0
-                        wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_SKIP_DTIM_PERIODS, &skip_dtim); //[0000526]
-                        wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_SKIP_DTIM, 1, &skip_dtim); //[0000526]
+                            ret =  wifi_config_set_skip_dtim(skip_dtim);
+                            if (ret != 0) {
+                                msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
+                                msg_print_uart1("\r\nERROR\r\n");
+                            }
+                            else {
                         msg_print_uart1("\r\nOK\r\n");
+                            }
+                        }
                         break;
                     default:
                         msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);

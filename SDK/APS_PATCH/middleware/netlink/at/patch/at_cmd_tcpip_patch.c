@@ -1636,7 +1636,7 @@ int _at_cmd_tcpip_cipstatus(char *buf, int len, int mode)
             }
 
             at_sprintf(temp, "%s:%d,\"%s\",\""IPSTR"\",%d,%d,%d\r\n",
-                    "+CIPSTATIS",
+                    "+CIPSTATUS",
                     pLink->link_id,
                     pStr,
                     IP2STR(&pLink->remote_ip),

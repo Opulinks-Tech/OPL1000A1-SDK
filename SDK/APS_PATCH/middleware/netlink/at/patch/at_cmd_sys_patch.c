@@ -39,7 +39,7 @@
 #include "mw_fim_default_group02.h"
 #include "at_cmd_common_patch.h"
 #include "hal_dbg_uart_patch.h"
-#include "ps.h"
+#include "ps_public.h"
 
 #define CMD_TOKEN_SIZE          16
 #define AT_CMD_SYS_WAIT_TIME    5   // ms
@@ -373,10 +373,10 @@ int _at_cmd_sys_gmr(char *buf, int len, int mode)
     return true;
 }
 
-void _at_cmd_sys_gslp_wakeup_callback()
+void _at_cmd_sys_gslp_wakeup_callback(PS_WAKEUP_TYPE type)
 {
-	msg_print_uart1("\r\nWAKEUP\r\n");
-};
+	msg_print_uart1("\r\nWAKEUP, TYPE: %s\r\n", type == PS_WAKEUP_TYPE_IO ? "IO" : "TIMEOUT");
+}
 
 /*
  * @brief Command at+gslp
@@ -400,8 +400,14 @@ int _at_cmd_sys_gslp(char *buf, int len, int mode)
 		case AT_CMD_MODE_SET:
 		{
 			int sleep_duration_ms = atoi(argv[1]);
+			int ext_io = atoi(argv[2]);
+			if (argc == 3)
+				ps_set_wakeup_io(ext_io, INT_TYPE_LEVEL);
+			else
+				ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+			ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback);
+			ps_timer_sleep(sleep_duration_ms);
 			msg_print_uart1("\r\nOK\r\n");
-			ps_sleep_requested_by_app(sleep_duration_ms * 1000, _at_cmd_sys_gslp_wakeup_callback);
 			break;
 		}
 
@@ -425,6 +431,7 @@ int _at_cmd_sys_gslp(char *buf, int len, int mode)
  */
 int _at_cmd_sys_restore(char *buf, int len, int mode)
 {
+    int i;
     if (AT_CMD_MODE_EXECUTION == mode)
     {
         // reset the config of UART0 / UART1
@@ -435,9 +442,10 @@ int _at_cmd_sys_restore(char *buf, int len, int mode)
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_MODE, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_CFG, 0);
-        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 0);
-        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 1);
-        MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 2);
+        
+        for(i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
+            MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, i);
+        }
 
         // rest STA information
         MwFim_FileWriteDefault(MW_FIM_IDX_STA_MAC_ADDR, 0);
@@ -571,14 +579,49 @@ int _at_cmd_sys_sleep(char *buf, int len, int mode)
 	{
 		case AT_CMD_MODE_SET:
 		{
-			int is_enable = atoi(argv[1]);
+			int slp_mode = atoi(argv[1]);
+			int p1 = atoi(argv[2]);
+			int p2 = atoi(argv[3]);
+			switch (slp_mode)
+			{
+				case 0:
+					ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+					ps_smart_sleep(0);
 			msg_print_uart1("\r\nOK\r\n");
-			ps_enable(is_enable);
+					break;
+				case 1:
+					if (argc == 3)
+						ps_set_wakeup_io(p1, INT_TYPE_LEVEL);
+					else
+						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+					ps_smart_sleep(1);
+					msg_print_uart1("\r\nOK\r\n");
+					break;
+				case 2:
+					if (argc == 4)
+						ps_set_wakeup_io(p2, INT_TYPE_LEVEL);
+					else
+						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+					ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback);
+					ps_timer_sleep(p1);
+					msg_print_uart1("\r\nOK\r\n");
+					break;
+				case 3:
+					if (argc == 3)
+						ps_set_wakeup_io(p1, INT_TYPE_LEVEL);
+					else
+						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+					ps_deep_sleep();
+					msg_print_uart1("\r\nOK\r\n");
+			break;
+				default:
+					msg_print_uart1("\r\nERROR\r\n");
+					break;
+		}
 			break;
 		}
-
 		default:
-			msg_print_uart1("\r\ndefault\r\n");
+			msg_print_uart1("\r\nERROR\r\n");
 			break;
 	}
 

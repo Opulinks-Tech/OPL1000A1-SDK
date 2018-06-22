@@ -263,6 +263,20 @@ int wifi_connection_disconnect_sta(uint8_t *address);
   * @return    other : failed
   */
 int wifi_connection_connect(wifi_config_t *config);
+
+/**
+  * @brief     Scan start
+  *
+  * @param     ssid: ssid string
+  * @param     ssid_length: ssid string length
+  * @param     bssid: bssid
+  * @param     scan_mode: refer to #wifi_scan_mode_ext in wpa_common_patch.h
+  * @param     scan_option: if scan_option is true, this API will block the caller until the scan is done,
+  *                         otherwise it will return immediately
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  */
 int wifi_connection_scan_start(uint8_t *ssid, uint8_t ssid_length, uint8_t *bssid, uint8_t scan_mode, uint8_t scan_option);
 
 /**
@@ -308,7 +322,24 @@ int wifi_connection_register_event_handler(wifi_event_t event, wifi_event_handle
   */
 int wifi_connection_unregister_event_handler(wifi_event_t event, wifi_event_handler_t handler);
 
+/**
+  * @brief     Set wifi operation mode
+  *
+  * @param     mode: refer to #wifi_mode_t
+  *
+  * @return    0  : success
+  * @return    other : failed
+  */
 int wifi_config_set_opmode(uint8_t mode);
+
+/**
+  * @brief     Set wifi operation mode
+  *
+  * @param     mode: refer to #wifi_mode_t
+  *
+  * @return    0  : success
+  * @return    other : failed
+  */
 int wifi_config_get_opmode(uint8_t *mode);
 
 /**
@@ -445,19 +476,75 @@ int wifi_config_set_bandwidth(wifi_mode_t interface, wifi_bandwidth_t bandwidth)
   * @return    other : failed
  */
 int wifi_config_get_bandwidth(wifi_mode_t interface, wifi_bandwidth_t *bandwidth);
+
+/**
+  * @brief     Get the interval of DTIM
+  *
+  * @param[in]   interval: the interval of DTIM
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
 int wifi_config_get_dtim_interval(uint8_t *interval);
+
+/**
+  * @brief     Set the interval of DTIM
+  *
+  * @param[in]   interval: the interval of DTIM
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
 int wifi_config_set_dtim_interval(uint8_t interval);
+
+/**
+  * @brief     Get the interval of listen
+  *
+  * @param[in]   interval: the interval of listen
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
 int wifi_config_get_listen_interval(uint8_t *interval);
+
+/**
+  * @brief     Set the interval of listen
+  *
+  * @param[in]   interval: the interval of listen
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
 int wifi_config_set_listen_interval(uint8_t interval);
 
 /**
-  * @brief  Get the current connection type    
+  * @brief     Get the Skip DTIM value in current wifi setting of OPL1000
+  *
+  * @param[out]  value: Get the Skip DTIM value in current wifi setting
   * 
   * @return    0  : success
   * @return    other : failed
+  *
+ */
+int wifi_config_get_skip_dtim(uint8_t *value);
+
+/**
+  * @brief     Set the Skip DTIM value of OPL1000
+  *
+  * @param[in]  value: Set the Skip DTIM value
   * 
-*/
-int wifi_get_fast_conn_mode(void);
+  * @attention 1. This API will set the skip DTIM value to share memory and
+  *                     stored in flash, please use wifi_config_get_skip_dtim() to 
+  *                     check it.
+  *
+  * @attention 2. The setting will be effect after next connect. We recommend  
+  *                     re-connect AP after setting to make sure the value is correct.
+  *
+  * @return    0  : success
+  * @return    other : failed
+  *
+ */
+int wifi_config_set_skip_dtim(uint8_t value);
 
 /**
   * @brief Set the connection type 
@@ -470,15 +557,109 @@ int wifi_get_fast_conn_mode(void);
   * 
 */
 int wifi_auto_connect_set_mode(u8 mode);
+
+
+/**
+  * @brief Get the status of the current automatic connection mode
+  * 
+  * @return    0  : off 
+  * @return    1  : on
+  * 
+*/
 u8 wifi_auto_connect_get_mode(void);
+
+/**
+  * @brief Get the number of automatically connected aps that have been saved in the flash
+  * 
+  * @return    0-3 ap number
+  * 
+*/
 u8 wifi_auto_connect_get_ap_num(void);
+
+/**
+  * @brief Save the number of automatically connected ap to flash
+  * 
+  * @param[in] Connection Type
+
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_auto_connect_set_ap_num(u8 num);
+
+/**
+  * @brief Get ap detailed information saved in flash
+  * 
+  * @param[in] index : Index of ap information,The range is 0 to 3
+  * @param[in] info  : wifi_auto_connect_info_f array to hold the found APs
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_auto_connect_get_ap_info(u8 index, wifi_auto_connect_info_f *info);
+
+/**
+  * @brief Delete automatically connected AP information stored in flash
+  * 
+  * @param[in] index : Index of ap information,The range is 0 to 3
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_auto_connect_del_ap_info(u8 index);
+
+/**
+  * @brief Initialize wifi automatic connection
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_auto_connect_init(void);
+
+/**
+  * @brief Start wifi automatic connection process
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_auto_connect_start(void);
+
+/**
+  * @brief Get the status of AP fast connection
+  * 
+  * @param[in] ap_index : Index of ap information,The range is 0 to 3
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 u8 wifi_fast_connect_get_mode(u8 ap_index);
+
+/**
+  * @brief Set the fast connection type 
+  * 
+  * @param[in] mode : Configure the fast connect mode ,0 means disable fast connection,
+  *                   and 1 enable the fast connection mode
+  * 
+  * @param[in] ap_index : Index of ap information,The range is 0 to 3
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_fast_connect_set_mode(u8 mode, u8 ap_index);
+
+/**
+  * @brief Start the fast connection process
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  * 
+*/
 int wifi_fast_connect_start(void);
 
 

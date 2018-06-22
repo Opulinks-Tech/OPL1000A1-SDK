@@ -45,6 +45,43 @@ Head Block of The File
 
 #define DUMMY          0x00
 
+#define SPI_0     ((S_Spi_Reg_t *) SPI0_BASE)
+#define SPI_1     ((S_Spi_Reg_t *) SPI1_BASE)
+#define SPI_2     ((S_Spi_Reg_t *) SPI2_BASE)
+
+#define SPI_SR_RX_NOT_EMPTY          (1<<3)
+#define SPI_SR_TX_NOT_FULL           (1<<1)
+#define SPI_TIMEOUT 0x5000
+
+typedef struct
+{
+    volatile uint32_t CTRLR0;  // 0x00
+	volatile uint32_t CTRLR1;  // 0x04
+	volatile uint32_t SSIENR;  // 0x08
+	volatile uint32_t MWCR;    // 0x0C
+	volatile uint32_t SER;     // 0x10
+	volatile uint32_t BAUDR;   // 0x14
+	volatile uint32_t TXFTLR;  // 0x18
+	volatile uint32_t RXFTLR;  // 0x1C
+	volatile uint32_t TXFLR;   // 0x20
+	volatile uint32_t RXFLR;   // 0x24
+	volatile uint32_t SR;      // 0x28
+	volatile uint32_t IMR;     // 0x2C
+	volatile uint32_t ISR;     // 0x30
+	volatile uint32_t PISR;    // 0x34
+	volatile uint32_t TXOICR;  // 0x38
+	volatile uint32_t RXOICR;  // 0x3C
+	volatile uint32_t RXUICR;  // 0x40
+	volatile uint32_t MSTICR;  // 0x44
+	volatile uint32_t ICR;     // 0x48
+	volatile uint32_t DMACR;   // 0x4C
+	volatile uint32_t DMATDLR; // 0x50
+	volatile uint32_t DMARDLR; // 0x54
+	volatile uint32_t IDR;     // 0x58
+	volatile uint32_t SSI_VER; // 0x5C
+	volatile uint32_t DR[36];  // 0x60 ~ 0xEC
+} S_Spi_Reg_t;
+
 /********************************************
 Declaration of data structure
 ********************************************/
@@ -434,16 +471,35 @@ void Hal_Flash_Reset_patch(E_SpiIdx_t u32SpiIdx)
 *************************************************************************/
 uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
 {
+    S_Spi_Reg_t *pSpi = 0;
     uint32_t u32Idx = 0;    
     uint32_t u32Temp = 0;
+    uint32_t u32QuadBit = 0;
     uint32_t u32DataAddr = 0;
     uint32_t u32DataSize = 0;
     uint32_t u32DataIdx = 0;
+    
+    uint32_t u32TimeOut;
+    uint32_t i;
 
     uint8_t ubRet = 1;
 
-    if (u32SpiIdx >= SPI_IDX_MAX)
+    if (u32SpiIdx == SPI_IDX_0)
+	{
+        pSpi = SPI_0;
+	}
+    else if (u32SpiIdx == SPI_IDX_1)
+    {
+        pSpi = SPI_1;
+    }
+    else if (u32SpiIdx == SPI_IDX_2)
+    {
+        pSpi = SPI_2;
+    }
+    else
+    {
         return ubRet;
+    }
 
     if (u8aFlashID[u32SpiIdx] == NO_FLASH)
         return ubRet;
@@ -473,14 +529,14 @@ uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x32;
             else
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x02;
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+            pSpi->DR[0] = u32Temp;
             // Addr
             u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32DataAddr>>16) & 0xFF );
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+            pSpi->DR[0] = u32Temp;
             u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32DataAddr>>8) & 0xFF );
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+            pSpi->DR[0] = u32Temp;
             u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | (u32DataAddr & 0xFF);
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+            pSpi->DR[0] = u32Temp;
         }
         if(u8aFlashID[u32SpiIdx] == MACRONIX_ID)
         {
@@ -488,62 +544,166 @@ uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint
             {
                 // Cmd
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x38;
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 // Addr
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_4_BIT | TAG_WRITE | ( (u32DataAddr>>16) & 0xFF );
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_4_BIT | TAG_WRITE | ( (u32DataAddr>>8) & 0xFF );
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_4_BIT | TAG_WRITE | (u32DataAddr & 0xFF);
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
             }
             else
             {
                 // Cmd
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x02;
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 // Addr
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32DataAddr>>16) & 0xFF );
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32DataAddr>>8) & 0xFF );
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | (u32DataAddr & 0xFF);
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                pSpi->DR[0] = u32Temp;
                 
             }
         }
 
-        Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-        Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-        Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-        Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        u32Temp = pSpi->DR[0];  // dummy
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        u32Temp = pSpi->DR[0];  // dummy
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        u32Temp = pSpi->DR[0];  // dummy
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        u32Temp = pSpi->DR[0];  // dummy
+        
         
         // programe data
+        // decide the quad mode or standard mode
         if (u8UseQuadMode)
-        {
-            for (u32Idx=0; u32Idx<u32DataSize; u32Idx++)
-            {
-                if (u32Idx != (u32DataSize-1))
-                    u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_4_BIT | TAG_WRITE | pu8Data[u32DataIdx+u32Idx];
-                else
-                    u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_4_BIT | TAG_WRITE | pu8Data[u32DataIdx+u32Idx]; // complete
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-                
-                Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-            }
-        }
+            u32QuadBit = TAG_4_BIT;
         else
+            u32QuadBit = TAG_1_BIT;
+            
+        // 4 bytes per round
+        for (u32Idx=0; (u32Idx+4)<u32DataSize; u32Idx+=4)
         {
-            for (u32Idx=0; u32Idx<u32DataSize; u32Idx++)
+            pSpi->DR[0] = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+u32Idx];
+            pSpi->DR[0] = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+u32Idx+1];
+            pSpi->DR[0] = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+u32Idx+2];
+            pSpi->DR[0] = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+u32Idx+3];
+            
+            u32TimeOut = 0;
+            while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
             {
-                if (u32Idx != (u32DataSize-1))
-                    u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | pu8Data[u32DataIdx+u32Idx];
-                else
-                    u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_1_BIT | TAG_WRITE | pu8Data[u32DataIdx+u32Idx]; // complete
-                Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+                // Wait for RX not Empty...
                 
-                Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
+                //Time-out check
+                if( u32TimeOut > SPI_TIMEOUT )
+                    return 1;
+                u32TimeOut++;
             }
+            u32Temp = pSpi->DR[0];  // dummy
+            
+            u32TimeOut = 0;
+            while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+            {
+                // Wait for RX not Empty...
+                
+                //Time-out check
+                if( u32TimeOut > SPI_TIMEOUT )
+                    return 1;
+                u32TimeOut++;
+            }
+            u32Temp = pSpi->DR[0];  // dummy
+            
+            u32TimeOut = 0;
+            while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+            {
+                // Wait for RX not Empty...
+                
+                //Time-out check
+                if( u32TimeOut > SPI_TIMEOUT )
+                    return 1;
+                u32TimeOut++;
+            }
+            u32Temp = pSpi->DR[0];  // dummy
+            
+            u32TimeOut = 0;
+            while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+            {
+                // Wait for RX not Empty...
+                
+                //Time-out check
+                if( u32TimeOut > SPI_TIMEOUT )
+                    return 1;
+                u32TimeOut++;
+            }
+            u32Temp = pSpi->DR[0];  // dummy
+        }
+        
+        // the rest data
+        for (i=u32Idx; i<u32DataSize; i++)
+        {
+            if (i != (u32DataSize-1))
+                u32Temp = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+i];
+            else
+                u32Temp = TAG_DFS_08 | TAG_CS_COMP | u32QuadBit | TAG_WRITE | pu8Data[u32DataIdx+i]; // complete
+            pSpi->DR[0] = u32Temp;
+        }
+        for (i=u32Idx; i<u32DataSize; i++)
+        {
+            u32TimeOut = 0;
+            while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+            {
+                // Wait for RX not Empty...
+                
+                //Time-out check
+                if( u32TimeOut > SPI_TIMEOUT )
+                    return 1;
+                u32TimeOut++;
+            }
+            u32Temp = pSpi->DR[0];  // dummy
         }
         
         if (0 != _Hal_Flash_WriteDoneCheck(u32SpiIdx))
@@ -592,11 +752,30 @@ done:
 *************************************************************************/
 uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
 {
+    S_Spi_Reg_t *pSpi = 0;
     uint32_t u32Idx = 0;
     uint32_t u32Temp = 0;
+    uint32_t u32QuadBit = 0;
+    
+    uint32_t u32TimeOut;
+    uint32_t i;
 
-    if (u32SpiIdx >= SPI_IDX_MAX)
+    if (u32SpiIdx == SPI_IDX_0)
+	{
+        pSpi = SPI_0;
+	}
+    else if (u32SpiIdx == SPI_IDX_1)
+    {
+        pSpi = SPI_1;
+    }
+    else if (u32SpiIdx == SPI_IDX_2)
+    {
+        pSpi = SPI_2;
+    }
+    else
+    {
         return 1;
+    }
 
     if (u8aFlashID[u32SpiIdx] == NO_FLASH)
         return 1;
@@ -611,58 +790,171 @@ uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t
     if (u8UseQuadMode)
     {
         u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x6B;
-        Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+        pSpi->DR[0] = u32Temp;
     }
     else
     {
         u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | 0x0B;
-        Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+        pSpi->DR[0] = u32Temp;
     }
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
+    u32TimeOut = 0;
+    while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+    {
+        // Wait for RX not Empty...
+        
+        //Time-out check
+        if( u32TimeOut > SPI_TIMEOUT )
+            return 1;
+        u32TimeOut++;
+    }
+    u32Temp = pSpi->DR[0];  // dummy
     
     // Addr
     u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32StartAddr>>16) & 0xFF );
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+    pSpi->DR[0] = u32Temp;
     u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | ( (u32StartAddr>>8) & 0xFF );
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+    pSpi->DR[0] = u32Temp;
     u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | (u32StartAddr & 0xFF);
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+    pSpi->DR[0] = u32Temp;
     u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | DUMMY;
-    Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+    pSpi->DR[0] = u32Temp;
+
+    u32TimeOut = 0;
+    while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+    {
+        // Wait for RX not Empty...
+        
+        //Time-out check
+        if( u32TimeOut > SPI_TIMEOUT )
+            return 1;
+        u32TimeOut++;
+    }
+    u32Temp = pSpi->DR[0];  // dummy
     
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
-    Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp); // dummy
+    u32TimeOut = 0;
+    while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+    {
+        // Wait for RX not Empty...
+        
+        //Time-out check
+        if( u32TimeOut > SPI_TIMEOUT )
+            return 1;
+        u32TimeOut++;
+    }
+    u32Temp = pSpi->DR[0];  // dummy
+    
+    u32TimeOut = 0;
+    while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+    {
+        // Wait for RX not Empty...
+        
+        //Time-out check
+        if( u32TimeOut > SPI_TIMEOUT )
+            return 1;
+        u32TimeOut++;
+    }
+    u32Temp = pSpi->DR[0];  // dummy
+    
+    u32TimeOut = 0;
+    while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+    {
+        // Wait for RX not Empty...
+        
+        //Time-out check
+        if( u32TimeOut > SPI_TIMEOUT )
+            return 1;
+        u32TimeOut++;
+    }
+    u32Temp = pSpi->DR[0];  // dummy
+    
     
     // read data
+    // decide the quad mode or standard mode
     if (u8UseQuadMode)
-    {
-        for (u32Idx=0; u32Idx<u32Size; u32Idx++)
-        {
-            if (u32Idx != (u32Size-1))
-                u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_4_BIT | TAG_READ | DUMMY;
-            else
-                u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_4_BIT | TAG_READ | DUMMY; // complete
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
-            
-            Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp);
-            pu8Data[u32Idx] = (uint8_t)( u32Temp&0xFF );
-        }
-    }
+        u32QuadBit = TAG_4_BIT;
     else
+        u32QuadBit = TAG_1_BIT;
+
+    // 4 bytes per round
+    u32Temp = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_READ | DUMMY;
+    for (u32Idx=0; (u32Idx+4)<u32Size; u32Idx+=4)
     {
-        for (u32Idx=0; u32Idx<u32Size; u32Idx++)
+        pSpi->DR[0] = u32Temp;
+        pSpi->DR[0] = u32Temp;
+        pSpi->DR[0] = u32Temp;
+        pSpi->DR[0] = u32Temp;
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
         {
-            if (u32Idx != (u32Size-1))
-                u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_READ | DUMMY;
-            else
-                u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_1_BIT | TAG_READ | DUMMY; // complete
-            Hal_Spi_Data_Send(u32SpiIdx, u32Temp);
+            // Wait for RX not Empty...
             
-            Hal_Spi_Data_Recv(u32SpiIdx, &u32Temp);
-            pu8Data[u32Idx] = (uint8_t)( u32Temp&0xFF );
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
         }
+        pu8Data[u32Idx] = (uint8_t)( pSpi->DR[0] & 0xFF );
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        pu8Data[u32Idx+1] = (uint8_t)( pSpi->DR[0] & 0xFF );
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        pu8Data[u32Idx+2] = (uint8_t)( pSpi->DR[0] & 0xFF );
+        
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        pu8Data[u32Idx+3] = (uint8_t)( pSpi->DR[0] & 0xFF );
+    }
+
+    // the rest data
+    for (i=u32Idx; i<u32Size; i++)
+    {
+        if (i != (u32Size-1))
+            u32Temp = TAG_DFS_08 | TAG_CS_CONT | u32QuadBit | TAG_READ | DUMMY;
+        else
+            u32Temp = TAG_DFS_08 | TAG_CS_COMP | u32QuadBit | TAG_READ | DUMMY; // complete
+        pSpi->DR[0] = u32Temp;
+    }
+    for (i=u32Idx; i<u32Size; i++)
+    {
+        u32TimeOut = 0;
+        while( !(pSpi->SR & SPI_SR_RX_NOT_EMPTY) )
+        {
+            // Wait for RX not Empty...
+            
+            //Time-out check
+            if( u32TimeOut > SPI_TIMEOUT )
+                return 1;
+            u32TimeOut++;
+        }
+        pu8Data[i] = (uint8_t)( pSpi->DR[0] & 0xFF );
     }
     
     // release the semaphore

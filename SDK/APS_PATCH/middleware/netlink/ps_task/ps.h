@@ -14,6 +14,7 @@
 
 #include <stdint.h>
 
+#include "ps_public.h"
 /******************** Constant Value Definition ********************/
 
 #define TIMER_1M_MAX_VAL								2147483647
@@ -114,8 +115,10 @@ typedef struct
 	uint32_t sleep_min_limit;
 	uint32_t wakeup_cost_gain;
 	uint32_t wakeup_cost;
+	uint8_t xtal_ready_cost;
 	uint8_t wakeup_cost_precise;
 
+	uint8_t app_apply_deep;
 	uint8_t app_apply_sleep;
 	uint8_t app_active_sleep;
 
@@ -128,8 +131,6 @@ void ps_init(void);
 void ps_wait_xtal_ready(void);
 void ps_update_processing_time(e_ps_proc_type type);
 int  ps_sleep(void);
-void ps_sleep_requested_by_app(uint32_t sleep_duration_us, void (*callback)(void));
-void ps_enable(uint8_t is_enable);
 void ps_parse_command(char *pbuf, int len);
 
 // private function
@@ -137,5 +138,13 @@ void ps_snapshot_timers(void);
 uint32_t ps_synchronize_timers(void);
 void ps_notify_msq_dreaming(void);
 uint32_t ps_get_1m_timer(void);
+void ps_enable_wakeup_ext_io(void);
+void ps_inner_io_wakeup_callback(E_GpioIdx_t eIdx);
+void ps_default_wakeup_callback(PS_WAKEUP_TYPE wakeup_type);
 
+void ps_config_wakeup_ext_io(E_GpioIdx_t ext_io_num, E_ItrType_t ext_io_type);
+void ps_config_wakeup_callback(PS_WAKEUP_CALLBACK callback);
+void ps_enable_deep_sleep(void);
+void ps_enable_timer_sleep(uint32_t sleep_duration_us);
+void ps_enable_smart_sleep(int is_enable);
 #endif

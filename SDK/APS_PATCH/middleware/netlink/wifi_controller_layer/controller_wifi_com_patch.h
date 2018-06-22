@@ -101,7 +101,7 @@ typedef enum
 #define STA_INFO_MAX_MANUF_NAME_SIZE   32
 
 /* WIFI STA configuration */
-#define WIFI_MAX_SKIP_DTIM_PERIODS      10
+#define WIFI_MAX_SKIP_DTIM_PERIODS      255
 
 typedef enum {   
     E_WIFI_PARAM_MAC_ADDRESS=0,    

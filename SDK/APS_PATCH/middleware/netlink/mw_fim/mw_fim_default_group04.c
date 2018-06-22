@@ -52,6 +52,11 @@ Declaration of Global Variables & Functions
 // Sec 4: declaration of global variable
 const le_cfg_t g_tMwFimDefaultLeCfg = 
 {
+    .hci_revision = FIM_HCI_Version,
+    .manufacturer_name = FIM_Manufacturer_Name, 
+    .lmp_pal_subversion = FIM_LMP_PAL_Subversion, 
+    .hci_version = FIM_HCI_Version,
+    .lmp_pal_version = FIM_LMP_PAL_Version,
     .bd_addr = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11}
 };
 // the address buffer of LE config
