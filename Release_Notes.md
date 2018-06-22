@@ -1,4 +1,34 @@
 ## Release Version:
+SDK Package: 1.0.1.23
+Patch_Lib : 1807 
+ROM_CODE: 809    
+
+## Release Date:  2018/06/22
+
+## Function & Feature Update
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.23, WIFI part APIs are updated.  
+ 1.2 OPL1000-AT-instruction-set-and-examples: R05-V05, several AT commands are updated.  
+2. Example codes updating:
+ 2.1 hello_world example, enable debug UART input and output operation.    
+3. Tool version information:
+ 3.1 download tool: v0.17. Add patch lib version reading function.    
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. Support patch lib version reading through APS UART port by CLI command "at+gmr"
+5. SPI0 Flash access throughput is improved 3 times for both Standard and Quad mode.   
+6. Provide "Adaptive DTIM" API calling interface 
+
+## Bug Fix List 
+1. fixed several bugs in AT command implementation, include AT+SLEEP,AT+WIFIMACCFG,AT+CWLAPOPT,AT+CIPSTATUS etc. 
+2. fix a bug in auto connect mode.
+
+## Notes List 
+1. v1.0.1.22 version is skipped. 
+2. More examples such as mDNS, MQTT, power saving development are on-going. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.21
 Patch_Lib : 1751 
 ROM_CODE: 809    
