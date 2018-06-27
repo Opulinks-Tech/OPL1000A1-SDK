@@ -481,6 +481,8 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
 	const u8 *pos;
 	struct wpa_eapol_ie_parse ie;
     int i;
+    hap_control_t *hap_temp;
+    hap_temp=get_hap_control_struct();
 
 	//wpa_sm_set_state(sm, WPA_4WAY_HANDSHAKE);
 	wpa_printf_dbg(MSG_DEBUG, "[3_4]WPA: RX message 3 of 4-Way Handshake from "
@@ -603,6 +605,11 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
     {
 		wpa_printf_dbg(MSG_DEBUG, "[3_4]WPA: RSN: Failed to configure GTK \r\n");
 		goto failed;
+	}
+    if(hap_temp->hap_en)
+	{
+		msg_print(LOG_HIGH_LEVEL, "==========STOP hidden AP process: Already Find a WPA/WPA2 hidden AP \r\n"); 
+	    hiddenap_complete();
 	}
 #endif
 

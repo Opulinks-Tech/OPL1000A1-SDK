@@ -107,7 +107,8 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
     memset(g_passphrase, 0, MAX_LEN_OF_PASSWD);
     memset(bssid, 0, sizeof(bssid)/sizeof(bssid[0]));
     if (conf.ssid == NULL){
-        return FALSE;
+        ret=FALSE;
+        goto done;
     }
 
     if(isMAC_(argv[1])) //wpa_connect "bssid" "passphase"
@@ -134,7 +135,8 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
             if ((len_passwd >= MAX_LEN_OF_PASSWD) || (len_passwd < MIN_LEN_OF_PASSWD))
             {
                 msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
-                return FALSE;
+                ret=FALSE;
+                goto done;
             }
 
             memset(passwd, 0, MAX_LEN_OF_PASSWD);
@@ -178,7 +180,8 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
             if ((len_passwd >= MAX_LEN_OF_PASSWD) || (len_passwd < MIN_LEN_OF_PASSWD))
             {
                 msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
-                return FALSE;
+                ret=FALSE;
+                goto done;
             }
 
             memset(passwd, 0, MAX_LEN_OF_PASSWD);
@@ -219,12 +222,13 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
     ret = wpa_cli_connect(&conf);
     if (ret == FALSE) return FALSE;
     
+done:    
     if (conf.ssid->ssid) {
         os_free(conf.ssid->ssid);
         conf.ssid->ssid = NULL;
     }
     
-    return TRUE;
+    return (ret)?TRUE:FALSE;
 }
 
 void wpa_cli_setdbgmode_by_param(int argc, char *argv[])

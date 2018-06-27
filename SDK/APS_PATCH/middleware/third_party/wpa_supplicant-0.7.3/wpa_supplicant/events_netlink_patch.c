@@ -228,7 +228,6 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
         if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
             pbkdf2_sha1(g_passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
             wpa_sm_set_pmk(wpa_s->wpa, wpa.psk, PMK_LEN);
-            memset(&g_wpa_psk[0], 0, 32);
             memcpy(&g_wpa_psk[0], wpa.psk, 32);
         }
         else {

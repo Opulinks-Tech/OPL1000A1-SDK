@@ -2075,6 +2075,10 @@ int _at_cmd_tcpip_cipclose(char *buf, int len, int mode)
             param = strtok(NULL, "\0");
             link_id = atoi(param);
 
+            if (link_id > AT_LINK_MAX_NUM)
+            {
+                goto exit;
+            }
             if (link_id == AT_LINK_MAX_NUM) {
                 /* when ID=5, all connections will be closed.*/
                 for(id = 0; id < AT_LINK_MAX_NUM; id++) {
@@ -2092,6 +2096,10 @@ int _at_cmd_tcpip_cipclose(char *buf, int len, int mode)
                     at_socket_client_cleanup_task(link);
                     at_sprintf(resp_buf,"%d,CLOSED\r\n", link_id);
                     msg_print_uart1(resp_buf);
+                }
+                else
+                {
+                    goto exit;
                 }
             }
             ret = AT_RESULT_CODE_OK;

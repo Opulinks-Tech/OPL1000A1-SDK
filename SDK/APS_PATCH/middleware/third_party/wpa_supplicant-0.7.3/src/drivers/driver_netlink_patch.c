@@ -22,6 +22,7 @@
 #include "wpa_common_patch.h"
 #include "controller_wifi_com_patch.h"
 
+extern u8 g_bssid[6];
 extern struct wpa_supplicant *wpa_s;
 
 RET_DATA wpa_driver_netlink_show_scan_results_fp_t wpa_driver_netlink_show_scan_results;
@@ -237,11 +238,52 @@ Boolean wpa_driver_netlink_get_sta_cfg_patch(u8 cfg_idx, void *ptr)
     return TRUE;
 }
 
+Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
+{
+    int ret = 0;
+    scan_info_t *pInfo = NULL;
+    int i;
+    hap_control_t *hap_temp;
+    hap_temp=get_hap_control_struct();
+    if (conf == NULL)
+        return FALSE;
+    if (conf->ssid == NULL)
+        return FALSE;
+    if (conf->ssid->ssid == NULL){
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: wpa_driver_netlink_connect, bssid:%02x %02x %02x %02x %02x %02x \r\n",
+                                                  conf->ssid->bssid[0], conf->ssid->bssid[1], conf->ssid->bssid[2],
+                                                  conf->ssid->bssid[3], conf->ssid->bssid[4], conf->ssid->bssid[5]);
+        wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATING);
+        ret = wifi_sta_join(conf->ssid->bssid);
+    } 
+    else{
+        pInfo = wifi_get_scan_record_by_ssid((char*)(conf->ssid->ssid));
+        if(pInfo == NULL){
+            if(hap_temp->hap_final_index!=0){
+                hap_temp->hap_en=1;
+                hap_temp->hap_ap_info = malloc(sizeof(auto_conn_info_t));
+                wifi_sta_join_for_hiddenap();
+                return TRUE;
+            }
+            else{
+                return FALSE;
+            }
+        }
+        for (i=0; i<ETH_ALEN; i++){
+            g_bssid[i] = pInfo->bssid[i];
+        }
+        wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATING);
+        ret = wifi_sta_join(pInfo->bssid);
+    }
+    if(ret == 0) return TRUE;
+    return FALSE;
+}
 /*
    Interface Initialization: WPA Driver
  */
 void wpa_driver_func_init_patch(void)
 {
+    wpa_driver_netlink_connect = wpa_driver_netlink_connect_patch;
     wpa_driver_netlink_get_scan_results = wpa_driver_netlink_get_scan_results_patch;
     wpa_driver_netlink_show_scan_results = wpa_driver_netlink_show_scan_results_patch;
     wpa_driver_netlink_scan_results_clear = wpa_driver_netlink_scan_results_clear_patch;
