@@ -1,4 +1,39 @@
 ## Release Version:
+SDK Package: 1.0.1.24
+Patch_Lib : 1849
+ROM_CODE: 809    
+
+## Release Date:  2018/06/28
+
+## Function & Feature Update
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.24, WIFI part APIs are updated.  
+ 1.2 OPL1000-AT-instruction-set-and-examples: R05-V06, fixed wrong description in several AT commands.  
+2. Example codes updating:
+ 2.1 sntp example is updated, wifi ap SSID is changed to Opulinks-TEST-AP.    
+ 2.2 add a new protocol example: mDNS, service broadcast function is supported.   
+3. Tool version information:
+ 3.1 download tool: v0.17. No change since v1.0.1.23.    
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. Fixed bugs in several AT commands  
+5. Optimize IPC module realization    
+6. Solve "printf instruction may cause caller task stack overflow" issue
+7. Extend WIFI scan channel list range from 1~11 to 1~13 
+8. Extend Adaptive DTIM interval settings to maximum 255 
+
+## Bug Fix List 
+1. Solve OPL1000 connecting SSID hidden AP failure issue. 
+2. Fix "no message of success or failure" bug in AT command AT+BLECONNPARAM
+3. Fix bugs in AT commands AT+CIPCLOSE, AT+BLEADVPARAM, AT+BLENAME, AT+BLECONNPARAM, AT+BLENAME
+4. Fix the bug of "auto connect failed when AP's mode is changed from security to open"
+
+## Notes List 
+1. OTA, open SSL features are on-developing.  
+2. mDNS service inquiring function is on-developing. 
+3. More examples such as MQTT, power saving development are on-going. 
+
+*****
+## Release Version:
 SDK Package: 1.0.1.23
 Patch_Lib : 1807 
 ROM_CODE: 809    
