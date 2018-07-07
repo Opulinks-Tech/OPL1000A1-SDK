@@ -1,4 +1,40 @@
 ## Release Version:
+SDK Package: 1.0.1.25
+Patch_Lib : 1930
+ROM_CODE: 809    
+
+## Release Date:  2018/07/06
+
+## Function & Feature Update
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.25, WIFI part APIs are updated.  
+ 1.2 OPL1000-AT-instruction-set-and-examples: R05-V07, refined some description of several AT commands.  
+2. WIFI related examples are updated. AP scan mode is changed from active to mixed mode.   
+3. Tool version information:
+ 3.1 download tool: v0.17. No change since v1.0.1.23.    
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. Low level FW lib supports BLE OTA feature, high level application module is on-developing.
+5. Fixed several bugs in AT instructions.    
+6. BLE connection rate and stability is improved. 
+7. WIFI Interoperability for fast connection is improved.  
+8. Implement AES-CMAC API with HW security engine 
+
+## Bug Fix List 
+1. Fix bug in "AT+CIPSENDEX" instruction implementation. 
+2. Fix bug in "AT+UART_CUR?" and "AT+UART_DEF?" instruction display 
+3. Fix baud-rate and stop bit setting bug in "AT+UART_CUR" instruction
+4. Fix bug in "AT+CIPSTART" instruction UDP mode
+5. Fix bug in "AT+CWSTAMAC" instruction
+6. Fix bug in "AT+CWAUTOCONN?" instruction print information 
+7. Fix bug in "AT+BLEADVPARAM", "AT+CWLAPOPT" and "AT+CWHOSTNAME" instructions 
+8. Fix bug in query Wi-Fi Status and clean Wi-Fi AP record operations 
+
+## Notes List 
+1. OTA high level application module is on-developing.  
+2. More examples such as MQTT, power saving are on-developing. 
+
+*****
+## Release Version:
 SDK Package: 1.0.1.24
 Patch_Lib : 1849
 ROM_CODE: 809    
