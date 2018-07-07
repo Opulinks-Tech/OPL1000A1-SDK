@@ -20,5 +20,7 @@ int wpa_cli_get_manuf_name(u8 *name);
 int wpa_cli_set_manuf_name(u8 *name);
 #endif
 
+extern int check_mac_addr_len(const char *txt);
+
 #endif
 

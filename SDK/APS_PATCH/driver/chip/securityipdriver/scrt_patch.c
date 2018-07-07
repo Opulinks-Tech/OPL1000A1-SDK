@@ -72,7 +72,7 @@
     #define SCRT_LOGE(...)
 #endif
 
-#define SCRT_CHECK
+//#define SCRT_CHECK
 
 #ifdef SCRT_CHECK
     #define SCRT_ASSERT(a)    \
@@ -113,6 +113,7 @@ typedef enum
     SCRT_TOKEN_ID_AES_CCM_DECRYPT = 0xE0C0,
     SCRT_TOKEN_ID_HMAC_SHA_1 = 0xE0D0,
     SCRT_TOKEN_ID_AES_ECB = 0xE0E0,
+    SCRT_TOKEN_ID_AES_CMAC = 0xE0F0,
 
     SCRT_TOKEN_ID_MAX = 0xEFFF
 } T_ScrtTokenId;
@@ -163,7 +164,8 @@ RET_DATA nl_scrt_common_fp_t nl_scrt_otp_status_get;
 RET_DATA nl_scrt_ecdh_key_pair_gen_fp_t nl_scrt_ecdh_key_pair_gen;
 RET_DATA nl_scrt_ecdh_dhkey_gen_fp_t nl_scrt_ecdh_dhkey_gen;
 RET_DATA nl_scrt_key_delete_fp_t nl_scrt_key_delete;
-
+RET_DATA nl_scrt_aes_cmac_fp_t nl_scrt_aes_cmac;
+//RET_DATA nl_scrt_hmac_sha_1_step_fp_t nl_scrt_hmac_sha_1_step;
 
 T_ScrtRes g_tScrtRes[SCRT_MB_IDX_MAX] = {0};
 osSemaphoreId g_tScrtResSem = NULL;
@@ -2724,6 +2726,528 @@ done:
 }
 
 /*
+ * nl_aes_cmac_patch - Perform the AES CMAC Operation
+ *
+ * @param [in] sk
+ *      The Key
+ *
+ * @param [in] sk_len
+ *      The Key Length
+ *
+ * @param [in] in_data
+ *      The Input Data which to be handled
+ *
+ * @param [in] in_data_len
+ *      The length of Input Data
+ *
+ * @param [out] mac
+ *      Output MAC Data
+ *
+ * @return 1 success
+ *
+ * @return 0 fail
+ *
+ */
+int nl_scrt_aes_cmac_patch(uint8_t *u8aKey, uint8_t u8KeyLen, uint8_t *u8aInputBuf, uint32_t u32BufSize, uint32_t u32InputLen, uint8_t *u8aMac)
+{
+    int status = 0;
+    unsigned int word_6 = 0;
+    volatile uint32_t *u32aBase = NULL;
+    volatile uint32_t *u32aStatus = (uint32_t *)SCRT_STAT_CTRL_ADDR;
+    uint32_t u32Output = 0;
+    uint8_t u8ResId = SCRT_MB_IDX_MAX;
+    uint16_t u16TokenId = 0;
+    uint8_t u8NeedToClr = 0;
+    uint32_t u32BlkSize = 16;
+    uint32_t u32DataLen = 0;
+    uint32_t u32PadLen = 0;
+    uint8_t *u8aInput = NULL;
+
+    #ifdef SCRT_ENABLE_UNLINK
+    uint8_t u8Link = 0;
+    #endif
+
+    if((!u8aKey) || (!u8KeyLen) || 
+       (!u8aMac))
+    {
+        SCRT_LOGE("[%s %d] invalid param\n", __func__, __LINE__);
+        goto done;
+    }
+
+    if(u32InputLen)
+    {
+        if(!u8aInputBuf)
+        {
+            SCRT_LOGE("[%s %d] invalid input buffer\n", __func__, __LINE__);
+            goto done;
+        }
+    }
+
+    if((u8KeyLen != 16) && (u8KeyLen != 24) && (u8KeyLen != 32))
+    {
+        SCRT_LOGE("[%s %d] invalid key length[%d]\n", __func__, __LINE__, u8KeyLen);
+        goto done;
+    }
+
+    u8ResId = scrt_res_alloc();
+
+    if(u8ResId >= SCRT_MB_IDX_MAX)
+    {
+        SCRT_LOGE("[%s %d] scrt_res_alloc fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    #ifdef SCRT_PRE_LINK
+    #else
+    // Link: start
+    if(scrt_link(g_tScrtRes[u8ResId].u8MbIdx))
+    {
+        SCRT_LOGE("[%s %d] scrt_link fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    #ifdef SCRT_ENABLE_UNLINK
+    u8Link = 1;
+    #endif
+    // Link: end
+    #endif
+
+    if(u32InputLen)
+    {
+        uint32_t u32Remain = u32InputLen & (u32BlkSize - 1);
+
+        u32DataLen = u32InputLen & (~(u32BlkSize - 1));
+        
+        if(u32Remain)
+        {
+            u32DataLen += u32BlkSize;
+            u32PadLen = u32BlkSize - u32Remain;
+        }
+    }
+    else
+    {
+        u32DataLen = u32BlkSize;
+        u32PadLen = u32BlkSize;
+    }
+
+    // MAC: start
+    if(u32PadLen)
+    {
+        uint8_t u8Alloc = 1;
+
+        if(u8aInputBuf)
+        {
+            if(u32BufSize >= u32DataLen)
+            {
+                u8aInput = u8aInputBuf;
+                u8Alloc = 0;
+            }
+        }
+
+        if(u8Alloc)
+        {
+            u8aInput = SCRT_MALLOC(u32DataLen);
+
+            if(u8aInput == NULL)
+            {
+                SCRT_LOGE("[%s %d] SCRT_MALLOC fail\n", __func__, __LINE__);
+                goto done;
+            }
+
+            if(u8aInputBuf && u32InputLen)
+            {
+                memcpy(u8aInput, u8aInputBuf, u32InputLen);
+            }
+        }
+
+        // padding
+        u8aInput[u32InputLen] = 0x80;
+        memset(&(u8aInput[u32InputLen + 1]), 0x00, u32PadLen - 1);
+    }
+    else // multiple of 16
+    {
+        u8aInput = u8aInputBuf;
+    }
+
+    u16TokenId = SCRT_TOKEN_ID_AES_CMAC + g_tScrtRes[u8ResId].u8MbIdx;
+    u32aBase = (volatile uint32_t *)SCRT_BASE_ADDR(g_tScrtRes[u8ResId].u8MbIdx);
+
+    u32aBase[0] = 0x03000000 | u16TokenId;
+    u32aBase[1] = SCRT_ID;
+    u32aBase[2] = u32DataLen;
+    u32aBase[3] = (uint32_t)u8aInput;
+    u32aBase[4] = 0x00000000;
+    u32aBase[5] = u32DataLen;
+
+    word_6 = ((u8KeyLen & 0xff) << 16) | 0x08;
+    u32aBase[6] = word_6;
+
+    u32aBase[7] = 0x00000000;
+    u32aBase[8] = 0x00000000;
+    u32aBase[9] = 0x00000000;
+    u32aBase[10] = 0x00000000;
+    u32aBase[11] = 0x00000000;
+    u32aBase[12] = 0x00000000;
+    u32aBase[13] = 0x00000000;
+    u32aBase[14] = 0x00000000;
+    u32aBase[15] = 0x00000000;
+    u32aBase[16] = 0x00000000;
+    u32aBase[17] = 0x00000000;
+    u32aBase[18] = 0x00000000;
+    u32aBase[19] = 0x00000000;
+    u32aBase[20] = 0x00000000;
+    u32aBase[21] = 0x00000000;
+    u32aBase[22] = 0x00000000;
+    u32aBase[23] = 0x00000000;
+
+    //word 24
+    if(u32PadLen < u32BlkSize)
+    {
+        u32aBase[24] = u32PadLen & 0x0F;
+    }
+    else
+    {
+        u32aBase[24] = 0x0F;
+    }
+
+    u32aBase[25] = 0x00000000;
+    u32aBase[26] = 0x00000000;
+    u32aBase[27] = 0x00000000;
+
+    //msg_print(LOG_HIGH_LEVEL, "[scrt] nl_hmac_sha_1, in_data_len:%d word_6:%08x \r\n", in_data_len, word_6);
+
+    /* Key */
+    memcpy((void *)&(u32aBase[28]), u8aKey, u8KeyLen);
+
+    /* Write a word */
+    *u32aStatus = SCRT_CTRL_WRITE_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+    // MAC: end
+
+    // write done and ready to read
+    if(scrt_status_chk(SCRT_STATUS_WRITE_MSK(g_tScrtRes[u8ResId].u8MbIdx) | SCRT_STATUS_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx), 
+                       SCRT_STATUS_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx)))
+    {
+        SCRT_LOGE("[%s %d] scrt_status_chk fail\n", __func__, __LINE__);
+
+        #ifdef SCRT_CHECK
+        SCRT_ASSERT(0);
+        #else
+        goto done;
+        #endif
+    }
+
+    u8NeedToClr = 1;
+
+    // MAC output: start
+    u32Output = u32aBase[0];
+
+    if(u32Output != u16TokenId)
+    {
+        SCRT_LOGE("[%s %d] output token id[%08X] != SCRT_TOKEN_ID_AES_CMAC[%08X]\n", __func__, __LINE__, 
+                  u32Output, u16TokenId);
+
+        #ifdef SCRT_CHECK
+        SCRT_ASSERT(0);
+        #else
+        goto done;
+        #endif
+    }
+
+    /* Copy the output MAC data */
+    memcpy((void *)u8aMac, (void *)&(u32aBase[2]), SCRT_AES_CMAC_OUTPUT_LEN);
+
+    *u32aStatus = SCRT_CTRL_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+    u8NeedToClr = 0;
+    // MAC output: end
+
+    status = 1;
+
+done:
+    if((u8aInput) && (u8aInput != u8aInputBuf))
+    {
+        SCRT_FREE(u8aInput);
+    }
+
+    if(u8ResId < SCRT_MB_IDX_MAX)
+    {
+        if(u8NeedToClr)
+        {
+            *u32aStatus = SCRT_CTRL_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+        }
+
+        #ifdef SCRT_ENABLE_UNLINK
+        // Unlink: start
+        if(u8Link)
+        {
+            if(scrt_unlink(g_tScrtRes[u8ResId].u8MbIdx))
+            {
+                SCRT_LOGE("[%s %d] scrt_unlink fail\n", __func__, __LINE__);
+            }
+        }
+        // Unlink: end
+        #endif
+    
+        // free resource
+        scrt_res_free(u8ResId);
+    }
+
+    return status;
+}
+
+#if 0
+/*
+ * nl_hmac_sha_1_step - Perform the HMAC SHA1 Operation
+ *
+ * @param [in] type
+ *      Operation type: 0: new/1: continue/2:final
+ *
+ * @param [in] total length
+ *      Total Length. It's necessary for final operation.
+ *
+ * @param [in] sk
+ *      The Key
+ *
+ * @param [in] sk_len
+ *      The Key Length
+ *
+ * @param [in] in_data
+ *      The Input Data which to be handled
+ *
+ * @param [in] in_data_len
+ *      The length of Input Data
+ *
+ * @param [out] mac
+ *      Output MAC Data
+ *
+ * @return 1 success
+ *
+ * @return 0 fail
+ *
+ */
+int nl_scrt_hmac_sha_1_step_patch(uint8_t type, uint32_t total_len, uint8_t *sk, int sk_len, uint8_t *in_data, int in_data_len, uint8_t *mac)
+{
+    int status = 0;
+    unsigned int word_6 = 0;
+    volatile uint32_t *u32aBase = NULL;
+    volatile uint32_t *u32aStatus = (uint32_t *)SCRT_STAT_CTRL_ADDR;
+    uint32_t u32Output = 0;
+    uint8_t u8ResId = SCRT_MB_IDX_MAX;
+    uint16_t u16TokenId = 0;
+    uint8_t u8NeedToClr = 0;
+
+    uint8_t u8Mode = 0;
+    uint32_t u32DataLen = 0;
+    uint32_t u32BlkSize = 64; // must be power of 2
+
+    #ifdef SCRT_ENABLE_UNLINK
+    uint8_t u8Link = 0;
+    #endif
+
+    if(type >= SCRT_MAC_STEP_MAX)
+    {
+        SCRT_LOGE("[%s %d] invalid type[%d]\n", __func__, __LINE__, type);
+        goto done;
+    }
+
+    if((!sk) || (!sk_len) || 
+       (!in_data) || (!in_data_len) || 
+       (!mac))
+    {
+        SCRT_LOGE("[%s %d] invalid param\n", __func__, __LINE__);
+        goto done;
+    }
+
+    if(type == SCRT_MAC_STEP_FINAL)
+    {
+        u32DataLen = in_data_len;
+    }
+    else
+    {
+        if(in_data_len & (u32BlkSize - 1))
+        {
+            SCRT_LOGE("[%s %d] invalid length[%u] for non-final block\n", __func__, __LINE__, in_data_len);
+            goto done;
+        }
+
+        u32DataLen = in_data_len;
+    }
+
+    u8ResId = scrt_res_alloc();
+
+    if(u8ResId >= SCRT_MB_IDX_MAX)
+    {
+        SCRT_LOGE("[%s %d] scrt_res_alloc fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    #ifdef SCRT_PRE_LINK
+    #else
+    // Link: start
+    if(scrt_link(g_tScrtRes[u8ResId].u8MbIdx))
+    {
+        SCRT_LOGE("[%s %d] scrt_link fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    #ifdef SCRT_ENABLE_UNLINK
+    u8Link = 1;
+    #endif
+    // Link: end
+    #endif
+
+    u16TokenId = SCRT_TOKEN_ID_HMAC_SHA_1 + g_tScrtRes[u8ResId].u8MbIdx;
+    u32aBase = (volatile uint32_t *)SCRT_BASE_ADDR(g_tScrtRes[u8ResId].u8MbIdx);
+
+    // MAC: start
+    u32aBase[0] = 0x03000000 | u16TokenId;
+    u32aBase[1] = SCRT_ID;
+    u32aBase[2] = u32DataLen;
+    u32aBase[3] = (uint32_t)in_data;
+    u32aBase[4] = 0x00000000;
+    u32aBase[5] = in_data_len;
+
+    switch(type)
+    {
+    case SCRT_MAC_STEP_NEW:
+        u8Mode = 0x02;
+        break;
+
+    case SCRT_MAC_STEP_CONTINUE:
+        u8Mode = 0x03;
+        break;
+
+    case SCRT_MAC_STEP_FINAL:
+        u8Mode = 0x01;
+        break;
+
+    default:
+        SCRT_ASSERT(0);
+    }
+
+    word_6 = ((sk_len & 0xff) << 16) | ((u8Mode & 0x03) << 4) | ((0x1) << 0);
+    
+    u32aBase[6] = word_6;      //key length: 0x08  ;  [3:0] Algorithm  HMAC-SHA-1, 160-bit MAC, block size is 64 Bytes
+    u32aBase[7] = 0x00000000;
+
+    if(type == SCRT_MAC_STEP_NEW)
+    {
+        // clear intermediate MAC (word 8 ~ 15)
+        memset((void *)&(u32aBase[8]), 0, SCRT_HMAC_SHA_1_INTER_MAC_LEN);
+    }
+    else
+    {
+        // copy intermediate MAC (word 8 ~ 15)
+        memcpy((void *)&(u32aBase[8]), mac, SCRT_HMAC_SHA_1_INTER_MAC_LEN);
+    }
+
+    u32aBase[16] = 0x00000000;
+    u32aBase[17] = 0x00000000;
+    u32aBase[18] = 0x00000000;
+    u32aBase[19] = 0x00000000;
+    u32aBase[20] = 0x00000000;
+    u32aBase[21] = 0x00000000;
+    u32aBase[22] = 0x00000000;
+    u32aBase[23] = 0x00000000;
+
+    //word 24
+    if(type == SCRT_MAC_STEP_FINAL)
+    {
+        u32aBase[24] = total_len;
+    }
+    else
+    {
+        u32aBase[24] = 0x00000000;
+    }
+
+    u32aBase[25] = 0x00000000;
+    
+    u32aBase[26] = 0x00000000;
+    u32aBase[27] = 0x00000000;
+
+    //msg_print(LOG_HIGH_LEVEL, "[scrt] nl_hmac_sha_1, in_data_len:%d word_6:%08x \r\n", in_data_len, word_6);
+
+    /* Key */
+    memcpy((void *)&(u32aBase[28]), sk, sk_len);
+
+    /* Write a word */
+    *u32aStatus = SCRT_CTRL_WRITE_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+    // MAC: end
+
+    // write done and ready to read
+    if(scrt_status_chk(SCRT_STATUS_WRITE_MSK(g_tScrtRes[u8ResId].u8MbIdx) | SCRT_STATUS_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx), 
+                       SCRT_STATUS_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx)))
+    {
+        SCRT_LOGE("[%s %d] scrt_status_chk fail\n", __func__, __LINE__);
+
+        #ifdef SCRT_CHECK
+        SCRT_ASSERT(0);
+        #else
+        goto done;
+        #endif
+    }
+
+    u8NeedToClr = 1;
+
+    // MAC output: start
+    u32Output = u32aBase[0];
+
+    if(u32Output != u16TokenId)
+    {
+        SCRT_LOGE("[%s %d] output token id[%08X] != SCRT_TOKEN_ID_HMAC_SHA_1[%08X]\n", __func__, __LINE__, 
+                  u32Output, u16TokenId);
+
+        #ifdef SCRT_CHECK
+        SCRT_ASSERT(0);
+        #else
+        goto done;
+        #endif
+    }
+
+    if(type == SCRT_MAC_STEP_FINAL)
+    {
+        /* Copy the output MAC data */
+        memcpy((void *)mac, (void *)&(u32aBase[2]), SCRT_HMAC_SHA_1_OUTPUT_LEN);
+    }
+    else
+    {
+        memcpy((void *)mac, (void *)&(u32aBase[2]), SCRT_HMAC_SHA_1_INTER_MAC_LEN);
+    }
+
+    *u32aStatus = SCRT_CTRL_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+    u8NeedToClr = 0;
+    // MAC output: end
+
+    status = 1;
+
+done:
+    if(u8ResId < SCRT_MB_IDX_MAX)
+    {
+        if(u8NeedToClr)
+        {
+            *u32aStatus = SCRT_CTRL_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx);
+        }
+
+        #ifdef SCRT_ENABLE_UNLINK
+        // Unlink: start
+        if(u8Link)
+        {
+            if(scrt_unlink(g_tScrtRes[u8ResId].u8MbIdx))
+            {
+                SCRT_LOGE("[%s %d] scrt_unlink fail\n", __func__, __LINE__);
+            }
+        }
+        // Unlink: end
+        #endif
+    
+        // free resource
+        scrt_res_free(u8ResId);
+    }
+
+    return status;
+}
+#endif
+
+/*
  * scrt_drv_func_init - Interface Initialization: SCRT
  *
  */
@@ -2773,6 +3297,8 @@ void scrt_drv_func_init_patch(void)
     nl_scrt_ecdh_key_pair_gen = nl_scrt_ecdh_key_pair_gen_impl;
     nl_scrt_ecdh_dhkey_gen = nl_scrt_ecdh_dhkey_gen_impl;
     nl_scrt_key_delete = nl_scrt_key_delete_impl;
+    nl_scrt_aes_cmac = nl_scrt_aes_cmac_patch;
+    //nl_scrt_hmac_sha_1_step = nl_scrt_hmac_sha_1_step_patch;
 
     #ifdef SCRT_CMD
     nl_scrt_cmd_func_init();

@@ -19,6 +19,20 @@
 //#define SCRT_PRE_LINK
 #define SCRT_ENABLE_UNLINK
 
+#define SCRT_AES_CMAC_OUTPUT_LEN        16
+#define SCRT_HMAC_SHA_1_OUTPUT_LEN      20
+#define SCRT_HMAC_SHA_1_INTER_MAC_LEN   32
+
+
+typedef enum
+{
+    SCRT_MAC_STEP_NEW = 0,
+    SCRT_MAC_STEP_CONTINUE,
+    SCRT_MAC_STEP_FINAL,
+
+    SCRT_MAC_STEP_MAX
+} T_ScrtMacStep;
+
 
 #if 1
 
@@ -35,6 +49,8 @@ typedef int (*nl_scrt_common_fp_t)(void);
 typedef int (*nl_scrt_ecdh_key_pair_gen_fp_t)(void *pPubKey, uint32_t *u32aPrivKey, uint32_t *pu32PrivKeyId);
 typedef int (*nl_scrt_ecdh_dhkey_gen_fp_t)(uint8_t *u8aPubKeyX, uint8_t *u8aPubKeyY, uint32_t *u32aPrivKey, void *pDhKey, uint32_t u32PrivKeyId);
 typedef int (*nl_scrt_key_delete_fp_t)(uint32_t u32KeyId);
+typedef int (*nl_scrt_aes_cmac_fp_t)(uint8_t *u8aKey, uint8_t u8KeyLen, uint8_t *u8aInputBuf, uint32_t u32BufSize, uint32_t u32InputLen, uint8_t *u8aMac);
+typedef int (*nl_scrt_hmac_sha_1_step_fp_t)(uint8_t type, uint32_t total_len, uint8_t *sk, int sk_len, uint8_t *in_data, int in_data_len, uint8_t *mac);
 
 
 // internal
@@ -69,6 +85,8 @@ extern nl_scrt_common_fp_t nl_scrt_otp_status_get;
 extern nl_scrt_ecdh_key_pair_gen_fp_t nl_scrt_ecdh_key_pair_gen;
 extern nl_scrt_ecdh_dhkey_gen_fp_t nl_scrt_ecdh_dhkey_gen;
 extern nl_scrt_key_delete_fp_t nl_scrt_key_delete;
+extern nl_scrt_aes_cmac_fp_t nl_scrt_aes_cmac;
+extern nl_scrt_hmac_sha_1_step_fp_t nl_scrt_hmac_sha_1_step;
 
 /*
  * scrt_drv_func_init
@@ -319,7 +337,7 @@ int nl_scrt_aes_cmac( unsigned char *sk, int sk_len, unsigned char *data_in, int
 
 /** TRNG */
 int nl_scrt_trng(int size, unsigned char *trng_out);
-#endif // allen chu test
+#endif
 
 #endif
 

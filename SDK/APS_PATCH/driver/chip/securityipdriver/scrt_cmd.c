@@ -24,6 +24,7 @@
 #include "diag_task_patch.h"
 
 
+#define SCRT_CMD_AES_CMAC
 //#define SCRT_KEY_PAIR_1
 #define SCRT_DHKEY_1
 //#define SCRT_AES_CCM_ENC_1
@@ -36,7 +37,7 @@
 //#define SCRT_DHKEY_2
 #define SCRT_AES_CCM_ENC_2
 #define SCRT_AES_CCM_DEC_2
-#define SCRT_CMAC_SHA1_2
+#define SCRT_HMAC_SHA1_2
 #define SCRT_AES_ECB_ENC_2
 #define SCRT_AES_ECB_DEC_2
 
@@ -44,7 +45,7 @@
 //#define SCRT_DHKEY_3
 #define SCRT_AES_CCM_ENC_3
 #define SCRT_AES_CCM_DEC_3
-#define SCRT_CMAC_SHA1_3
+#define SCRT_HMAC_SHA1_3
 #define SCRT_AES_ECB_ENC_3
 #define SCRT_AES_ECB_DEC_3
 
@@ -52,7 +53,7 @@
 //#define SCRT_DHKEY_4
 #define SCRT_AES_CCM_ENC_4
 #define SCRT_AES_CCM_DEC_4
-#define SCRT_CMAC_SHA1_4
+#define SCRT_HMAC_SHA1_4
 #define SCRT_AES_ECB_ENC_4
 #define SCRT_AES_ECB_DEC_4
 
@@ -63,17 +64,24 @@
 #define SCRT_CURR_TIME              (*(volatile uint32_t *)(0x40003044))
 
 
+typedef UINT16 (*T_LeAesCmacFp)(const UINT8 *key, const UINT8 *in, UINT16 len, UINT8 *out);
 // internal
+#ifdef SCRT_CMD_SUT_TASK
 RET_DATA os_pthread scrt_sut_task_main_1;
 RET_DATA os_pthread scrt_sut_task_main_2;
 RET_DATA os_pthread scrt_sut_task_main_3;
 RET_DATA os_pthread scrt_sut_task_main_4;
 RET_DATA scrt_sut_task_delete_fp_t scrt_sut_task_delete;
 RET_DATA scrt_sut_task_create_fp_t scrt_sut_task_create;
+#endif //#ifdef SCRT_CMD_SUT_TASK
 
 // external
 RET_DATA nl_scrt_cmd_fp_t nl_scrt_cmd;
 
+#ifdef SCRT_CMD_ECDH
+uint32_t g_u32aHwPubKey[16] = {0};
+uint32_t g_u32aSwPrivKey[8] = {0};
+uint32_t g_u32aSwPubKey[16] = {0};
 
 // 7.1.2.1 P-256 Data Set 1
 // Private key of A
@@ -167,7 +175,9 @@ const uint8_t g_u8aAPubKeyY2[] =
     0x1f, 0x87, 0x43, 0x8e, 0x40, 0xe2, 0x52, 0xcd,
     0xbe, 0xdf, 0x98, 0x38, 0x18, 0x12, 0x95, 0x91
 };
+#endif //#ifdef SCRT_CMD_ECDH
 
+#ifdef SCRT_CMD_AES_CCM
 const uint8_t g_u8aScrtAesCcmSk[16] = 
 {
     0x5D, 0xA7, 0x86, 0xFF, 0xD9, 0x89, 0xC0, 0x91, 0x03, 0xB4, 0xEC, 0xDC, 0x24, 0xAE, 0x49, 0x36, 
@@ -234,24 +244,28 @@ const uint8_t g_u8aScrtAesCcmCipher[286 + 6] =
     0x44, 0x55, 0x80, 0x48, 0xAF, 0x52, 0x4E, 0xD3, 0xB3, 0xE7, 0x90, 0x59, 0x7D, 0x55, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00
 };
+#endif //#ifdef SCRT_CMD_AES_CCM
 
-const uint8_t g_u8aCmacSha1Sk[] = 
+#ifdef SCRT_CMD_HMAC_SHA_1
+const uint8_t g_u8aHmacSha1Sk[] = 
 {
     0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38
 };
 
-const uint8_t g_u8aCmacSha1Data[] = 
+const uint8_t g_u8aHmacSha1Data[] = 
 {
     0x0E, 0x56, 0xE1, 0xB8, 0xFE, 0x65, 0x07, 0x35, 0x37, 0x60, 0x4A, 0x90, 0x57, 0x92, 0xF0, 0xE7, 
     0x61, 0x1F, 0xFB, 0xB7
 };
 
-const uint8_t g_u8aCmacSha1Mac[] = 
+const uint8_t g_u8aHmacSha1Mac[] = 
 {
     0xF4, 0x40, 0xBF, 0x29, 0x17, 0xB5, 0x31, 0x62, 0x0F, 0xB2, 0x6B, 0xF2, 0x74, 0x73, 0x59, 0x28, 
     0xE4, 0x60, 0x6A, 0x64
 };
+#endif //#ifdef SCRT_CMD_HMAC_SHA_1
 
+#ifdef SCRT_CMD_AES_ECB
 const uint8_t g_u8aAesEcbSk[16] = 
 {
     0x4E, 0x58, 0xED, 0x48, 0xFC, 0xB5, 0x44, 0x66, 0x24, 0xBD, 0xF8, 0x40, 0x48, 0xE1, 0x9A, 0x27,
@@ -266,10 +280,41 @@ const uint8_t g_u8aAesEcbOutput[16] =
 {
     0xF1, 0x4D, 0xF1, 0x0A, 0x2E, 0x9A, 0xF7, 0x4E, 0x5A, 0x4F, 0xB0, 0x8B, 0xBF, 0x5D, 0x19, 0x98,
 };
+#endif //#ifdef SCRT_CMD_AES_ECB
 
-uint32_t g_u32aHwPubKey[16] = {0};
-uint32_t g_u32aSwPrivKey[8] = {0};
-uint32_t g_u32aSwPubKey[16] = {0};
+#ifdef SCRT_CMD_AES_CMAC
+uint8_t g_u8aScrtAesCmacSk[] = 
+{
+    0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37,
+    0x38, 0x39, 0x3A, 0x3B, 0x3C, 0x3D, 0x3E, 0x3F 
+};
+uint8_t g_u8aScrtAesCmacData[128] = 
+{
+    0x38, 0xD7, 0xCB, 0xF0, 0xE7, 0x88, 0x2A, 0x76, 0xE1, 0x97, 0x6B, 0x6F, 0xFA, 0x68, 0x80, 0xB3, 
+    0x0F, 0x12, 0x73, 0x00, 0xAF, 0xC5, 0x88, 0x2F, 0xE8, 0x4A, 0x40, 0xA1, 0xED, 0x6C, 0x34, 0xD7, 
+    0xDF, 0x31, 0xE9, 0x75, 0x3C, 0x64, 0xA4, 0x78, 0x17, 0x1E, 0x80, 0x0A, 0x1C, 0xFE, 0xA0, 0xF6, 
+    0x5E, 0x58, 0x47, 0xBF, 0x66, 0x75, 0x00, 0x4B, 0x3C, 0x90, 0xD6, 0x6D, 0x37, 0x13, 0x66, 0xF1, 
+    0x4C, 0x93, 0xF3, 0xEC, 0xD0, 0x00, 0x57, 0x55, 0x3A, 0xB4, 0x46, 0x52, 0x37, 0xBC, 0x5A, 0xDE, 
+};
+#endif //#ifdef SCRT_CMD_AES_CMAC
+#ifdef SCRT_CMD_HMAC_SHA_1_STEP
+const uint8_t g_u8aScrtHmacSha1SkStep[] = 
+{
+    0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38
+};
+uint8_t g_u8ScrtHmacSha1Step[] = 
+{
+    0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 
+    0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 
+    0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 
+    0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 
+    0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B,
+    0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 
+    0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 
+    0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 
+};
+#endif //#ifdef SCRT_CMD_HMAC_SHA_1_STEP
+#ifdef SCRT_CMD_SUT_TASK
 
 volatile uint8_t g_bScrtSutTaskRun = 0;
 osThreadId g_taScrtSutThreadId[SCRT_SUT_TASK_NUM] = {0};
@@ -318,16 +363,16 @@ void scrt_sut_task_main_1_impl(void *pParam)
     memcpy(u8aScrtAesCcmTag, g_u8aScrtAesCcmTag, sizeof(g_u8aScrtAesCcmTag));
     #endif
 
-    #ifdef SCRT_CMAC_SHA1_1
-    uint8_t u8aCmacSha1Sk[16] = {0};
-    uint8_t u8aCmacSha1Data[20] = {0}; 
-    uint8_t u8aCmacSha1Mac[20] = {0};
-    uint32_t u32CmacSha1SkLen = 8;
-    uint32_t u32CmacSha1DataLen = 20;
+    #ifdef SCRT_HMAC_SHA1_1
+    uint8_t u8aHmacSha1Sk[16] = {0};
+    uint8_t u8aHmacSha1Data[20] = {0}; 
+    uint8_t u8aHmacSha1Mac[20] = {0};
+    uint32_t u32HmacSha1SkLen = 8;
+    uint32_t u32HmacSha1DataLen = 20;
 
-    memcpy(u8aCmacSha1Sk, g_u8aCmacSha1Sk, sizeof(u8aCmacSha1Sk));
-    memcpy(u8aCmacSha1Data, g_u8aCmacSha1Data, sizeof(u8aCmacSha1Data));
-    memcpy(u8aCmacSha1Mac, g_u8aCmacSha1Mac, sizeof(u8aCmacSha1Mac));
+    memcpy(u8aHmacSha1Sk, g_u8aHmacSha1Sk, sizeof(u8aHmacSha1Sk));
+    memcpy(u8aHmacSha1Data, g_u8aHmacSha1Data, sizeof(u8aHmacSha1Data));
+    memcpy(u8aHmacSha1Mac, g_u8aHmacSha1Mac, sizeof(u8aHmacSha1Mac));
     #endif
 
     #if defined(SCRT_AES_ECB_ENC_1) || defined(SCRT_AES_ECB_DEC_1)
@@ -366,8 +411,8 @@ void scrt_sut_task_main_1_impl(void *pParam)
         uint8_t u8aTag[8] = {0};
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_1
-        uint8_t u8aCmacSha1Output[20] = {0};
+        #ifdef SCRT_HMAC_SHA1_1
+        uint8_t u8aHmacSha1Output[20] = {0};
         #endif
 
         #if defined(SCRT_AES_ECB_ENC_1) || defined(SCRT_AES_ECB_DEC_1)
@@ -439,8 +484,8 @@ void scrt_sut_task_main_1_impl(void *pParam)
         }
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_1
-        if(!nl_hmac_sha_1(u8aCmacSha1Sk, u32CmacSha1SkLen, u8aCmacSha1Data, u32CmacSha1DataLen, u8aCmacSha1Output))
+        #ifdef SCRT_HMAC_SHA1_1
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32HmacSha1SkLen, u8aHmacSha1Data, u32HmacSha1DataLen, u8aHmacSha1Output))
         {
             tracer_log(LOG_HIGH_LEVEL, "[%s %d] 1 hmac-sh1-1 FAIL\n", __func__, __LINE__);
             g_baScrtError[0] = 5;
@@ -553,16 +598,16 @@ void scrt_sut_task_main_2_impl(void *pParam)
     memcpy(u8aScrtAesCcmTag, g_u8aScrtAesCcmTag, sizeof(g_u8aScrtAesCcmTag));
     #endif
 
-    #ifdef SCRT_CMAC_SHA1_2
-    uint8_t u8aCmacSha1Sk[16] = {0};
-    uint8_t u8aCmacSha1Data[20] = {0}; 
-    uint8_t u8aCmacSha1Mac[20] = {0};
-    uint32_t u32CmacSha1SkLen = 8;
-    uint32_t u32CmacSha1DataLen = 20;
+    #ifdef SCRT_HMAC_SHA1_2
+    uint8_t u8aHmacSha1Sk[16] = {0};
+    uint8_t u8aHmacSha1Data[20] = {0}; 
+    uint8_t u8aHmacSha1Mac[20] = {0};
+    uint32_t u32HmacSha1SkLen = 8;
+    uint32_t u32HmacSha1DataLen = 20;
 
-    memcpy(u8aCmacSha1Sk, g_u8aCmacSha1Sk, sizeof(u8aCmacSha1Sk));
-    memcpy(u8aCmacSha1Data, g_u8aCmacSha1Data, sizeof(u8aCmacSha1Data));
-    memcpy(u8aCmacSha1Mac, g_u8aCmacSha1Mac, sizeof(u8aCmacSha1Mac));
+    memcpy(u8aHmacSha1Sk, g_u8aHmacSha1Sk, sizeof(u8aHmacSha1Sk));
+    memcpy(u8aHmacSha1Data, g_u8aHmacSha1Data, sizeof(u8aHmacSha1Data));
+    memcpy(u8aHmacSha1Mac, g_u8aHmacSha1Mac, sizeof(u8aHmacSha1Mac));
     #endif
 
     #if defined(SCRT_AES_ECB_ENC_2) || defined(SCRT_AES_ECB_DEC_2)
@@ -601,8 +646,8 @@ void scrt_sut_task_main_2_impl(void *pParam)
         uint8_t u8aTag[8] = {0};
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_2
-        uint8_t u8aCmacSha1Output[20] = {0};
+        #ifdef SCRT_HMAC_SHA1_2
+        uint8_t u8aHmacSha1Output[20] = {0};
         #endif
 
         #if defined(SCRT_AES_ECB_ENC_2) || defined(SCRT_AES_ECB_DEC_2)
@@ -674,8 +719,8 @@ void scrt_sut_task_main_2_impl(void *pParam)
         }
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_2
-        if(!nl_hmac_sha_1(u8aCmacSha1Sk, u32CmacSha1SkLen, u8aCmacSha1Data, u32CmacSha1DataLen, u8aCmacSha1Output))
+        #ifdef SCRT_HMAC_SHA1_2
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32HmacSha1SkLen, u8aHmacSha1Data, u32HmacSha1DataLen, u8aHmacSha1Output))
         {
             tracer_log(LOG_HIGH_LEVEL, "[%s %d] 2 hmac-sh1-1 FAIL\n", __func__, __LINE__);
             g_baScrtError[1] = 5;
@@ -788,16 +833,16 @@ void scrt_sut_task_main_3_impl(void *pParam)
     memcpy(u8aScrtAesCcmTag, g_u8aScrtAesCcmTag, sizeof(g_u8aScrtAesCcmTag));
     #endif
 
-    #ifdef SCRT_CMAC_SHA1_3
-    uint8_t u8aCmacSha1Sk[16] = {0};
-    uint8_t u8aCmacSha1Data[20] = {0}; 
-    uint8_t u8aCmacSha1Mac[20] = {0};
-    uint32_t u32CmacSha1SkLen = 8;
-    uint32_t u32CmacSha1DataLen = 20;
+    #ifdef SCRT_HMAC_SHA1_3
+    uint8_t u8aHmacSha1Sk[16] = {0};
+    uint8_t u8aHmacSha1Data[20] = {0}; 
+    uint8_t u8aHmacSha1Mac[20] = {0};
+    uint32_t u32HmacSha1SkLen = 8;
+    uint32_t u32HmacSha1DataLen = 20;
 
-    memcpy(u8aCmacSha1Sk, g_u8aCmacSha1Sk, sizeof(u8aCmacSha1Sk));
-    memcpy(u8aCmacSha1Data, g_u8aCmacSha1Data, sizeof(u8aCmacSha1Data));
-    memcpy(u8aCmacSha1Mac, g_u8aCmacSha1Mac, sizeof(u8aCmacSha1Mac));
+    memcpy(u8aHmacSha1Sk, g_u8aHmacSha1Sk, sizeof(u8aHmacSha1Sk));
+    memcpy(u8aHmacSha1Data, g_u8aHmacSha1Data, sizeof(u8aHmacSha1Data));
+    memcpy(u8aHmacSha1Mac, g_u8aHmacSha1Mac, sizeof(u8aHmacSha1Mac));
     #endif
 
     #if defined(SCRT_AES_ECB_ENC_3) || defined(SCRT_AES_ECB_DEC_3)
@@ -836,8 +881,8 @@ void scrt_sut_task_main_3_impl(void *pParam)
         uint8_t u8aTag[8] = {0};
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_3
-        uint8_t u8aCmacSha1Output[20] = {0};
+        #ifdef SCRT_HMAC_SHA1_3
+        uint8_t u8aHmacSha1Output[20] = {0};
         #endif
 
         #if defined(SCRT_AES_ECB_ENC_3) || defined(SCRT_AES_ECB_DEC_3)
@@ -909,8 +954,8 @@ void scrt_sut_task_main_3_impl(void *pParam)
         }
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_3
-        if(!nl_hmac_sha_1(u8aCmacSha1Sk, u32CmacSha1SkLen, u8aCmacSha1Data, u32CmacSha1DataLen, u8aCmacSha1Output))
+        #ifdef SCRT_HMAC_SHA1_3
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32HmacSha1SkLen, u8aHmacSha1Data, u32HmacSha1DataLen, u8aHmacSha1Output))
         {
             tracer_log(LOG_HIGH_LEVEL, "[%s %d] 3 hmac-sh1-1 FAIL\n", __func__, __LINE__);
             g_baScrtError[2] = 5;
@@ -1023,16 +1068,16 @@ void scrt_sut_task_main_4_impl(void *pParam)
     memcpy(u8aScrtAesCcmTag, g_u8aScrtAesCcmTag, sizeof(g_u8aScrtAesCcmTag));
     #endif
 
-    #ifdef SCRT_CMAC_SHA1_4
-    uint8_t u8aCmacSha1Sk[16] = {0};
-    uint8_t u8aCmacSha1Data[20] = {0}; 
-    uint8_t u8aCmacSha1Mac[20] = {0};
-    uint32_t u32CmacSha1SkLen = 8;
-    uint32_t u32CmacSha1DataLen = 20;
+    #ifdef SCRT_HMAC_SHA1_4
+    uint8_t u8aHmacSha1Sk[16] = {0};
+    uint8_t u8aHmacSha1Data[20] = {0}; 
+    uint8_t u8aHmacSha1Mac[20] = {0};
+    uint32_t u32HmacSha1SkLen = 8;
+    uint32_t u32HmacSha1DataLen = 20;
 
-    memcpy(u8aCmacSha1Sk, g_u8aCmacSha1Sk, sizeof(u8aCmacSha1Sk));
-    memcpy(u8aCmacSha1Data, g_u8aCmacSha1Data, sizeof(u8aCmacSha1Data));
-    memcpy(u8aCmacSha1Mac, g_u8aCmacSha1Mac, sizeof(u8aCmacSha1Mac));
+    memcpy(u8aHmacSha1Sk, g_u8aHmacSha1Sk, sizeof(u8aHmacSha1Sk));
+    memcpy(u8aHmacSha1Data, g_u8aHmacSha1Data, sizeof(u8aHmacSha1Data));
+    memcpy(u8aHmacSha1Mac, g_u8aHmacSha1Mac, sizeof(u8aHmacSha1Mac));
     #endif
 
     #if defined(SCRT_AES_ECB_ENC_4) || defined(SCRT_AES_ECB_DEC_4)
@@ -1071,8 +1116,8 @@ void scrt_sut_task_main_4_impl(void *pParam)
         uint8_t u8aTag[8] = {0};
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_4
-        uint8_t u8aCmacSha1Output[20] = {0};
+        #ifdef SCRT_HMAC_SHA1_4
+        uint8_t u8aHmacSha1Output[20] = {0};
         #endif
 
         #if defined(SCRT_AES_ECB_ENC_4) || defined(SCRT_AES_ECB_DEC_4)
@@ -1144,8 +1189,8 @@ void scrt_sut_task_main_4_impl(void *pParam)
         }
         #endif
 
-        #ifdef SCRT_CMAC_SHA1_4
-        if(!nl_hmac_sha_1(u8aCmacSha1Sk, u32CmacSha1SkLen, u8aCmacSha1Data, u32CmacSha1DataLen, u8aCmacSha1Output))
+        #ifdef SCRT_HMAC_SHA1_4
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32HmacSha1SkLen, u8aHmacSha1Data, u32HmacSha1DataLen, u8aHmacSha1Output))
         {
             tracer_log(LOG_HIGH_LEVEL, "[%s %d] 4 hmac-sh1-1 FAIL\n", __func__, __LINE__);
             g_baScrtError[3] = 5;
@@ -1316,6 +1361,7 @@ done:
 
     return iRet;
 }
+#endif //#ifdef SCRT_CMD_SUT_TASK
 
 void nl_scrt_cmd_impl(char *sCmd)
 {
@@ -1324,16 +1370,19 @@ void nl_scrt_cmd_impl(char *sCmd)
     uint32_t dwParamNum = 0;
     uint32_t dwCase = 0;
     uint32_t i = 0;
-    int32_t i32Overflow = 0;
     uint32_t u32Start = 0;
     uint32_t u32End = 0;
+    #ifdef SCRT_CMD_ECDH
+    int32_t i32Overflow = 0;
     uint32_t u32HwTime = 0;
     uint32_t u32SwTime = 0;
 
     uint32_t u32PeerIdx = 0;
+    #endif
 
     extern uint32_t g_u32ScrtWaitResCnt;
     extern uint32_t g_u32ScrtWaitRspCnt;
+    (void)i;
 
     dwParamNum = ParseParam(sCmd, baParam, dwNum);
     (void)dwParamNum;
@@ -1353,7 +1402,17 @@ void nl_scrt_cmd_impl(char *sCmd)
         dwCase = strtoul((char *)baParam[1], NULL, 10);
     }
 
-    if(dwCase == 1) // load private key
+    if(dwCase == 0)
+    {
+        #ifdef SCRT_CMD_SUT_TASK
+        tracer_cli(LOG_HIGH_LEVEL, "count [%u] [%u] [%u] [%u]\n", 
+                   g_baScrtCnt[0], g_baScrtCnt[1], g_baScrtCnt[2], g_baScrtCnt[3]);
+        tracer_cli(LOG_HIGH_LEVEL, "error [%u] [%u] [%u] [%u]\n", 
+                   g_baScrtError[0], g_baScrtError[1], g_baScrtError[2], g_baScrtError[3]);
+        #endif //#ifdef SCRT_CMD_SUT_TASK
+    }
+    #ifdef SCRT_CMD_ECDH
+    else if(dwCase == 1) // load private key
     {
         uint8_t u8aDhKey1[32] = {0};
         uint8_t u8aDhKey2[32] = {0};
@@ -1681,11 +1740,15 @@ void nl_scrt_cmd_impl(char *sCmd)
             tracer_cli(LOG_HIGH_LEVEL, "[%s %d] SUCCESS\n\n", __func__, __LINE__);
         }
     }
+    #endif //#ifdef SCRT_CMD_ECDH
+    #ifdef SCRT_CMD_SUT_TASK
     else if(dwCase == 4)
     {
         tracer_cli(LOG_HIGH_LEVEL, "Toggle scrt sut task\n");
         scrt_sut_task_create(0);
     }
+    #endif //#ifdef SCRT_CMD_SUT_TASK
+    #ifdef SCRT_CMD_AES_CCM
     else if(dwCase == 5)
     {
         uint32_t u32SkLen = 16;
@@ -1844,24 +1907,26 @@ void nl_scrt_cmd_impl(char *sCmd)
         }
         #endif
     }
+    #endif //#ifdef SCRT_CMD_AES_CCM
+    #ifdef SCRT_CMD_HMAC_SHA_1
     else if(dwCase == 6)
     {
-        uint8_t u8aCmacSha1Sk[8] = {0};
-        uint8_t u8aCmacSha1Data[20] = {0};
+        uint8_t u8aHmacSha1Sk[8] = {0};
+        uint8_t u8aHmacSha1Data[20] = {0};
         uint8_t u8aOutput[20] = {0};
 
         uint32_t u32SkLen = 8;
         uint32_t u32DataLen = 20;
         uint32_t u32Time = 0;
 
-        memcpy(u8aCmacSha1Sk, g_u8aCmacSha1Sk, sizeof(u8aCmacSha1Sk));
-        memcpy(u8aCmacSha1Data, g_u8aCmacSha1Data, sizeof(u8aCmacSha1Data));
+        memcpy(u8aHmacSha1Sk, g_u8aHmacSha1Sk, sizeof(u8aHmacSha1Sk));
+        memcpy(u8aHmacSha1Data, g_u8aHmacSha1Data, sizeof(u8aHmacSha1Data));
 
         memset(u8aOutput, 0, u32DataLen);
 
         u32Start = SCRT_CURR_TIME;
 
-        if(!nl_hmac_sha_1(u8aCmacSha1Sk, u32SkLen, u8aCmacSha1Data, u32DataLen, u8aOutput))
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32SkLen, u8aHmacSha1Data, u32DataLen, u8aOutput))
         {
             tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1 fail\n");
             goto done;
@@ -1871,12 +1936,14 @@ void nl_scrt_cmd_impl(char *sCmd)
         u32Time = u32End - u32Start;
         tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1 proc_time: %u us\n", u32Time);
 
-        if(memcmp(u8aOutput, g_u8aCmacSha1Mac, u32DataLen))
+        if(memcmp(u8aOutput, g_u8aHmacSha1Mac, u32DataLen))
         {
             tracer_cli(LOG_HIGH_LEVEL, "mac not matched for nl_hmac_sha_1\n");
             //goto done;
         }
     }
+    #endif
+    #ifdef SCRT_CMD_AES_ECB
     else if(dwCase == 7)
     {
         uint8_t u8aAesEcbSk[16] = {0};
@@ -1935,12 +2002,197 @@ void nl_scrt_cmd_impl(char *sCmd)
             goto done;
         }
     }
+    #endif
+    #ifdef SCRT_CMD_AES_CMAC
+    else if(dwCase == 20) // AES-CMAC
+    {
+        uint8_t u8aSk[16] = {0};
+        uint8_t u8aSwOutput[16] = {0};
+        uint8_t u8aHwOutput[16] = {0};
+        uint32_t u32BufSize = sizeof(g_u8aScrtAesCmacData);
+        uint32_t u32DataLen = u32BufSize;
+        uint32_t u32SkLen = sizeof(u8aSk);
+        uint32_t u32MacLen = 16;
+        uint32_t u32Time = 0;
+        T_LeAesCmacFp fpSwAesCmac = (T_LeAesCmacFp)(0x00023401); //LeSmpUtilAesCmac_Impl
+        if(dwParamNum > 2)
+        {
+            u32BufSize = strtoul((char *)baParam[2], NULL, 10);
+            tracer_cli(LOG_HIGH_LEVEL, "BufSize[%u]\n", u32BufSize);
+        }
+        if(dwParamNum > 3)
+        {
+            u32DataLen = strtoul((char *)baParam[3], NULL, 10);
+            tracer_cli(LOG_HIGH_LEVEL, "DataLen[%u]\n", u32DataLen);
+        }
+        memcpy(u8aSk, g_u8aScrtAesCmacSk, u32SkLen);
+        u32Start = SCRT_CURR_TIME;
+        if(fpSwAesCmac(u8aSk, &(g_u8aScrtAesCmacData[0]), u32DataLen, u8aSwOutput))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "LeSmpUtilAesCmac_Impl fail\n");
+            goto done;
+        }
+        u32End = SCRT_CURR_TIME;
+        u32Time = u32End - u32Start;
+        tracer_cli(LOG_HIGH_LEVEL, "\nLeSmpUtilAesCmac_Impl proc_time: %u us\n\n", u32Time);
+        for(i = 0; i < u32MacLen; i++)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "%02x", u8aSwOutput[i]);
+        }
+        tracer_cli(LOG_HIGH_LEVEL, "\n");
+        u32Start = SCRT_CURR_TIME;
+        if(!nl_scrt_aes_cmac(u8aSk, u32SkLen, &(g_u8aScrtAesCmacData[0]), u32BufSize, u32DataLen, u8aHwOutput))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "nl_scrt_aes_cmac fail\n");
+            goto done;
+        }
+        u32End = SCRT_CURR_TIME;
+        u32Time = u32End - u32Start;
+        tracer_cli(LOG_HIGH_LEVEL, "\nnl_aes_cmac_patch proc_time: %u us\n\n", u32Time);
+        for(i = 0; i < u32MacLen; i++)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "%02x", u8aHwOutput[i]);
+        }
+        tracer_cli(LOG_HIGH_LEVEL, "\n");
+        if(memcmp(u8aHwOutput, u8aSwOutput, u32MacLen))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "\nFAIL: NOT Match\n\n");
+        }
+        else
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "\nSUCCESS\n\n");
+        }
+    }
+    else if(dwCase == 21) // AES-CMAC
+    {
+        uint8_t u8aSk[16] = {0};
+        uint8_t u8aSwOutput[16] = {0};
+        uint8_t u8aHwOutput[16] = {0};
+        uint32_t u32BufSize = sizeof(g_u8aScrtAesCmacData);
+        uint32_t u32DataLen = u32BufSize;
+        uint32_t u32SkLen = sizeof(u8aSk);
+        uint32_t u32MacLen = 16;
+        uint32_t u32Time = 0;
+        T_LeAesCmacFp fpSwAesCmac = (T_LeAesCmacFp)(0x00023401); //LeSmpUtilAesCmac_Impl
+        if(dwParamNum > 2)
+        {
+            u32BufSize = strtoul((char *)baParam[2], NULL, 10);
+            tracer_cli(LOG_HIGH_LEVEL, "BufSize[%u]\n", u32BufSize);
+        }
+        if(dwParamNum > 3)
+        {
+            u32DataLen = strtoul((char *)baParam[3], NULL, 10);
+            tracer_cli(LOG_HIGH_LEVEL, "DataLen[%u]\n", u32DataLen);
+        }
+        memcpy(u8aSk, g_u8aScrtAesCmacSk, u32SkLen);
+        for(i = 0; i <= u32DataLen; i++)
+        {
+            u32Start = SCRT_CURR_TIME;
+            if(fpSwAesCmac(u8aSk, &(g_u8aScrtAesCmacData[0]), i, u8aSwOutput))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "LeSmpUtilAesCmac_Impl fail\n");
+                goto done;
+            }
+            u32End = SCRT_CURR_TIME;
+            u32Time = u32End - u32Start;
+            tracer_cli(LOG_HIGH_LEVEL, "Input[%u] SW[%u] ", i, u32Time);
+            u32Start = SCRT_CURR_TIME;
+            if(!nl_scrt_aes_cmac(u8aSk, u32SkLen, &(g_u8aScrtAesCmacData[0]), u32BufSize, i, u8aHwOutput))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "nl_scrt_aes_cmac fail\n");
+                goto done;
+            }
+            u32End = SCRT_CURR_TIME;
+            u32Time = u32End - u32Start;
+            tracer_cli(LOG_HIGH_LEVEL, "HW[%u]\n", u32Time);
+            if(memcmp(u8aHwOutput, u8aSwOutput, u32MacLen))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "\nFAIL: NOT Match\n\n");
+                goto done;
+            }
+        }
+        tracer_cli(LOG_HIGH_LEVEL, "\nSUCCESS\n\n");
+    }
+    #endif //#ifdef SCRT_CMD_AES_CMAC
+    #ifdef SCRT_CMD_HMAC_SHA_1_STEP
+    else if(dwCase == 22) // HMAC-SHA-1
+    {
+        uint8_t u8aHmacSha1Sk[8] = {0};
+        uint8_t u8aOutput[32] = {0};
+        uint32_t u32Total = sizeof(g_u8ScrtHmacSha1Step);
+        uint32_t u32SkLen = 8;
+        uint32_t u32DataLen = 20;
+        uint32_t u32Time = 0;
+        memcpy(u8aHmacSha1Sk, g_u8aScrtHmacSha1SkStep, sizeof(u8aHmacSha1Sk));
+        u32Start = SCRT_CURR_TIME;
+        if(!nl_hmac_sha_1(u8aHmacSha1Sk, u32SkLen, &(g_u8ScrtHmacSha1Step[0]), u32Total, u8aOutput))
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1 fail\n");
+            goto done;
+        }
+        u32End = SCRT_CURR_TIME;
+        u32Time = u32End - u32Start;
+        tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1 proc_time: %u us\n", u32Time);
+        for(i = 0; i < u32DataLen; i++)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "%02x", u8aOutput[i]);
+        }
+        tracer_cli(LOG_HIGH_LEVEL, "\n");
+    }
+    else if(dwCase == 23) // HMAC-SHA-1
+    {
+        uint8_t u8aHmacSha1Sk[8] = {0};
+        uint8_t u8aOutput[32] = {0};
+        uint32_t u32Total = sizeof(g_u8ScrtHmacSha1Step);
+        uint32_t u32Offset = 0;
+        uint32_t u32Input = 64;
+        uint32_t u32SkLen = 8;
+        uint32_t u32DataLen = 20;
+        uint32_t u32Time = 0;
+        memcpy(u8aHmacSha1Sk, g_u8aScrtHmacSha1SkStep, sizeof(u8aHmacSha1Sk));
+        for(u32Offset = 0; u32Offset < u32Total; )
+        {
+            uint8_t u8Type = 0;
+            if(u32Offset == 0)
+            {
+                u8Type = 0;
+            }
+            else if(u32Offset + u32Input >= u32Total)
+            {
+                u8Type = 2;
+                u32Input = u32Total - u32Offset;
+            }
+            else
+            {
+                u8Type = 1;
+            }
+            tracer_cli(LOG_HIGH_LEVEL, "type[%d]\n", u8Type);
+            u32Start = SCRT_CURR_TIME;
+            if(!nl_scrt_hmac_sha_1_step(u8Type, u32Total, u8aHmacSha1Sk, u32SkLen, &(g_u8ScrtHmacSha1Step[u32Offset]), u32Input, u8aOutput))
+            {
+                tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1 fail\n");
+                goto done;
+            }
+            u32End = SCRT_CURR_TIME;
+            u32Time = u32End - u32Start;
+            tracer_cli(LOG_HIGH_LEVEL, "nl_hmac_sha_1_step proc_time: %u us\n", u32Time);
+            u32Offset += u32Input;
+        }
+        for(i = 0; i < u32DataLen; i++)
+        {
+            tracer_cli(LOG_HIGH_LEVEL, "%02x", u8aOutput[i]);
+        }
+        tracer_cli(LOG_HIGH_LEVEL, "\n");
+    }
+    #endif //#ifdef SCRT_CMD_HMAC_SHA_1_STEP
     else
     {
+        #ifdef SCRT_CMD_SUT_TASK
         tracer_cli(LOG_HIGH_LEVEL, "count [%u] [%u] [%u] [%u]\n", 
                    g_baScrtCnt[0], g_baScrtCnt[1], g_baScrtCnt[2], g_baScrtCnt[3]);
         tracer_cli(LOG_HIGH_LEVEL, "error [%u] [%u] [%u] [%u]\n", 
                    g_baScrtError[0], g_baScrtError[1], g_baScrtError[2], g_baScrtError[3]);
+        #endif //#ifdef SCRT_CMD_SUT_TASK
     }
 
     tracer_cli(LOG_HIGH_LEVEL, "WaitResCnt[%u] WaitRspCnt[%u]\n\n", g_u32ScrtWaitResCnt, g_u32ScrtWaitRspCnt);
@@ -1952,12 +2204,14 @@ done:
 void nl_scrt_cmd_func_init(void)
 {
     // internal
+    #ifdef SCRT_CMD_SUT_TASK
     scrt_sut_task_main_1 = scrt_sut_task_main_1_impl;
     scrt_sut_task_main_2 = scrt_sut_task_main_2_impl;
     scrt_sut_task_main_3 = scrt_sut_task_main_3_impl;
     scrt_sut_task_main_4 = scrt_sut_task_main_4_impl;
     scrt_sut_task_delete = scrt_sut_task_delete_impl;
     scrt_sut_task_create = scrt_sut_task_create_impl;
+    #endif //#ifdef SCRT_CMD_SUT_TASK
 
     // external
     nl_scrt_cmd = nl_scrt_cmd_impl;

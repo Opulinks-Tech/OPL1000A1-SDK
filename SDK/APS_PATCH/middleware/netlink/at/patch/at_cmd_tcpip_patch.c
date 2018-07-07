@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  Copyright 2017, Netlink Communication Corp.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_tcpip_patch.c
@@ -1835,23 +1835,28 @@ int _at_cmd_tcpip_cipstart(char *buf, int len, int mode)
         if (para < argc)
         {
             localPort = atoi(argv[para++]);
-            AT_LOGI("localPort %d\r\n", localPort);
             if (localPort == 0)
             {
                 msg_print_uart1("Miss param2\r\n");
                 goto exit;
             }
+
             if ((localPort > 65535) || (localPort <= 0))
             {
                 goto exit;
             }
-        }
+            AT_LOGI("localPort %d\r\n", localPort);
 
-        if (para < argc)
-        {
-            changType = atoi(argv[para++]); //last param
+            if (para < argc)
+            {
+                changType = atoi(argv[para++]); //last param
+                if((changType < 0) || (changType > 2))
+                {
+                     goto exit;
+                }
+                AT_LOGI("changType %d\r\n", changType);
+            }
         }
-        AT_LOGI("changType %d\r\n", changType);
     }
     else if (linkType == AT_LINK_TYPE_SSL)
     {
@@ -2079,6 +2084,7 @@ int _at_cmd_tcpip_cipclose(char *buf, int len, int mode)
             {
                 goto exit;
             }
+
             if (link_id == AT_LINK_MAX_NUM) {
                 /* when ID=5, all connections will be closed.*/
                 for(id = 0; id < AT_LINK_MAX_NUM; id++) {
@@ -2671,7 +2677,7 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
     char temp[64]={0};
     char *pstr;
     int state;
-    
+
     switch (mode) {
         case AT_CMD_MODE_READ:
             wpa_cli_getmac(mac);
@@ -2697,24 +2703,32 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
                 goto exit;
             }
             //printf("%s\n",pstr);
-            hwaddr_aton2(pstr, mac);
 
-            if(is_multicast_ether_addr(mac)) {
+            if (check_mac_addr_len(pstr) == -1) {
+                AT_LOGI("Invalid mac address, wrong length of mac address \r\n");
+                goto exit;
+            }
+
+            if (hwaddr_aton2(pstr, mac) == -1) {
                 AT_LOGI("Invalid mac address \r\n");
                 goto exit;
             }
 
-            if ((mac[0] | mac[1] | mac[2] | mac[3] | mac[4] | mac[5]) == 0x00) {
-                AT_LOGI("Invalid mac address \r\n");
+            if (is_broadcast_ether_addr(mac)) {
+                AT_LOGI("Invalid mac address, all of mac if 0xFF \r\n");
                 goto exit;
             }
 
-            if (mac[0] == 0xFF && mac[1] == 0xFF && mac[2] == 0xFF && 
-                mac[3] == 0xFF && mac[4] == 0xFF && mac[5] == 0xFF) {
-                AT_LOGI("Invalid mac address \r\n");
+            if (is_multicast_ether_addr(mac)) {
+                AT_LOGI("Invalid mac address, not allow multicast mac address \r\n");
                 goto exit;
             }
-    
+
+            if (is_zero_ether_addr(mac)) {
+                AT_LOGI("Invalid mac address, all of mac is zero. \r\n");
+                goto exit;
+            }
+
             state = wpas_get_state();
             if(state == WPA_COMPLETED || state == WPA_ASSOCIATED) {
                 AT_LOGI("In connected, set mac address failed\r\n");

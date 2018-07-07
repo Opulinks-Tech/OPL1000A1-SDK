@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  Copyright 2017, Netlink Communication Corp.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_sys_patch.c
@@ -42,7 +42,7 @@
 #include "ps_public.h"
 
 #define CMD_TOKEN_SIZE          16
-#define AT_CMD_SYS_WAIT_TIME    5   // ms
+#define AT_CMD_SYS_WAIT_TIME    1000   // ms
 
 extern size_t xFreeBytesRemaining;
 
@@ -168,8 +168,11 @@ static uint8_t _at_cmd_sys_internal_uart_config_parse(char *buf, int len, T_HalU
         case 1:
             ptUartConfig->ubStopBit = STOP_BIT_1;
             break;
+        // 1.5 stopbits is only for 5 databits
         case 2:
             ptUartConfig->ubStopBit = STOP_BIT_1P5;
+            if (ptUartConfig->ubDataBit != DATA_BIT_5)
+                return 0;
             break;
         case 3:
             ptUartConfig->ubStopBit = STOP_BIT_2;
@@ -226,7 +229,7 @@ static uint8_t _at_cmd_sys_internal_uart_config_parse(char *buf, int len, T_HalU
  * @return 0 fail 1 success
  *
  */
-static uint8_t _at_cmd_sys_internal_uart_config_output(T_HalUartConfig *ptUartConfig)
+static uint8_t _at_cmd_sys_internal_uart_config_output(T_HalUartConfig *ptUartConfig, uint8_t ubCurrent)
 {
     uint32_t ulBuadrate;
     uint8_t ubDataBit;
@@ -313,7 +316,10 @@ static uint8_t _at_cmd_sys_internal_uart_config_output(T_HalUartConfig *ptUartCo
 
     msg_print_uart1("\r\n");
 
-    msg_print_uart1("+UART_DEF:%u,%u,%u,%u,%u\r\n", ulBuadrate, ubDataBit, ubStopBit, ubParity, ubFlowCtrl);
+    if (ubCurrent == 1)
+        msg_print_uart1("+UART_CUR:%u,%u,%u,%u,%u\r\n", ulBuadrate, ubDataBit, ubStopBit, ubParity, ubFlowCtrl);
+    else
+        msg_print_uart1("+UART_DEF:%u,%u,%u,%u,%u\r\n", ulBuadrate, ubDataBit, ubStopBit, ubParity, ubFlowCtrl);
 
     msg_print_uart1("\r\nOK\r\n");
 
@@ -401,12 +407,15 @@ int _at_cmd_sys_gslp(char *buf, int len, int mode)
 		{
 			int sleep_duration_ms = atoi(argv[1]);
 			int ext_io = atoi(argv[2]);
+
 			if (argc == 3)
 				ps_set_wakeup_io(ext_io, INT_TYPE_LEVEL);
 			else
 				ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+
 			ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback);
 			ps_timer_sleep(sleep_duration_ms);
+
 			msg_print_uart1("\r\nOK\r\n");
 			break;
 		}
@@ -432,6 +441,7 @@ int _at_cmd_sys_gslp(char *buf, int len, int mode)
 int _at_cmd_sys_restore(char *buf, int len, int mode)
 {
     int i;
+    
     if (AT_CMD_MODE_EXECUTION == mode)
     {
         // reset the config of UART0 / UART1
@@ -497,7 +507,7 @@ int _at_cmd_sys_uartcur(char *buf, int len, int mode)
     {
         if (0 == Hal_Uart_ConfigGet(UART_IDX_1, &tUartConfig))
         {
-            _at_cmd_sys_internal_uart_config_output(&tUartConfig);
+            _at_cmd_sys_internal_uart_config_output(&tUartConfig, 1);
         }
     }
     else if (AT_CMD_MODE_SET == mode)
@@ -535,7 +545,7 @@ int _at_cmd_sys_uartdef(char *buf, int len, int mode)
     {
         if (0 == Hal_Uart_ConfigGet(UART_IDX_1, &tUartConfig))
         {
-            _at_cmd_sys_internal_uart_config_output(&tUartConfig);
+            _at_cmd_sys_internal_uart_config_output(&tUartConfig, 0);
         }
     }
     else if (AT_CMD_MODE_SET == mode)
@@ -582,42 +592,50 @@ int _at_cmd_sys_sleep(char *buf, int len, int mode)
 			int slp_mode = atoi(argv[1]);
 			int p1 = atoi(argv[2]);
 			int p2 = atoi(argv[3]);
+
 			switch (slp_mode)
 			{
 				case 0:
 					ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 					ps_smart_sleep(0);
-			msg_print_uart1("\r\nOK\r\n");
+					msg_print_uart1("\r\nOK\r\n");
 					break;
+
 				case 1:
 					if (argc == 3)
 						ps_set_wakeup_io(p1, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+
 					ps_smart_sleep(1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
+
 				case 2:
 					if (argc == 4)
 						ps_set_wakeup_io(p2, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+
 					ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback);
 					ps_timer_sleep(p1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
+
 				case 3:
 					if (argc == 3)
 						ps_set_wakeup_io(p1, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
+
 					ps_deep_sleep();
 					msg_print_uart1("\r\nOK\r\n");
-			break;
+					break;
+
 				default:
 					msg_print_uart1("\r\nERROR\r\n");
 					break;
-		}
+			}
 			break;
 		}
 		default:

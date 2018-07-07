@@ -6,7 +6,7 @@
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_data_process.c
@@ -31,6 +31,7 @@
 #include "at_cmd_common_patch.h"
 #include "ble_cmd_app_cmd.h"
 #include "at_cmd_ble_patch.h"
+#include "at_cmd_task.h"
 
 RET_DATA int g_at_lock;
 RET_DATA int g_at_ble_data_len;
@@ -42,6 +43,20 @@ extern _at_command_t *_g_AtCmdTbl_Wifi_Ptr;
 extern _at_command_t *_g_AtCmdTbl_Tcpip_Ptr;
 extern _at_command_t *_g_AtCmdTbl_Sys_Ptr;
 extern _at_command_t *_g_AtCmdTbl_Rf_Ptr;
+
+#define AT_CMD_LINE_TERMINATOR  "\r\n"
+
+uint8_t cmd_info_buf[AT_RBUF_SIZE];
+
+typedef struct {
+    uint8_t *cmd;
+    uint8_t  cmd_len;
+    uint8_t  op;
+    uint8_t  para_num;
+    uint8_t *para[AT_MAX_CMD_ARGS];
+} at_cmd_information_t;
+
+static at_cmd_information_t at_cmd_info;
 
 void data_process_init(void)
 {
@@ -116,10 +131,12 @@ int data_process_wifi_parse(char *pbuf, int len, int mode)
 
     for(cmd_ptr=_g_AtCmdTbl_Wifi_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(strncasecmp(pbuf, cmd_ptr->cmd, strlen(cmd_ptr->cmd))) continue;
-        msg_print_uart1("\r\n");
-        cmd_ptr->cmd_handle(pbuf, len, mode);
-        return true;
+        if(strcasecmp((char*)at_cmd_info.cmd, cmd_ptr->cmd) == 0)
+        {
+            msg_print_uart1("\r\n");
+            cmd_ptr->cmd_handle(pbuf, len, mode);
+            return true;
+        }
     }
 
 	return false;
@@ -135,7 +152,7 @@ int data_process_wifi(char *pbuf, int len, int mode)
 int data_process_ble(char *pbuf, int len, int mode)
 {
     //1. Check ble table, if it's ble command, return true; else return false;
-    if (strncasecmp(pbuf, "at+blemode", strlen("at+blemode"))==0)
+    if (strncasecmp(pbuf, "at+blemode", strlen("at+blemode")) == 0)
     {
         msg_print_uart1("\r\nOK\r\n");
         _at_cmd_ble_mode(pbuf, len, mode);
@@ -158,10 +175,12 @@ int data_process_tcpip(char *pbuf, int len, int mode)
 
     for(cmd_ptr=_g_AtCmdTbl_Tcpip_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(strncasecmp(pbuf, cmd_ptr->cmd, strlen(cmd_ptr->cmd))) continue;
-        msg_print_uart1("\r\n");
-        cmd_ptr->cmd_handle(pbuf, len, mode);
-        return true;
+        if(strcasecmp((char*)at_cmd_info.cmd, cmd_ptr->cmd) == 0)
+        {
+            msg_print_uart1("\r\n");
+            cmd_ptr->cmd_handle(pbuf, len, mode);
+            return true;
+        }
     }
 
 	return false;
@@ -175,10 +194,12 @@ int data_process_sys(char *pbuf, int len, int mode)
 
     for(cmd_ptr=_g_AtCmdTbl_Sys_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(strncasecmp(pbuf, cmd_ptr->cmd, strlen(cmd_ptr->cmd))) continue;
-        msg_print_uart1("\r\n");
-        cmd_ptr->cmd_handle(pbuf, len, mode);
-        return true;
+        if(strcasecmp((char*)at_cmd_info.cmd, cmd_ptr->cmd) == 0)
+        {
+            msg_print_uart1("\r\n");
+            cmd_ptr->cmd_handle(pbuf, len, mode);
+            return true;
+        }
     }
 
     return false;
@@ -192,10 +213,12 @@ int data_process_rf(char *pbuf, int len, int mode)
 
     for(cmd_ptr=_g_AtCmdTbl_Rf_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(strncasecmp(pbuf, cmd_ptr->cmd, strlen(cmd_ptr->cmd))) continue;
-        msg_print_uart1("\r\n");
-        cmd_ptr->cmd_handle(pbuf, len, mode);
-        return true;
+        if(strcasecmp((char*)at_cmd_info.cmd, cmd_ptr->cmd) == 0)
+        {
+            msg_print_uart1("\r\n");
+            cmd_ptr->cmd_handle(pbuf, len, mode);
+            return true;
+        }
     }
 
     return false;
@@ -244,6 +267,101 @@ int data_process_cmd_mode(char *pbuf)
     return AT_CMD_MODE_EXECUTION;
 }
 
+bool at_cmd_info_parsing(uint8_t *pStr, at_cmd_information_t *at_info_ptr)
+{
+    // first two letter must be "AT" or "at" or "At" or "aT"
+    if ((at_info_ptr == NULL) || (pStr == NULL) || (at_strlen((char *)pStr) < 2)) {
+        return FALSE;
+    }
+    at_memset(at_info_ptr, 0x00, sizeof(at_cmd_information_t));
+    at_info_ptr->op = AT_CMD_MODE_INVALID;
+
+    if (((*pStr != 'A') && (*pStr != 'a')) || ((*(pStr + 1) != 'T') && (*(pStr + 1) != 't'))) {
+        at_uart1_printf("AT CMD NOT FOUND AT\r\n");
+        return FALSE;
+    }
+    at_info_ptr->cmd = pStr;
+    at_info_ptr->cmd_len = 2;
+    pStr += 2;
+
+    if (*pStr == '\0') {
+        // just AT
+        at_info_ptr->para_num = 0;
+        at_info_ptr->op = AT_CMD_MODE_EXECUTION;
+        return TRUE;
+    }
+
+    // get cmd
+    if (*pStr == '+') {
+        pStr++;
+        at_info_ptr->cmd_len++;
+    }
+
+    while (*pStr != '\0') {
+        if ((*pStr >= 'A') && (*pStr <= 'Z')) { // OK
+            pStr++;
+        } else if ((*pStr >= 'a') && (*pStr <= 'z')) { // upper letter
+            *pStr = (*pStr) - 'a' + 'A';
+            pStr++;
+        } else if ((*pStr >= '0') && (*pStr <= '9')) {
+            pStr++;
+        } else if ((*pStr == '!') || (*pStr == '%') || (*pStr == '-') || (*pStr == '.')
+                   || (*pStr == '/') || (*pStr == ':') || (*pStr == '_')) {
+            pStr++;
+        } else {
+            break;
+        }
+        at_info_ptr->cmd_len++;
+    }
+    // get operator
+    if (*pStr == '?') {
+        *pStr++ = '\0';
+        at_info_ptr->op = AT_CMD_MODE_READ;
+        goto PARSE_END;
+    } else if (*pStr == '=') {
+        *pStr++ = '\0';
+        if (*pStr == '?') {
+            *pStr++ = '\0';
+            at_info_ptr->op = AT_CMD_MODE_TESTING;
+            goto PARSE_END;
+        }
+        at_info_ptr->op = AT_CMD_MODE_SET;
+    } else {
+        goto PARSE_END;
+    }
+    // get parameter,like AT+CMD='abc'
+    at_info_ptr->para_num = 0;
+    at_info_ptr->para[at_info_ptr->para_num++] = pStr;
+    while (*pStr != '\0') {
+        if (*pStr == '\\') {
+            pStr += 2;
+            continue;
+        }
+
+        if (*pStr == ',') {
+            *pStr++ = '\0';
+            at_info_ptr->para[at_info_ptr->para_num++] = pStr;
+            continue;
+        }
+        pStr++;
+    }
+
+PARSE_END:
+    if (*pStr == '\0') {
+        if (at_info_ptr->op == AT_CMD_MODE_INVALID) {
+            at_info_ptr->op = AT_CMD_MODE_EXECUTION;
+            *pStr = '\0';
+        } else if (at_info_ptr->op == AT_CMD_MODE_SET) {
+            *pStr = '\0';
+        }
+        return TRUE;
+    } else {
+        at_uart1_printf("AT CMD ERROR\r\n");
+    }
+
+    return FALSE;
+}
+
 int data_process_handler(char *pbuf, int len)
 {
     int mode = AT_CMD_MODE_INVALID;
@@ -251,35 +369,49 @@ int data_process_handler(char *pbuf, int len)
     if (pbuf == NULL) return false;
     mode = data_process_cmd_mode(pbuf);
 
+    memset(cmd_info_buf, 0, AT_RBUF_SIZE);
+    memcpy(cmd_info_buf, pbuf, AT_RBUF_SIZE);
+
+    at_cmd_info_parsing(cmd_info_buf, &at_cmd_info);
+
     if (len == 2) //Command: AT
     {
         msg_print_uart1("\r\nOK\r\n");
         return true;
     }
 
-    if(mode == AT_CMD_MODE_EXECUTION)
+    if (mode == AT_CMD_MODE_EXECUTION)
     {
-        if(strstr(pbuf, "ATE0") != NULL)
+        if (strstr(pbuf, "ATE0") != NULL)
         {
             set_echo_on(false);
             msg_print_uart1("\r\nOK\r\n");
         }
-        else if(strstr(pbuf, "ATE1") != NULL)
+        else if (strstr(pbuf, "ATE1") != NULL)
         {
             set_echo_on(true);
             msg_print_uart1("\r\nOK\r\n");
         }
     }
 
-    if(g_at_lock == LOCK_NONE) //AT command input
+    if (g_at_lock == LOCK_NONE) //AT command input
     {
-        if (data_process_wifi(pbuf, len, mode)) return true;
-        if (data_process_ble(pbuf, len, mode)) return true;
-        if (data_process_tcpip(pbuf, len, mode)) return true;
-        if (data_process_sys(pbuf, len, mode)) return true;
-        if (data_process_rf(pbuf, len, mode)) return true;
-        if (data_process_pip(pbuf, len, mode)) return true;
-        if (data_process_others(pbuf, len, mode)) return true;
+        if (data_process_wifi(pbuf, len, mode))
+            return true;
+        if (data_process_ble(pbuf, len, mode))
+            return true;
+        if (data_process_tcpip(pbuf, len, mode))
+            return true;
+        if (data_process_sys(pbuf, len, mode))
+            return true;
+        if (data_process_rf(pbuf, len, mode))
+            return true;
+        if (data_process_pip(pbuf, len, mode))
+            return true;
+        if (data_process_others(pbuf, len, mode))
+            return true;
+
+        at_response_result(AT_RESULT_CODE_ERROR);
     }
 
     return true;

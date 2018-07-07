@@ -24,6 +24,7 @@ extern wpa_driver_netlink_sta_cfg_fp_t wpa_driver_netlink_sta_cfg;
 extern wpa_driver_netlink_get_sta_cfg_fp_t wpa_driver_netlink_get_sta_cfg;
 
 void wpa_driver_func_init_patch(void);
+int wpa_driver_netlink_get_state(void);
 
 #endif
 

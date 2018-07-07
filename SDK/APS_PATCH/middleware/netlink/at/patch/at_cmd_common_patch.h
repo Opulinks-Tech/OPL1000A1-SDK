@@ -111,6 +111,7 @@ void at_response_result(uint8_t result_code);
 
 int wpas_get_state(void);
 int wpas_get_assoc_freq(void);
+int check_mac_addr_len(const char *txt);
 
 #endif //__AT_CMD_COMMOM_PATCH_H__
 

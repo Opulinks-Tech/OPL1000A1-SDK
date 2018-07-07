@@ -157,6 +157,7 @@ typedef enum {
 typedef enum {
     WIFI_SCAN_TYPE_ACTIVE = 0,      /**< Actively scan a network by sending 802.11 probe(s)         */
     WIFI_SCAN_TYPE_PASSIVE,         /**< Passively scan a network by listening for beacons from APs */
+    WIFI_SCAN_TYPE_MIAXED,          /**< Passive and active mode mixed together */	
 } wifi_scan_type_t;
 
 typedef enum {
@@ -321,7 +322,7 @@ typedef struct {
     int8_t          hid_ssid[WIFI_MAX_LENGTH_OF_SSID];   /* [APS write/MSQ read] Hidden SSID of the BSS. When ssid is null, using this field. */
     uint8_t         psk[32];
     uint8_t         fast_connect;
-} wifi_auto_connect_info_f;
+} wifi_auto_connect_info_t;
 
 
 /**

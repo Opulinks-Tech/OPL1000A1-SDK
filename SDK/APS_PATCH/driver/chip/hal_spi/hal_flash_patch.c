@@ -111,6 +111,9 @@ void Hal_Flash_Reset_patch(E_SpiIdx_t u32SpiIdx);
 uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 
+uint32_t Hal_Flash_4KSectorAddrErase_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr);
+uint32_t Hal_Flash_AddrProgram_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
+uint32_t Hal_Flash_AddrRead_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 /***************************************************
 Declaration of static Global Variables &  Functions
 ***************************************************/
@@ -189,7 +192,6 @@ uint32_t Hal_Flash_Init_patch(E_SpiIdx_t u32SpiIdx)
 * GLOBALS AFFECTED
 * 
 *************************************************************************/
-extern uint32_t Hal_Flash_4KSectorAddrErase_impl(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr);
 uint32_t Hal_Flash_4KSectorAddrErase_patch(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr)
 {
     uint8_t ubRet = 1;
@@ -203,7 +205,7 @@ uint32_t Hal_Flash_4KSectorAddrErase_patch(E_SpiIdx_t u32SpiIdx, uint32_t u32Sec
     // wait the semaphore
     osSemaphoreWait(g_taHalFlashSemaphoreId[u32SpiIdx], osWaitForever);
 
-    if (0 != Hal_Flash_4KSectorAddrErase_impl(u32SpiIdx, u32SecAddr))
+    if (0 != Hal_Flash_4KSectorAddrErase_Internal(u32SpiIdx, u32SecAddr))
     {
         goto done;
     }
@@ -471,6 +473,45 @@ void Hal_Flash_Reset_patch(E_SpiIdx_t u32SpiIdx)
 *************************************************************************/
 uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
 {
+    uint8_t ubRet = 1;
+    if(u32SpiIdx >= SPI_IDX_MAX)
+        return ubRet;
+    if(u8aFlashID[u32SpiIdx] == NO_FLASH)
+        return ubRet;
+    osSemaphoreWait(g_taHalFlashSemaphoreId[u32SpiIdx], osWaitForever);
+    if (0 != Hal_Flash_AddrProgram_Internal(u32SpiIdx, u32StartAddr, u8UseQuadMode, u32Size, pu8Data))
+    {
+        goto done;
+    }
+    ubRet = 0;
+done:
+    osSemaphoreRelease(g_taHalFlashSemaphoreId[u32SpiIdx]);
+    return ubRet;
+}
+uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
+{
+    uint8_t ubRet = 1;
+    if(u32SpiIdx >= SPI_IDX_MAX)
+        return ubRet;
+    if(u8aFlashID[u32SpiIdx] == NO_FLASH)
+        return ubRet;
+    osSemaphoreWait(g_taHalFlashSemaphoreId[u32SpiIdx], osWaitForever);
+    if (0 != Hal_Flash_AddrRead_Internal(u32SpiIdx, u32StartAddr, u8UseQuadMode, u32Size, pu8Data))
+    {
+        goto done;
+    }
+    ubRet = 0;
+done:
+    osSemaphoreRelease(g_taHalFlashSemaphoreId[u32SpiIdx]);
+    return ubRet;
+}
+extern uint32_t Hal_Flash_4KSectorAddrErase_impl(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr);
+uint32_t Hal_Flash_4KSectorAddrErase_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr)
+{
+    return Hal_Flash_4KSectorAddrErase_impl(u32SpiIdx, u32SecAddr);
+}
+uint32_t Hal_Flash_AddrProgram_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
+{
     S_Spi_Reg_t *pSpi = 0;
     uint32_t u32Idx = 0;    
     uint32_t u32Temp = 0;
@@ -508,7 +549,6 @@ uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint
         return ubRet;
 
     // wait the semaphore
-    osSemaphoreWait(g_taHalFlashSemaphoreId[u32SpiIdx], osWaitForever);
     
     // 1. handle the data size of the first page if the start address is not aligned
     u32DataAddr = u32StartAddr;
@@ -723,7 +763,6 @@ uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint
 
 done:
     // release the semaphore
-    osSemaphoreRelease(g_taHalFlashSemaphoreId[u32SpiIdx]);
     return ubRet;
 }
 
@@ -750,7 +789,7 @@ done:
 * GLOBALS AFFECTED
 * 
 *************************************************************************/
-uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
+uint32_t Hal_Flash_AddrRead_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data)
 {
     S_Spi_Reg_t *pSpi = 0;
     uint32_t u32Idx = 0;
@@ -784,7 +823,6 @@ uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t
         return 1;
 
     // wait the semaphore
-    osSemaphoreWait(g_taHalFlashSemaphoreId[u32SpiIdx], osWaitForever);
 
     // read cmd
     if (u8UseQuadMode)
@@ -958,7 +996,6 @@ uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t
     }
     
     // release the semaphore
-    osSemaphoreRelease(g_taHalFlashSemaphoreId[u32SpiIdx]);
 
     return 0;
 }

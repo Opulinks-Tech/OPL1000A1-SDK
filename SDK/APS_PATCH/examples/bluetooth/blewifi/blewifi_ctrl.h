@@ -22,9 +22,11 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "wifi_types.h"
 
 #define BLEWIFI_CTRL_MSG_MAX_LEN        (128)
 #define BLEWIFI_CTRL_QUEUE_SIZE         (20)
+#define BLEWIFI_REPEAT_CONNECT_TIMES    5
 
 typedef enum blewifi_ctrl_msg_type
 {
@@ -77,8 +79,19 @@ int blewifi_ctrl_msg_send(int msg_type, uint8_t *data, int data_len);
   */
 void blewifi_ble_send_data(int msg_type, uint8_t *data, int data_len);
 
-
+/**
+  * @brief This function create control task 
+  *
+  */
 void blewifi_ctrl_task_create(void);
+
+/**
+  * @brief This function do repeat connect operation. 
+  *
+  * @param[in] config: wifi ap and station configuration  
+  * @param[in] repeat_times: try connection repeat times 
+  */
+int wifi_connection_repeat_connect(wifi_config_t *config, int repeat_times);
 
 #endif /* __BLEWIFI_CTRL_H__ */
 

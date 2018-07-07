@@ -278,6 +278,11 @@ Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
     if(ret == 0) return TRUE;
     return FALSE;
 }
+int wpa_driver_netlink_get_state(void)
+{
+    if (wpa_s == NULL) return 0;
+	return ((int)wpa_s->wpa_state);
+}
 /*
    Interface Initialization: WPA Driver
  */

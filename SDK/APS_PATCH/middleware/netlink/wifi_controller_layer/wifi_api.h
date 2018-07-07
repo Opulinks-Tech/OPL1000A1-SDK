@@ -597,7 +597,7 @@ int wifi_auto_connect_set_ap_num(u8 num);
   * @return    other : failed
   * 
 */
-int wifi_auto_connect_get_ap_info(u8 index, wifi_auto_connect_info_f *info);
+int wifi_auto_connect_get_ap_info(u8 index, wifi_auto_connect_info_t *info);
 
 /**
   * @brief Delete automatically connected AP information stored in flash
@@ -652,6 +652,7 @@ u8 wifi_fast_connect_get_mode(u8 ap_index);
   * 
 */
 int wifi_fast_connect_set_mode(u8 mode, u8 ap_index);
+int wifi_fast_connect_start(void);
 
 /**
   * @brief Start the fast connection process
@@ -660,7 +661,7 @@ int wifi_fast_connect_set_mode(u8 mode, u8 ap_index);
   * @return    other : failed
   * 
 */
-int wifi_fast_connect_start(void);
+int wifi_auto_connect_reset(void);
 
 
 

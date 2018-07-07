@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  Copyright 2017, Netlink Communication Corp.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_wifi_patch.c
@@ -212,8 +212,11 @@ int _at_cmd_wifi_cwlapopt(char *buf, int len, int mode)
 {
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
+    u8 argv1,argv2;
 
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+    argv1=atoi(argv[1]);
+    argv2=atoi(argv[2]);
 
     switch(mode)
     {
@@ -224,10 +227,23 @@ int _at_cmd_wifi_cwlapopt(char *buf, int len, int mode)
             break;
 
         case AT_CMD_MODE_SET:
-            if(argc != 3) break;
-            set_sorting(atoi(argv[1]), atoi(argv[2]));
-            msg_print_uart1("\r\nOK\r\n");
-            break;
+            if (argc != 3) break;
+            if (argv1==0 || argv1==1)
+            {   
+                if (argv2>31)
+                {
+                    msg_print_uart1("\r\n invalid para: <mask> should be 0~31 \r\n");
+                    break;
+                }
+                set_sorting(atoi(argv[1]), atoi(argv[2]));
+                msg_print_uart1("\r\nOK\r\n");
+                break;
+            }
+            else
+            {
+                msg_print_uart1("\r\n invalid para: <sort_enable> should be 0 or 1 \r\n");
+                break;
+            }
 
         case AT_CMD_MODE_TESTING:
             break;
@@ -447,7 +463,7 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                     msg_print_uart1("\r\nERROR\r\n");
                     return FALSE;
                 }
-                
+
                 wifi_auto_connect_set_mode(automode);
             }
 
@@ -459,20 +475,8 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
                     msg_print_uart1("\r\nERROR\r\n");
                     return FALSE;
                 }
-
-                /* ignore the same setting */
-               
-                /* clear all AP info in FIM */
-
-                /* write AP info by new ap number setting */
                 
                 wifi_auto_connect_set_ap_num(ap_num);
-
-                /* clear all AP info in global variable */
-
-                /* read AP info from FIM */
-
-                /* update ap cfg */
             }
             
             msg_print_uart1("\r\nOK\r\n");
@@ -485,9 +489,6 @@ int _at_cmd_wifi_cwautoconn(char *buf, int len, int mode)
         default:
             break;
     }
-
-    
-    
 
     return true;
 }
@@ -616,6 +617,13 @@ int _at_cmd_wifi_cwhostname(char *buf, int len, int mode)
         sName = argv[1];
 
         if(!sName)
+        {
+            AT_LOG("[%s %d] invalid param\n", __func__, __LINE__);
+            goto done;
+        }
+
+        if(strlen(sName) > MAX_NUM_OF_HOST_NAME_SIZE || 
+           strlen(sName) == 0)
         {
             AT_LOG("[%s %d] invalid param\n", __func__, __LINE__);
             goto done;
@@ -1387,7 +1395,7 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
     {
         case AT_CMD_MODE_READ:
             wifi_config_get_skip_dtim((uint8 *)&skip_dtim);
-            msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, skip_dtim); //[0000526]
+            msg_print_uart1("\r\n+WIFIMACCFG:%d,%d\r\n", AT_WIFI_SKIP_DTIM_CFG, skip_dtim);
             msg_print_uart1("\r\nOK\r\n");
             break;
         case AT_CMD_MODE_SET:
@@ -1402,28 +1410,21 @@ int at_cmd_wifi_mac_cfg(char *buf, int len, int mode)
 
                 switch(cfg_id) {
                     case AT_WIFI_SKIP_DTIM_CFG:
-                        //[0000526] g_skip_dtim = atoi(argv[2]);
                         skip_dtim = atoi(argv[2]);
-
-                        //if (skip_dtim > WIFI_MAX_SKIP_DTIM_PERIODS) {
-                        //    msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
-                        //    msg_print_uart1("\r\nERROR\r\n");
-                        //    return false;     
-                        //}
                         
                         if (skip_dtim > WIFI_MAX_SKIP_DTIM_PERIODS) {
                             msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
                             msg_print_uart1("\r\nERROR\r\n");
                         }
                         else {
-                        //Update share memory by M0
+                            //Update share memory by M0
                             ret =  wifi_config_set_skip_dtim(skip_dtim);
                             if (ret != 0) {
                                 msg_print_uart1("\r\n+CWWIFIMACCFG:%d\r\n", ERR_COMM_INVALID);
                                 msg_print_uart1("\r\nERROR\r\n");
                             }
                             else {
-                        msg_print_uart1("\r\nOK\r\n");
+                                msg_print_uart1("\r\nOK\r\n");
                             }
                         }
                         break;

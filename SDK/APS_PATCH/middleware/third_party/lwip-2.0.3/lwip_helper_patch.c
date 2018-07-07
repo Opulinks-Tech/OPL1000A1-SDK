@@ -23,6 +23,7 @@
 #include "network_config.h"
 #include "event_loop.h"
 #include "wifi_api.h"
+#include "lwip_helper_patch.h"
 
 extern sys_sem_t wifi_connected;
 extern sys_sem_t ip_ready;
@@ -47,6 +48,7 @@ LWIP_RETDATA bool tcpip_inited;
 
 //static int32_t wifi_station_connected_event_handler(void);
 //static int32_t wifi_station_disconnected_event_handler(void);
+RET_DATA lwip_get_netif_fp_t      lwip_get_netif;
 
 /*****************************************************************************
  * Private functions
@@ -100,6 +102,17 @@ void lwip_network_init_patch(uint8_t opmode)
     }
 }
 
+int lwip_get_netif_patch(struct netif *iface)
+{  
+    if (iface == NULL) return -1;
+    memset(iface, 0, sizeof(netif));
+    struct netif *pnetif = netif_find("st1");
+    if (!netif_is_up(pnetif)) {
+        return -1;
+    }
+    memcpy(iface, pnetif, sizeof(netif));
+    return 0;
+}
 
 /*****************************************************************************
  * Public functions
@@ -114,5 +127,6 @@ void lwip_load_interface_lwip_helper_patch(void)
     lwip_network_init   = lwip_network_init_patch;
     ip_ready_callback   = ip_ready_callback_patch;
     lwip_net_ready      = lwip_net_ready_patch;
+    lwip_get_netif      = lwip_get_netif_patch;
 }
 

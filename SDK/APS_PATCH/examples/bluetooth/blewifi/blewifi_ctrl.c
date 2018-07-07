@@ -27,6 +27,7 @@
 #include "blewifi_ctrl.h"
 #include "blewifi_api.h"
 #include "blewifi_data.h"
+#include "wifi_api.h"
 
 osThreadId   BleWifiCtrlTaskId;
 osMessageQId BleWifiCtrlQueueId;
@@ -228,6 +229,22 @@ int blewifi_ctrl_msg_send(int msg_type, uint8_t *data, int data_len)
     txMsg.pcMessage = data;
 
     return (blewifi_ctrl_task_send(&txMsg));
+}
+
+int wifi_connection_repeat_connect(wifi_config_t *config,int repeat_times)
+{
+	  int ret = 1;
+	  /*
+	  int i; 
+	  for (i=0;i<repeat_times;i++)
+	  {
+	      ret = wifi_connection_connect(config);
+			  if (ret == 0)
+					break;  // connect is successful
+		}
+	  */
+    ret = wifi_connection_connect(config);		
+		return ret;
 }
 
 

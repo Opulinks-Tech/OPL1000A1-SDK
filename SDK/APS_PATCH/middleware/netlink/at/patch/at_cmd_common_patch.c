@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  Copyright 2017, Netlink Communication Corp.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_common_patch.c
@@ -45,6 +45,7 @@
 #include "at_cmd_tcpip_patch.h"
 #include "wpa_supplicant_i.h"
 #include "ble_cmd_app_cmd.h"
+#include "controller_wifi_com.h"
 
 /*
  * @brief Global variable _uart1_rx_int_at_data_receive_ble retention attribute segment
@@ -77,8 +78,10 @@ uint8_t at_state = AT_STATE_IDLE;
 uint8_t *pDataLine;
 uint8_t  at_data_line[AT_DATA_LEN_MAX];
 extern uint16_t at_send_len;
+extern uint8_t sending_id;
 bool echoFlag = true;
 
+at_socket_t *at_link_get_id(int id);
 
 //at global variables
 static char *at_result_string[AT_RESULT_CODE_MAX] = {
@@ -152,6 +155,8 @@ void _uart1_rx_int_at_data_receive_ble_impl(uint32_t u32Data)
 void _uart1_rx_int_at_data_receive_tcpip_impl(uint32_t u32Data)
 {
     int send_len = 0;
+    bool sendex_flag = FALSE;
+    at_socket_t *link = at_link_get_id(sending_id);
 
     send_len = data_process_data_len_get();
 
@@ -172,7 +177,22 @@ void _uart1_rx_int_at_data_receive_tcpip_impl(uint32_t u32Data)
             Hal_Uart_DataSend(UART_IDX_1, (u32Data & 0xFF));
         }
 
-        if ((pDataLine >= &at_data_line[send_len - 1]) || (pDataLine >= &at_data_line[AT_DATA_LEN_MAX - 1]))
+        if (link->send_mode == AT_SEND_MODE_SENDEX)
+        {
+            uint32_t index = 0;
+            for (index = 0; index < pDataLine - at_data_line; index++)
+            {
+                if ((at_data_line[index] == '\\') && (at_data_line[index + 1] == '0'))
+                {
+                    at_data_line[index] = '\0';
+                    sendex_flag = TRUE;
+                    send_len = index ;
+                    break;
+                }
+            }
+        }
+
+        if ((pDataLine >= &at_data_line[send_len - 1]) || (pDataLine >= &at_data_line[AT_DATA_LEN_MAX - 1]) || (sendex_flag == TRUE))
         {
             at_event_msg_t msg = {0};
 
@@ -182,6 +202,7 @@ void _uart1_rx_int_at_data_receive_tcpip_impl(uint32_t u32Data)
             at_data_task_send(&msg);
             at_state = AT_STATE_SENDING_DATA;
             pDataLine = at_data_line;
+            sendex_flag = FALSE;
         }
         else
         {
@@ -392,10 +413,30 @@ int wpas_get_assoc_freq(void)
     return ((int)wpa_s->assoc_freq);
 }
 
+int check_mac_addr_len(const char *txt)
+{
+    u8 count = 0;
+    const char *pos = txt;
+
+    while (*pos != NULL) {
+        while (*pos == ':' || *pos == '.' || *pos == '-')
+            pos++;
+
+        *pos++;
+        *pos++;
+        count++;
+    }
+
+    if (count != MAC_ADDR_LEN)
+        return -1;
+
+    return 0;
+}
+
 void at_cmd_common_func_init_patch(void)
 {
 	memset(&at_rx_buf, 0, sizeof(at_uart_buffer_t));
-    
+
     uart1_mode_set = uart1_mode_set_patch;
     uart1_rx_int_do_at = _uart1_rx_int_do_at_impl;
     _uart1_rx_int_at_data_receive_ble = _uart1_rx_int_at_data_receive_ble_impl;

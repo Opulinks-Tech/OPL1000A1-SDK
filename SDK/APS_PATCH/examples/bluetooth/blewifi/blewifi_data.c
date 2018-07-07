@@ -215,7 +215,8 @@ void blewifi_protocol_handler(uint16_t type, uint8_t *data, int len)
             wifi_scan_config_t scan_config = {0};
             scan_config.show_hidden = data[0];
             scan_config.scan_type = (wifi_scan_type_t)data[1];
-
+            // force scan mode use mixed mode 
+						scan_config.scan_type = WIFI_SCAN_TYPE_MIAXED;
             BLEWIFI_INFO("BLEWIFI: Recv Scan Request\r\n");
             wifi_scan_start(&scan_config, NULL);
         }
@@ -234,7 +235,8 @@ void blewifi_protocol_handler(uint16_t type, uint8_t *data, int len)
 
             BLEWIFI_INFO("BLEWIFI: Recv Connect Request\r\n");
             wifi_set_config(WIFI_MODE_STA, &wifi_config);
-            wifi_connection_connect(&wifi_config);
+            //wifi_connection_connect(&wifi_config);   // replaced with wifi_connection_repeat_connect
+						wifi_connection_repeat_connect(&wifi_config,BLEWIFI_REPEAT_CONNECT_TIMES);						
         }
             break;
         case BLEWIFI_REQ_DISCONNECT:

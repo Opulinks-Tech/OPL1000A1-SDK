@@ -62,6 +62,9 @@ extern void Hal_Flash_Reset_patch(E_SpiIdx_t u32SpiIdx);
 extern uint32_t Hal_Flash_AddrProgram(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 extern uint32_t Hal_Flash_AddrRead(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 
+extern uint32_t Hal_Flash_4KSectorAddrErase_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32SecAddr);
+extern uint32_t Hal_Flash_AddrProgram_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
+extern uint32_t Hal_Flash_AddrRead_Internal(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 /***************************************************
 Declaration of static Global Variables &  Functions
 ***************************************************/

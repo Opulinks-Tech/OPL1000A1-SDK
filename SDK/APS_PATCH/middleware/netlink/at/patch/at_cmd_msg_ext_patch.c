@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  Copyright 2017, Netlink Communication Corp.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Opulinks Technology Ltd. (C) 2018
+*  permission of Netlnik Communication Corp. (C) 2017
 ******************************************************************************/
 /**
  * @file at_cmd_msg_ext_patch.c
@@ -326,27 +326,35 @@ void at_msg_ext_wifi_scan_by_option(u8 num, wifi_scan_info_t *scan_list)
         
         if (mask & AT_WIFI_SHOW_ECN_BIT)
         {
-            msg_print_uart1("%d,", scan_list[i].auth_mode);
+            msg_print_uart1("%d", scan_list[i].auth_mode);
+            if ((mask&(~AT_WIFI_SHOW_ECN_BIT))>AT_WIFI_SHOW_ECN_BIT)
+                msg_print_uart1(",");
         }
 
         if (mask & AT_WIFI_SHOW_SSID_BIT)
         {
-            msg_print_uart1("%s,", scan_list[i].ssid);
+            msg_print_uart1("%s", scan_list[i].ssid);
+            if ((mask&(~AT_WIFI_SHOW_SSID_BIT))>AT_WIFI_SHOW_SSID_BIT)
+                msg_print_uart1(",");
         }
 
         if (mask & AT_WIFI_SHOW_RSSI_BIT)
         {
-            msg_print_uart1("%d,", scan_list[i].rssi);
+            msg_print_uart1("%d", scan_list[i].rssi);
+            if ((mask&(~AT_WIFI_SHOW_RSSI_BIT))>AT_WIFI_SHOW_RSSI_BIT)
+                msg_print_uart1(",");
         }
 
         if (mask & AT_WIFI_SHOW_MAC_BIT)
         {
-            msg_print_uart1("%02x:%02x:%02x:%02x:%02x:%02x,",   scan_list[i].bssid[0],
-                                                                scan_list[i].bssid[1],
-                                                                scan_list[i].bssid[2],
-                                                                scan_list[i].bssid[3],
-                                                                scan_list[i].bssid[4],
-                                                                scan_list[i].bssid[5]);
+            msg_print_uart1("%02x:%02x:%02x:%02x:%02x:%02x",   scan_list[i].bssid[0],
+                                                               scan_list[i].bssid[1],
+                                                               scan_list[i].bssid[2],
+                                                               scan_list[i].bssid[3],
+                                                               scan_list[i].bssid[4],
+                                                               scan_list[i].bssid[5]);
+            if ((mask&(~AT_WIFI_SHOW_MAC_BIT))>AT_WIFI_SHOW_MAC_BIT)
+                msg_print_uart1(",");
         }
 
         if (mask & AT_WIFI_SHOW_CHANNEL_BIT)
@@ -556,6 +564,7 @@ void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason)
             break;
     }
 }
+
 /*
  * @brief An external Function at_msg_ext_wifi_err prototype declaration retention attribute segment
  *

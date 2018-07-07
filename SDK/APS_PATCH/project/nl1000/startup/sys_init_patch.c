@@ -83,6 +83,7 @@ Head Block of The File
 #include "controller_wifi_patch.h"
 #include "agent.h"
 #include "wifi_mac_tx_data_patch.h"
+#include "mw_ota.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define BOOT_MODE_ICE       0x2
@@ -281,6 +282,7 @@ void Main_DriverInit_patch(void)
 
 void Main_ServiceInit_patch(void)
 {
+    T_MwOtaLayoutInfo tLayout;
     // Lib version
     SysInit_LibVersion();
 
@@ -302,6 +304,13 @@ void Main_ServiceInit_patch(void)
 
     // Load param from FIM for Tracer
     tracer_load();
+    MwOta_PreInitCold();
+    tLayout.ulaHeaderAddr[0] = MW_OTA_HEADER_ADDR_1;
+    tLayout.ulaHeaderAddr[1] = MW_OTA_HEADER_ADDR_2;
+    tLayout.ulaImageAddr[0] = MW_OTA_IMAGE_ADDR_1;
+    tLayout.ulaImageAddr[1] = MW_OTA_IMAGE_ADDR_2;
+    tLayout.ulImageSize = MW_OTA_IMAGE_SIZE;
+    MwOta_Init(&tLayout, 0);
 }
 
 void Main_IdleHook_patch(void)

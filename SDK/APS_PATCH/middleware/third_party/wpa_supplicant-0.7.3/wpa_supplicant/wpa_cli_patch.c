@@ -40,6 +40,7 @@
 #include "wpa_common_patch.h"
 #include "wifi_nvm_patch.h"
 #include "wpa_cli_patch.h"
+#include "common.h"
 
 #ifndef WPA_CLI_DBG
 #define WPA_CLI_DBG TRUE
@@ -221,7 +222,7 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
 
     ret = wpa_cli_connect(&conf);
     if (ret == FALSE) return FALSE;
-    
+
 done:    
     if (conf.ssid->ssid) {
         os_free(conf.ssid->ssid);
@@ -336,24 +337,20 @@ void wpa_cli_setmac_patch(u8 *mac)
     if(mac == NULL) return;
 	//wpa_driver_netlink_set_mac(mac);
 
-	//[0000526]_add_beg
-    if(is_multicast_ether_addr(mac)) {
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
-        return;
-    }
-    
-    if (mac[0] == 0x00 && mac[1] == 0x00 && mac[2] == 0x00 && 
-        mac[3] == 0x00 && mac[4] == 0x00 && mac[5] == 0x00) {
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+    if (is_broadcast_ether_addr(mac)) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address, all of mac if 0xFF \r\n");
         return;
     }
 
-    if (mac[0] == 0xFF && mac[1] == 0xFF && mac[2] == 0xFF && 
-        mac[3] == 0xFF && mac[4] == 0xFF && mac[5] == 0xFF) {
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+    if (is_multicast_ether_addr(mac)) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address, not allow multicast mac address \r\n");
         return;
     }
-    //[0000526]_add_end
+    
+    if (is_zero_ether_addr(mac)) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address, all of mac is zero. \r\n");
+        return;
+    }
 
     if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
         msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid wpa state \r\n");
@@ -364,7 +361,7 @@ void wpa_cli_setmac_patch(u8 *mac)
     memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
     //wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, &gsta_cfg_mac[0]);
 
-    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, &gsta_cfg_mac[0]); //[0000526]
+    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, &gsta_cfg_mac[0]);
 }
 
 void wpa_cli_mac_by_param_patch(int argc, char *argv[])
@@ -382,7 +379,15 @@ void wpa_cli_mac_by_param_patch(int argc, char *argv[])
     else if (argc == 2) //set mac
     {
         memset(mac, 0, sizeof(mac)/sizeof(mac[0]));
-        hwaddr_aton2(argv[1], mac);
+        if (check_mac_addr_len(argv[1]) == -1) {
+            msg_print(LOG_HIGH_LEVEL, "Invalid mac address, wrong length of mac address \r\n");
+            return;
+        }
+        
+        if (hwaddr_aton2(argv[1], mac) == -1) {
+            msg_print(LOG_HIGH_LEVEL, "Invalid mac address \r\n");
+            return;
+        }
         wpa_cli_setmac(mac);
     }
 }
