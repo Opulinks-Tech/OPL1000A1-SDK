@@ -38,6 +38,7 @@
 #include "at_cmd_msg_ext.h"
 #include "controller_wifi_com_patch.h"
 
+
 extern struct wpa_supplicant *wpa_s;
 extern auto_connect_cfg_t g_AutoConnect; //Fast Connect Report
 extern RET_DATA osPoolId        supplicantMemPoolId;
@@ -106,7 +107,6 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
 	    case MLME_EVT_ASSOC:
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-EVENT_ASSOC \r\n\r\n");
             msg_print(LOG_HIGH_LEVEL, "connected\r\n\r\n");
-            //_at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, MSG_WIFI_CONNECTED_OPEN);
             wpa_clr_key_info();
             wpa_supplicant_event_assoc(wpa_s, NULL);
             wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATED);
@@ -129,7 +129,7 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
 		case MLME_EVT_SCAN_RESULTS:
             msg_print(LOG_HIGH_LEVEL, "[EVT]WPA: Event-EVENT_SCAN_RESULTS \r\n");
             msg_print(LOG_HIGH_LEVEL, "WPA: scan done \r\n");
-            if (wpa_s->wpa_state != WPA_COMPLETED) {
+            if (!(wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED)) {
                 wpa_supplicant_set_state(wpa_s, WPA_INACTIVE);
             }
             wpa_cli_showscanresults_handler(NULL, NULL);
@@ -145,7 +145,8 @@ void supplicant_task_evt_handle_patch(uint32_t evt_type)
             wpa_supplicant_set_state(wpa_s, WPA_DISCONNECTED);
             wpa_clr_key_info();
             /* Set successfully connect info to Auto Connect list */
-            if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
+            if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL && 
+                !get_repeat_conn()) {
                 set_auto_connect_mode(AUTO_CONNECT_ENABLE);
             }
 			break;

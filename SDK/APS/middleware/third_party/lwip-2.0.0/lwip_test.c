@@ -2,7 +2,7 @@
  * @brief LWIP TCP Echo example
  *
  * @note
- * Copyright(C) Netlink Communication Corp.2016
+ * Copyright(C) Opulinks Technology Ltd. 2018
  * All rights reserved.
  *
  */

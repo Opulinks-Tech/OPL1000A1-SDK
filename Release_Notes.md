@@ -1,4 +1,38 @@
 ## Release Version:
+SDK Package: 1.0.1.26
+Patch_Lib : 1978
+ROM_CODE: 809 
+
+## Release Date: 2018/7/13
+
+## Function & Feature Update 
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.26, WIFI part several APIs are updated.  
+ 1.2 OPL1000-SDK-Development-guide: R01-V06, SDK package folder and exmaples are updated.  
+ 1.3 OPL1000-DEVKIT-getting-start-guide: R02-V05, how to download OTA loader bin file and OTA image files are introduced.
+ 1.4 OPL1000-patch-download-tool-user-guide: R03-V04. OTA loader and image file download function is introduced according to v0.18 version program. 
+2. Boot agent (OTA loader) project is added in this release.    
+3. Tool version information:
+ 3.1 download tool: v0.18. OTA loader and image file download function are added.     
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. OTA through BLE function is working, demonstration  program will be provided soon.
+5. Fixed several bugs in AT instructions.    
+6. update calibration data for temperature sensor
+
+
+## Bug Fix List 
+1. Fix bug in "AT+CWJAP " instruction implementation. 
+2. Fix issue of OPL1000 SSID connect to hidden AP fail issue 
+3. Fix a bug in RF Channel 14 setting process. 
+4. Update lwip netif module, fix "IP address obtain failed" issue under certain conditions. 
+
+## Notes List 
+1. OTA example project is on-developing.  
+2. More examples such as MQTT, power saving are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.25
 Patch_Lib : 1930
 ROM_CODE: 809    

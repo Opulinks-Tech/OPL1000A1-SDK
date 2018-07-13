@@ -304,6 +304,8 @@ void Main_ServiceInit_patch(void)
 
     // Load param from FIM for Tracer
     tracer_load();
+    
+    // OTA
     MwOta_PreInitCold();
     tLayout.ulaHeaderAddr[0] = MW_OTA_HEADER_ADDR_1;
     tLayout.ulaHeaderAddr[1] = MW_OTA_HEADER_ADDR_2;

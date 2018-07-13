@@ -67,7 +67,7 @@
 #endif
 
 #include "wlannetif_patch.h"
-
+#include "wifi_nvm_patch.h"
 
 #define TX_TASK_STACKSIZE           (512)
 #ifdef LWIP_DEBUG
@@ -286,10 +286,63 @@ ethernetif_init_patch(struct netif *netif)
     return ERR_OK;
 }
 
+/**
+ * In this function, the hardware should be initialized.
+ * Called from ethernetif_init().
+ *
+ * @param netif the already initialized lwip network interface structure
+ *        for this ethernetif
+ */
+static void
+low_level_init_patch(struct netif *netif)
+{
+    struct ethernetif *ethernetif = netif->state;
+
+    LWIP_UNUSED_ARG(ethernetif);
+
+    /* set MAC hardware address length */
+    netif->hwaddr_len = ETHARP_HWADDR_LEN;
+
+    /* set MAC hardware address */
+    /*netif->hwaddr[0] = 0x00;
+    netif->hwaddr[1] = 0x11;
+    netif->hwaddr[2] = 0x22;
+    netif->hwaddr[3] = 0x33;
+    netif->hwaddr[4] = 0x44;
+    netif->hwaddr[5] = 0x55;
+    
+    netif->hwaddr[0] = 0x22;
+    netif->hwaddr[1] = 0x33;
+    netif->hwaddr[2] = 0x44;
+    netif->hwaddr[3] = 0x55;
+    netif->hwaddr[4] = 0x66;
+    netif->hwaddr[5] = 0x76;
+    */
+    //memcpy(netif->hwaddr, s_StaInfo.au8Dot11MACAddress, MAC_ADDR_LEN);
+    
+    //ToDo: we need to get mac address through wifi drvier api, before we call lwip_init()
+    //      should be set mac address after wifi ready
+    wifi_nvm_sta_info_read(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, netif->hwaddr);
+    
+    /* maximum transfer unit */
+    netif->mtu = 1500;
+
+    /* device capabilities */
+    /* don't set NETIF_FLAG_ETHARP if this device is not an ethernet one */
+    netif->flags = NETIF_FLAG_BROADCAST | NETIF_FLAG_ETHARP | NETIF_FLAG_LINK_UP;
+
+    #if LWIP_IGMP
+    netif->flags |= NETIF_FLAG_IGMP;
+    #endif
+
+    /* Do whatever else is needed to initialize interface. */
+}
+
 void lwip_load_interface_wlannetif_patch(void)
 {
     low_level_input_adpt = low_level_input_patch;
     ethernetif_init_adpt = ethernetif_init_patch;
+    low_level_init_adpt  = low_level_init_patch;
     return;
 }
 

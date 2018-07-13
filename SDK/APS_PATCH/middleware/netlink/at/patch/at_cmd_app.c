@@ -88,6 +88,7 @@ int at_wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t leng
         printf("\r\nWiFi Obtained IP!\r\n");
         if (at_ip_mode != 1) {
             at_uart1_printf("WIFI GOT IP\r\n");
+            at_uart1_printf("\r\nOK\r\n");
         }
         break;
     case WIFI_EVENT_STA_CONNECTION_FAILED:

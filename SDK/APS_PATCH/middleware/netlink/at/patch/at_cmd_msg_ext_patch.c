@@ -1,12 +1,12 @@
 /******************************************************************************
-*  Copyright 2017, Netlink Communication Corp.
+*  Copyright 2017 - 2018, Opulinks Technology Ltd.
 *  ---------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
-*  permission of Netlnik Communication Corp. (C) 2017
+*  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
 /**
  * @file at_cmd_msg_ext_patch.c
@@ -266,8 +266,7 @@ void _at_msg_ext_wifi_connect_patch(int cusType, int msg_code)
             switch(msg_code)
             {
                 case ERR_WIFI_CWJAP_DONE:
-                    msg_print_uart1("\r\nOK\r\n");
-                    msg_print_uart1("\r\nWIFI CONNECTED\r\n");
+                    msg_print_uart1("WIFI CONNECTED\r\n");
                     break;
                 case ERR_WIFI_CWJAP_TO:
                     msg_print_uart1("\r\n+CWJAP:%d\r\n", ERR_WIFI_CWJAP_TO);
@@ -290,7 +289,7 @@ void _at_msg_ext_wifi_connect_patch(int cusType, int msg_code)
                     msg_print_uart1("\r\nERROR\r\n");
                     break;
                 default:
-                    msg_print_uart1("\r\nWIFI DISCONNECT\r\n");
+                    msg_print_uart1("WIFI DISCONNECT\r\n");
                     break;
             }
             break;

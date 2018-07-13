@@ -53,10 +53,10 @@ Declaration of Global Variables & Functions
 // the calibration data of AUXADC
 const T_HalAuxCalData g_tMwFimDefaultCalAuxadc =
 {
-    0.003,      // float fSlopeVbat;
-    0.003,      // float fSlopeIo;
-    100,        // uint16_t uwDcOffsetVbat;            // 0V
-    100         // uint16_t uwDcOffsetIo;              // 0V
+    0.003333,   // float fSlopeVbat;
+    0.003333,   // float fSlopeIo;
+    105,        // uint16_t uwDcOffsetVbat;            // 0V
+    92          // uint16_t uwDcOffsetIo;              // 0V
 };
 // the address buffer of AUXADC
 uint32_t g_ulaMwFimAddrBufferCalAuxadc[MW_FIM_CAL_AUXADC_NUM];
@@ -66,12 +66,12 @@ const T_HalTmprCalData g_tMwFimDefaultCalTmpr =
 {
     25.0,       // float fBaseTemperature;                  // 25
     {           // float faThermistor[HAL_TMPR_STEP_MAX];   // 25 ~ 48
-        50.0000, 47.8597, 45.8223, 43.8823,
-        42.0346, 40.2400, 38.5600, 36.9500,
-        35.4300, 33.9800, 32.5900, 31.2700,
-        30.0100, 28.8100, 27.6700, 26.5800,
-        25.5200, 24.5100, 23.5500, 22.6400,
-        21.7600, 20.9473, 20.1454, 19.3781
+        49.5908, 47.7780, 45.9120, 43.9080,
+        42.1360, 40.4133, 38.6646, 37.0968,
+        35.6130, 34.1773, 32.6134, 31.4780,
+        30.1557, 29.0165, 27.8149, 26.7361,
+        25.6579, 24.7377, 23.5434, 22.8032,
+        21.9060, 21.0696, 20.2292, 19.4776
     },
     30.0        // float fVolDivResistor;                   // Voltage divider resistor
 };

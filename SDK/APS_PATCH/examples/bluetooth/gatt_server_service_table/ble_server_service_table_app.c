@@ -341,5 +341,6 @@ void BleAppInit(void)
     
 	LeHostCreateTask(&gTheBle.task, BleAppTaskHandler);
 	LeSendMessage(&gTheBle.task, BLE_APP_MSG_INITIALIZING, 0);
+	printf("OPL1000 BLE init completed. \r\n");
 }
 

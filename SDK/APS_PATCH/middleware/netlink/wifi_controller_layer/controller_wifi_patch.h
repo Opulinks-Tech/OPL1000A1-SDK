@@ -85,4 +85,6 @@ typedef int (*CtrlWifi_PsStateForce_fp_t)(WifiSta_PSForceMode_t mode, uint32_t t
 
 extern CtrlWifi_PsStateForce_fp_t CtrlWifi_PsStateForce;
 
+int get_channel_from_bss_info(void);
+
 #endif  //__CONTROLLER_WIFI_PATCH_H__

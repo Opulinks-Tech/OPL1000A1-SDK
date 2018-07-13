@@ -693,6 +693,16 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>mw_ota</GroupName>
+          <Files>
+            <File>
+              <FileName>mw_ota.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\middleware\netlink\mw_ota\mw_ota.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -1379,6 +1389,16 @@
               <FileName>sntp_client.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\middleware\third_party\lwip-2.0.3\lwip\src\apps\sntp\sntp_client.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>mw_ota</GroupName>
+          <Files>
+            <File>
+              <FileName>mw_ota.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\middleware\netlink\mw_ota\mw_ota.c</FilePath>
             </File>
           </Files>
         </Group>
