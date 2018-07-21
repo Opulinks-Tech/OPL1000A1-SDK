@@ -216,7 +216,7 @@ void blewifi_protocol_handler(uint16_t type, uint8_t *data, int len)
             scan_config.show_hidden = data[0];
             scan_config.scan_type = (wifi_scan_type_t)data[1];
             // force scan mode use mixed mode 
-						scan_config.scan_type = WIFI_SCAN_TYPE_MIAXED;
+						scan_config.scan_type = WIFI_SCAN_TYPE_MIX;
             BLEWIFI_INFO("BLEWIFI: Recv Scan Request\r\n");
             wifi_scan_start(&scan_config, NULL);
         }

@@ -61,7 +61,7 @@ int wifi_do_scan(int mode)
     memset(&scan_config, 0, sizeof(scan_config));
     scan_config.scan_type = (wifi_scan_type_t)mode;
 	  // force scan mode use mixed mode 
-		scan_config.scan_type = WIFI_SCAN_TYPE_MIAXED;
+		scan_config.scan_type = WIFI_SCAN_TYPE_MIX;
     wifi_scan_start(&scan_config, NULL);
     return 0;
 }
@@ -96,7 +96,7 @@ int wifi_do_connection(void)
 				wifi_connection_repeat_connect(&wifi_config,BLEWIFI_REPEAT_CONNECT_TIMES);
     } else {
         /* Scan Again */
-        wifi_do_scan(WIFI_SCAN_TYPE_MIAXED);
+        wifi_do_scan(WIFI_SCAN_TYPE_MIX);
     }
 
     return 0;

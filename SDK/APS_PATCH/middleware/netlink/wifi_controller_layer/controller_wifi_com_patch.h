@@ -263,6 +263,7 @@ void wifi_sta_join_for_hiddenap(void);
 void hiddenap_complete(void);
 u8 get_repeat_conn(void);
 int set_repeat_conn(u8 mode);
+u8 get_dtim_period_from_bss_info(void);
 
 #endif  //__CONTROLLER_WIFI_COM_PATCH_H__
 

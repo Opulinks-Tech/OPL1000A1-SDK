@@ -157,7 +157,7 @@ typedef enum {
 typedef enum {
     WIFI_SCAN_TYPE_ACTIVE = 0,      /**< Actively scan a network by sending 802.11 probe(s)         */
     WIFI_SCAN_TYPE_PASSIVE,         /**< Passively scan a network by listening for beacons from APs */
-    WIFI_SCAN_TYPE_MIAXED,          /**< Passive and active mode mixed together */	
+    WIFI_SCAN_TYPE_MIX,             /**< Active + Passive scan */
 } wifi_scan_type_t;
 
 typedef enum {
@@ -234,6 +234,8 @@ typedef struct {
     int   rssi;                                /**< Records the RSSI value when probe response is received. */
     uint16_t beacon_interval;                  /**< Indicates the beacon interval. */
     uint16_t capability_info;                  /**< The Capability Information field contains a number of subfields that are used to indicate requested or advertised optional capabilities. */
+    uint8_t dtim_period;                       /**< The DTIM Period indicates the number of beacon intervals between successive DTIMs. 
+                                                    If all TIMs are DTIMs, the DTIM Period field has the value 1.*/
 } wifi_scan_info_t;
 
 /** @brief Parameters for an SSID scan. */
@@ -307,7 +309,7 @@ typedef struct {
     bool            free_ocpy;                         //scan info buffer is free or occupied, 0:free, 1:occupied
     uint8_t         bssid[WIFI_MAC_ADDRESS_LENGTH];    /* BSS ID - 48 bit HW address */
     uint8_t         ap_channel;                        /* Which Channel */
-    unsigned long   latest_beacon_rx_time;             /* Timestamp - Last interaction with BSS */
+    unsigned long long  latest_beacon_rx_time;         /* Timestamp - Last interaction with BSS */
     int8_t          ssid[WIFI_MAX_LENGTH_OF_SSID];     /* SSID of the BSS - 33 bytes */
     uint8_t         supported_rates[WIFI_MAX_SUPPORTED_RATES];
     int8_t          rssi;                              /* Last observed Rx Power (dBm) */

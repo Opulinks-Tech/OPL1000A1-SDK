@@ -46,6 +46,7 @@
 #include "wpa_supplicant_i.h"
 #include "ble_cmd_app_cmd.h"
 #include "controller_wifi_com.h"
+#include "controller_wifi_patch.h"
 
 /*
  * @brief Global variable _uart1_rx_int_at_data_receive_ble retention attribute segment
@@ -410,7 +411,7 @@ int wpas_get_state(void)
 int wpas_get_assoc_freq(void)
 {
     if (wpa_s == NULL) return 0;
-    return ((int)get_channel_from_bss_info());
+    return get_channel_from_bss_info();
 }
 
 int check_mac_addr_len(const char *txt)
