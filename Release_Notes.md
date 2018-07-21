@@ -1,4 +1,36 @@
 ## Release Version:
+SDK Package: 1.0.1.27
+Patch_Lib : 2031
+ROM_CODE: 809 
+
+## Release Date: 2018/7/20
+
+## Function & Feature Update 
+1. Documents updating: 
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.27, WIFI part several APIs are updated.  
+ 1.2 Add a new document "OPL1000-RF-Testing-Guide" which introduce how to do RF testing on OPL1000 DEVKIT board.   
+ 1.3 Add a new document "OPL1000-BLEWIFI-Application-Dev-Guide" to introduce BLE configure WIFI network working flow and principle.
+ 1.4 A new document "OPL1000-OTA-User-Guide" is added under "Demo\OTA" folder which introduce OPL1000 BLE OTA function.
+2. Add a new demo to introduce how to complete OTA through BLE. This demo is placed under "Demo\OTA" folder.  
+3. Tool version information:
+ 3.1 download tool: v0.18. No change since v1.0.1.26.     
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. Improve stability for reduplicative AP connect/disconnect 
+5. Add new API function to query Wi-Fi status and clean Wi-Fi AP record
+
+
+
+## Bug Fix List 
+1. Fix bug in AT Command "AT+BLENAME", "AT+BLEDATALEN", "AT+BLECONNPARAM" and "AT+CWAUTOCONN?" , 
+2. Fix "MAC stuck" bug in connect/disconnect AP when link quality is poor 
+
+## Notes List 
+1. WIFI OTA function is on-developing.  
+2. More examples such as MQTT, power saving are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.26
 Patch_Lib : 1978
 ROM_CODE: 809 
