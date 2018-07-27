@@ -40,6 +40,8 @@
 #include "at_cmd_common_patch.h"
 #include "hal_dbg_uart_patch.h"
 #include "ps_public.h"
+#include "sys_common_api.h"
+#include "sys_common_types.h"
 
 #define CMD_TOKEN_SIZE          16
 #define AT_CMD_SYS_WAIT_TIME    1000   // ms
@@ -460,6 +462,9 @@ int _at_cmd_sys_restore(char *buf, int len, int mode)
         // rest STA information
         MwFim_FileWriteDefault(MW_FIM_IDX_STA_MAC_ADDR, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_STA_SKIP_DTIM, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC, 0);
         
         msg_print_uart1("\r\nOK\r\n");
 
@@ -1014,6 +1019,71 @@ int _at_cmd_sys_download(char *buf, int len, int mode)
     return true;
 }
 
+int _at_cmd_sys_mac_addr_def(char *buf, int len, int mode)
+{
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int ret;
+    u8 ret_st = true;
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+    switch(mode) {
+        case AT_CMD_MODE_READ:
+        {
+            u8 sta_type, ble_type;
+            ret = mac_addr_get_config_source(MAC_IFACE_WIFI_STA, (mac_source_type_t *)&sta_type);
+            if (ret != 0) {
+                ret_st = false;
+                goto done;
+            }
+            ret = mac_addr_get_config_source(MAC_IFACE_BLE, (mac_source_type_t *)&ble_type);
+            if (ret != 0) {
+                ret_st = false;
+                goto done;
+            }
+            msg_print_uart1("\r\n+MACADDRDEF:%d,%d,%d,%d\r\n", MAC_IFACE_WIFI_STA, sta_type,
+                             MAC_IFACE_BLE - 1, ble_type);
+        }
+            break;
+        case AT_CMD_MODE_SET:
+        {
+            u8 iface, type;
+            if (argc != 3) {
+                ret_st = false;
+                goto done;
+            }
+            iface = atoi(argv[1]);
+            type = atoi(argv[2]);
+            if (iface > MAC_IFACE_BLE - 1) {
+                ret_st = false;
+                goto done;
+            }
+            if (type > MAC_SOURCE_FROM_FLASH) {
+                ret_st = false;
+                goto done;
+            }
+            if (iface == 0) {
+                ret = mac_addr_set_config_source(MAC_IFACE_WIFI_STA, (mac_source_type_t)type);
+            }
+            else if (iface == 1) {
+                ret = mac_addr_set_config_source(MAC_IFACE_BLE, (mac_source_type_t)type);
+            }
+            if (ret != 0) {
+                ret_st = false;
+                goto done;
+            }
+        }
+            break;
+        default:
+            ret_st = false;
+            break;
+    }
+done:
+    if (ret_st)
+        msg_print_uart1("\r\nOK\r\n");
+    else 
+        msg_print_uart1("\r\nError\r\n");
+    return ret_st;
+}
 /*
  * @brief  Sample code to do system test
  *
@@ -1054,6 +1124,7 @@ _at_command_t _gAtCmdTbl_Sys[] =
     { "at+ota_svr_stop",        _at_cmd_sys_ota_svr_stop,  "Close OTA FW Upgrade(HTTP) function" },
     { "at+dbguart",             _at_cmd_sys_dbg_uart_ctrl, "Enable/Disable the Rx part of debug UART" },
     { "at+download",            _at_cmd_sys_download,      "Download the patch image" },
+    { "at+macaddrdef",          _at_cmd_sys_mac_addr_def,  "Default mac address from OTP or others storage" },
 #endif
     { NULL,                     NULL,                     NULL},
 };

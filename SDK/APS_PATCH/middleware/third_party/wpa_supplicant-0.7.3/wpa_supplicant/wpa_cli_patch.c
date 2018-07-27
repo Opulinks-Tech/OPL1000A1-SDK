@@ -41,6 +41,7 @@
 #include "wifi_nvm_patch.h"
 #include "wpa_cli_patch.h"
 #include "common.h"
+#include "sys_common_ctrl.h"
 
 #ifndef WPA_CLI_DBG
 #define WPA_CLI_DBG TRUE
@@ -428,6 +429,18 @@ void debug_auto_connect(void)
     msg_print(LOG_HIGH_LEVEL, "STA info manufacture = %s\r\n", name);
 }
 
+void debug_cli_mac_addr_src(void)
+{
+    u8 type;
+    msg_print(LOG_HIGH_LEVEL, "Mac Address Source:\r\n");
+    msg_print(LOG_HIGH_LEVEL, "   0:OTP, 1:Flash\r\n");
+    base_mac_addr_src_get_cfg(BASE_NVM_MAC_SRC_IFACE_ID_STA, &type);
+    msg_print(LOG_HIGH_LEVEL, "   WIFI STA : %d", type);
+    base_mac_addr_src_get_cfg(BASE_NVM_MAC_SRC_IFACE_ID_SOFTAP, &type);
+    msg_print(LOG_HIGH_LEVEL, "   SoftAP: %d", type);
+    base_mac_addr_src_get_cfg(BASE_NVM_MAC_SRC_IFACE_ID_BLE, &type);
+    msg_print(LOG_HIGH_LEVEL, "   BLE : %d\r\n", type);
+}
 /* debug use */
 int wpa_cli_dbg(int argc, char *argv[])
 {
@@ -438,11 +451,14 @@ int wpa_cli_dbg(int argc, char *argv[])
         msg_print(LOG_HIGH_LEVEL, "   h : help\r\n");
         msg_print(LOG_HIGH_LEVEL, "   p : print memory variable of auto connect/CBS ...\r\n");
         msg_print(LOG_HIGH_LEVEL, "   ia : Test input mac addr/manufacture name for CBS\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   ib : Test input mac address source config\r\n");
+        msg_print(LOG_HIGH_LEVEL, "        iface, type\r\n");
         return TRUE;
     }
     
     if (!strcmp(argv[1], "p") || argc == 1) {
         debug_auto_connect();
+        debug_cli_mac_addr_src();
         return TRUE;
     }
 
@@ -457,6 +473,12 @@ int wpa_cli_dbg(int argc, char *argv[])
         }
     }
     
+    if (!strcmp(argv[1], "ib")) {
+        u8 iface, type;
+        iface = atoi(argv[2]);
+        type = atoi(argv[3]);
+        base_mac_addr_src_set_cfg(iface, type);
+    }
     return TRUE;
 }
 

@@ -16,8 +16,6 @@
 #include "controller_wifi_com.h"
 #include "mw_fim_default_group02.h"
 
-#define FLAG_OF_CBS_READ_WRITE_INFO
-
 
 #define WIFIS_EID_RSN		48
 #define WIFIS_EID_VENDOR_SPECIFIC		221

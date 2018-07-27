@@ -52,6 +52,7 @@
 
 #include "wifi_mac_task.h"
 #include "msg.h"
+#include "sys_common_ctrl.h"
 
 /* Define those to better describe your network interface. */
 #define IFNAME0 's'
@@ -296,6 +297,7 @@ ethernetif_init_patch(struct netif *netif)
 static void
 low_level_init_patch(struct netif *netif)
 {
+    u8 type = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
     struct ethernetif *ethernetif = netif->state;
 
     LWIP_UNUSED_ARG(ethernetif);
@@ -322,7 +324,13 @@ low_level_init_patch(struct netif *netif)
     
     //ToDo: we need to get mac address through wifi drvier api, before we call lwip_init()
     //      should be set mac address after wifi ready
+    base_mac_addr_src_get_cfg(BASE_NVM_MAC_SRC_IFACE_ID_STA, &type);
+    if (type == BASE_NVM_MAC_SRC_TYPE_ID_OTP) {
+        memcpy(netif->hwaddr, s_StaInfo.au8Dot11MACAddress, MAC_ADDR_LEN);
+    }
+    else {
     wifi_nvm_sta_info_read(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, netif->hwaddr);
+    }
     
     /* maximum transfer unit */
     netif->mtu = 1500;

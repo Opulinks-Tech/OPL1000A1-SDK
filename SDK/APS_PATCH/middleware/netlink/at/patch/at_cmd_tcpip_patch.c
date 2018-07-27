@@ -48,7 +48,7 @@
 #include "network_config.h"
 #include "at_cmd_app.h"
 #include "controller_wifi_com_patch.h"
-
+#include "sys_common_api.h"
 
 /******************************************************
  *                      Macros
@@ -343,7 +343,7 @@ void at_update_link_count(int8_t count)
         if (mdState == AT_STA_LINKED) {
             mdState = AT_STA_UNLINKED;
         }
-    } else if ((cnt == 0) && (tmp > 0)) {
+    } else if ((cnt >= 0) && (tmp > 0)) {
         cnt = tmp;
         mdState = AT_STA_LINKED;
     }
@@ -607,7 +607,7 @@ int at_close_client(at_socket_t *link)
 {
     int ret = -1;
     if (link->sock >= 0) {
-        lwip_shutdown(link->sock, SHUT_RDWR);
+        link->link_state = AT_LINK_DISCONNECTING;
         ret = lwip_close(link->sock);
         link->sock = -1;
     }
@@ -1036,6 +1036,8 @@ void at_process_recv_socket(at_socket_t *plink)
 {
     struct sockaddr_in sa;
     socklen_t socklen = sizeof(struct sockaddr_in);
+    ip_addr_t remote_ip;
+    uint16_t remote_port;
     char *rcv_buf = NULL;
     int len = 0;
     int32_t sock = -1;
@@ -1047,10 +1049,10 @@ void at_process_recv_socket(at_socket_t *plink)
 
     rcv_buf = plink->recv_buf;
 
-    //if (at_socket_read_set_timeout(plink, 6000) <= 0) {
-    //    AT_LOGI("read timeout\r\n");
-    //    return;
-    //}
+    if (at_socket_read_set_timeout(plink, 10000) <= 0) {
+        AT_LOGI("read timeout\r\n");
+        return;
+    }
 
     //if ((rcv_buf = (char *)malloc(AT_DATA_RX_BUFSIZE * sizeof(char))) == NULL) {
     //    AT_LOGI("rx buffer alloc fail\r\n");
@@ -1079,24 +1081,29 @@ void at_process_recv_socket(at_socket_t *plink)
 
             if (data) {
                 if (plink->link_type == AT_LINK_TYPE_UDP) {
+                    inet_addr_to_ip4addr(ip_2_ip4(&remote_ip), &sa.sin_addr);
+                    remote_port = htons(sa.sin_port);
                     if (plink->change_mode == 2) {
-                        inet_addr_to_ip4addr(ip_2_ip4(&plink->remote_ip), &sa.sin_addr);
-                        plink->remote_port = htons(sa.sin_port);
+                        plink->remote_ip = remote_ip;
+                        plink->remote_port = remote_port;
                     } else if (plink->change_mode == 1) {
-                        inet_addr_to_ip4addr(ip_2_ip4(&plink->remote_ip), &sa.sin_addr);
-                        plink->remote_port = htons(sa.sin_port);
+                        plink->remote_ip = remote_ip;
+                        plink->remote_port = remote_port;
                         plink->change_mode = 0;
                     }
+                } else { //TCP
+                    remote_ip = plink->remote_ip;
+                    remote_port = plink->remote_port;
                 }
 
                 if (ipd_info_enable == true) {
                     if (at_ipMux) {
                         header_len = sprintf(data, "\r\n+IPD,%d,%d,"IPSTR",%d:",plink->link_id, len,
-                                IP2STR(&(plink->remote_ip)), plink->remote_port);
+                                IP2STR(&remote_ip), remote_port);
                     }
                     else {
                         header_len = sprintf(data, "\r\n+IPD,%d,"IPSTR",%d:", len,
-                                IP2STR(&(plink->remote_ip)), plink->remote_port);
+                                IP2STR(&remote_ip), remote_port);
 
                     }
                 } else {
@@ -1373,7 +1380,7 @@ int at_socket_client_cleanup_task(at_socket_t* plink)
     //AT_SOCKET_LOCK();
     ret = at_close_client(plink);
     if (plink->task_handle) {
-        vTaskDelete(plink->task_handle);
+        //vTaskDelete(plink->task_handle);
         plink->task_handle = NULL;
     }
 
@@ -2738,6 +2745,7 @@ int _at_cmd_tcpip_cipstamac(char *buf, int len, int mode)
 
             wpa_cli_setmac(mac);
 
+            mac_addr_set_config_source(MAC_IFACE_WIFI_STA, MAC_SOURCE_FROM_FLASH);
             ret = AT_RESULT_CODE_OK;
 
             break;

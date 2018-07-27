@@ -23,7 +23,7 @@
 #include "controller_wifi_com_patch.h"
 
 extern u8 g_bssid[6];
-
+extern u8 g_fastconn;
 
 extern struct wpa_supplicant *wpa_s;
 
@@ -300,6 +300,7 @@ Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
         }
 
         wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATING);
+        g_fastconn = 0;
         ret = wifi_sta_join(pInfo->bssid);
     }
     if(ret == 0) return TRUE;

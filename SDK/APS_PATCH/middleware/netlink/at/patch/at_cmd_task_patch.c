@@ -50,7 +50,7 @@ void opl_at_module_init(uint32_t netconn_max, const char *custom_version)
 
     if(AtTaskHandle == NULL)
     {
-        tracer_cli(LOG_HIGH_LEVEL, "create thread fail \r\n");
+        tracer_log(LOG_HIGH_LEVEL, "create thread fail \r\n");
         msg_print_uart1("create thread fail \r\n");
     }
 
@@ -58,7 +58,7 @@ void opl_at_module_init(uint32_t netconn_max, const char *custom_version)
     AtMemPoolId = osPoolCreate (osPool(atMemPool)); /** create Mem Pool */
     if (!AtMemPoolId)
     {
-        tracer_cli(LOG_HIGH_LEVEL, "AT Task Mem Pool create Fail \r\n"); /** MemPool object not created, handle failure */
+        tracer_log(LOG_HIGH_LEVEL, "AT Task Mem Pool create Fail \r\n"); /** MemPool object not created, handle failure */
         msg_print_uart1("AT Task Mem Pool create Fail \r\n");
     }
 
@@ -68,7 +68,7 @@ void opl_at_module_init(uint32_t netconn_max, const char *custom_version)
     xAtQueue = osMessageCreate(&at_queue_def, AtTaskHandle);
     if(xAtQueue == NULL)
     {
-        tracer_cli(LOG_HIGH_LEVEL, "create queue fail \r\n");
+        tracer_log(LOG_HIGH_LEVEL, "create queue fail \r\n");
         msg_print_uart1("create queue fail \r\n");
     }
 
@@ -141,7 +141,7 @@ osStatus at_task_send_patch(xATMessage txMsg)
 
         if(pMsg->pcMessage == NULL)
         {
-            tracer_cli(LOG_HIGH_LEVEL, "at task message allocate fail \r\n");
+            tracer_log(LOG_HIGH_LEVEL, "at task message allocate fail \r\n");
             msg_print_uart1("at task message allocate fail \r\n");
             goto done;
         }
@@ -185,7 +185,7 @@ void at_task_patch(void *pvParameters)
     xATMessage *rxMsg;
     at_uart_buffer_t *pData;
 
-    tracer_cli(LOG_HIGH_LEVEL, "AT task is created successfully! \r\n");
+    tracer_log(LOG_HIGH_LEVEL, "AT task is created successfully! \r\n");
     msg_print_uart1("\r\n>");
 
     for(;;)

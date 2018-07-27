@@ -59,6 +59,9 @@ const T_HalUartConfig g_tMwFimDefaultUartConfig =
     PARITY_NONE,
     0               // disable the flow control
 };
+const uint8_t g_tMwFimDefaultMacAddrWifiSTASrc    = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
+const uint8_t g_tMwFimDefaultMacAddrWifiSoftAPSrc = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
+const uint8_t g_tMwFimDefaultMacAddrBleSrc        = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
 // the address buffer of Uart config
 uint32_t g_ulaMwFimAddrBufferUartConfig[MW_FIM_UART_CFG_NUM];
 
@@ -67,6 +70,9 @@ uint32_t g_ulaMwFimAddrBufferTracerConfig[MW_FIM_TRACER_CFG_NUM];
 uint32_t g_ulaMwFimAddrBufferTracerIntTaskInfo[MW_FIM_TRACER_INT_TASK_INFO_NUM];
 uint32_t g_ulaMwFimAddrBufferTracerExtTaskInfo[MW_FIM_TRACER_EXT_TASK_INFO_NUM];
 
+uint32_t g_MwFimAddrBufferMacAddrWifiSTASrc[MW_FIM_MAC_ADDR_SRC_WIFI_STA_NUM];
+uint32_t g_MwFimAddrBufferMacAddrWifiAPSrc[MW_FIM_MAC_ADDR_SRC_WIFI_SOFTAP_NUM];
+uint32_t g_MwFimAddrBufferMacAddrBleSrc[MW_FIM_MAC_ADDR_SRC_WIFI_BLE_NUM];
 // the information table of group 01
 const T_MwFimFileInfo g_taMwFimGroupTable01[] =
 {
@@ -75,6 +81,9 @@ const T_MwFimFileInfo g_taMwFimGroupTable01[] =
     {MW_FIM_IDX_GP01_TRACER_CFG, MW_FIM_TRACER_CFG_NUM, MW_FIM_TRACER_CFG_SIZE, NULL, g_ulaMwFimAddrBufferTracerConfig},
     {MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, MW_FIM_TRACER_INT_TASK_INFO_NUM, MW_FIM_TRACER_INT_TASK_INFO_SIZE, NULL, g_ulaMwFimAddrBufferTracerIntTaskInfo},
     {MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, MW_FIM_TRACER_EXT_TASK_INFO_NUM, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, NULL, g_ulaMwFimAddrBufferTracerExtTaskInfo},
+    {MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC, MW_FIM_MAC_ADDR_SRC_WIFI_STA_NUM, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE, (uint8_t*)&g_tMwFimDefaultMacAddrWifiSTASrc, g_MwFimAddrBufferMacAddrWifiSTASrc},
+    {MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC, MW_FIM_MAC_ADDR_SRC_WIFI_SOFTAP_NUM, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, (uint8_t*)&g_tMwFimDefaultMacAddrWifiSoftAPSrc, g_MwFimAddrBufferMacAddrWifiAPSrc},
+    {MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_NUM, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE, (uint8_t*)&g_tMwFimDefaultMacAddrBleSrc, g_MwFimAddrBufferMacAddrBleSrc},
     
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}

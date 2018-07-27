@@ -49,6 +49,7 @@ extern u16 g_key_info_3_4;
 extern struct wpa_supplicant *wpa_s;
 extern struct wpa_ptk ptk;
 
+extern u8 g_fastconn;
 extern int g_DbgMode;
 
 extern wpa_alloc_eapol_fp_t wpa_alloc_eapol;
@@ -617,6 +618,7 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
 
     //wpa_printf_dbg(MSG_INFO, "\r\nsecured connected\r\n\r\n");
     //msg_print(LOG_HIGH_LEVEL, "\r\nsecured connected\r\n\r\n");
+    g_fastconn = 0;
     wifi_sta_join_complete(1); // 1 means success
     send_port_security_done_event();
     wifi_mac_set_encrypt_eapol_frame(true);

@@ -44,7 +44,7 @@ extern "C" {
 #include "mw_fim.h"
 #include "hal_uart_patch.h"
 #include "msg_patch.h"
-
+#include "sys_common_ctrl.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the file ID
@@ -60,6 +60,9 @@ typedef enum
     MW_FIM_IDX_GP01_TRACER_CFG,
     MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO,
     MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO,
+    MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC,
+    MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC,
+    MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC,
     
     MW_FIM_IDX_GP01_MAX
 } E_MwFimIdxGroup01;
@@ -82,7 +85,13 @@ Declaration of data structure
 #define MW_FIM_TRACER_EXT_TASK_INFO_SIZE    sizeof(T_TracerTaskInfo)
 #define MW_FIM_TRACER_EXT_TASK_INFO_NUM     TRACER_EXT_TASK_NUM_MAX
 
+#define MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE     1
+#define MW_FIM_MAC_ADDR_SRC_WIFI_STA_NUM      1
 
+#define MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE 1
+#define MW_FIM_MAC_ADDR_SRC_WIFI_SOFTAP_NUM   1
+#define MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE     1
+#define MW_FIM_MAC_ADDR_SRC_WIFI_BLE_NUM      1
 /********************************************
 Declaration of Global Variables & Functions
 ********************************************/
@@ -91,6 +100,9 @@ extern const T_MwFimFileInfo g_taMwFimGroupTable01[];
 
 extern const T_HalUartConfig g_tMwFimDefaultUartConfig;
 
+extern const uint8_t g_tMwFimDefaultMacAddrWifiSTASrc;
+extern const uint8_t g_tMwFimDefaultMacAddrWifiSoftAPSrc;
+extern const uint8_t g_tMwFimDefaultMacAddrBleSrc;
 // Sec 5: declaration of global function prototype
 
 

@@ -15,10 +15,8 @@
 #ifndef __WPA_CLI_PATCH_H__
 #define __WPA_CLI_PATCH_H__
 
-#ifdef FLAG_OF_CBS_READ_WRITE_INFO
 int wpa_cli_get_manuf_name(u8 *name);
 int wpa_cli_set_manuf_name(u8 *name);
-#endif
 
 extern int check_mac_addr_len(const char *txt);
 

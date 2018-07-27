@@ -136,6 +136,7 @@ void send_le_dhkey_generation_complete_event_impl(uint8_t status, uint8_t *key);
 /* MwFim related functions */
 void le_read_cfg_from_flash(le_cfg_t *cfg);
 void le_write_cfg_to_flash(le_cfg_t *cfg);
+void le_write_bd_addr_to_flash(uint8_t *addr);
 void ParseLeCfgCommand(char *pbuf);
 
 void le_ctrl_util_encrypt(uint8_t *key, uint8_t *pData, uint8_t *eData);
