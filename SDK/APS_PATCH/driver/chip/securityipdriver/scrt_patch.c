@@ -61,7 +61,7 @@
 #define SCRT_MALLOC                 malloc
 #define SCRT_FREE                   free
 
-#define SCRT_DEBUG
+//#define SCRT_DEBUG
 
 #ifdef SCRT_DEBUG
     #define SCRT_LOGI(...)
@@ -2036,7 +2036,7 @@ done:
  */
 int nl_scrt_aes_ccm_patch(int bEncrypt, unsigned char *sk, int sk_len, unsigned char *nonce, int nonce_len, unsigned char *adata, int adata_len, unsigned char *plain_text, unsigned char *encrypted_text, int text_len, unsigned char *tag, int tag_len)
 {
-    int status = 1;
+    int status = 0;
     unsigned int word_11 = 0;
     int buf_len = 0;
     volatile uint32_t *u32aBase = NULL;
@@ -2537,7 +2537,7 @@ done:
  */
 int nl_scrt_aes_ecb_patch(int bEncrypt, unsigned char *sk, int sk_len, unsigned char *data_in, unsigned char *data_out, unsigned data_len)
 {
-    int status = 1;
+    int status = 0;
     unsigned int word_11 = 0;
     int buf_len = 0;
     int key_len = 0;
