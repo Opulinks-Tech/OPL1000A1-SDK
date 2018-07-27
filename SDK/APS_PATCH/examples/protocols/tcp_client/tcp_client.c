@@ -45,6 +45,8 @@ static void tcp_client(void)
     struct sockaddr_in serverAdd;  
 		char server_ip[32];
 		int server_port = TCP_SERVER_PORT; 
+	  char recv_buf[128];
+	  int r;
 		
     serverAdd.sin_family = AF_INET; 
 		serverAdd.sin_addr.s_addr = inet_addr(TCP_SERVER_ADDR);  
@@ -91,7 +93,13 @@ static void tcp_client(void)
             continue;
         }
         printf("... set socket receiving timeout success \r\n");
-
+        do {
+            memset(recv_buf, 0, sizeof(recv_buf));
+            r = read(s, recv_buf, sizeof(recv_buf)-1);
+            for (int i = 0; i < r; i++) {
+                putchar(recv_buf[i]);
+            }
+        } while (r > 0);
         close(s);
 
         printf("Starting again! \r\n");
