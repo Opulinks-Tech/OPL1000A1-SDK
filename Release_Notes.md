@@ -1,4 +1,39 @@
 ## Release Version:
+SDK Package: 1.0.1.28
+Patch_Lib : 2109
+ROM_CODE: 809 
+
+## Release Date: 2018/7/27
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.28, WIFI part APIs are updated.  
+ 1.2 OPL1000-RF-Testing-Guide: R01-V02, several captured figures are updated.    
+ 1.3 OPL1000-AT-instruction-set-and-examples: R05-V10, add more description for AT+BLEADDR and AT+CIPSTAMAC.
+ 1.4 OPL1000-Demo-tcp-client-guide: R01-V02, add TCP server send ACK message introduction. 
+ 1.5 OPL1000-OTA-User-Guide: R01-V03, fix several misdescription 
+2. Update TCP_Client demo, add TCP client receive TCP server ACK message processing.    
+3. Tool version information:
+ 3.1 download tool: v0.18. No change since v1.0.1.26.     
+ 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+4. Add several new AT commands：AT+BLEADDR, AT+MACADDRDEF, AT+RFHP etc. 
+5. Update scan configuration API, support specific channel or all channels scan, scan duration time for different scan mode.   
+6. Add readme.md for each example project, briefly introduce example function, work flow, application notice etc.  
+7. Support LE multi-connection up to 8 devices. 
+
+## Bug Fix List 
+1. Fix bugs in AT Command "AT+CIPDINFO", "AT+CIPSTATUS",  "at+tx" and "AT+CWAUTOCONN?" , 
+2. Fix the patch method of partition memory pool
+3. Fix a bug in "tracer_cli" function in "AT" and "Diag" tasks
+4. Fix a bug of wrong return value of AES-CCM and AES-ECB functions
+
+## Notes List 
+1. WIFI OTA function is on-developing.  
+2. More examples such as MQTT, power saving are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.27
 Patch_Lib : 2031
 ROM_CODE: 809 
