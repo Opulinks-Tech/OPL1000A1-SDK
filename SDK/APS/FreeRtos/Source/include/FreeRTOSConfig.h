@@ -85,7 +85,7 @@
 #define configUSE_PREEMPTION                    1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION 0
 #define configUSE_TICKLESS_IDLE                 0
-#define configCPU_CLOCK_HZ                      ( ( unsigned long ) 22000000 )  // no used, it is replaced by SystemCoreClockGet()
+#define configCPU_CLOCK_HZ                      ( ( unsigned long ) XTAL )      // no used, it is replaced by SystemCoreClockGet()
 #define configTICK_RATE_HZ                      ( ( TickType_t ) 1000 )         // osKernelSysTickFrequency
 #define configMAX_PRIORITIES                    ( 7 )                           // (osPriorityRealtime - osPriorityIdle + 1)
 #define configMINIMAL_STACK_SIZE                ( ( unsigned short ) 128 )      // OS_TASK_STACK_SIZE_IDLE

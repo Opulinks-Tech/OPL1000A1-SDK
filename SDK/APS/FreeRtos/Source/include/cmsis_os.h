@@ -245,8 +245,14 @@ typedef struct  {
 /// \return status code that indicates the execution status of the function.
 /// \note MUST REMAIN UNCHANGED: \b osKernelInitialize shall be consistent in every CMSIS-RTOS.
 //osStatus osKernelInitialize (void);
-typedef osStatus (*T_osKernelInitializeFp) (void);
+typedef osStatus (*T_osKernelInitializeFp)(void);
 extern T_osKernelInitializeFp osKernelInitialize;
+
+/// Restart the RTOS Kernel.
+/// \return status code that indicates the execution status of the function.
+//osStatus osKernelRestart (void);
+typedef osStatus (*T_osKernelRestartFp)(void);
+extern T_osKernelRestartFp osKernelRestart;
 
 /// Start the RTOS Kernel.
 /// \return status code that indicates the execution status of the function.
