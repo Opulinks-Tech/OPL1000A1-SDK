@@ -1,4 +1,41 @@
 ## Release Version:
+SDK Package: 1.1.1.1
+Patch_Lib : 2227
+ROM_CODE: 1655
+
+## Release Date: 2018/8/3
+
+## Function & Feature Update 
+1. Documents updating:
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.1.1.1, Both BLE and WIFI part APIs are updated.  
+    1.2 OPL1000-system-initialization-brief-introduction: R01-V03, add cold boot and warm boot time state information.    
+    1.3 OPL1000-AT-instruction-set-and-examples: R05-V11, add new AT command for flash read, write and erase.
+    1.4 OPL1000-pinmux-tool-user-guide: R01-V03,  A1 chip opens two more IO pin resource , PinMux tool is updated. 
+    1.5 OPL1000-DEVKIT-getting-start-guide: R02-V06, updated for A1 chip.
+    1.6 OPL1000-SDK-getting-start-guide: R02-V05, update section 3 because A1 chip SDK project setting is changed.
+ 1.7 OPL1000-SDK-Development-guide: R01-V07, release package folder structure and example project building description are updated.
+2. All examples project setting is updated from A0 configuration to A1 configuration.    
+3. "log output" method is updated in several example projects. 
+4. Tool version information and update:
+ 4.1 download tool: v0.19. Support A1 chip.     
+ 4.2 pin-mux tool: v0.6. Support A1 chip, add IO16,IO17 additional PIN resource    
+5. Add several new AT commands：AT+READFLASH, AT+WRITEFLASH and AT+ERASEFLASH etc. 
+6. Support RF high/low power configuration   
+7. Add a new feature of "DCOC dump".  Use at+showdc and at+dcoc command to dump DC and calibration data.
+
+## Bug Fix List 
+1. Fix bugs in AT Command "AT+BLECONNPARAM", "AT+CWAUTOCONN",  "AT+CWJAP?" and "AT+CWAUTOCONN?" , 
+2. Fix a bug of "task not works after warm-boot"
+3. Fix a bug of "Inconsistent value when read/write AP numbers to FIM"
+4. Fix a bug of "get IP failed when mac address is OTP default"
+
+## Notes List 
+1. WIFI OTA example is on-developing.  
+2. More examples such as MQTT, power saving are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.0.1.28
 Patch_Lib : 2109
 ROM_CODE: 809 
@@ -8,14 +45,14 @@ ROM_CODE: 809
 ## Function & Feature Update 
 1. Documents updating:
  1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.28, WIFI part APIs are updated.  
- 1.2 OPL1000-RF-Testing-Guide: R01-V02, several captured figures are updated.    
- 1.3 OPL1000-AT-instruction-set-and-examples: R05-V10, add more description for AT+BLEADDR and AT+CIPSTAMAC.
- 1.4 OPL1000-Demo-tcp-client-guide: R01-V02, add TCP server send ACK message introduction. 
- 1.5 OPL1000-OTA-User-Guide: R01-V03, fix several misdescription 
+    1.2 OPL1000-RF-Testing-Guide: R01-V02, several captured figures are updated.    
+    1.3 OPL1000-AT-instruction-set-and-examples: R05-V10, add more description for AT+BLEADDR and AT+CIPSTAMAC.
+    1.4 OPL1000-Demo-tcp-client-guide: R01-V02, add TCP server send ACK message introduction. 
+    1.5 OPL1000-OTA-User-Guide: R01-V03, fix several misdescription 
 2. Update TCP_Client demo, add TCP client receive TCP server ACK message processing.    
 3. Tool version information:
- 3.1 download tool: v0.18. No change since v1.0.1.26.     
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.18. No change since v1.0.1.26.     
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. Add several new AT commands：AT+BLEADDR, AT+MACADDRDEF, AT+RFHP etc. 
 5. Update scan configuration API, support specific channel or all channels scan, scan duration time for different scan mode.   
 6. Add readme.md for each example project, briefly introduce example function, work flow, application notice etc.  
@@ -42,14 +79,14 @@ ROM_CODE: 809
 
 ## Function & Feature Update 
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.27, WIFI part several APIs are updated.  
- 1.2 Add a new document "OPL1000-RF-Testing-Guide" which introduce how to do RF testing on OPL1000 DEVKIT board.   
- 1.3 Add a new document "OPL1000-BLEWIFI-Application-Dev-Guide" to introduce BLE configure WIFI network working flow and principle.
- 1.4 A new document "OPL1000-OTA-User-Guide" is added under "Demo\OTA" folder which introduce OPL1000 BLE OTA function.
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.27, WIFI part several APIs are updated.  
+    1.2 Add a new document "OPL1000-RF-Testing-Guide" which introduce how to do RF testing on OPL1000 DEVKIT board.   
+    1.3 Add a new document "OPL1000-BLEWIFI-Application-Dev-Guide" to introduce BLE configure WIFI network working flow and principle.
+    1.4 A new document "OPL1000-OTA-User-Guide" is added under "Demo\OTA" folder which introduce OPL1000 BLE OTA function.
 2. Add a new demo to introduce how to complete OTA through BLE. This demo is placed under "Demo\OTA" folder.  
 3. Tool version information:
- 3.1 download tool: v0.18. No change since v1.0.1.26.     
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.18. No change since v1.0.1.26.     
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. Improve stability for reduplicative AP connect/disconnect 
 5. Add new API function to query Wi-Fi status and clean Wi-Fi AP record
 
@@ -74,14 +111,14 @@ ROM_CODE: 809
 
 ## Function & Feature Update 
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.26, WIFI part several APIs are updated.  
- 1.2 OPL1000-SDK-Development-guide: R01-V06, SDK package folder and exmaples are updated.  
- 1.3 OPL1000-DEVKIT-getting-start-guide: R02-V05, how to download OTA loader bin file and OTA image files are introduced.
- 1.4 OPL1000-patch-download-tool-user-guide: R03-V04. OTA loader and image file download function is introduced according to v0.18 version program. 
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.26, WIFI part several APIs are updated.  
+    1.2 OPL1000-SDK-Development-guide: R01-V06, SDK package folder and exmaples are updated.  
+    1.3 OPL1000-DEVKIT-getting-start-guide: R02-V05, how to download OTA loader bin file and OTA image files are introduced.
+    1.4 OPL1000-patch-download-tool-user-guide: R03-V04. OTA loader and image file download function is introduced according to v0.18 version program. 
 2. Boot agent (OTA loader) project is added in this release.    
 3. Tool version information:
- 3.1 download tool: v0.18. OTA loader and image file download function are added.     
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.18. OTA loader and image file download function are added.     
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. OTA through BLE function is working, demonstration  program will be provided soon.
 5. Fixed several bugs in AT instructions.    
 6. update calibration data for temperature sensor
@@ -108,12 +145,12 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.25, WIFI part APIs are updated.  
- 1.2 OPL1000-AT-instruction-set-and-examples: R05-V07, refined some description of several AT commands.  
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.25, WIFI part APIs are updated.  
+    1.2 OPL1000-AT-instruction-set-and-examples: R05-V07, refined some description of several AT commands.  
 2. WIFI related examples are updated. AP scan mode is changed from active to mixed mode.   
 3. Tool version information:
- 3.1 download tool: v0.17. No change since v1.0.1.23.    
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.17. No change since v1.0.1.23.    
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. Low level FW lib supports BLE OTA feature, high level application module is on-developing.
 5. Fixed several bugs in AT instructions.    
 6. BLE connection rate and stability is improved. 
@@ -144,14 +181,14 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.24, WIFI part APIs are updated.  
- 1.2 OPL1000-AT-instruction-set-and-examples: R05-V06, fixed wrong description in several AT commands.  
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.24, WIFI part APIs are updated.  
+    1.2 OPL1000-AT-instruction-set-and-examples: R05-V06, fixed wrong description in several AT commands.  
 2. Example codes updating:
- 2.1 sntp example is updated, wifi ap SSID is changed to Opulinks-TEST-AP.    
- 2.2 add a new protocol example: mDNS, service broadcast function is supported.   
+    2.1 sntp example is updated, wifi ap SSID is changed to Opulinks-TEST-AP.    
+    2.2 add a new protocol example: mDNS, service broadcast function is supported.   
 3. Tool version information:
- 3.1 download tool: v0.17. No change since v1.0.1.23.    
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.17. No change since v1.0.1.23.    
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. Fixed bugs in several AT commands  
 5. Optimize IPC module realization    
 6. Solve "printf instruction may cause caller task stack overflow" issue
@@ -179,13 +216,13 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.23, WIFI part APIs are updated.  
- 1.2 OPL1000-AT-instruction-set-and-examples: R05-V05, several AT commands are updated.  
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.23, WIFI part APIs are updated.  
+    1.2 OPL1000-AT-instruction-set-and-examples: R05-V05, several AT commands are updated.  
 2. Example codes updating:
- 2.1 hello_world example, enable debug UART input and output operation.    
+    2.1 hello_world example, enable debug UART input and output operation.    
 3. Tool version information:
- 3.1 download tool: v0.17. Add patch lib version reading function.    
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.17. Add patch lib version reading function.    
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. Support patch lib version reading through APS UART port by CLI command "at+gmr"
 5. SPI0 Flash access throughput is improved 3 times for both Standard and Quad mode.   
 6. Provide "Adaptive DTIM" API calling interface 
@@ -209,17 +246,17 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.21, two WIFI APIs are updated.  
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.21, two WIFI APIs are updated.  
 2. Add 3 new documents: 
- 2.1 OPL1000-WiFi-Interoperability-Results: OPL1000 WIFI Interoperability test result summary   
- 2.2 OPL1000-Flash-User-Guide: OPL1000 Flash introduction and use guide 
- 2.3 OPL1000-Adaptive-DTIM-Solution-Guide: OPL1000 adaptive DTIM introduction and use guide    
+    2.1 OPL1000-WiFi-Interoperability-Results: OPL1000 WIFI Interoperability test result summary   
+    2.2 OPL1000-Flash-User-Guide: OPL1000 Flash introduction and use guide 
+    2.3 OPL1000-Adaptive-DTIM-Solution-Guide: OPL1000 adaptive DTIM introduction and use guide    
 3. Example codes updating:
- 3.1 Enable internal module log output for several examples, such as wpa2_station, http_request etc. This helps user to know more detailed information.    
- 3.2 Add a new protocol example SNTP which show how to implement SNTP function by socket communication method. 
+    3.1 Enable internal module log output for several examples, such as wpa2_station, http_request etc. This helps user to know more detailed information.    
+    3.2 Add a new protocol example SNTP which show how to implement SNTP function by socket communication method. 
 4. Tool version information:
- 4.1 download tool: v0.16. No change since v1.0.1.19     
- 4.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    4.1 download tool: v0.16. No change since v1.0.1.19     
+    4.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 5. Support RF power-off function for power saving feature
 
 ## Bug Fix List 
@@ -240,17 +277,17 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.20, several WIFI APIs are updated.  
- 1.2 OPL1000-DEVKIT-getting-start-guide: R02_V04, add DEVKIT USB driver installation on WinXP/Win10 introduction.   
- 1.3 OPL1000-SDK-getting-start-guide: R02_V04, update project setting related description. 
- 1.4 OPL1000-SDK-Development-guide: R01_V05, update release package file list and project setting related description .
- 1.5 Add a new document OPL1000-system-initialization-brief-introduction.pdf to introduce OPL1000 boot procedure.   
+    1.1 OPL1000-WIFI-BLE-API-guide: v1.0.1.20, several WIFI APIs are updated.  
+    1.2 OPL1000-DEVKIT-getting-start-guide: R02_V04, add DEVKIT USB driver installation on WinXP/Win10 introduction.   
+    1.3 OPL1000-SDK-getting-start-guide: R02_V04, update project setting related description. 
+    1.4 OPL1000-SDK-Development-guide: R01_V05, update release package file list and project setting related description .
+    1.5 Add a new document OPL1000-system-initialization-brief-introduction.pdf to introduce OPL1000 boot procedure.   
 2. Example codes updating:
- 2.1 Update SPI_master example, add SPI0 access on-board flash code, folder: SDK\APS_PATCH\examples\peripherals\spi_master   
- 2.2 Update all example project setting, unify chip name to OPL1000
+    2.1 Update SPI_master example, add SPI0 access on-board flash code, folder: SDK\APS_PATCH\examples\peripherals\spi_master   
+    2.2 Update all example project setting, unify chip name to OPL1000
 3. Tool version information:
- 3.1 download tool: v0.16. No change since v1.0.1.19     
- 3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
+    3.1 download tool: v0.16. No change since v1.0.1.19     
+    3.2 pin-mux tool: v0.5. No change since v1.0.1.19    
 4. DEVKIT USB driver (CP210x USB to UART bridge) is updated. Win10/WinXP drivers are provided. Refer OPL1000-DEVKIT-getting-start-guide section 3.1 to know how to install driver.     
 5. Add README.md to introduce release package content briefly. 
 6. WIFI AP connection/ping operation compatibility is improved. 
@@ -273,20 +310,20 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Documents updating: 
- 1.1 OPL1000-AT-instruction-set-and-examples: R04, add new AT command and fix some description errors. 
- 1.2 OPL1000-DEVKIT-getting-start-guide: R02_V03, AT and APS UART port usage are updated.   
- 1.3 OPL1000-SDK-getting-start-guide: R02_V03, firmware upgrade introduction is updated. 
- 1.4 OPL1000-SDK-Development-guide: R02_V04, update section 2 SDK content introduction.
- 1.5 OPL1000-patch-download-tool-user-guide: R03, updated according to v0.16 version SW.
- 1.6 OPL1000-pinmux-tool-user-guide: R02, updated according to v0.5 version SW.  
- 1.7 Add a new document "OPL1000_peripheral_PWM_application_notes", introduces how to use PWM module.   
+    1.1 OPL1000-AT-instruction-set-and-examples: R04, add new AT command and fix some description errors. 
+    1.2 OPL1000-DEVKIT-getting-start-guide: R02_V03, AT and APS UART port usage are updated.   
+    1.3 OPL1000-SDK-getting-start-guide: R02_V03, firmware upgrade introduction is updated. 
+    1.4 OPL1000-SDK-Development-guide: R02_V04, update section 2 SDK content introduction.
+    1.5 OPL1000-patch-download-tool-user-guide: R03, updated according to v0.16 version SW.
+    1.6 OPL1000-pinmux-tool-user-guide: R02, updated according to v0.5 version SW.  
+    1.7 Add a new document "OPL1000_peripheral_PWM_application_notes", introduces how to use PWM module.   
 2. Example codes updating:
- 2.1 Add a new example TCP client, folder: SDK\APS_PATCH\examples\protocols\tcp_client 
- 2.2 Update SPI_master example, folder: SDK\APS_PATCH\examples\peripherals\spi_master  
- 2.3 Add a new demo folder "Demo\TCP_Client", introduce how to verify TCP client function.   
+    2.1 Add a new example TCP client, folder: SDK\APS_PATCH\examples\protocols\tcp_client 
+    2.2 Update SPI_master example, folder: SDK\APS_PATCH\examples\peripherals\spi_master  
+    2.3 Add a new demo folder "Demo\TCP_Client", introduce how to verify TCP client function.   
 3. Tool version information:
- 3.1 download tool: v0.16, mini-USB is mapped to APS UART and can be used for "on-line FW upgrade"    
- 3.2 pin-mux tool: v0.5. pwm and SPI setting are changed.    
+    3.1 download tool: v0.16, mini-USB is mapped to APS UART and can be used for "on-line FW upgrade"    
+    3.2 pin-mux tool: v0.5. pwm and SPI setting are changed.    
 4. WIFI AP connection stability is improved.     
 5. Update and add several AT commands    
 6. Add a new demo of TCP_Client, corresponding folder: Demo\TCP_Client
@@ -310,12 +347,12 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Below documents are updated: 
- 1.1 OPL1000-AT-instruction-set-and-examples: R03, correct some description errors. 
- 1.2 OPL1000-WIFI-BLE-API-guide: v1.0.1.18, updated several APIs' parameters description.   
+    1.1 OPL1000-AT-instruction-set-and-examples: R03, correct some description errors. 
+    1.2 OPL1000-WIFI-BLE-API-guide: v1.0.1.18, updated several APIs' parameters description.   
 2. Add three new example codes:
- 2.1 I2C slave example. User need to connect an external I2C Master device to communicate with OPL1000 DEVKIT 
- 2.2 Log on/off setting example. This example shows how to enable/disable ROM internal module and user application log information   
- 2.3 http request example, provides two solution. One is based on CMSIS RTOS, the other is based on FreeRTOS.   
+    2.1 I2C slave example. User need to connect an external I2C Master device to communicate with OPL1000 DEVKIT 
+    2.2 Log on/off setting example. This example shows how to enable/disable ROM internal module and user application log information   
+    2.3 http request example, provides two solution. One is based on CMSIS RTOS, the other is based on FreeRTOS.   
 3. Update peripheral PWM example. Provide a complex setting mode to reach higher precision duty rate. 
 4. Improved stability on AP connection    
 5. http request example location: SDK\APS_PATCH\examples\protocols   
@@ -340,12 +377,12 @@ ROM_CODE: 809
 
 ## Function & Feature Update
 1. Below documents are updated: 
- 1.1 OPL1000-AT-instruction-set-example: R02, add AT instruction example 
- 1.2 OPL1000-DEVKIT-getting-start-guide: R02, add J-link emulator selection etc. 
- 1.3 OPL1000-patch-download-tool-user-guide: R02, update according to v0.15 SW 
- 1.4 OPL1000-SDK-Development-guide: R02, add log output setting section 
- 1.5 OPL1000-SDK-getting-start-guide: R02, update download tool operation figures. 
- 1.6 OPL1000-WIFI-BLE-API-guide: v1.0.1.17, several APIs' parameter type are changed.   
+    1.1 OPL1000-AT-instruction-set-example: R02, add AT instruction example 
+    1.2 OPL1000-DEVKIT-getting-start-guide: R02, add J-link emulator selection etc. 
+    1.3 OPL1000-patch-download-tool-user-guide: R02, update according to v0.15 SW 
+    1.4 OPL1000-SDK-Development-guide: R02, add log output setting section 
+    1.5 OPL1000-SDK-getting-start-guide: R02, update download tool operation figures. 
+    1.6 OPL1000-WIFI-BLE-API-guide: v1.0.1.17, several APIs' parameter type are changed.   
 2. Firmware download tool is updated to v0.15, provide log message saving function. 
 3. Support AT UART download patch bin file function. (need M3 bin file support AT UART download instruction)    
 4. Add a demonstration folder "Demo\BLE_Config_AP" which show how to use OPL1000 BLE setup WIFI network 
