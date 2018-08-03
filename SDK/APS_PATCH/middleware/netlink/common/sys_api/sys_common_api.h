@@ -87,6 +87,34 @@ int mac_addr_get_config_source(mac_iface_t iface, mac_source_type_t *type);
  */
 int mac_addr_set_config_source(mac_iface_t iface, mac_source_type_t type);
 
+/**
+  * @brief     Get the configuration of RF power level
+  *
+  * @attention 1. API returns false if try to get Configuration which something error
+  *
+  * @param[out]   level: The level of RF power
+  *              - SYS_RF_LOW_POWER
+  *              - SYS_RF_HIGH_POWER
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int sys_get_config_rf_power_level(sys_rf_power_level_t *level);
+
+/**
+  * @brief     Set the configuration of RF power level
+  *
+  * @attention 1. API returns false if try to set Configuration which something error
+  *
+  * @param[in]   level: The level of RF power
+  *              - SYS_RF_LOW_POWER
+  *              - SYS_RF_HIGH_POWER
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int sys_set_config_rf_power_level(sys_rf_power_level_t level);
+
 #ifdef __cplusplus
 }
 #endif

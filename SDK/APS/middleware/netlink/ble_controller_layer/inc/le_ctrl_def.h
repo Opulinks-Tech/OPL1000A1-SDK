@@ -19,9 +19,12 @@
 /******************** MISC ********************/
 
 #define LE_CTRL_ALL_HANDLE_FRAGMENT									0xFFFF
-#define LE_CTRL_DATA_ENTRY_MAX		10
+#define LE_CTRL_DATA_ENTRY_MAX										10
 #define LE_CTRL_FIND_BUF_FRAGMENTED									0x01
 #define LE_CTRL_FIND_BUF											0x02
+
+#define LE_PHY_1M													0x01
+#define LE_PHY_2M													0x02
 
 /******************** HCI Transport Layer Const ********************/
 
@@ -51,6 +54,7 @@
 #define CommandOpcode_Vendor_Specific_Notify_Control_PDU_Command	(CommandOGF_Vendor_Commands << 10 | 0x11)
 #define CommandOpcode_Vendor_Specific_Decrypt_Fail_Command			(CommandOGF_Vendor_Commands << 10 | 0x12)
 #define CommandOpcode_Vendor_Specific_Generate_Rand_Command			(CommandOGF_Vendor_Commands << 10 | 0x13)
+#define CommandOpcode_Vendor_Specific_Set_Bd_Addr_Command           (CommandOGF_Vendor_Commands << 10 | 0x16)
 
 /******************** Event Code ********************/
 
@@ -68,11 +72,13 @@
 #define SubEventCode_LE_Long_Term_Key_Request_Event					0x05
 #define SubEventCode_LE_Data_Length_Change_Event					0x07
 #define SubEventCode_LE_Enhanced_Connection_Complete_Event 			0x0A
+#define SubEventCode_LE_PHY_Update_Complete_Event 					0x0C
 
 #define EventCode_Vendor_Event										0xFF
 #define SubEventCode_Vendor_Specific_Start_Encryption_Event			0x10
 #define SubEventCode_Vendor_Specific_Send_Control_PDU_Event			0x11
 #define SubEventCode_Vendor_Specific_Number_Of_Completed_Bytes		0x12
+#define SubEventCode_Vendor_Specific_No_PHY_Change_Event			0x13
 
 /******************** Encryption Related Const ********************/
 
@@ -104,6 +110,7 @@
 /******************** Connection Data Definition ********************/
 
 #define DEFAULT_MAX_RX_OCTETS										27
+#define DEFAULT_MAX_RX_IIME											328
 #define CONNECTION_ROLE_MASTER										0x00
 #define CONNECTION_ROLE_SLAVE										0x01
 
@@ -307,6 +314,15 @@ typedef struct {
 	uint8_t Master_Clock_Accuracy;
 } LE_Enhanced_Connection_Complete_Event_Parameters;
 
+//	7.7.65.12 LE PHY Update Complete Event
+typedef struct {
+	uint8_t Subevent_Code;
+	uint8_t Status;
+	uint16_t Connection_Handle;
+	uint8_t TX_PHY;
+	uint8_t RX_PHY;
+} LE_PHY_Update_Complete_Event_Parameters;
+
 /******************** Vendor-Specific HCI Command Parameters ********************/
 
 //	0x3F.10 Vendor-Specific Start Encryption Command
@@ -357,6 +373,17 @@ typedef struct {
 	uint16_t Connection_Handle;
 	uint16_t Num_Of_Completed_Bytes;
 } Vendor_Specific_Number_Of_Completed_Bytes_Event_Parameters;
+
+//	0xFF.13 Vendor-Specific No PHY Change Event
+typedef struct {
+	uint8_t Subevent_Code;
+	uint16_t Connection_Handle;
+} Vendor_Specific_No_PHY_Change_Event_Parameters;
+
+//	0x3F.16 Vendor-Specific Set BD_ADDR Command
+typedef struct {
+	uint8_t bd_addr[6];
+} Vendor_Specific_Set_Bd_Addr_Command_Parameters;
 
 #pragma pack(pop)
 
@@ -416,6 +443,14 @@ typedef struct
 	uint8_t initial_vector_master_new[ENC_IV_HALF_LEN];
 	uint8_t sessionkey[ENC_SK_LEN];
 
+	// 2M PHY REVISION
+	uint16_t max_tx_time;
+	uint16_t used_tx_octects;
+	uint8_t tx_phy;
+	uint8_t used_tx_phy;
+
+	uint8_t rfu[10];
+
 } le_ctrl_conn_t;
 
 /******************** BLE ALL Data in this Struct ********************/
@@ -444,5 +479,11 @@ typedef struct
 	uint8_t 					open_dbg_ll_enc;					// open all encryption related log
 
 } le_ctrl_data_t;
+
+/******************** FIM Related Struct of LE ********************/
+typedef struct
+{
+    uint8_t bd_addr[6];
+} le_cfg_t;
 
 #endif

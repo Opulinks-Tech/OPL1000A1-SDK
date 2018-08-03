@@ -73,5 +73,26 @@ typedef struct at_command {
     const char *cmd_usage; /**< Command Description. */
 }at_command_t;
 
+
+void _at_cmd_func_init(void);
+
+typedef int (*_at_cmd_parse_fp_t)(char *pbuf);
+typedef int (*_at_cmd_handler_fp_t)(char *buf, int len, int mode);
+typedef int (*_at_cmd_extend_fp_t)(char *buf, int len, int mode);
+
+extern _at_cmd_parse_fp_t _at_cmd_parse;
+extern _at_cmd_handler_fp_t _at_cmd_handler;
+extern _at_cmd_extend_fp_t _at_cmd_extend;
+
+/**
+ * @brief AT Command Structure
+ *
+ */
+typedef struct _at_command {
+	const char *cmd; /**< Command String. */
+	_at_cmd_handler_fp_t cmd_handle; /**< Command Handler. */
+    const char *cmd_usage; /**< Command Description. */
+}_at_command_t;
+
 #endif //__AT_CMD_H__
 

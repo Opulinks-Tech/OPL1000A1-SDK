@@ -1,6 +1,6 @@
 /******************************************************************************
 *  Copyright 2017 - 2018, Opulinks Technology Ltd.
-*  ---------------------------------------------------------------------------
+*  ----------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
@@ -16,7 +16,7 @@
 *
 *  Project:
 *  --------
-*  NL1000 Project - the main patch implement file
+*  OPL1000 Project - the main patch implement file
 *
 *  Description:
 *  ------------
@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -49,12 +49,15 @@ Head Block of The File
 
 // Sec 1: Include File
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
+#include "sys_init.h"
 #include "sys_init_patch.h"
+#include "mw_fim.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 #include "hal_tmr.h"
-#include "hal_tmr_patch.h"
+//#include "hal_tmr_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -108,6 +111,7 @@ static uint8_t g_ulTimer0DeltaDirection;    // 0: up    1: down
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
+static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 static void Main_AppThread_1(void *argu);
 static osStatus Main_AppMessageQSend(S_MessageQ *ptMsg);
@@ -141,9 +145,32 @@ static void __Patch_EntryPoint(void)
     // don't remove this code
     SysInit_EntryPoint();
     
+    // update the flash layout
+    MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+    
     // application init
-    Main_AppInit = Main_AppInit_patch;
+    Sys_AppInit = Main_AppInit_patch;
 }
+
+/*************************************************************************
+* FUNCTION:
+*   Main_FlashLayoutUpdate
+*
+* DESCRIPTION:
+*   update the flash layout
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_FlashLayoutUpdate(void)
+{
+    // update here
+}
+
 
 /*************************************************************************
 * FUNCTION:

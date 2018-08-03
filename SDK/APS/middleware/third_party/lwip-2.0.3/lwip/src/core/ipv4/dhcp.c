@@ -177,6 +177,14 @@ static u8_t xid_initialised;
 LWIP_RETDATA static struct udp_pcb *dhcp_pcb;
 LWIP_RETDATA static u8_t dhcp_pcb_refcount;
 
+#if defined(LWIP_ROMBUILD)
+LWIP_RETDATA int dhcp_does_arp_check_flag;
+#else
+LWIP_RETDATA int dhcp_does_arp_check_flag = 1;
+#endif
+
+
+
 /* DHCP client state machine functions */
 static err_t LWIP_ROMFN(dhcp_discover)(struct netif *netif);
 static err_t LWIP_ROMFN(dhcp_select)(struct netif *netif);
@@ -279,6 +287,12 @@ LWIP_ROMFN(dhcp_handle_nak)(struct netif *netif)
   netif_set_addr(netif, IP4_ADDR_ANY4, IP4_ADDR_ANY4, IP4_ADDR_ANY4);
   /* We can immediately restart discovery */
   dhcp_discover(netif);
+
+  /* Opulinks add start. */
+  if (dhcp->cb != NULL) {
+      dhcp->cb(netif);
+  }
+  /* Opulinks add end. */
 }
 
 #if DHCP_DOES_ARP_CHECK
@@ -505,7 +519,7 @@ LWIP_ROMFN(dhcp_timeout)(struct netif *netif)
     }
 #if DHCP_DOES_ARP_CHECK
   /* received no ARP reply for the offered address (which is good) */
-  } else if (dhcp->state == DHCP_STATE_CHECKING) {
+  } else if (dhcp->state == DHCP_STATE_CHECKING && dhcp_does_arp_check_flag == 1) {
     LWIP_DEBUGF(DHCP_DEBUG | LWIP_DBG_TRACE | LWIP_DBG_STATE, ("dhcp_timeout(): CHECKING, ARP request timed out\n"));
     if (dhcp->tries <= 1) {
       dhcp_check(netif);
@@ -707,6 +721,27 @@ void LWIP_ROMFN(dhcp_cleanup)(struct netif *netif)
     netif_set_client_data(netif, LWIP_NETIF_CLIENT_DATA_INDEX_DHCP, NULL);
   }
 }
+
+/* opulink add start. */
+
+/** Set callback for dhcp, reserved parameter for future use.
+ *
+ * @param netif the netif from which to set dhcp callback
+ * @param cb    callback for dhcp
+ */
+void LWIP_ROMFN(dhcp_set_cb)(struct netif *netif, void (*cb)(struct netif*))
+{
+  LWIP_ASSERT("netif != NULL", netif != NULL);
+  struct dhcp *dhcp;
+
+  dhcp = (struct dhcp*)netif_dhcp_data(netif);
+  if (dhcp != NULL) {
+    dhcp->cb = cb;
+  }
+}
+
+/* Opulinks add end. */
+
 
 /**
  * @ingroup dhcp4
@@ -1119,6 +1154,12 @@ LWIP_ROMFN(dhcp_bind)(struct netif *netif)
 
   netif_set_addr(netif, &dhcp->offered_ip_addr, &sn_mask, &gw_addr);
   /* interface is used by routing now that an address is set */
+
+  /* Opulinks add start. */
+  if (dhcp->cb != NULL) {
+      dhcp->cb(netif);
+  }
+  /* Opulinks add end. */
 }
 
 /**
@@ -1333,6 +1374,12 @@ LWIP_ROMFN(dhcp_release)(struct netif *netif)
   }
   /* remove IP address from interface (prevents routing from selecting this interface) */
   netif_set_addr(netif, IP4_ADDR_ANY4, IP4_ADDR_ANY4, IP4_ADDR_ANY4);
+
+  /* Opulinks add start. */
+  if (dhcp->cb != NULL) {
+      dhcp->cb(netif);
+  }
+  /* Opulinks add end. */
 
   return result;
 }
@@ -1754,7 +1801,7 @@ LWIP_ROMFN(dhcp_recv)(void *arg, struct udp_pcb *pcb, struct pbuf *p, const ip_a
     if (dhcp->state == DHCP_STATE_REQUESTING) {
       dhcp_handle_ack(netif);
 #if DHCP_DOES_ARP_CHECK
-      if ((netif->flags & NETIF_FLAG_ETHARP) != 0) {
+      if ((netif->flags & NETIF_FLAG_ETHARP) != 0 && (dhcp_does_arp_check_flag == 1)) {
         /* check if the acknowledged lease address is already in use */
         dhcp_check(netif);
       } else {

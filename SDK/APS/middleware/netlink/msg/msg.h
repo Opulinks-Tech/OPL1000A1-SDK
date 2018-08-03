@@ -21,23 +21,31 @@
 
 //#define TRACER_SUT
 
-#include "nl1000.h"
+#include "opl1000.h"
 
-#define TRACER_MSG_MAX_SIZE     256 // include '\0'
-#define TRACER_QUEUE_SIZE       128 // must <= TRACER_MSG_MAX_SIZE
-#define TRACER_QUEUE_NUM        128
 
-#define TRACER_TASK_NUM_MAX     32
-#define TRACER_TASK_IDX_MAX     255
+#define TRACER_ISR_NAME_PREFIX      "ISR_"
+#define TRACER_ISR_HANDLE_MASK      0xFF
 
-#define LOG_HIGH_LEVEL          0x04
-#define LOG_MED_LEVEL           0x02
-#define LOG_LOW_LEVEL           0x01
-#define LOG_NONE_LEVEL          0x00
-#define LOG_ALL_LEVEL           (LOG_HIGH_LEVEL | LOG_MED_LEVEL | LOG_LOW_LEVEL)
+#define TRACER_INT_TASK_NUM_MAX     32
+#define TRACER_EXT_TASK_NUM_MAX     32
 
-#define TRACER_DEF_LEVEL        LOG_ALL_LEVEL
-#define TRACER_DEF_MODE         TRACER_MODE_DRCT
+#define TRACER_MSG_MAX_SIZE         256 // include '\0'
+#define TRACER_QUEUE_SIZE           80 // must <= TRACER_MSG_MAX_SIZE
+#define TRACER_QUEUE_NUM            128
+
+#define TRACER_TASK_NUM_MAX         32
+#define TRACER_TASK_IDX_MAX         255
+
+#define LOG_HIGH_LEVEL              0x04
+#define LOG_MED_LEVEL               0x02
+#define LOG_LOW_LEVEL               0x01
+#define LOG_NONE_LEVEL              0x00
+#define LOG_ALL_LEVEL               (LOG_HIGH_LEVEL | LOG_MED_LEVEL | LOG_LOW_LEVEL)
+
+#define TRACER_DBG(...)
+
+#define TRACER_TASK_NAME_LEN        17 // include '\0'
 
 typedef enum
 {
@@ -76,13 +84,27 @@ typedef struct
 typedef struct
 {
     T_TracerInfo tInfo;
-    char baBuf[1];
+    char baBuf[4];
 } T_TracerCb;
 
 typedef struct
 {
     T_TracerCb *ptCb;
 } T_TracerMsg;
+
+typedef enum
+{
+    TRACER_TASK_TYPE_INTERNAL = 0,
+    TRACER_TASK_TYPE_APP,
+
+    TRACER_TASK_TYPE_MAX
+} T_TracerTaskType;
+
+typedef struct
+{
+    char baName[TRACER_TASK_NAME_LEN];
+    uint8_t bLevel;
+} T_TracerTaskInfo;
 
 typedef void (*T_TracerCommonFp)(void);
 typedef int (*T_TracerLogLevelSetFp)(uint8_t bIdx, uint8_t bLevel);
@@ -101,6 +123,9 @@ typedef void (*T_TracerTaskMainFp)(void *pParam);
 typedef uint32_t (*T_TracerHandleGetFp)(uint8_t *pbIsr);
 typedef int (*T_TracerLevelGetFp)(uint32_t dwHandle, uint8_t *pbLevel);
 typedef void (*T_TracerStringSendFp)(char *sString);
+typedef T_TracerTaskInfo *(*T_TracerTaskInfoGetFp)(char *baName, T_TracerTaskInfo *taTaskInfo, uint8_t bTaskNum);
+typedef int (*T_TracerDefLevelFp)(uint8_t bType, uint8_t bLevel);
+typedef void (*T_TracerCmdFp)(char *sCmd);
 
 
 #define tracer_log(level, args...)          tracer_msg(TRACER_TYPE_LOG, level, args)
@@ -116,44 +141,20 @@ extern T_TracerCommonFp tracer_init;
 extern T_TracerLogLevelSetFp tracer_log_level_set;
 extern T_TracerOptSetFp tracer_log_mode_set;
 extern T_TracerOptGetFp tracer_log_mode_get;
-extern T_TracerOptSetFp tracer_log_def_level_set;
-extern T_TracerOptGetFp tracer_log_def_level_get;
 extern T_TracerPrioritySetFp tracer_priority_set;
 extern T_TracerCommonFp tracer_dump;
 extern T_TracerNameDisplayFp tracer_name_display;
 extern T_TracerPrintfFp tracer_drct_printf;
 extern T_TracerMsgFp tracer_msg;
+extern T_TracerTaskInfoGetFp tracer_task_info_get;
+extern T_TracerDefLevelFp tracer_def_level_set;
+extern T_TracerCmdFp tracer_cmd;
 
 void Tracer_PreInit(void);
 
 #ifdef TRACER_SUT
 int tracer_sut_task_create(uint8_t bEnableCliAt);
 #endif //#ifdef TRACER_SUT
-
-#else //#ifdef TRACER
-
-/*This is global log level*/
-extern int log_level_now;
-
-#define tracer_cli      msg_print
-
-/*define Global setting data*/
-#define LOG_HIGH_LEVEL				2
-#define LOG_MED_LEVEL				1
-#define LOG_LOW_LEVEL				0
-#define LOG_THRESHOLD				3
-
-typedef void (*T_MsgInitFp)(void);
-typedef void (*T_MsgPrintFp)(int level, char *fmt,...);
-typedef void (*T_MsgPrint2Fp)(char *fmt,...);
-typedef void (*T_MsgLevelSetFp)(int level);
-typedef void (*T_MsgStringSendFp)(char *sString);
-
-
-extern T_MsgInitFp msg_init;
-extern T_MsgPrintFp msg_print;
-extern T_MsgPrint2Fp msg_print2;
-extern T_MsgLevelSetFp msg_set_level;
 
 #endif //#ifdef TRACER
 

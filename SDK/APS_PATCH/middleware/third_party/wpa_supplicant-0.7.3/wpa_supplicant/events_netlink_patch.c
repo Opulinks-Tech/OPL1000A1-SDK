@@ -1,16 +1,14 @@
-/*
- * WPA Supplicant - Driver event processing
- * Copyright (c) 2003-2010, Jouni Malinen <j@w1.fi>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * Alternatively, this software may be distributed under the terms of BSD
- * license.
- *
- * See README and COPYING for more details.
- */
+/******************************************************************************
+*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  ---------------------------------------------------------------------------
+*  Statement:
+*  ----------
+*  This software is protected by Copyright and the information contained
+*  herein is confidential. The software may not be copied and the information
+*  contained herein may not be used or disclosed except with the written
+*  permission of Opulinks Technology Ltd. (C) 2018
+******************************************************************************/
+
 #include "includes.h"
 #include "common.h"
 #include "eapol_supp_sm.h"
@@ -45,15 +43,12 @@
 #include "wpa_debug_patch.h"
 #include "controller_wifi_com_patch.h"
 #include "wifi_api.h"
-//#include "hostapd.h"
-//#include "blacklist.h"
-//#include "ibss_rsn.h"
-//#include "bgscan.h"
+#include "events_netlink_patch.h"
 
 extern struct wpa wpa;
 extern char g_passphrase[MAX_LEN_OF_PASSWD];
 extern u8 g_wpa_psk[32];
-
+     
 void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
 				       union wpa_event_data *data)
 {
@@ -266,77 +261,10 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
     //wpa_printf_dbg(MSG_DEBUG, "\r\n");
 }
 
-void wpa_supplicant_event_eapol_rx_patch(struct wpa_supplicant *wpa_s)
-{
-	const u8 *bssid = NULL;
-    rx_eapol_data *pEapolKeyData = NULL;
-//    u8 src_addr[ETH_ALEN]={0};
-
-    if (wpa_s == NULL) return;
-
-    wpa_printf_dbg(MSG_DEBUG, "[HDL_EKFRX]WPA: state:%d \r\n", wpa_s->wpa_state);
-    /*
-    wpa_printf_dbg(MSG_DEBUG, "[HDL_EKFRX]WPA: bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
-                          wpa_s->bssid[0],
-                          wpa_s->bssid[1],
-                          wpa_s->bssid[2],
-                          wpa_s->bssid[3],
-                          wpa_s->bssid[4],
-                          wpa_s->bssid[5]);*/
-
-#if 0
-    if ((wpa_s->wpa_state != WPA_ASSOCIATED) &&
-        (wpa_s->wpa_state != WPA_4WAY_HANDSHAKE) &&
-        (wpa_s->wpa_state != WPA_GROUP_HANDSHAKE)
-       )
-    {
-        wpa_printf(MSG_DEBUG, "\r\n wpa_supplicant_event_eapol_rx, wpa_state != WPA_ASSOCIATE, Ignored received EAPOL frame \r\n");
-		return;
-	}
-#endif
-
-    //wpa_supplicant_set_state(wpa_s, WPA_4WAY_HANDSHAKE);
-
-#if 0
-    wpa_printf(MSG_DEBUG, "\r\n wpa_supplicant_event_eapol_rx, wpa_s->bssid:%02x:%02x:%02x:%02x:%02x:%02x \r\n", wpa_s->bssid[0],
-                                                                             wpa_s->bssid[1],
-                                                                             wpa_s->bssid[2],
-                                                                             wpa_s->bssid[3],
-                                                                             wpa_s->bssid[4],
-                                                                             wpa_s->bssid[5]);
-#endif
-
-    //wpa_driver_netlink_get_bssid(src_addr);
-    //os_memcpy(wpa_s->bssid, src_addr, ETH_ALEN);
-#if 0
-    wpa_printf(MSG_DEBUG, "\r\n wpa_supplicant_event_eapol_rx, bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
-                          wpa_s->bssid[0],
-                          wpa_s->bssid[1],
-                          wpa_s->bssid[2],
-                          wpa_s->bssid[3],
-                          wpa_s->bssid[4],
-                          wpa_s->bssid[5]);
-#endif
-
-	bssid = wpa_s->bssid;
-    pEapolKeyData = wifi_get_eapol_data();
-    if(pEapolKeyData == NULL){
-        wpa_printf_dbg(MSG_DEBUG, "[HDL_EKFRX]WPA: pEapolKeyData == NULL \r\n");
-        return;
-    }
-    //wpa_printf(MSG_DEBUG, "[HDL_EKFRX]WPA: call wpa_supplicant_rx_eapol_netlink, pEapolKeyData->frame_length:%d \r\n", pEapolKeyData->frame_length);
-
-    wpa_supplicant_rx_eapol_netlink(bssid, pEapolKeyData->frame_buffer, pEapolKeyData->frame_length);
-}
-
-
 /*
-   Interface Initialization: Events
+   Interface Initialization: WPA Events
  */
-void events_netlink_func_init_patch(void)
+void wpa_events_func_init_patch(void)
 {
     wpa_supplicant_event_assoc = wpa_supplicant_event_assoc_patch;
-    wpa_supplicant_event_eapol_rx = wpa_supplicant_event_eapol_rx_patch;
-    return;
 }
-

@@ -118,6 +118,7 @@ RET_DATA dhcp_option_trailer_fp_t     dhcp_option_trailer_adpt;
 
 RET_DATA dhcp_set_struct_fp_t         dhcp_set_struct_adpt;
 RET_DATA dhcp_cleanup_fp_t            dhcp_cleanup_adpt;
+RET_DATA dhcp_set_cb_fp_t             dhcp_set_cb_adpt;
 RET_DATA dhcp_start_fp_t              dhcp_start_adpt;
 RET_DATA dhcp_renew_fp_t              dhcp_renew_adpt;
 RET_DATA dhcp_release_fp_t            dhcp_release_adpt;
@@ -139,6 +140,7 @@ void lwip_load_interface_dhcp(void)
     memset(dhcp_rx_options_given, 0, sizeof(dhcp_rx_options_given));
     dhcp_pcb = NULL;
     dhcp_pcb_refcount = 0;
+    dhcp_does_arp_check_flag = 1;
 
     dhcp_inc_pcb_refcount_adpt   = LWIP_ROMFN(dhcp_inc_pcb_refcount);
     dhcp_dec_pcb_refcount_adpt   = LWIP_ROMFN(dhcp_dec_pcb_refcount);
@@ -178,6 +180,7 @@ void lwip_load_interface_dhcp(void)
 
     dhcp_set_struct_adpt         = LWIP_ROMFN(dhcp_set_struct);
     dhcp_cleanup_adpt            = LWIP_ROMFN(dhcp_cleanup);
+    dhcp_set_cb_adpt             = LWIP_ROMFN(dhcp_set_cb);
     dhcp_start_adpt              = LWIP_ROMFN(dhcp_start);
     dhcp_renew_adpt              = LWIP_ROMFN(dhcp_renew);
     dhcp_release_adpt            = LWIP_ROMFN(dhcp_release);
@@ -363,6 +366,16 @@ dhcp_set_struct(struct netif *netif, struct dhcp *dhcp)
 void dhcp_cleanup(struct netif *netif)
 {
     dhcp_cleanup_adpt(netif);
+}
+
+/** Set callback for dhcp, reserved parameter for future use.
+ *
+ * @param netif the netif from which to remove the struct dhcp
+ * @param cb    callback for dhcp
+ */
+void dhcp_set_cb(struct netif *netif, void (*cb)(struct netif*))
+{
+    dhcp_set_cb_adpt(netif, cb);
 }
 
 /**

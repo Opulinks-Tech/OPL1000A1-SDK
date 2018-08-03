@@ -70,7 +70,7 @@ typedef void (*lwip_net_stop_fp_t)(uint8_t opmode);
 typedef void (*lwip_net_ready_fp_t)(void);
 
 
-typedef int  (*lwip_wlan_sta_input_fp_t)(void *buf, uint16_t len);
+typedef int  (*lwip_wlan_sta_input_fp_t)(void *buf, uint16_t len, void *arg);
 
 
 

@@ -12,24 +12,20 @@
 #ifndef __IPC_PATCH_H__
 #define __IPC_PATCH_H__
 
+
 #include "ipc.h"
-#include "wifi_mac_common_patch.h"
-#include "ps.h"
+#include "ps_patch.h"
 
 
-// For WiFi BSS Info Extension
-#define IPC_WIFI_BSS_INFO_EXT_START     IPC_ADDR_ALIGN(IPC_WIFI_STA_INFO_END, 8)
-#define IPC_WIFI_BSS_INFO_EXT_LEN       sizeof(bss_info_ext_t)
-#define IPC_WIFI_BSS_INFO_EXT_END       (IPC_WIFI_BSS_INFO_EXT_START +IPC_WIFI_BSS_INFO_EXT_LEN)
 
 // For PS module ps_conf
-#define IPC_PS_CONF_START               IPC_ADDR_ALIGN(IPC_WIFI_BSS_INFO_EXT_END, 4)
-#define IPC_PS_CONF_LEN                 sizeof(t_ps_conf)
-#define IPC_PS_CONF_END                 (IPC_PS_CONF_START + IPC_PS_CONF_LEN)
+#define IPC_PS_CONF_PATCH_START    		IPC_PS_CONF_START
+#define IPC_PS_CONF_PATCH_LEN         	sizeof(t_ps_conf_patch)
+#define IPC_PS_CONF_PATCH_END          	(IPC_PS_CONF_PATCH_START + IPC_PS_CONF_PATCH_LEN)
 
 // For message from M0 to M3
 #define IPC_M0_MSG_SIZE                 256
-#define IPC_M0_MSG_QUEUE_WRITE          IPC_ADDR_ALIGN(IPC_PS_CONF_END, 4)
+#define IPC_M0_MSG_QUEUE_WRITE          IPC_ADDR_ALIGN(IPC_PS_CONF_PATCH_END, 4)
 #define IPC_M0_MSG_QUEUE_READ           IPC_ADDR_ALIGN(IPC_M0_MSG_QUEUE_WRITE + sizeof(uint32_t), 4)
 #define IPC_M0_MSG_QUEUE_START          IPC_ADDR_ALIGN(IPC_M0_MSG_QUEUE_READ + sizeof(uint32_t), 4)
 #define IPC_M0_MSG_BUF_SIZE             IPC_VALUE_ALIGN(IPC_M0_MSG_SIZE + 1, 4)

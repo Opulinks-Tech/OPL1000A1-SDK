@@ -32,7 +32,8 @@ typedef struct _ping_result
 typedef void (* ping_request_result_t)(ping_result_t *result);
 
 //addr_type:PING_IP_ADDR_V4 or PING_IP_ADDR_V6, current only support PING_IP_ADDR_V4
-void ping_request(uint32_t count, char *addr, uint8_t addr_type, uint32_t ping_size, ping_request_result_t callback);
+void ping_request(uint32_t count, char *addr, uint8_t addr_type, uint32_t ping_size,
+                  uint32_t recv_timeout, uint32_t ping_period, ping_request_result_t callback);
 void ping_init(uint32_t count, char *addr, uint8_t addr_len, uint32_t ping_size, uint32_t recv_timeout, uint32_t ping_period);
 void ping_stop(void);
 

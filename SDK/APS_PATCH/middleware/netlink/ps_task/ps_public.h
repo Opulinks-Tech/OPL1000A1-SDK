@@ -11,6 +11,9 @@
 
 #include "hal_vic.h"
 
+#ifndef __PS_PUBLIC_H__
+#define __PS_PUBLIC_H__
+
 typedef enum
 {
 	PS_WAKEUP_TYPE_IO,		/**< Wakeup by external IO of pre-defined */
@@ -59,7 +62,9 @@ void ps_timer_sleep(uint32_t sleep_duration_ms);
 *   - BLE advertising is enabled<br/>
 *	- BLE connection is exists<br/>
 *
-* @param [in] sleep_duration_ms Timer timeout value unit in millisecond
+* @param [in] enable Configure whether smart sleep is enabled
 *
 */
 void ps_smart_sleep(int enable);
+
+#endif

@@ -103,6 +103,10 @@ struct dhcp
   ip4_addr_t offered_si_addr;
   char boot_file_name[DHCP_BOOT_FILE_LEN];
 #endif /* LWIP_DHCP_BOOTPFILE */
+
+  /* Opulinks add start. */
+  void (*cb)(struct netif*); /* callback for dhcp, add a parameter to show dhcp status if needed */
+  /* Opulinks add end. */
 };
 
 
@@ -110,6 +114,7 @@ void dhcp_set_struct(struct netif *netif, struct dhcp *dhcp);
 /** Remove a struct dhcp previously set to the netif using dhcp_set_struct() */
 #define dhcp_remove_struct(netif) netif_set_client_data(netif, LWIP_NETIF_CLIENT_DATA_INDEX_DHCP, NULL)
 void dhcp_cleanup(struct netif *netif);
+void dhcp_set_cb(struct netif *netif, void (*cb)(struct netif*));
 err_t dhcp_start(struct netif *netif);
 err_t dhcp_renew(struct netif *netif);
 err_t dhcp_release(struct netif *netif);

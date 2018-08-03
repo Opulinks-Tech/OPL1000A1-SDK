@@ -12,7 +12,7 @@
 #ifndef __LE_CTRL_H__
 #define __LE_CTRL_H__
 
-#include "nl1000.h"
+#include "opl1000.h"
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -60,6 +60,7 @@ typedef int  (*t_le_ctrl_dec_data_fp)(le_ctrl_conn_t *conn_data, hci_acl_data_pa
 typedef void (*t_send_vendor_specific_start_encryption_command_fp)(le_ctrl_conn_t *conn_data, uint8_t status);
 typedef void (*t_send_vendor_specific_notify_control_pdu_command_fp)(le_ctrl_conn_t *conn_data, uint8_t payload_length, uint8_t *payload);
 typedef void (*t_send_vendor_specific_decrypt_fail_command_fp)(le_ctrl_conn_t *conn_data);
+typedef void (*t_send_vendor_specific_set_bd_addr_command_fp)(le_cfg_t *cfg);
 typedef void (*t_send_command_complete_event_fp)(uint16_t command_opcode, void *paramsters, uint8_t parameters_length);
 typedef void (*t_send_command_complete_event_with_only_status_fp)(uint16_t command_opcode, uint8_t status);
 typedef void (*t_send_command_status_event_fp)(uint16_t opcode, uint8_t status, uint8_t num);
@@ -76,10 +77,15 @@ typedef void (*t_encryption_key_refresh_complete_event_handler_fp)(hci_event_pac
 typedef void (*t_le_connection_complete_event_handler_fp)(hci_event_packet_04 *event_packet);
 typedef void (*t_le_data_length_change_event_handler_fp)(hci_event_packet_04 *event_packet);
 typedef void (*t_le_enhanced_connection_complete_event_handler_fp)(hci_event_packet_04 *event_packet);
+typedef void (*t_le_phy_update_complete_event_handler_fp)(hci_event_packet_04 *event_packet);
+typedef void (*t_le_ctrl_update_used_data_length_fp)(le_ctrl_conn_t * conn_data);
 typedef void (*t_vendor_specific_exit_hci_mode_command_handler_fp)(hci_command_packet_01 *cmd_packet);
 typedef void (*t_vendor_specific_start_encryption_event_handler_fp)(hci_event_packet_04 *event_packet);
 typedef void (*t_vendor_specific_send_control_pdu_event_handler_fp)(hci_event_packet_04 *event_packet);
 typedef void (*t_vendor_specific_number_of_completed_bytes_event_handler_fp)(hci_event_packet_04 *event_packet);
+typedef void (*t_vendor_specific_no_phy_change_event_handler_fp)(hci_event_packet_04 *event_packet);
+typedef void (*t_le_read_cfg_from_flash_fp)(le_cfg_t *cfg);
+typedef void (*t_le_write_cfg_to_flash_fp)(le_cfg_t *cfg);
 
 extern t_le_ctrl_init_fp le_ctrl_init;
 extern t_le_ctrl_hci_tx_handler_fp le_ctrl_hci_tx_handler;
@@ -110,6 +116,7 @@ extern t_le_ctrl_dec_data_fp le_ctrl_dec_data;
 extern t_send_vendor_specific_start_encryption_command_fp send_vendor_specific_start_encryption_command;
 extern t_send_vendor_specific_notify_control_pdu_command_fp send_vendor_specific_notify_control_pdu_command;
 extern t_send_vendor_specific_decrypt_fail_command_fp send_vendor_specific_decrypt_fail_command;
+extern t_send_vendor_specific_set_bd_addr_command_fp send_vendor_specific_set_bd_addr_command;
 extern t_send_command_complete_event_fp send_command_complete_event;
 extern t_send_command_complete_event_with_only_status_fp send_command_complete_event_with_only_status;
 extern t_send_command_status_event_fp send_command_status_event;
@@ -126,10 +133,15 @@ extern t_encryption_key_refresh_complete_event_handler_fp encryption_key_refresh
 extern t_le_connection_complete_event_handler_fp le_connection_complete_event_handler;
 extern t_le_data_length_change_event_handler_fp le_data_length_change_event_handler;
 extern t_le_enhanced_connection_complete_event_handler_fp le_enhanced_connection_complete_event_handler;
+extern t_le_phy_update_complete_event_handler_fp le_phy_update_complete_event_handler;
+extern t_le_ctrl_update_used_data_length_fp le_ctrl_update_used_data_length;
 extern t_vendor_specific_exit_hci_mode_command_handler_fp vendor_specific_exit_hci_mode_command_handler;
 extern t_vendor_specific_start_encryption_event_handler_fp vendor_specific_start_encryption_event_handler;
 extern t_vendor_specific_send_control_pdu_event_handler_fp vendor_specific_send_control_pdu_event_handler;
 extern t_vendor_specific_number_of_completed_bytes_event_handler_fp vendor_specific_number_of_completed_bytes_event_handler;
+extern t_vendor_specific_no_phy_change_event_handler_fp vendor_specific_no_phy_change_event_handler;
+extern t_le_read_cfg_from_flash_fp le_read_cfg_from_flash;
+extern t_le_write_cfg_to_flash_fp le_write_cfg_to_flash;
 
 /******************** BLE Controller Function Implement ********************/
 
@@ -187,6 +199,7 @@ int  le_ctrl_dec_data_impl(le_ctrl_conn_t *conn_data, hci_acl_data_packet_02 *da
 void send_vendor_specific_start_encryption_command_impl(le_ctrl_conn_t *conn_data, uint8_t status);
 void send_vendor_specific_notify_control_pdu_command_impl(le_ctrl_conn_t *conn_data, uint8_t payload_length, uint8_t *payload);
 void send_vendor_specific_decrypt_fail_command_impl(le_ctrl_conn_t *conn_data);
+void send_vendor_specific_set_bd_addr_command_impl(le_cfg_t *cfg);
 
 //	standard event sender
 void send_command_complete_event_impl(uint16_t command_opcode, void *paramsters, uint8_t parameters_length);
@@ -209,6 +222,8 @@ void encryption_key_refresh_complete_event_handler_impl(hci_event_packet_04 *eve
 void le_connection_complete_event_handler_impl(hci_event_packet_04 *event_packet);
 void le_data_length_change_event_handler_impl(hci_event_packet_04 *event_packet);
 void le_enhanced_connection_complete_event_handler_impl(hci_event_packet_04 *event_packet);
+void le_phy_update_complete_event_handler_impl(hci_event_packet_04 *event_packet);
+void le_ctrl_update_used_data_length_impl(le_ctrl_conn_t * conn_data);
 
 //	vendor command handler
 void vendor_specific_exit_hci_mode_command_handler_impl(hci_command_packet_01 *cmd_packet);
@@ -217,5 +232,11 @@ void vendor_specific_exit_hci_mode_command_handler_impl(hci_command_packet_01 *c
 void vendor_specific_start_encryption_event_handler_impl(hci_event_packet_04 *event_packet);
 void vendor_specific_send_control_pdu_event_handler_impl(hci_event_packet_04 *event_packet);
 void vendor_specific_number_of_completed_bytes_event_handler_impl(hci_event_packet_04 *event_packet);
+void vendor_specific_no_phy_change_event_handler_impl(hci_event_packet_04 *event_packet);
+
+// MwFim related 
+void le_read_cfg_from_flash_impl(le_cfg_t *cfg);
+void le_write_cfg_to_flash_impl(le_cfg_t *cfg);
+void ParseLeCfgCommand_impl(char *pbuf);
 
 #endif

@@ -1,24 +1,20 @@
-/*
- * WPA Supplicant - command line interface for wpa_supplicant daemon
- * Copyright (c) 2004-2010, Jouni Malinen <j@w1.fi>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * Alternatively, this software may be distributed under the terms of BSD
- * license.
- *
- * See README and COPYING for more details.
- */
+/******************************************************************************
+*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  ---------------------------------------------------------------------------
+*  Statement:
+*  ----------
+*  This software is protected by Copyright and the information contained
+*  herein is confidential. The software may not be copied and the information
+*  contained herein may not be used or disclosed except with the written
+*  permission of Opulinks Technology Ltd. (C) 2018
+******************************************************************************/
 
-#ifndef __WPA_CLI_PATCH_H__
-#define __WPA_CLI_PATCH_H__
+#ifndef _WPA_CLI_PATCH_H_
+#define _WPA_CLI_PATCH_H_
 
-int wpa_cli_get_manuf_name(u8 *name);
-int wpa_cli_set_manuf_name(u8 *name);
+void wpa_cli_func_init_patch(void);
+int check_mac_addr_len(const char *txt);
+void debug_cli_mac_addr_src(void);
+int wpa_cli_scan_by_cfg(void *cfg);
 
-extern int check_mac_addr_len(const char *txt);
-
-#endif
-
+#endif /* _WPA_CLI_PATCH_H_ */

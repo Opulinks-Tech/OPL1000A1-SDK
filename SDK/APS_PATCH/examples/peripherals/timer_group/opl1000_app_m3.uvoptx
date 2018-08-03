@@ -22,13 +22,13 @@
   </DaveTm>
 
   <Target>
-    <TargetName>OPL1000_APS_App</TargetName>
+    <TargetName>OPL1000_APP</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
       <CLKADS>12000000</CLKADS>
       <OPTTT>
-        <gFlags>1</gFlags>
+        <gFlags>0</gFlags>
         <BeepAtEnd>1</BeepAtEnd>
         <RunSim>0</RunSim>
         <RunTarget>1</RunTarget>
@@ -73,11 +73,11 @@
         <LExpSel>0</LExpSel>
       </OPTXL>
       <OPTFL>
-        <tvExp>1</tvExp>
+        <tvExp>0</tvExp>
         <tvExpOptDlg>0</tvExpOptDlg>
         <IsCurrentTarget>1</IsCurrentTarget>
       </OPTFL>
-      <CpuCode>7</CpuCode>
+      <CpuCode>0</CpuCode>
       <DebugOpt>
         <uSim>0</uSim>
         <uTrg>1</uTrg>
@@ -88,7 +88,7 @@
         <sRmem>1</sRmem>
         <sRfunc>1</sRfunc>
         <sRbox>1</sRbox>
-        <tLdApp>0</tLdApp>
+        <tLdApp>1</tLdApp>
         <tGomain>1</tGomain>
         <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
@@ -110,7 +110,7 @@
         <tDllPa></tDllPa>
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
-        <tIfile>.\opl1000_app_m3.ini</tIfile>
+        <tIfile></tIfile>
         <pMon>BIN\UL2CM3.DLL</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -192,7 +192,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\object\symdefs.o</PathWithFileName>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\object\symdefs.o</PathWithFileName>
       <FilenameWithoutPath>symdefs.o</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -204,8 +204,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_patch_at_m3.lib</PathWithFileName>
-      <FilenameWithoutPath>nl1000_a0_patch_at_m3.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\Output\Objects\opl1000_patch_m3.lib</PathWithFileName>
+      <FilenameWithoutPath>opl1000_patch_m3.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -216,8 +216,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</PathWithFileName>
-      <FilenameWithoutPath>nl1000_a0_sdk_at_m3.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\Output\Objects\opl1000_sdk_m3.lib</PathWithFileName>
+      <FilenameWithoutPath>opl1000_sdk_m3.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

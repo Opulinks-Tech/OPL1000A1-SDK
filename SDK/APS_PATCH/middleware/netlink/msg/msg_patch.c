@@ -15,61 +15,97 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include "nl1000.h"
+#include "opl1000.h"
 #include "msg.h"
 #include "hal_dbg_uart.h"
 #include "hal_uart.h"
 #include "cmsis_os.h"
-#include "msg_patch.h"
-#include "diag_task_patch.h"
+#include "diag_task.h"
 #include "sys_os_config.h"
+#include "sys_os_config_patch.h"
 #include "mw_fim.h"
-#include "mw_fim_default_group01.h"
-#include "agent.h"
+#include "mw_fim_default_group01_patch.h"
 
-
-#define TRACER_TASK_PRIORITY        OS_TASK_PRIORITY_TRACER
-#define TRACER_TASK_STACK_SIZE      OS_TASK_STACK_SIZE_TRACER // number of uint32_t
 
 #define TRACER_GET_MSG_LEN
 
 
-const T_TracerTaskInfo g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = 
+const T_TracerTaskInfoExt g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = 
 {
-    // ROM
-    {"diag",                LOG_NONE_LEVEL, 0},
-    {"wifi_mac",            LOG_NONE_LEVEL, 0},
-    {"supplicant",          LOG_NONE_LEVEL, 0},
-    {"controller_task",     LOG_NONE_LEVEL, 0},
-    {"le",                  LOG_NONE_LEVEL, 0},
-    {"event_loop",          LOG_NONE_LEVEL, 0},
-    {"tcpip_thread",        LOG_NONE_LEVEL, 0},
-    {"ping_thread",         LOG_NONE_LEVEL, 0},
-    {"iperf",               LOG_NONE_LEVEL, 0},
-    {AGENT_TASK_NAME,       LOG_NONE_LEVEL, 0},
-    {TRACER_ISR_NAME_PREFIX,LOG_NONE_LEVEL, 0},
-    //{"tracer",              LOG_NONE_LEVEL, 0},
+    {TRACER_ISR_NAME_PREFIX_PATCH,  LOG_NONE_LEVEL, 0, 0},
 
-    // Patch
-    {"at_wifi_app",         LOG_NONE_LEVEL, 0},
-    {"AT",                  LOG_NONE_LEVEL, 0},
-    {"at_tx_data",          LOG_NONE_LEVEL, 0},
-    {"socket",              LOG_NONE_LEVEL, 0},
-    {"server",              LOG_NONE_LEVEL, 0},
+    {OS_TASK_NAME_DIAG,             LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_WIFI_MAC,         LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_SUPPLICANT,       LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_CONTROLLER,       LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_LE,               LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_EVENT_LOOP,       LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_TCPIP,            LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_PING,             LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_IPERF,            LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AGENT,            LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AT_WIFI_APP,      LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AT,               LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AT_TX_DATA,       LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AT_SOCKET_CLIENT, LOG_NONE_LEVEL, 0, 0},
+    {OS_TASK_NAME_AT_SOCKET_SERVER, LOG_NONE_LEVEL, 0, 0},
 
-    {"",                    LOG_NONE_LEVEL, 0}, // end
+    {"",                            LOG_NONE_LEVEL, 0, 0}, // end
 };
 
-T_TracerTaskInfo g_taTracerIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] = {0};
-T_TracerTaskInfo g_taTracerExtTaskInfoBody[TRACER_EXT_TASK_NUM_MAX] = {0};
+T_TracerTaskInfoExt g_taTracerIntTaskInfoBodyExt[TRACER_INT_TASK_NUM_MAX] = {0};
+T_TracerTaskInfoExt g_taTracerExtTaskInfoBodyExt[TRACER_EXT_TASK_NUM_MAX] = {
+    {"demo_app1", LOG_ALL_LEVEL, 0, 0},
+    {"demo_app2", LOG_ALL_LEVEL, 0, 0},
+		{"",  LOG_NONE_LEVEL, 0, 0}, // end
+};
+
+extern osPoolId g_tTracerPoolId;
+extern osMessageQId g_tTracerQueueId;
+extern osThreadId g_tTracerThreadId;
+
+extern uint8_t g_bTracerInit;
+extern uint8_t g_bTracerNameDisplay;
+
+#if 0
+extern void tracer_proc_impl(char *sString);
+extern void tracer_msg_free_impl(T_TracerMsg *ptMsg);
+extern void tracer_opt_entry_add_impl(uint32_t dwHandle, uint8_t bLevel);
+extern void tracer_task_name_get_impl(uint32_t dwHandle, char *baName, uint32_t dwSize);
+extern void tracer_task_main_impl(void *pParam);
+extern uint32_t tracer_task_handle_get_impl(uint8_t *pbIsr);
+extern int tracer_level_get_impl(uint32_t dwHandle, uint8_t *pbLevel);
+#endif
+
 
 // internal
-RET_DATA uint8_t g_bTracerIntTaskNum;
-RET_DATA uint8_t g_bTracerExtTaskNum;
-RET_DATA uint8_t g_bTracerExtTaskDefLevel;
-RET_DATA T_TracerTaskInfo *g_ptTracerDefIntTaskInfo;
-RET_DATA T_TracerTaskInfo *g_ptTracerIntTaskInfo;
-RET_DATA T_TracerTaskInfo *g_ptTracerExtTaskInfo;
+extern RET_DATA uint8_t g_bTracerLogMode;
+extern RET_DATA int g_iTracerPriority;
+extern RET_DATA uint32_t g_dwTracerStackSize;
+extern RET_DATA uint32_t g_dwTracerQueueNum;
+extern RET_DATA uint32_t g_dwTracerQueueSize;
+extern RET_DATA uint8_t g_bTracerIntTaskNum;
+extern RET_DATA uint8_t g_bTracerExtTaskNum;
+extern RET_DATA uint8_t g_bTracerIntTaskDefLevel;
+extern RET_DATA uint8_t g_bTracerExtTaskDefLevel;
+//extern RET_DATA T_TracerTaskInfo *g_ptTracerIntTaskInfo;
+//extern RET_DATA T_TracerTaskInfo *g_ptTracerExtTaskInfo;
+
+RET_DATA T_TracerTaskInfoExt *g_ptTracerDefIntTaskInfo;
+RET_DATA T_TracerTaskInfoExt *g_ptTracerIntTaskInfoExt;
+RET_DATA T_TracerTaskInfoExt *g_ptTracerExtTaskInfoExt;
+
+extern RET_DATA T_TracerProcFp tracer_proc;
+extern RET_DATA T_TracerMsgFreeFp tracer_msg_free;
+extern RET_DATA T_TracerOptEntryAddFp tracer_opt_entry_add;
+extern RET_DATA T_TracerNameGetFp tracer_task_name_get;
+extern RET_DATA T_TracerTaskMainFp tracer_task_main;
+extern RET_DATA T_TracerHandleGetFp tracer_task_handle_get;
+//extern RET_DATA T_TracerLevelGetFp tracer_level_get;
+extern RET_DATA T_TracerStringSendFp USART_SendString;
+extern RET_DATA T_TracerStringSendFp USART_SendStringII;
+
+RET_DATA T_TracerLevelGetFp tracer_level_get_ext;
 RET_DATA T_TracerCommonFp tracer_load;
 RET_DATA T_TracerTaskCfgSaveFp tracer_cfg_save;
 RET_DATA T_TracerTaskInfoSaveFp tracer_int_task_info_save;
@@ -79,57 +115,26 @@ RET_DATA T_TracerCommonFp tracer_int_task_reset;
 RET_DATA T_TracerCommonFp tracer_ext_task_reset;
 
 // external
-RET_DATA T_TracerTaskInfoGetFp tracer_task_info_get;
-RET_DATA T_TracerDefLevelFp tracer_def_level_set;
-RET_DATA T_TracerCmdFp tracer_cmd;
-
-extern osPoolId g_tTracerPoolId;
-extern osMessageQId g_tTracerQueueId;
-extern osThreadId g_tTracerThreadId;
-
-extern uint8_t g_bTracerInit;
-extern uint8_t g_bTracerNameDisplay;
-extern uint8_t g_bTracerOptFull;
-
-extern T_TracerOpt g_taTracerOptBody[TRACER_TASK_NUM_MAX];
-
-
-// internal
-extern RET_DATA uint8_t g_bTracerLogMode;
-extern RET_DATA uint8_t g_bTracerLogDefLevel;
-extern RET_DATA int g_iTracerPriority;
-extern RET_DATA uint32_t g_dwTracerStackSize;
-extern RET_DATA uint32_t g_dwTracerQueueNum;
-extern RET_DATA uint32_t g_dwTracerQueueSize;
-extern RET_DATA T_TracerOpt *g_ptTracerOpt;
-
-extern RET_DATA T_TracerProcFp tracer_proc;
-extern RET_DATA T_TracerMsgFreeFp tracer_msg_free;
-extern RET_DATA T_TracerOptEntryAddFp tracer_opt_entry_add;
-extern RET_DATA T_TracerNameGetFp tracer_task_name_get;
-extern RET_DATA T_TracerTaskMainFp tracer_task_main;
-extern RET_DATA T_TracerHandleGetFp tracer_task_handle_get;
-extern RET_DATA T_TracerLevelGetFp tracer_level_get;
-extern RET_DATA T_TracerStringSendFp USART_SendString;
-extern RET_DATA T_TracerStringSendFp USART_SendStringII;
-
-// external
 extern RET_DATA T_TracerCommonFp tracer_init;
-extern RET_DATA T_TracerLogLevelSetFp tracer_log_level_set;
+//extern RET_DATA T_TracerLogLevelSetFp tracer_log_level_set;
 extern RET_DATA T_TracerOptSetFp tracer_log_mode_set;
 extern RET_DATA T_TracerOptGetFp tracer_log_mode_get;
-extern RET_DATA T_TracerOptSetFp tracer_log_def_level_set;
-extern RET_DATA T_TracerOptGetFp tracer_log_def_level_get;
 extern RET_DATA T_TracerPrioritySetFp tracer_priority_set;
 extern RET_DATA T_TracerCommonFp tracer_dump;
 extern RET_DATA T_TracerNameDisplayFp tracer_name_display;
 extern RET_DATA T_TracerPrintfFp tracer_drct_printf;
 extern RET_DATA T_TracerMsgFp tracer_msg;
+//extern RET_DATA T_TracerTaskInfoGetFp tracer_task_info_get;
+//extern RET_DATA T_TracerDefLevelFp tracer_def_level_set;
+extern RET_DATA T_TracerCmdFp tracer_cmd;
+
+RET_DATA T_TracerTaskInfoGetExtFp tracer_task_info_get_ext;
+RET_DATA T_TracerLogLevelSetFp tracer_log_level_set_ext;
 
 
-T_TracerTaskInfo *tracer_task_info_get_patch(char *baName, T_TracerTaskInfo *taTaskInfo, uint8_t bTaskNum)
+T_TracerTaskInfoExt *tracer_task_info_get_ext_patch(char *baName, T_TracerTaskInfoExt *taTaskInfo, uint8_t bTaskNum)
 {
-    T_TracerTaskInfo *ptInfo = NULL;
+    T_TracerTaskInfoExt *ptInfo = NULL;
     uint8_t i = 0;
 
     for(i = 0; i < bTaskNum; i++)
@@ -149,14 +154,14 @@ T_TracerTaskInfo *tracer_task_info_get_patch(char *baName, T_TracerTaskInfo *taT
 
 void tracer_opt_entry_add_patch(uint32_t dwHandle, uint8_t bLevel)
 {
-    char baName[TRACER_TASK_NAME_LEN] = {0};
-    T_TracerTaskInfo *ptInfo = NULL;
+    char baName[TRACER_TASK_NAME_LEN_PATCH] = {0};
+    T_TracerTaskInfoExt *ptInfo = NULL;
     uint8_t i = 0;
     int iUnusedIdx = -1;
 
     tracer_task_name_get(dwHandle, baName, sizeof(baName));
 
-    ptInfo = tracer_task_info_get(baName, g_ptTracerIntTaskInfo, g_bTracerIntTaskNum);
+    ptInfo = tracer_task_info_get_ext(baName, g_ptTracerIntTaskInfoExt, g_bTracerIntTaskNum);
 
     if(ptInfo)
     {
@@ -166,11 +171,11 @@ void tracer_opt_entry_add_patch(uint32_t dwHandle, uint8_t bLevel)
 
     for(i = 0; i < g_bTracerExtTaskNum; i++)
     {
-        if(g_ptTracerExtTaskInfo[i].baName[0])
+        if(g_ptTracerExtTaskInfoExt[i].baName[0])
         {
-            if(!strncmp(baName, g_ptTracerExtTaskInfo[i].baName, strlen(g_ptTracerExtTaskInfo[i].baName)))
+            if(!strncmp(baName, g_ptTracerExtTaskInfoExt[i].baName, strlen(g_ptTracerExtTaskInfoExt[i].baName)))
             {
-                ptInfo = &(g_ptTracerExtTaskInfo[i]);
+                ptInfo = &(g_ptTracerExtTaskInfoExt[i]);
                 break;
             }
         }
@@ -186,24 +191,40 @@ void tracer_opt_entry_add_patch(uint32_t dwHandle, uint8_t bLevel)
     if((!ptInfo) && (iUnusedIdx > -1))
     {
         // add external task info
-        snprintf(g_ptTracerExtTaskInfo[iUnusedIdx].baName, sizeof(g_ptTracerExtTaskInfo[iUnusedIdx].baName), "%s", baName);
-        g_ptTracerExtTaskInfo[iUnusedIdx].bLevel = bLevel;
-        g_ptTracerExtTaskInfo[iUnusedIdx].bStatus = 0;
+        snprintf(g_ptTracerExtTaskInfoExt[iUnusedIdx].baName, sizeof(g_ptTracerExtTaskInfoExt[iUnusedIdx].baName), "%s", baName);
+        g_ptTracerExtTaskInfoExt[iUnusedIdx].bLevel = bLevel;
+        g_ptTracerExtTaskInfoExt[iUnusedIdx].bStatus = 0;
     }
 
 done:
     return;
 }
 
-int tracer_level_get_patch(uint32_t dwHandle, uint8_t *pbLevel)
+void tracer_task_name_get_patch(uint32_t dwHandle, char *baName, uint32_t dwSize)
+{
+    if((dwHandle & (~TRACER_ISR_HANDLE_MASK)) == (~TRACER_ISR_HANDLE_MASK))
+    {
+        // ISR
+        snprintf(baName, dwSize, "%s%u", TRACER_ISR_NAME_PREFIX_PATCH, dwHandle & TRACER_ISR_HANDLE_MASK);
+    }
+    else
+    {
+        // Task
+        snprintf(baName, dwSize, "%s", pcTaskGetName((TaskHandle_t)dwHandle));
+    }
+
+    return;
+}
+
+int tracer_level_get_ext_patch(uint32_t dwHandle, uint8_t *pbLevel)
 {
     int iRet = -1;
-    char baName[TRACER_TASK_NAME_LEN] = {0};
-    T_TracerTaskInfo *ptInfo = NULL;
+    char baName[TRACER_TASK_NAME_LEN_PATCH] = {0};
+    T_TracerTaskInfoExt *ptInfo = NULL;
 
     tracer_task_name_get(dwHandle, baName, sizeof(baName));
 
-    ptInfo = tracer_task_info_get(baName, g_ptTracerIntTaskInfo, g_bTracerIntTaskNum);
+    ptInfo = tracer_task_info_get_ext(baName, g_ptTracerIntTaskInfoExt, g_bTracerIntTaskNum);
 
     if(ptInfo)
     {
@@ -214,7 +235,7 @@ int tracer_level_get_patch(uint32_t dwHandle, uint8_t *pbLevel)
     else
     {
         // external task
-        ptInfo = tracer_task_info_get(baName, g_ptTracerExtTaskInfo, g_bTracerExtTaskNum);
+        ptInfo = tracer_task_info_get_ext(baName, g_ptTracerExtTaskInfoExt, g_bTracerExtTaskNum);
 
         if(ptInfo)
         {
@@ -235,7 +256,7 @@ void tracer_load_patch(void)
 {
     uint8_t i = 0;
     T_TracerCfg tCfg = {0};
-    T_TracerTaskInfo tInfo = {0};
+    T_TracerTaskInfoExt tInfo = {0};
 
     if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
     {
@@ -270,14 +291,14 @@ void tracer_load_patch(void)
             }
             else
             {
-                g_ptTracerIntTaskInfo[i].bStatus = 1;
+                g_ptTracerIntTaskInfoExt[i].bStatus = 1;
             }
         }
         else
         {
-            snprintf(g_ptTracerIntTaskInfo[i].baName, sizeof(g_ptTracerIntTaskInfo[i].baName), "%s", tInfo.baName);
-            g_ptTracerIntTaskInfo[i].bLevel = tInfo.bLevel;
-            g_ptTracerIntTaskInfo[i].bStatus = 1;
+            snprintf(g_ptTracerIntTaskInfoExt[i].baName, sizeof(g_ptTracerIntTaskInfoExt[i].baName), "%s", tInfo.baName);
+            g_ptTracerIntTaskInfoExt[i].bLevel = tInfo.bLevel;
+            g_ptTracerIntTaskInfoExt[i].bStatus = 1;
         }
     }
 
@@ -293,14 +314,14 @@ void tracer_load_patch(void)
             }
             else
             {
-                g_ptTracerExtTaskInfo[i].bStatus = 1;
+                g_ptTracerExtTaskInfoExt[i].bStatus = 1;
             }
         }
         else
         {
-            snprintf(g_ptTracerExtTaskInfo[i].baName, sizeof(g_ptTracerExtTaskInfo[i].baName), "%s", tInfo.baName);
-            g_ptTracerExtTaskInfo[i].bLevel = tInfo.bLevel;
-            g_ptTracerExtTaskInfo[i].bStatus = 1;
+            snprintf(g_ptTracerExtTaskInfoExt[i].baName, sizeof(g_ptTracerExtTaskInfoExt[i].baName), "%s", tInfo.baName);
+            g_ptTracerExtTaskInfoExt[i].bLevel = tInfo.bLevel;
+            g_ptTracerExtTaskInfoExt[i].bStatus = 1;
         }
     }
 
@@ -350,7 +371,7 @@ void tracer_init_patch(void)
     }
 
     //create task
-    tThreadDef.name = TRACER_TASK_NAME;
+    tThreadDef.name = OS_TASK_NAME_TRACER;
     tThreadDef.stacksize = g_dwTracerStackSize;
     tThreadDef.tpriority = (osPriority)g_iTracerPriority;
     tThreadDef.pthread = tracer_task_main;
@@ -409,7 +430,7 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
     {
         uint8_t bProcLog = 0;
 
-        if(tracer_level_get(dwHandle, &bTaskLevel))
+        if(tracer_level_get_ext(dwHandle, &bTaskLevel))
         {
             bAddOpt = 1; // process opt only
         }
@@ -540,7 +561,7 @@ int tracer_msg_patch(uint8_t bType, uint8_t bLevel, char *sFmt, ...)
             ptMsg->ptCb->baBuf[iBufSize] = '\n';
             ptMsg->ptCb->baBuf[iBufSize + 1] = 0;
         }
-
+    
         ptMsg->ptCb->tInfo.bType = bType;
         ptMsg->ptCb->tInfo.bLevel = bTaskLevel;
         ptMsg->ptCb->tInfo.dwHandle = dwHandle;
@@ -568,7 +589,7 @@ done:
     return iRet;
 }
 
-int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
+int tracer_log_level_set_ext_patch(uint8_t bIdx, uint8_t bLevel)
 {
     if(bIdx == TRACER_TASK_IDX_MAX)
     {
@@ -576,9 +597,9 @@ int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
 
         for(i = 0; i < g_bTracerIntTaskNum; i++)
         {
-            if(bLevel != g_ptTracerIntTaskInfo[i].bLevel)
+            if(bLevel != g_ptTracerIntTaskInfoExt[i].bLevel)
             {
-                g_ptTracerIntTaskInfo[i].bLevel = bLevel;
+                g_ptTracerIntTaskInfoExt[i].bLevel = bLevel;
     
                 if(tracer_int_task_info_save(i))
                 {
@@ -589,9 +610,9 @@ int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
     
         for(i = 0; i < g_bTracerExtTaskNum; i++)
         {
-            if(bLevel != g_ptTracerExtTaskInfo[i].bLevel)
+            if(bLevel != g_ptTracerExtTaskInfoExt[i].bLevel)
             {
-                g_ptTracerExtTaskInfo[i].bLevel = bLevel;
+                g_ptTracerExtTaskInfoExt[i].bLevel = bLevel;
     
                 if(tracer_ext_task_info_save(i))
                 {
@@ -605,9 +626,9 @@ int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
         if(bIdx < g_bTracerIntTaskNum)
         {
             // internal task
-            if(bLevel != g_ptTracerIntTaskInfo[bIdx].bLevel)
+            if(bLevel != g_ptTracerIntTaskInfoExt[bIdx].bLevel)
             {
-                g_ptTracerIntTaskInfo[bIdx].bLevel = bLevel;
+                g_ptTracerIntTaskInfoExt[bIdx].bLevel = bLevel;
     
                 if(tracer_int_task_info_save(bIdx))
                 {
@@ -620,9 +641,9 @@ int tracer_log_level_set_patch(uint8_t bIdx, uint8_t bLevel)
             // external task
             uint8_t bExtIdx = bIdx - g_bTracerIntTaskNum;
 
-            if(bLevel != g_ptTracerExtTaskInfo[bExtIdx].bLevel)
+            if(bLevel != g_ptTracerExtTaskInfoExt[bExtIdx].bLevel)
             {
-                g_ptTracerExtTaskInfo[bExtIdx].bLevel = bLevel;
+                g_ptTracerExtTaskInfoExt[bExtIdx].bLevel = bLevel;
     
                 if(tracer_ext_task_info_save(bExtIdx))
                 {
@@ -665,13 +686,13 @@ int tracer_int_task_info_save_patch(uint8_t bIdx)
 {
     int iRet = -1;
 
-    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, bIdx, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerIntTaskInfo[bIdx])) != MW_FIM_OK)
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, bIdx, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerIntTaskInfoExt[bIdx])) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
         goto done;
     }
 
-    g_ptTracerIntTaskInfo[bIdx].bStatus = 1;
+    g_ptTracerIntTaskInfoExt[bIdx].bStatus = 1;
 
     iRet = 0;
 
@@ -683,13 +704,13 @@ int tracer_ext_task_info_save_patch(uint8_t bIdx)
 {
     int iRet = -1;
 
-    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, bIdx, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerExtTaskInfo[bIdx])) != MW_FIM_OK)
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, bIdx, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerExtTaskInfoExt[bIdx])) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
         goto done;
     }
 
-    g_ptTracerExtTaskInfo[bIdx].bStatus = 1;
+    g_ptTracerExtTaskInfoExt[bIdx].bStatus = 1;
 
     iRet = 0;
 
@@ -757,7 +778,7 @@ void tracer_dump_patch(void)
     tracer_cli(LOG_HIGH_LEVEL, "\nTracer Mode       [%d]\t0:disable/1:normal/2:print directly\n", g_bTracerLogMode);
     tracer_cli(LOG_HIGH_LEVEL, "Display Task Name [%d]\t0:disable/1:enable\n", g_bTracerNameDisplay);
     tracer_cli(LOG_HIGH_LEVEL, "Priority          [%d]\tosPriorityIdle(%d) ~ osPriorityRealtime(%d)\n", g_iTracerPriority, osPriorityIdle, osPriorityRealtime);
-    tracer_cli(LOG_HIGH_LEVEL, "Stack Size        [%u]\tnumber of uint_32\n", g_dwTracerStackSize);
+    tracer_cli(LOG_HIGH_LEVEL, "StackSize         [%u]\tnumber of uint_32\n", g_dwTracerStackSize);
     tracer_cli(LOG_HIGH_LEVEL, "Queue Number      [%u]\tmax number of log\n", g_dwTracerQueueNum);
     tracer_cli(LOG_HIGH_LEVEL, "Queue Size        [%u]\tmax length of log\n", g_dwTracerQueueSize);
     tracer_cli(LOG_HIGH_LEVEL, "Log Level         [0x00:None/0x01:Low/0x02:Med/0x04:High/0x07:All]\n", g_bTracerExtTaskDefLevel);
@@ -769,9 +790,9 @@ void tracer_dump_patch(void)
 
     for(i = 0; i < g_bTracerIntTaskNum; i++)
     {
-        if(g_ptTracerIntTaskInfo[i].baName[0])
+        if(g_ptTracerIntTaskInfoExt[i].baName[0])
         {
-            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X\n", i, g_ptTracerIntTaskInfo[i].baName, g_ptTracerIntTaskInfo[i].bLevel);
+            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X\n", i, g_ptTracerIntTaskInfoExt[i].baName, g_ptTracerIntTaskInfoExt[i].bLevel);
         }
     }
 
@@ -781,11 +802,11 @@ void tracer_dump_patch(void)
 
     for(i = 0; i < g_bTracerExtTaskNum; i++)
     {
-        if(g_ptTracerExtTaskInfo[i].baName[0])
+        if(g_ptTracerExtTaskInfoExt[i].baName[0])
         {
-            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X", j, g_ptTracerExtTaskInfo[i].baName, g_ptTracerExtTaskInfo[i].bLevel);
+            tracer_cli(LOG_HIGH_LEVEL, "[%2d]  %20s: 0x%02X", j, g_ptTracerExtTaskInfoExt[i].baName, g_ptTracerExtTaskInfoExt[i].bLevel);
 
-            if(!(g_ptTracerExtTaskInfo[i].bStatus))
+            if(!(g_ptTracerExtTaskInfoExt[i].bStatus))
             {
                 tracer_cli(LOG_HIGH_LEVEL, "  not saved yet");
             }
@@ -860,9 +881,9 @@ void tracer_cmd_patch(char *sCmd)
             uint8_t bIdx = (uint8_t)strtoul(baParam[2], NULL, 10);
             uint8_t bLevel = (uint8_t)strtoul(baParam[3], NULL, 16);
 
-            if(tracer_log_level_set(bIdx, bLevel))
+            if(tracer_log_level_set_ext(bIdx, bLevel))
             {
-                tracer_cli(LOG_HIGH_LEVEL, "tracer_log_level_set fail\n");
+                tracer_cli(LOG_HIGH_LEVEL, "tracer_log_level_set_ext fail\n");
                 goto done;
             }
 
@@ -962,7 +983,7 @@ void tracer_cmd_patch(char *sCmd)
 
         dwStackSize = strtoul(baParam[2], NULL, 10);
 
-        if(dwStackSize < TRACER_TASK_STACK_SIZE_PATCH)
+        if(dwStackSize < TRACER_TASK_STACK_SIZE_MIN)
         {
             tracer_cli(LOG_HIGH_LEVEL, "invalid stack size[%u]\n", dwStackSize);
             goto done;
@@ -1078,16 +1099,16 @@ void tracer_cmd_patch(char *sCmd)
         if((sName[0] == '0') && (sName[1] == 0))
         {
             // clear entry
-            g_ptTracerExtTaskInfo[bExtIdx].baName[0] = 0;
+            g_ptTracerExtTaskInfoExt[bExtIdx].baName[0] = 0;
             bLevel = 0;
         }
         else
         {
             for(i = 0; i < g_bTracerIntTaskNum; i++)
             {
-                if(g_ptTracerIntTaskInfo[i].baName[0])
+                if(g_ptTracerIntTaskInfoExt[i].baName[0])
                 {
-                    if(!strncmp(sName, g_ptTracerIntTaskInfo[i].baName, strlen(g_ptTracerIntTaskInfo[i].baName)))
+                    if(!strncmp(sName, g_ptTracerIntTaskInfoExt[i].baName, strlen(g_ptTracerIntTaskInfoExt[i].baName)))
                     {
                         tracer_cli(LOG_HIGH_LEVEL, "invalid name[%s] for app task\n", sName);
                         goto done;
@@ -1095,10 +1116,10 @@ void tracer_cmd_patch(char *sCmd)
                 }
             }
 
-            snprintf(g_ptTracerExtTaskInfo[bExtIdx].baName, sizeof(g_ptTracerExtTaskInfo[bExtIdx].baName), "%s", sName);
+            snprintf(g_ptTracerExtTaskInfoExt[bExtIdx].baName, sizeof(g_ptTracerExtTaskInfoExt[bExtIdx].baName), "%s", sName);
         }
 
-        g_ptTracerExtTaskInfo[bExtIdx].bLevel = bLevel;
+        g_ptTracerExtTaskInfoExt[bExtIdx].bLevel = bLevel;
 
         if(tracer_ext_task_info_save(bExtIdx))
         {
@@ -1286,8 +1307,8 @@ void tracer_cfg_reset_patch(void)
     g_bTracerExtTaskDefLevel = LOG_ALL_LEVEL;
 
     g_bTracerLogMode = TRACER_MODE_NORMAL;
-    g_iTracerPriority = TRACER_TASK_PRIORITY;
-    g_dwTracerStackSize = TRACER_TASK_STACK_SIZE_PATCH;
+    g_iTracerPriority = OS_TASK_PRIORITY_TRACER;
+    g_dwTracerStackSize = OS_TASK_STACK_SIZE_TRACER_PATCH;
     g_dwTracerQueueNum = TRACER_QUEUE_NUM_PATCH;
     g_dwTracerQueueSize = TRACER_QUEUE_SIZE_PATCH;
 
@@ -1297,29 +1318,53 @@ void tracer_cfg_reset_patch(void)
 
 void tracer_int_task_reset_patch(void)
 {
-    memcpy(g_ptTracerIntTaskInfo, g_ptTracerDefIntTaskInfo, sizeof(T_TracerTaskInfo) * g_bTracerIntTaskNum);
+    memcpy(g_ptTracerIntTaskInfoExt, g_ptTracerDefIntTaskInfo, sizeof(T_TracerTaskInfoExt) * g_bTracerIntTaskNum);
     return;
 }
 
 void tracer_ext_task_reset_patch(void)
 {
-    memset(g_ptTracerExtTaskInfo, 0, sizeof(T_TracerTaskInfo) * g_bTracerExtTaskNum);
+    memset(g_ptTracerExtTaskInfoExt, 0, sizeof(T_TracerTaskInfoExt) * g_bTracerExtTaskNum);
     return;
 }
 
 void Tracer_PatchInit(void)
 {
     // internal
+    /*
     g_bTracerIntTaskNum = TRACER_INT_TASK_NUM_MAX;
     g_bTracerExtTaskNum = TRACER_EXT_TASK_NUM_MAX;
-
-    g_ptTracerDefIntTaskInfo = (T_TracerTaskInfo *)g_taTracerDefIntTaskInfoBody;
+    g_bTracerIntTaskDefLevel = LOG_NONE_LEVEL;
+    g_bTracerExtTaskDefLevel = LOG_ALL_LEVEL;
     g_ptTracerIntTaskInfo = g_taTracerIntTaskInfoBody;
     g_ptTracerExtTaskInfo = g_taTracerExtTaskInfoBody;
 
-    tracer_opt_entry_add = tracer_opt_entry_add_patch;
-    tracer_level_get = tracer_level_get_patch;
-    tracer_task_info_get = tracer_task_info_get_patch;
+    g_bTracerLogMode = TRACER_MODE_NORMAL;
+    g_iTracerPriority = TRACER_TASK_PRIORITY;
+    g_dwTracerStackSize = TRACER_TASK_STACK_SIZE;
+    g_dwTracerQueueNum = TRACER_QUEUE_NUM;
+    g_dwTracerQueueSize = TRACER_QUEUE_SIZE;
+    */
+
+    g_ptTracerDefIntTaskInfo = (T_TracerTaskInfoExt *)g_taTracerDefIntTaskInfoBody;
+    g_ptTracerIntTaskInfoExt = g_taTracerIntTaskInfoBodyExt;
+    g_ptTracerExtTaskInfoExt = g_taTracerExtTaskInfoBodyExt;
+
+    /*
+    tracer_proc = tracer_proc_impl;
+    tracer_msg_free = tracer_msg_free_impl;
+    tracer_opt_entry_add = tracer_opt_entry_add_impl;
+    tracer_task_name_get = tracer_task_name_get_impl;
+    tracer_task_main = tracer_task_main_impl;
+    tracer_task_handle_get = tracer_task_handle_get_impl;
+    tracer_level_get = tracer_level_get_impl;
+    tracer_task_info_get = tracer_task_info_get_impl;
+    USART_SendString = USART_SendString_Impl;
+    USART_SendStringII = USART_SendStringII_Impl;
+    */
+
+    tracer_level_get_ext = tracer_level_get_ext_patch;
+    tracer_task_info_get_ext = tracer_task_info_get_ext_patch;
     tracer_load = tracer_load_patch;
     tracer_cfg_save = tracer_cfg_save_patch;
     tracer_int_task_info_save = tracer_int_task_info_save_patch;
@@ -1330,14 +1375,20 @@ void Tracer_PatchInit(void)
     
     // external
     tracer_init = tracer_init_patch;
-    tracer_log_level_set = tracer_log_level_set_patch;
+    //tracer_log_level_set = tracer_log_level_set_impl;
     tracer_log_mode_set = tracer_log_mode_set_patch;
+    //tracer_log_mode_get = tracer_log_mode_get_impl;
     tracer_priority_set = tracer_priority_set_patch;
     tracer_dump = tracer_dump_patch;
     tracer_name_display = tracer_name_display_patch;
+    //tracer_drct_printf = tracer_drct_printf_impl;
     tracer_msg = tracer_msg_patch;
     tracer_def_level_set = tracer_def_level_set_patch;
     tracer_cmd = tracer_cmd_patch;
+
+    //msg_printII = msg_printII_impl;
+
+    tracer_log_level_set_ext = tracer_log_level_set_ext_patch;
 
     tracer_cfg_reset();
     tracer_int_task_reset();

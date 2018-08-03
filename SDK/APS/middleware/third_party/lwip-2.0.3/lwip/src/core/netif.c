@@ -105,6 +105,12 @@
 #define NETIF_LINK_CALLBACK(n)
 #endif /* LWIP_NETIF_LINK_CALLBACK */
 
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+#define NETIF_IPCHANGE_CALLBACK(netif, ip) do{ if (netif->ipchange_callback) { (netif->ipchange_callback)(netif, ip); }}while(0)
+#else
+#define NETIF_IPCHANGE_CALLBACK(netif, ip)
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
+
 LWIP_RETDATA struct netif *netif_list;
 LWIP_RETDATA struct netif *netif_default;
 
@@ -282,6 +288,9 @@ LWIP_ROMFN(netif_add)(struct netif *netif,
 #if LWIP_NETIF_STATUS_CALLBACK
   netif->status_callback = NULL;
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+  netif->ipchange_callback = NULL;
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
 #if LWIP_NETIF_LINK_CALLBACK
   netif->link_callback = NULL;
 #endif /* LWIP_NETIF_LINK_CALLBACK */
@@ -546,6 +555,8 @@ LWIP_ROMFN(netif_set_ipaddr)(struct netif *netif, const ip4_addr_t *ipaddr)
     ip4_addr2_16(netif_ip4_addr(netif)),
     ip4_addr3_16(netif_ip4_addr(netif)),
     ip4_addr4_16(netif_ip4_addr(netif))));
+
+  NETIF_IPCHANGE_CALLBACK(netif, ipaddr);
 }
 
 /**
@@ -716,6 +727,18 @@ LWIP_ROMFN(netif_set_status_callback)(struct netif *netif, netif_status_callback
   }
 }
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+/**
+ * Set callback to be called when interface changes address
+ */
+void LWIP_ROMFN(netif_set_ipchange_callback)(struct netif *netif, netif_ipchange_callback_fn ipchange_callback)
+{
+  if (netif) {
+    netif->ipchange_callback = ipchange_callback;
+  }
+}
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
 
 #if LWIP_NETIF_REMOVE_CALLBACK
 /**

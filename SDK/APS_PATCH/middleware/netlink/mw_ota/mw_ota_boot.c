@@ -40,8 +40,6 @@ Head Block of The File
 #include "mw_ota_boot.h"
 #include "boot_sequence.h"
 #include "hal_dbg_uart.h"
-#include "hal_flash.h"
-#include "hal_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -84,7 +82,7 @@ Declaration of Global Variables & Functions
 
 // Sec 5: declaration of global function prototype
 extern bool Boot_CheckPattern(uint8_t checkPattern, uint32_t retry);
-//extern void Boot_SpiLoadPatch(uint32_t ulStartAddr, uint32_t ulMaxSize, uint8_t ubUseQuadMode);
+extern void Boot_SpiLoadPatch(uint32_t ulStartAddr, uint32_t ulMaxSize, uint8_t ubUseQuadMode);
 extern uint32_t Boot_RecvMultiData(uint8_t *data, uint32_t u32Length);
 extern uint32_t Boot_SwapEndian(uint32_t num);
 extern uint32_t Boot_GetCheckSum(uint8_t * data, uint32_t lenth);
@@ -105,7 +103,6 @@ Declaration of static Global Variables & Functions
 
 
 // Sec 7: declaration of static function prototype
-static void Boot_SpiLoadPatch_patch(uint32_t ulStartAddr, uint32_t ulMaxSize, uint8_t ubUseQuadMode);
 
 
 /***********
@@ -219,7 +216,7 @@ uint8_t MwOta_Boot_LoadPatchImage_impl(void)
         return MW_OTA_FAIL;
     
     // load the patch image
-    Boot_SpiLoadPatch_patch(ulImageAddr, MW_OTA_IMAGE_SIZE, 0);
+    Boot_SpiLoadPatch(ulImageAddr, MW_OTA_IMAGE_SIZE, 0);
     
     return MW_OTA_OK;
 }
@@ -371,36 +368,4 @@ void MwOta_Boot_PreInitCold(void)
     
     MwOta_Boot_HeaderPaser = MwOta_Boot_HeaderPaser_impl;
     MwOta_Boot_WritePatchImage = MwOta_Boot_WritePatchImage_impl;
-}
-
-/*************************************************************************
-* FUNCTION:
-*   Boot_SpiLoadPatch_patch
-*
-* DESCRIPTION:
-*   load the patch image
-*
-* PARAMETERS
-*   1. ulStartAddr   : [In] the start address
-*   2. ulMaxSize     : [In] the max size
-*   3. ubUseQuadMode : [In] the quad mode
-*
-* RETURNS
-*   none
-*
-*************************************************************************/
-static void Boot_SpiLoadPatch_patch(uint32_t ulStartAddr, uint32_t ulMaxSize, uint8_t ubUseQuadMode)
-{
-    uint32_t i = 0;
-    uint8_t patchData[PATCH_DATA_LEN] = {0};
-    uint32_t result = 0;
-
-    for(i = 0; i < (ulMaxSize / PATCH_DATA_LEN); i++) {
-        Hal_Flash_PageAddrRead(SPI_IDX_0, (ulStartAddr + i * PATCH_DATA_LEN), ubUseQuadMode, patchData);
-        result = Hal_Patch_DataIn((uint32_t *)patchData, PATCH_DATA_LEN);
-        if(result != HAL_PATCH_RET_NEXT) {
-            break;
-        }
-    }
-    printf("\nSPI load patch, last index %d result %d\n", i, result);
 }

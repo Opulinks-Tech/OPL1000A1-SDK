@@ -124,6 +124,7 @@ typedef union _LARGE_INTEGER {
 #define MAX_LEN_OF_SSID                 32
 #define MAC_ADDR_LEN                    6
 #define MAX_LEN_OF_PASSWD               64
+#define MIN_LEN_OF_PASSWD               8
 
 typedef UCHAR   NDIS_802_11_MAC_ADDRESS[6];
 
@@ -406,6 +407,9 @@ typedef int (*wpa_drv_send_eapol_fp_t)(const u8 *dst, u16 proto, u8 *data, size_
 typedef Boolean (*wpa_driver_netlink_connect_by_bssid_fp_t)(u8 *bssid);
 typedef void (*wpa_driver_netlink_set_mac_fp_t)(u8 *mac);
 typedef int (*wpa_driver_netlink_get_rssi_fp_t)(void);
+typedef void (*wpa_driver_netlink_show_scan_results_fp_t)(void);
+typedef Boolean (*wpa_driver_netlink_fast_connect_fp_t)(u8 mode, u8 index);
+typedef Boolean (*wpa_driver_netlink_sta_cfg_fp_t)(u8 mode, u8 cmd_idx, u8 *value);
 
 extern wpa_driver_netlink_init_fp_t wpa_driver_netlink_init;
 extern wpa_driver_netlink_deinit_fp_t wpa_driver_netlink_deinit;
@@ -426,6 +430,10 @@ extern wpa_drv_send_eapol_fp_t wpa_drv_send_eapol;
 extern wpa_driver_netlink_connect_by_bssid_fp_t wpa_driver_netlink_connect_by_bssid;
 extern wpa_driver_netlink_set_mac_fp_t wpa_driver_netlink_set_mac;
 extern wpa_driver_netlink_get_rssi_fp_t wpa_driver_netlink_get_rssi;
+extern wpa_driver_netlink_show_scan_results_fp_t wpa_driver_netlink_show_scan_results;
+extern wpa_driver_netlink_scan_results_free_fp_t wpa_driver_netlink_scan_results_clear;
+extern wpa_driver_netlink_fast_connect_fp_t wpa_driver_netlink_fast_connect;
+extern wpa_driver_netlink_sta_cfg_fp_t wpa_driver_netlink_sta_cfg;
 
 /*
    Interface Initialization: WPA Driver

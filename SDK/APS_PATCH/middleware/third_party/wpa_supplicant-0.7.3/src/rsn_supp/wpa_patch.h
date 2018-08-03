@@ -1,37 +1,17 @@
-/*
- * wpa_supplicant - WPA definitions
- * Copyright (c) 2003-2007, Jouni Malinen <j@w1.fi>
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2 as
- * published by the Free Software Foundation.
- *
- * Alternatively, this software may be distributed under the terms of BSD
- * license.
- *
- * See README and COPYING for more details.
- */
+/******************************************************************************
+*  Copyright 2017 - 2018, Opulinks Technology Ltd.
+*  ---------------------------------------------------------------------------
+*  Statement:
+*  ----------
+*  This software is protected by Copyright and the information contained
+*  herein is confidential. The software may not be copied and the information
+*  contained herein may not be used or disclosed except with the written
+*  permission of Opulinks Technology Ltd. (C) 2018
+******************************************************************************/
 
-#ifndef __WPA_PATCH_H__
-#define __WPA_PATCH_H__
-
-#include "defs.h"
-#include "eapol_common.h"
-#include "wpa_common.h"
-
-//void wpa_printf_dbg(int level, char *fmt, ...);
-
-int wpa_supplicant_send_2_of_4_patch(struct wpa_sm *sm, const unsigned char *dst,
-			       const struct wpa_eapol_key *key,
-			       int ver, const u8 *nonce,
-			       const u8 *wpa_ie, size_t wpa_ie_len,
-			       struct wpa_ptk *ptk);
-
-void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
-					  const struct wpa_eapol_key *key,
-					  u16 ver);
+#ifndef _WPA_PATCH_H_
+#define _WPA_PATCH_H_
 
 void wpa_func_init_patch(void);
 
-#endif
-
+#endif /* _WPA_PATCH_H_ */

@@ -23,7 +23,7 @@
  * @brief AT Command Interface Initialization for others modules
  *
  */
-void at_cmd_others_func_init(void);
+void _at_cmd_others_func_init(void);
 
 #endif //__AT_CMD_OTHERS_H__
 

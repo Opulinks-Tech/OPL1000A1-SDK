@@ -22,7 +22,7 @@
 #include "at_cmd_common.h"
 #include "at_cmd_msg_ext.h"
 #include "../../wpa_supplicant/config.h"
-
+#include "wifi_nvm.h"
 
 typedef int (*wifi_mac_xmit_eapol_frame_fn_t)(u8 *buf, size_t len, const u8 *eth_dest, u16 proto);
 
@@ -69,7 +69,9 @@ Boolean wpa_driver_netlink_scan_impl(int mode)
 {
     //msg_print(LOG_HIGH_LEVEL, "wpa_driver_netlink_scan, mode:%d \r\n", mode);
     if((mode < SCAN_MODE_ACTIVE)||(mode >= SCAN_MODE_NUM)) return FALSE;
-    wpa_supplicant_set_state(wpa_s, WPA_SCANNING);
+    if (wpa_s->wpa_state != WPA_COMPLETED) {
+        wpa_supplicant_set_state(wpa_s, WPA_SCANNING);
+    }
     wifi_scan_req(mode);
     return TRUE;
 }
@@ -79,11 +81,11 @@ Boolean wpa_driver_netlink_get_scan_results_impl(struct wpa_scan_results * scan_
 {
     scan_report_t *result = NULL;
     unsigned int apNum = 0;
-    int i, j;
-    u8 bssid[6] = {0};
-    char ssid[IEEE80211_MAX_SSID_LEN + 1] = {0};
+    int i = 0;
 
     if(scan_res == NULL) return FALSE;
+
+    wpa_driver_netlink_scan_results_clear(scan_res);
 
     result = wifi_get_scan_result();
     if (result == NULL) {
@@ -97,28 +99,67 @@ Boolean wpa_driver_netlink_get_scan_results_impl(struct wpa_scan_results * scan_
         return TRUE;
     }
 
-    msg_print(LOG_HIGH_LEVEL, "ap num=%d \r\n", apNum);
-    os_memset(bssid, 0, sizeof(bssid));
-    os_memset(ssid, 0, (IEEE80211_MAX_SSID_LEN + 1));
+    scan_res->res = os_malloc(sizeof(struct wpa_scan_res) * apNum);
+
+    if(scan_res->res == NULL)
+    {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: scan_res->res == NULL \r\n");
+        return FALSE;
+    }
+
     for (i = 0; i < apNum; i++) {
-        os_memcpy(bssid, result->pScanInfo[i].bssid, sizeof(bssid));
-        os_memcpy(ssid, result->pScanInfo[i].ssid, sizeof(ssid));
-        msg_print(LOG_HIGH_LEVEL, "bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n", bssid[0], bssid[1], bssid[2], bssid[3], bssid[4], bssid[5]);
-        msg_print(LOG_HIGH_LEVEL, "ssid=");
-        for (j=0; j<=IEEE80211_MAX_SSID_LEN; j++) {
-            msg_print(LOG_HIGH_LEVEL, "%c", ssid[j]);
-        }
-        msg_print(LOG_HIGH_LEVEL, "\r\n");
-        msg_print(LOG_HIGH_LEVEL, "freq=%d \r\n", result->pScanInfo[i].ap_channel);
-        msg_print(LOG_HIGH_LEVEL, "caps=%d \r\n", result->pScanInfo[i].capabilities);
-        msg_print(LOG_HIGH_LEVEL, "beacon_int=%d \r\n", result->pScanInfo[i].beacon_interval);
-        msg_print(LOG_HIGH_LEVEL, "level=%d \r\n", result->pScanInfo[i].rssi);
+        memcpy(scan_res->res[i]->bssid, result->pScanInfo[i].bssid, ETH_ALEN);
+        scan_res->res[i]->freq = (int) result->pScanInfo[i].ap_channel;
+        scan_res->res[i]->beacon_int = (unsigned short) result->pScanInfo[i].beacon_interval;
+        scan_res->res[i]->caps = (unsigned short) result->pScanInfo[i].capabilities;
+        scan_res->res[i]->level = (int) result->pScanInfo[i].rssi;
+    }
+
+    scan_res->num = apNum;
+
+    /** MSG Extend for AT */
+    at_msg_ext_wifi_scan(AT_MSG_EXT_ESPRESSIF, result);
+
+    return TRUE;
+}
+
+void wpa_driver_netlink_show_scan_results_impl(void)
+{
+    scan_report_t *result = NULL;
+    unsigned int apNum = 0;
+    int i = 0;
+
+    result = wifi_get_scan_result();
+
+    if (result == NULL) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: result == NULL\r\n");
+        goto done;
+    }
+
+    apNum = (unsigned int) result->uScanApNum;
+
+    msg_print(LOG_HIGH_LEVEL, "ap num=%d\r\n", apNum);
+
+    if (apNum == 0) {
+        goto done;
+    }
+
+    for (i = 0; i < apNum; i++) {
+        msg_print(LOG_HIGH_LEVEL, "bssid=%02x:%02x:%02x:%02x:%02x:%02x\r\n",
+                  result->pScanInfo[i].bssid[0], result->pScanInfo[i].bssid[1], result->pScanInfo[i].bssid[2],
+                  result->pScanInfo[i].bssid[3], result->pScanInfo[i].bssid[4], result->pScanInfo[i].bssid[5]);
+        msg_print(LOG_HIGH_LEVEL, "ssid=%s\r\n", result->pScanInfo[i].ssid);
+        msg_print(LOG_HIGH_LEVEL, "freq=%d\r\n", result->pScanInfo[i].ap_channel);
+        msg_print(LOG_HIGH_LEVEL, "caps=%d\r\n", result->pScanInfo[i].capabilities);
+        msg_print(LOG_HIGH_LEVEL, "beacon_int=%d\r\n", result->pScanInfo[i].beacon_interval);
+        msg_print(LOG_HIGH_LEVEL, "level=%d\r\n\r\n", result->pScanInfo[i].rssi);
     }
 
     /** MSG Extend for AT */
-    at_msg_ext_wifi_scan(AT_MSG_EXT_AMPEC, result);
+    //at_msg_ext_wifi_scan(AT_MSG_EXT_ESPRESSIF, result);
 
-    return TRUE;
+done:
+    return;
 }
 
 
@@ -132,7 +173,7 @@ Boolean wpa_driver_netlink_connect_impl(struct wpa_config * conf)
     if (conf->ssid == NULL) return FALSE;
 
     if (conf->ssid->ssid == NULL) {
-        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: wpa_driver_netlink_connect, bssid:%x %x %x %x %x %x \r\n",
+        wpa_printf(MSG_DEBUG, "[DRV]WPA: wpa_driver_netlink_connect, bssid:%x %x %x %x %x %x \r\n",
             conf->ssid->bssid[0], conf->ssid->bssid[1], conf->ssid->bssid[2],
             conf->ssid->bssid[3], conf->ssid->bssid[4], conf->ssid->bssid[5]);
 
@@ -176,7 +217,7 @@ Boolean wpa_driver_netlink_reconnect_impl(struct wpa_config * conf)
     int ret = 0;
 	if (conf == NULL) return FALSE;
     if (conf->ssid == NULL) return FALSE;
-    msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: wpa_driver_netlink_reconnect, bssid:%x %x %x %x %x %x \r\n",
+    wpa_printf(MSG_DEBUG, "[DRV]WPA: wpa_driver_netlink_reconnect, bssid:%x %x %x %x %x %x \r\n",
         conf->ssid->bssid[0], conf->ssid->bssid[1], conf->ssid->bssid[2],
         conf->ssid->bssid[3], conf->ssid->bssid[4], conf->ssid->bssid[5]);
     ret = wifi_sta_join(conf->ssid->bssid);
@@ -224,7 +265,9 @@ Boolean wpa_driver_netlink_get_bssid_impl(u8 *bssid)
 Boolean wpa_driver_netlink_get_ssid_impl(u8 *ssid)
 {
     if (ssid == NULL) return FALSE;
-    ssid = wifi_get_ssid();
+    
+    os_memcpy(ssid, wifi_get_ssid(), MAX_LEN_OF_SSID + 1);
+    
     return TRUE;
 }
 
@@ -266,6 +309,20 @@ void wpa_driver_netlink_scan_results_free_impl(struct wpa_scan_results *res)
 }
 
 
+void wpa_driver_netlink_scan_results_clear_impl(struct wpa_scan_results *res)
+{
+    if((res == NULL) || (res->res == NULL))
+    {
+        goto done;
+    }
+
+    os_free(res->res);
+    memset(res, 0, sizeof(struct wpa_scan_results));
+
+done:
+    return;
+}
+
 int wpa_drv_send_eapol_impl(const u8 *dst, u16 proto, u8 *data, size_t data_len)
 {
     msg_print(LOG_HIGH_LEVEL, "[KEY][DRV]WPA: ready to send eapol key frame, proto:%d data_len:%d \r\n", proto, data_len);
@@ -275,6 +332,59 @@ int wpa_drv_send_eapol_impl(const u8 *dst, u16 proto, u8 *data, size_t data_len)
     return 1;
 }
 
+Boolean wpa_driver_netlink_fast_connect_impl(u8 mode, u8 index)
+{
+    mw_wifi_auto_connect_ap_info_t info;
+
+    if (mode > AUTO_CONNECT_ENABLE || index >= MAX_NUM_OF_AUTO_CONNECT) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: invalid parameter \r\n");
+        return FALSE;
+    }
+    
+    wifi_nvm_auto_connect_read(WIFI_NVM_ID_AUTO_CONNECT_AP_INFO, sizeof(mw_wifi_auto_connect_ap_info_t), index, &info);
+
+    if(info.bssid[0] == 0 && info.bssid[1] == 0) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: the index of AP is empty \r\n");
+        return FALSE;
+    }
+
+    set_fast_connect_mode(index, mode);
+    info.fast_connect = mode;
+    wifi_nvm_auto_connect_write(WIFI_NVM_ID_AUTO_CONNECT_AP_INFO, sizeof(mw_wifi_auto_connect_ap_info_t), index, &info);
+
+    return TRUE;
+}
+
+Boolean wpa_driver_netlink_sta_cfg_impl(u8 mode, u8 cmd_idx, u8 *value)
+{
+    if (mode != MLME_CMD_SET_PARAM && mode != MLME_CMD_GET_PARAM) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid Parameter \r\n");
+        return FALSE;
+    }
+
+    if (value == NULL) {
+        msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid Parameter \r\n");
+        return FALSE;
+    }
+
+    //if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
+    //    msg_print(LOG_HIGH_LEVEL, "[DRV]WPA: Invalid wpa state \r\n");
+    //    return FALSE;
+    //}
+
+    switch (mode) {
+        case MLME_CMD_GET_PARAM:
+            wifi_get_sta_cfg_from_share_memory(cmd_idx, value);
+            break;
+        case MLME_CMD_SET_PARAM:
+            wifi_set_sta_cfg_req(cmd_idx, value);
+            break;
+        default:
+            break;
+    }
+    
+    return TRUE;
+}
 
 RET_DATA wpa_driver_netlink_init_fp_t wpa_driver_netlink_init;
 RET_DATA wpa_driver_netlink_deinit_fp_t wpa_driver_netlink_deinit ;
@@ -295,6 +405,10 @@ RET_DATA wpa_drv_send_eapol_fp_t wpa_drv_send_eapol;
 RET_DATA wpa_driver_netlink_connect_by_bssid_fp_t wpa_driver_netlink_connect_by_bssid;
 RET_DATA wpa_driver_netlink_set_mac_fp_t wpa_driver_netlink_set_mac;
 RET_DATA wpa_driver_netlink_get_rssi_fp_t wpa_driver_netlink_get_rssi;
+RET_DATA wpa_driver_netlink_show_scan_results_fp_t wpa_driver_netlink_show_scan_results;
+RET_DATA wpa_driver_netlink_scan_results_free_fp_t wpa_driver_netlink_scan_results_clear;
+RET_DATA wpa_driver_netlink_fast_connect_fp_t wpa_driver_netlink_fast_connect;
+RET_DATA wpa_driver_netlink_sta_cfg_fp_t wpa_driver_netlink_sta_cfg;
 
 /*
    Interface Initialization: WPA Driver
@@ -320,6 +434,10 @@ void wpa_driver_func_init(void)
     wpa_driver_netlink_connect_by_bssid = wpa_driver_netlink_connect_by_bssid_impl;
     wpa_driver_netlink_set_mac = wpa_driver_netlink_set_mac_impl;
     wpa_driver_netlink_get_rssi = wpa_driver_netlink_get_rssi_impl;
+    wpa_driver_netlink_show_scan_results = wpa_driver_netlink_show_scan_results_impl;
+    wpa_driver_netlink_scan_results_clear = wpa_driver_netlink_scan_results_clear_impl;
+    wpa_driver_netlink_fast_connect        = wpa_driver_netlink_fast_connect_impl;
+    wpa_driver_netlink_sta_cfg             = wpa_driver_netlink_sta_cfg_impl;
 }
 
 

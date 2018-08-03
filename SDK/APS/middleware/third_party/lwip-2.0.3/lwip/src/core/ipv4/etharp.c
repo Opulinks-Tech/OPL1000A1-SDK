@@ -135,6 +135,8 @@ LWIP_RETDATA u8_t etharp_cached_entry;
 #endif
 
 
+extern int dhcp_does_arp_check_flag;
+
 static err_t LWIP_ROMFN(etharp_request_dst)(struct netif *netif, const ip4_addr_t *ipaddr, const struct eth_addr* hw_dst_addr);
 static err_t LWIP_ROMFN(etharp_raw)(struct netif *netif,
                         const struct eth_addr *ethsrc_addr, const struct eth_addr *ethdst_addr,
@@ -731,7 +733,9 @@ LWIP_ROMFN(etharp_input)(struct pbuf *p, struct netif *netif)
      * IP address also offered to us by the DHCP server. We do not
      * want to take a duplicate IP address on a single network.
      * @todo How should we handle redundant (fail-over) interfaces? */
-    dhcp_arp_reply(netif, &sipaddr);
+    if (dhcp_does_arp_check_flag == 1) {
+        dhcp_arp_reply(netif, &sipaddr);
+    }
 #endif /* (LWIP_DHCP && DHCP_DOES_ARP_CHECK) */
     break;
   default:

@@ -1,6 +1,6 @@
 /******************************************************************************
 *  Copyright 2017 - 2018, Opulinks Technology Ltd.
-*  ---------------------------------------------------------------------------
+*  ----------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
@@ -16,7 +16,7 @@
 *
 *  Project:
 *  --------
-*  NL1000 Project - the main patch implement file
+*  OPL1000 Project - the main patch implement file
 *
 *  Description:
 *  ------------
@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK
 *
 ******************************************************************************/
 /***********************
@@ -35,8 +35,11 @@ Head Block of The File
 
 // Sec 1: Include File
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
+#include "sys_init.h"
 #include "sys_init_patch.h"
+#include "mw_fim.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 #include "wpa2_station_app.h"
@@ -58,8 +61,8 @@ Declaration of data structure
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
-extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[];
-
+extern T_TracerTaskInfoExt g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX];
+extern T_TracerLogLevelSetFp tracer_log_level_set_ext;
 // Sec 5: declaration of global function prototype
 typedef void (*T_Main_AppInit_fp)(void);
 extern T_Main_AppInit_fp Main_AppInit;
@@ -74,6 +77,7 @@ Declaration of static Global Variables & Functions
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
+static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 
 
@@ -101,8 +105,31 @@ static void __Patch_EntryPoint(void)
     // don't remove this code
     SysInit_EntryPoint();
     
+    // update the flash layout
+    MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+    
     // application init
-    Main_AppInit = Main_AppInit_patch;
+    Sys_AppInit = Main_AppInit_patch;
+}
+
+
+/*************************************************************************
+* FUNCTION:
+*   Main_FlashLayoutUpdate
+*
+* DESCRIPTION:
+*   update the flash layout
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_FlashLayoutUpdate(void)
+{
+    // update here
 }
 
 /*************************************************************************
@@ -131,25 +158,25 @@ void App_Pin_InitConfig(void)
 
 void Internal_Module_Log_Config(char* module_name, bool on_off_set)
 {
-	  uint8_t log_level_set,i,module_index; 	
+	  uint8_t log_level_set,i,module_index = TRACER_INT_TASK_NUM_MAX; 	
 	
     if(on_off_set == true) 
         log_level_set = LOG_ALL_LEVEL;
     else
         log_level_set = LOG_NONE_LEVEL;	
     
-		for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
-		{
-			if (strcmp(module_name,g_taTracerIntTaskInfoBody[i].baName) == 0)
-			{
-				module_index = i;
-				break;
-			}
-		}
-		if(module_index < TRACER_INT_TASK_NUM_MAX) 
-		{
-		    g_taTracerIntTaskInfoBody[module_index].bLevel = log_level_set;
-    } 
+    for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
+    {
+        if (strcmp(module_name,g_taTracerDefIntTaskInfoBody[i].baName) == 0)
+        {
+            module_index = i;
+            break;
+        }
+    }
+    if(module_index < TRACER_INT_TASK_NUM_MAX) 
+    {
+        tracer_log_level_set_ext(module_index, log_level_set);
+    }
 } 
 
 
@@ -172,9 +199,9 @@ void Main_AppInit_patch(void)
     // init the pin assignment
     App_Pin_InitConfig();
 
-    Internal_Module_Log_Config("wifi_mac",true);			
-    Internal_Module_Log_Config("controller_task",true);
-    Internal_Module_Log_Config("event_loop",true);	
+    Internal_Module_Log_Config("opl_wifi_mac",true);			
+    Internal_Module_Log_Config("opl_controller_task",true);
+    Internal_Module_Log_Config("opl_event_loop",true);	
 	    
     // wifi init
     WifiAppInit();

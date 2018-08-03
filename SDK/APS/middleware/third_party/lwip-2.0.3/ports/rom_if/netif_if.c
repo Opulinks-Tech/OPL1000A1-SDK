@@ -126,6 +126,10 @@ RET_DATA netif_set_down_fp_t                        netif_set_down_adpt;
 #if LWIP_NETIF_STATUS_CALLBACK
 RET_DATA netif_set_status_callback_fp_t             netif_set_status_callback_adpt;
 #endif
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+RET_DATA netif_set_ipchange_callback_fp_t           netif_set_ipchange_callback_adpt;
+#endif
+
 #if LWIP_NETIF_REMOVE_CALLBACK
 RET_DATA netif_set_remove_callback_fp_t             netif_set_remove_callback_adpt;
 #endif
@@ -199,6 +203,9 @@ void lwip_load_interface_netif(void)
     netif_set_down_adpt                         = LWIP_ROMFN(netif_set_down);
 #if LWIP_NETIF_STATUS_CALLBACK
     netif_set_status_callback_adpt              = LWIP_ROMFN(netif_set_status_callback);
+#endif
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+    netif_set_ipchange_callback_adpt            = LWIP_ROMFN(netif_set_ipchange_callback);
 #endif
 #if LWIP_NETIF_REMOVE_CALLBACK
     netif_set_remove_callback_adpt              = LWIP_ROMFN(netif_set_remove_callback);
@@ -453,6 +460,17 @@ netif_set_status_callback(struct netif *netif, netif_status_callback_fn status_c
     netif_set_status_callback_adpt(netif, status_callback);
 }
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+/**
+ * @ingroup netif
+ * Set callback to be called when interface changes address
+ */
+void netif_set_ipchange_callback(struct netif *netif, netif_ipchange_callback_fn ipchange_callback)
+{
+    netif_set_ipchange_callback_adpt(netif, ipchange_callback);
+}
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
 
 #if LWIP_NETIF_REMOVE_CALLBACK
 /**

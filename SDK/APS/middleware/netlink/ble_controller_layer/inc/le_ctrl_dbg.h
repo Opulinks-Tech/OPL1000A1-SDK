@@ -12,7 +12,7 @@
 #ifndef __LE_CTRL_DBG_H__
 #define __LE_CTRL_DBG_H__
 
-#include "nl1000.h"
+#include "opl1000.h"
 #include "le_ctrl_para.h"
 
 #define le_ctrl_assert(pointer)														\

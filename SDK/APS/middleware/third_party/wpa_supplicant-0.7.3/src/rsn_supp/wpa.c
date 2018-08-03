@@ -40,6 +40,7 @@ RET_DATA unsigned int g_frame_len;
 RET_DATA u16 g_key_info_1_4;
 RET_DATA u16 g_key_info_3_4;
 //RET_DATA u8 g_kck[16]; /* EAPOL-Key Key Confirmation Key (KCK) */ //For GTK Exchange Usage
+RET_DATA u8 g_wpa_psk[32];
 
 extern struct wpa_supplicant *wpa_s;
 extern struct wpa_ptk ptk;
@@ -397,17 +398,11 @@ int wpa_supplicant_send_2_of_4_impl(struct wpa_sm *sm, const unsigned char *dst,
 
     /*
           Total Length-
-              sizeof(*reply) + wpa_ie_len + 2
-                     95         +     20     +  2 (RSN capability)
-      */
-    if (sm->proto == WPA_PROTO_RSN)
-    {
-        len_total = sizeof(*reply) + wpa_ie_len + 2;
-    }
-    else if (sm->proto == WPA_PROTO_WPA)
-    {
-        len_total = sizeof(*reply) + wpa_ie_len + 2;
-    }
+              sizeof(*reply) + wpa_ie_len
+                  95         +     20    
+    */
+    len_total = sizeof(*reply) + wpa_ie_len;
+
 
 #if 0
 	rbuf = wpa_sm_alloc_eapol(sm, IEEE802_1X_TYPE_EAPOL_KEY,
@@ -440,12 +435,13 @@ int wpa_supplicant_send_2_of_4_impl(struct wpa_sm *sm, const unsigned char *dst,
 
     wpa_printf(MSG_DEBUG, "[2_4]WPA: reply->key_info:%x %x \r\n", reply->key_info[0], reply->key_info[1]);
 
-#if 0
+#if 1
 	if (sm->proto == WPA_PROTO_RSN){
 		WPA_PUT_BE16(reply->key_length, 0);
 	}else{
-		//os_memcpy(reply->key_length, key->key_length, 2);
-		WPA_PUT_BE16(reply->key_length, 0);
+
+		os_memcpy(reply->key_length, key->key_length, 2);
+		//WPA_PUT_BE16(reply->key_length, 0);
     }
 #else
     WPA_PUT_BE16(reply->key_length, 0);
@@ -469,8 +465,8 @@ int wpa_supplicant_send_2_of_4_impl(struct wpa_sm *sm, const unsigned char *dst,
                                                                                            reply->replay_counter[7]); //reply->replay_counter[]: 00 00 00 00 00 00 00 00
 
 
-	//WPA_PUT_BE16(reply->key_data_length, wpa_ie_len);
-	WPA_PUT_BE16(reply->key_data_length, wpa_ie_len + 2);
+	WPA_PUT_BE16(reply->key_data_length, wpa_ie_len);
+	//WPA_PUT_BE16(reply->key_data_length, wpa_ie_len + 2);
 
     wpa_printf(MSG_DEBUG, "[2_4]WPA: reply->key_data_length:%x %x \r\n", reply->key_data_length[0], reply->key_data_length[1]); //reply->key_data_length[]: 00 16  => ok
 
@@ -1401,11 +1397,6 @@ void wpa_supplicant_process_3_of_4_impl(struct wpa_sm *sm,
     for(i=0; i<16; i++) wpa_printf(MSG_WARNING, "%02x ", sm->ptk.tk1[i]);
     wpa_printf(MSG_DEBUG, "\r\n");
 
-	if (wpa_supplicant_send_4_of_4(sm, sm->bssid, key, ver, key_info, NULL, 0, &sm->ptk)) {
-	    wpa_printf(MSG_WARNING, "[3_4]WPA: wpa_supplicant_send_4_of_4 return fail \r\n");
-		goto failed;
-	}
-
 	/* SNonce was successfully used in msg 3/4, so mark it to be renewed
 	 * for the next 4-Way Handshake. If msg 3 is received again, the old
 	 * SNonce will still be used to avoid changing PTK. */
@@ -1418,6 +1409,13 @@ void wpa_supplicant_process_3_of_4_impl(struct wpa_sm *sm,
 		if (wpa_supplicant_install_ptk(sm, key))
 			goto failed;
 	}
+
+
+    if (wpa_supplicant_send_4_of_4(sm, sm->bssid, key, ver, key_info, NULL, 0, &sm->ptk)) {
+        wpa_printf(MSG_WARNING, "[3_4]WPA: wpa_supplicant_send_4_of_4 return fail \r\n");
+        goto failed;
+    }
+
 
 #if 0
 	if (key_info & WPA_KEY_INFO_SECURE) {
@@ -1445,8 +1443,20 @@ void wpa_supplicant_process_3_of_4_impl(struct wpa_sm *sm,
 #endif
 
     wpa_clr_key_info();
-    wpa_printf(MSG_INFO, "\r\nsecured connected\r\n\r\n");
+    //wpa_printf(MSG_INFO, "\r\nsecured connected\r\n\r\n");
+    msg_print(LOG_HIGH_LEVEL, "\r\n\r\nsecured connected\r\n\r\n");
     wifi_sta_join_complete(1); // 1 means success
+
+    /* Set successfully connect info to Auto Connect list */
+    switch(get_auto_connect_mode()) {
+        case AUTO_CONNECT_MANUAL:
+            add_auto_connect_list();
+            //compatible auto/manual connect
+            set_auto_connect_mode(AUTO_CONNECT_ENABLE);
+            break;
+        default:
+            break;
+    }
 
 #if 0
 	if (ieee80211w_set_keys(sm, &ie) < 0) {
@@ -1982,6 +1992,7 @@ int wpa_sm_rx_eapol_impl(struct wpa_sm *sm, const u8 *src_addr,
     wpa_printf(MSG_DEBUG, "[KEY]WPA: key_info:%x g_key_info:%x \r\n", key_info, g_key_info);
     wpa_printf(MSG_DEBUG, "[KEY]WPA: frame_len:%x g_frame_len:%x \r\n", len, g_frame_len);
 
+#if 0
     //Set key_info to global variable g_key_info for next EAPOL-Key Frame checking, it the same with it, it means it's the duplicate frame, can ignore it
     if(key_info == g_key_info ||
        key_info == g_key_info_1_4 ||
@@ -1999,6 +2010,7 @@ int wpa_sm_rx_eapol_impl(struct wpa_sm *sm, const u8 *src_addr,
         ret = 0;
         goto out;
     }
+#endif
 
     g_key_info = key_info;
     wpa_printf(MSG_DEBUG, "[KEY]WPA: set g_key_info=%x \r\n", g_key_info);

@@ -47,6 +47,7 @@
 
 extern struct wpa wpa;
 extern char g_passphrase[MAX_LEN_OF_PASSWD];
+extern u8 g_wpa_psk[32];
 
 void wpa_supplicant_mark_disassoc_impl(struct wpa_supplicant *wpa_s)
 {
@@ -243,6 +244,9 @@ void wpa_supplicant_event_assoc_impl(struct wpa_supplicant *wpa_s,
 //    int i, j;
     u8 *pReqIE;
     scan_info_t *pInfo = NULL;
+#ifdef __WIFI_AUTO_CONNECT__    
+    auto_conn_info_t *pacInfo = NULL;
+#endif
     u8 rsn_ie_len;
     u8 wpa_ie_len;
     u8 asso_ie_len;
@@ -325,7 +329,8 @@ void wpa_supplicant_event_assoc_impl(struct wpa_supplicant *wpa_s,
 #endif
 
     pReqIE = wifi_get_asso_ie();
-    asso_ie_len = pReqIE[1];
+    asso_ie_len = pReqIE[1] + 2; //pReqIE[1];
+
     wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: Asso IE length: %d \r\n", asso_ie_len);
     wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: Asso IE: ");
     for (i = 0; i < asso_ie_len; i++) wpa_printf(MSG_DEBUG, "%02x ", *(pReqIE+i));
@@ -337,7 +342,10 @@ void wpa_supplicant_event_assoc_impl(struct wpa_supplicant *wpa_s,
 
     pInfo = wifi_get_scan_record(wpa_s->bssid);
     wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: pInfo->bssid:%02x:%02x:%02x:%02x:%02x:%02x \r\n", pInfo->bssid[0],pInfo->bssid[1],pInfo->bssid[2],pInfo->bssid[3],pInfo->bssid[4],pInfo->bssid[5]);
-
+    
+    //Set AP channel
+    wpa_s->assoc_freq = pInfo->ap_channel;
+    
     //Get RSN IE
     rsn_ie_len = pInfo->rsn_ie[1];
     wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: RSN IE length:%d \r\n", rsn_ie_len);
@@ -391,17 +399,43 @@ void wpa_supplicant_event_assoc_impl(struct wpa_supplicant *wpa_s,
 
         //1.Caculate the PMK
         //pbkdf2_sha1(passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
+#ifdef __WIFI_AUTO_CONNECT__        
+        if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
+            pbkdf2_sha1(g_passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
+            wpa_sm_set_pmk(wpa_s->wpa, wpa.psk, PMK_LEN);
+            memset(&g_wpa_psk[0], 0, 32);
+            memcpy(&g_wpa_psk[0], wpa.psk, 32);
+        }
+        else {
+            pacInfo = wifi_get_ac_record(wpa_s->bssid);
+            wpa_sm_set_pmk(wpa_s->wpa, pacInfo->psk, PMK_LEN);
+        }
+#else
         pbkdf2_sha1(g_passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
+#endif
         //os_memcpy(wpa.psk, temp_psk, 32);
 
-        wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: after pbkdf2_sha1, wpa.psk:");
-        for(i = 0; i < PMK_LEN; i++) wpa_printf(MSG_DEBUG, "%x ", wpa.psk[i]);
-        wpa_printf(MSG_DEBUG, "\r\n");
+        //wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: after pbkdf2_sha1, wpa.psk:");
+        //for(i = 0; i < PMK_LEN; i++) wpa_printf(MSG_DEBUG, "%x ", wpa.psk[i]);
+        //wpa_printf(MSG_DEBUG, "\r\n");
 
-        wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: set pmk \r\n");
+        //wpa_printf(MSG_DEBUG, "[HDL_ASSO]WPA: set pmk \r\n");
 
         //2.Set the PMK
+#ifndef __WIFI_AUTO_CONNECT__          
         wpa_sm_set_pmk(wpa_s->wpa, wpa.psk, PMK_LEN);
+#endif
+    }
+    else { //Open connection
+        /* Set successfully connect info to Auto Connect list */
+        switch(get_auto_connect_mode()) {
+            case AUTO_CONNECT_MANUAL:
+                add_auto_connect_list();
+                set_auto_connect_mode(AUTO_CONNECT_ENABLE);
+                break;
+            default:
+                break;
+        }
     }
 
     //wpa_printf(MSG_DEBUG, "\r\n wpa_supplicant_event_assoc, PMK[%d]: ", PMK_LEN);

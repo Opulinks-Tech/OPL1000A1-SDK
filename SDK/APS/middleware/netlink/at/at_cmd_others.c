@@ -35,7 +35,7 @@
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_ir_tx_init(int argc, char *argv[])
+int _at_cmd_other_ir_tx_init(char *buf, int len, int mode)
 {
     return true;
 }
@@ -50,7 +50,7 @@ int at_cmd_other_ir_tx_init(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_ir_tx_down(int argc, char *argv[])
+int _at_cmd_other_ir_tx_down(char *buf, int len, int mode)
 {
     return true;
 }
@@ -65,7 +65,7 @@ int at_cmd_other_ir_tx_down(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_ir_tx(int argc, char *argv[])
+int _at_cmd_other_ir_tx(char *buf, int len, int mode)
 {
     return true;
 }
@@ -80,7 +80,7 @@ int at_cmd_other_ir_tx(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_ir_rx_init(int argc, char *argv[])
+int _at_cmd_other_ir_rx_init(char *buf, int len, int mode)
 {
     return true;
 }
@@ -95,7 +95,7 @@ int at_cmd_other_ir_rx_init(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_ir_rx_down(int argc, char *argv[])
+int _at_cmd_other_ir_rx_down(char *buf, int len, int mode)
 {
     return true;
 }
@@ -110,7 +110,7 @@ int at_cmd_other_ir_rx_down(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_common_buf_show(int argc, char *argv[])
+int _at_cmd_other_common_buf_show(char *buf, int len, int mode)
 {
     return true;
 }
@@ -125,7 +125,7 @@ int at_cmd_other_common_buf_show(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_temperature_on(int argc, char *argv[])
+int _at_cmd_other_temperature_on(char *buf, int len, int mode)
 {
     return true;
 }
@@ -140,7 +140,7 @@ int at_cmd_other_temperature_on(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_temperature_off(int argc, char *argv[])
+int _at_cmd_other_temperature_off(char *buf, int len, int mode)
 {
     return true;
 }
@@ -155,7 +155,7 @@ int at_cmd_other_temperature_off(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_secondary_uart_start(int argc, char *argv[])
+int _at_cmd_other_secondary_uart_start(char *buf, int len, int mode)
 {
     return true;
 }
@@ -170,7 +170,7 @@ int at_cmd_other_secondary_uart_start(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_secondary_uart_stop(int argc, char *argv[])
+int _at_cmd_other_secondary_uart_stop(char *buf, int len, int mode)
 {
     return true;
 }
@@ -185,7 +185,7 @@ int at_cmd_other_secondary_uart_stop(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_other_secondary_uart_write(int argc, char *argv[])
+int _at_cmd_other_secondary_uart_write(char *buf, int len, int mode)
 {
     return true;
 }
@@ -194,19 +194,19 @@ int at_cmd_other_secondary_uart_write(int argc, char *argv[])
   * @brief AT Command Table for Others Module
   *
   */
-at_command_t gAtCmdTbl_Others[] =
+_at_command_t _gAtCmdTbl_Others[] =
 {
-    { "at+ir_tx_init",              at_cmd_other_ir_tx_init,            "Open IR tx" },
-    { "at+ir_tx_down",              at_cmd_other_ir_tx_down,            "Close IR tx" },
-    { "at+ir_tx",                   at_cmd_other_ir_tx,                 "Do IR tx" },
-    { "at+ir_rx_init",              at_cmd_other_ir_rx_init,            "Open IR rx" },
-    { "at+ir_rx_down",              at_cmd_other_ir_rx_down,            "Close IR rx" },
-    { "at+common_buf_show",         at_cmd_other_common_buf_show,       "Show common buffer content" },
-    { "at+temperature_on",          at_cmd_other_temperature_on,        "On temperature monitoring" },
-    { "at+temperature_off",         at_cmd_other_temperature_off,       "Off temperature monitoring" },
-    { "at+secondary_uart_start",    at_cmd_other_secondary_uart_start,  "Start second UART interface" },
-    { "at+secondary_uart_stop",     at_cmd_other_secondary_uart_stop,   "Stop second UART interface" },
-    { "at+secondary_uart_write",    at_cmd_other_secondary_uart_write,  "Send data to second UART interface" },
+    { "at+ir_tx_init",              _at_cmd_other_ir_tx_init,            "Open IR tx" },
+    { "at+ir_tx_down",              _at_cmd_other_ir_tx_down,            "Close IR tx" },
+    { "at+ir_tx",                   _at_cmd_other_ir_tx,                 "Do IR tx" },
+    { "at+ir_rx_init",              _at_cmd_other_ir_rx_init,            "Open IR rx" },
+    { "at+ir_rx_down",              _at_cmd_other_ir_rx_down,            "Close IR rx" },
+    { "at+common_buf_show",         _at_cmd_other_common_buf_show,       "Show common buffer content" },
+    { "at+temperature_on",          _at_cmd_other_temperature_on,        "On temperature monitoring" },
+    { "at+temperature_off",         _at_cmd_other_temperature_off,       "Off temperature monitoring" },
+    { "at+secondary_uart_start",    _at_cmd_other_secondary_uart_start,  "Start second UART interface" },
+    { "at+secondary_uart_stop",     _at_cmd_other_secondary_uart_stop,   "Stop second UART interface" },
+    { "at+secondary_uart_write",    _at_cmd_other_secondary_uart_write,  "Send data to second UART interface" },
     { NULL,                         NULL,                               NULL},
 };
 
@@ -214,15 +214,15 @@ at_command_t gAtCmdTbl_Others[] =
  * @brief Global variable g_AtCmdTbl_Others_Ptr retention attribute segment
  *
  */
-RET_DATA at_command_t *g_AtCmdTbl_Others_Ptr;
+RET_DATA _at_command_t *_g_AtCmdTbl_Others_Ptr;
 
 /*
  * @brief AT Command Interface Initialization for others modules
  *
  */
-void at_cmd_others_func_init(void)
+void _at_cmd_others_func_init(void)
 {
     /** Command Table (Others) */
-    g_AtCmdTbl_Others_Ptr = gAtCmdTbl_Others;
+    _g_AtCmdTbl_Others_Ptr = _gAtCmdTbl_Others;
 }
 

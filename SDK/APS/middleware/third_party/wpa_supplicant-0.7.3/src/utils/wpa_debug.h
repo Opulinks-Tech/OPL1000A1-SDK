@@ -42,7 +42,14 @@ enum { MSG_MSGDUMP, MSG_DEBUG, MSG_INFO, MSG_WARNING, MSG_ERROR };
 #ifndef SIZE_T
 typedef unsigned int size_t;
 #endif //SIZE_T
+
+#if 0
 #define wpa_printf(level, _message, ...) msg_print(LOG_HIGH_LEVEL, (_message), ##__VA_ARGS__);
+#else //#if 0
+extern int g_DbgMode;
+#define wpa_printf(level, _message, ...) { if (g_DbgMode) msg_print(LOG_HIGH_LEVEL, (_message), ##__VA_ARGS__);}
+#endif //#if 0
+
 int wpa_debug_open_file(const char *path);
 void wpa_debug_close_file(void);
 #endif /* CONFIG_NO_STDOUT_DEBUG */
@@ -149,6 +156,11 @@ extern _wpa_hexdump_ascii_fp_t _wpa_hexdump_ascii;
 extern wpa_hexdump_ascii_fp_t wpa_hexdump_ascii;
 extern wpa_hexdump_ascii_key_fp_t wpa_hexdump_ascii_key;
 #endif //#ifndef CONFIG_NO_STDOUT_DEBUG
+
+typedef int (*wpa_get_debug_mode_fp_t)(void);
+typedef void (*wpa_set_debug_mode_fp_t)(int mode);
+extern wpa_get_debug_mode_fp_t wpa_get_debug_mode;
+extern wpa_set_debug_mode_fp_t wpa_set_debug_mode;
 
 
 /*

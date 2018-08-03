@@ -39,7 +39,7 @@ Head Block of The File
 #include "mw_ota.h"
 #include "boot_sequence.h"
 #include "hal_flash.h"
-#include "hal_flash_patch.h"
+#include "hal_flash_internal.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -50,8 +50,6 @@ Head Block of The File
 Declaration of data structure
 ********************************************/
 // Sec 3: structure, uniou, enum, linked list
-typedef uint32_t (*T_Hal_Flash_AddrProgram)(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
-typedef uint32_t (*T_Hal_Flash_AddrRead)(E_SpiIdx_t u32SpiIdx, uint32_t u32StartAddr, uint8_t u8UseQuadMode, uint32_t u32Size, uint8_t *pu8Data);
 
 
 /********************************************

@@ -23,19 +23,15 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "cmsis_os.h"
-#include "hal_dbg_uart.h"
-#include "msg.h"
-#include "controller_wifi.h"
-#include "le_ctrl.h"
-#include "cli.h"
-#include "ipc.h"
-#include "le_misc_patch.h"
+
 #include "at_cmd.h"
 #include "at_cmd_task.h"
 #include "at_cmd_common.h"
+#include "at_cmd_app.h"
+#include "at_cmd_tcpip.h"
 #include "sys_os_config.h"
-#include "hal_uart.h"
-#include "le_ctrl.h"
+
+#define CONFIG_MAX_SOCKETS_NUM      5
 
 /*
  * @brief Global variable xAtQueue retention attribute segment
@@ -99,9 +95,10 @@ static int find_str(const char * str1, const char * str2)
  */
 void at_task_cmd_process_impl(char *pbuf, int len)
 {
-    if(find_str(pbuf, "at"))
+    if(find_str(pbuf, "at") | find_str(pbuf, "AT") |
+       find_str(pbuf, "aT") | find_str(pbuf, "At"))
     {
-        at_cmd_parse(pbuf);
+        _at_cmd_parse(pbuf);
     }
     else
     {
@@ -128,17 +125,13 @@ void at_semaphore_release_impl(void)
 	osSemaphoreRelease(at_semaId);
 }
 
-/*
- * @brief Create AT CMD task
- *
- */
-void at_task_create_impl(void)
+void at_module_init_impl(uint32_t netconn_max, const char *custom_version)
 {
     osMessageQDef_t at_queue_def;
     osThreadDef_t at_task_def;
 
     /** create task */
-    at_task_def.name = "AT";
+    at_task_def.name = OS_TASK_NAME_AT;
     at_task_def.stacksize = OS_TASK_STACK_SIZE_DIAG;
     at_task_def.tpriority = OS_TASK_PRIORITY_DIAG;
     at_task_def.pthread = at_task;
@@ -168,7 +161,25 @@ void at_task_create_impl(void)
         msg_print_uart1("create queue fail \r\n");
     }
 
+    //move from sys_init
+    uart1_mode_set_default();
+
     uart1_mode_set_at();
+
+    at_link_init(AT_LINK_MAX_NUM);
+    at_create_tcpip_data_task();
+    at_cmd_wifi_hook();
+}
+
+/*
+ * @brief Create AT CMD task
+ *
+ */
+void at_task_create_impl(void)
+{
+    /* In Rom base, this at module entry function will be patch to at_app.c
+       this function will be stub */
+    at_module_init(CONFIG_MAX_SOCKETS_NUM, NULL);
 }
 
 /*
@@ -181,30 +192,56 @@ void at_task_create_impl(void)
  */
 osStatus at_task_send_impl(xATMessage txMsg)
 {
-    osStatus ret = osOK;
-    xATMessage *pMsg;
+    osStatus ret = osErrorOS;
+    xATMessage *pMsg = NULL;
 
     /** Mem pool allocate */
     pMsg = (xATMessage *)osPoolCAlloc (AtMemPoolId); /** get Mem Block */
+
+    if(pMsg == NULL)
+    {
+        goto done;
+    }
+
     pMsg->event = txMsg.event;
     pMsg->length = txMsg.length;
-    if(txMsg.length != 0)
+    pMsg->pcMessage = NULL;
+
+    if((txMsg.pcMessage) && (txMsg.length))
     {
         /** malloc buffer */
-        pMsg->pcMessage = (void *)pvPortMalloc(txMsg.length);
-        if(txMsg.pcMessage != NULL)
+        pMsg->pcMessage = (void *)malloc(txMsg.length);
+
+        if(pMsg->pcMessage == NULL)
         {
-            memcpy((void *)pMsg->pcMessage, (void *)txMsg.pcMessage, txMsg.length);
-        }
-        else
-        {
-            ret = osErrorOS;
             tracer_cli(LOG_HIGH_LEVEL, "at task message allocate fail \r\n");
             msg_print_uart1("at task message allocate fail \r\n");
+            goto done;
+        }
+        
+        memcpy((void *)pMsg->pcMessage, (void *)txMsg.pcMessage, txMsg.length);
+    }
+
+    if(osMessagePut (xAtQueue, (uint32_t)pMsg, osWaitForever) != osOK) /** Send Message */
+    {
+        goto done;
+    }
+
+    ret = osOK;
+
+done:
+    if(ret != osOK)
+    {
+        if(pMsg)
+        {
+            if(pMsg->pcMessage)
+            {
+                free(pMsg->pcMessage);
+            }
+    
+            osPoolFree(AtMemPoolId, pMsg);
         }
     }
-    if(ret == osOK)
-        osMessagePut (xAtQueue, (uint32_t)pMsg, osWaitForever); /** Send Message */
 
     return ret;
 }
@@ -238,7 +275,7 @@ void at_task_impl(void *pvParameters)
             at_clear_uart_buffer();
         }
 
-        if(rxMsg->pcMessage != NULL) vPortFree(rxMsg->pcMessage);
+        if(rxMsg->pcMessage != NULL) free(rxMsg->pcMessage);
         osPoolFree (AtMemPoolId, rxMsg);
     }
 }
@@ -279,6 +316,15 @@ RET_DATA at_task_send_fp_t at_task_send;
  */
 RET_DATA at_task_fp_t at_task;
 
+
+/*
+ * @brief An external Function at_module_init prototype declaration retention attribute segment
+ *
+ */
+RET_DATA at_module_init_fp_t at_module_init;
+
+
+
 /*
  * @brief AT Command Interface Initialization for AT Command Task
  *
@@ -291,5 +337,6 @@ void at_task_func_init(void)
     at_task_create = at_task_create_impl;
     at_task_send = at_task_send_impl;
     at_task = at_task_impl;
+    at_module_init = at_module_init_impl;
 }
 

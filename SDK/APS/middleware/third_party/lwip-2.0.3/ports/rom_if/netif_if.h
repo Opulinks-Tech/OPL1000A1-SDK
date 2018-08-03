@@ -112,6 +112,8 @@ typedef err_t (*netif_output_ip6_fn)(struct netif *netif, struct pbuf *p,
 typedef err_t (*netif_linkoutput_fn)(struct netif *netif, struct pbuf *p);
 /** Function prototype for netif status- or link-callback functions. */
 typedef void (*netif_status_callback_fn)(struct netif *netif);
+/** Function prototype for netif address change-callback functions. */
+typedef void (*netif_ipchange_callback_fn)( struct netif *netif, const ip4_addr_t *new_ip );
 
 #if LWIP_DHCP || LWIP_AUTOIP || LWIP_IGMP || LWIP_IPV6_MLD || (LWIP_NUM_NETIF_CLIENT_DATA > 0)
 u8_t netif_alloc_client_data_id(void);
@@ -209,6 +211,9 @@ typedef void (*netif_set_down_fp_t)(struct netif *netif);
 #if LWIP_NETIF_STATUS_CALLBACK
 typedef void (*netif_set_status_callback_fp_t)(struct netif *netif, netif_status_callback_fn status_callback);
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+typedef void (*netif_set_ipchange_callback_fp_t)(struct netif *netif, netif_ipchange_callback_fn ipchange_callback);
+#endif
 #if LWIP_NETIF_REMOVE_CALLBACK
 typedef void (*netif_set_remove_callback_fp_t)(struct netif *netif, netif_status_callback_fn remove_callback);
 #endif /* LWIP_NETIF_REMOVE_CALLBACK */

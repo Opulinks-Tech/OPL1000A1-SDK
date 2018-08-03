@@ -15,7 +15,7 @@
 #include "OPL1000_pin_mux_define.h"
 #include "Hal_pinmux_common.h"
 #include "hal_vic.h"
-#include "hal_vic_patch.h"
+//#include "hal_vic_patch.h"
 
 
 

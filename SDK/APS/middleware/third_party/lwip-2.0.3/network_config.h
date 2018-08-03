@@ -25,9 +25,13 @@
 #include "lwip/dhcp.h"
 #include "lwip_helper.h"
 
+/* Rom patch interface */
+typedef int32_t (*tcpip_config_init_fp_t)(lwip_tcpip_config_t *tcpip_config);
+typedef int32_t (*dhcp_config_init_fp_t)(void);
 
-int32_t tcpip_config_init(lwip_tcpip_config_t *tcpip_config);
-int32_t dhcp_config_init(void);
+/* Export interface funtion pointer */
+extern tcpip_config_init_fp_t   tcpip_config_init;
+extern dhcp_config_init_fp_t    dhcp_config_init;
 
 #define USE_DHCP       1
 

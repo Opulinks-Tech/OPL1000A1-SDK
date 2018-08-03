@@ -1,6 +1,6 @@
 /******************************************************************************
 *  Copyright 2017 - 2018, Opulinks Technology Ltd.
-*  ---------------------------------------------------------------------------
+*  ----------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
@@ -16,7 +16,7 @@
 *
 *  Project:
 *  --------
-*  NL1000 Project - the main patch implement file
+*  OPL1000 Project - the main patch implement file
 *
 *  Description:
 *  ------------
@@ -35,8 +35,11 @@ Head Block of The File
 
 // Sec 1: Include File
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
+#include "sys_init.h"
 #include "sys_init_patch.h"
+#include "mw_fim.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 
@@ -57,8 +60,6 @@ Declaration of Global Variables & Functions
 
 
 // Sec 5: declaration of global function prototype
-typedef void (*T_Main_AppInit_fp)(void);
-extern T_Main_AppInit_fp Main_AppInit;
 
 
 /***************************************************
@@ -75,7 +76,8 @@ static osTimerId g_tAppTimerId;
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
-void Main_AppInit_patch(void);
+static void Main_FlashLayoutUpdate(void);
+static void Main_AppInit_patch(void);
 static void Main_AppThread_1(void *argu);
 static void Main_AppThread_2(void *argu);
 static void Main_AppTimer(void const *argu);
@@ -105,8 +107,30 @@ static void __Patch_EntryPoint(void)
     // don't remove this code
     SysInit_EntryPoint();
     
+    // update the flash layout
+    MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+    
     // application init
-    Main_AppInit = Main_AppInit_patch;
+    Sys_AppInit = Main_AppInit_patch;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_FlashLayoutUpdate
+*
+* DESCRIPTION:
+*   update the flash layout
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_FlashLayoutUpdate(void)
+{
+    // update here
 }
 
 /*************************************************************************
@@ -123,7 +147,7 @@ static void __Patch_EntryPoint(void)
 *   none
 *
 *************************************************************************/
-void Main_AppInit_patch(void)
+static void Main_AppInit_patch(void)
 {
     osThreadDef_t tThreadDef;
     osSemaphoreDef_t tSemaphoreDef;

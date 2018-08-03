@@ -23,7 +23,7 @@
  * @brief AT Command Interface Initialization for Peripherial IP modules
  *
  */
-void at_cmd_pip_func_init(void);
+void _at_cmd_pip_func_init(void);
 
 #endif //__AT_CMD_PIP_H__
 

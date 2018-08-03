@@ -22,7 +22,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>OPL1000_APS_App</TargetName>
+    <TargetName>OPL1000_APP</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -230,6 +230,18 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>3</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\middleware\netlink\msg\msg_patch.c</PathWithFileName>
+      <FilenameWithoutPath>msg_patch.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -245,7 +257,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\object\symdefs.o</PathWithFileName>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\object\symdefs.o</PathWithFileName>
       <FilenameWithoutPath>symdefs.o</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -257,8 +269,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_patch_at_m3.lib</PathWithFileName>
-      <FilenameWithoutPath>nl1000_a0_patch_at_m3.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\Output\Objects\opl1000_patch_m3.lib</PathWithFileName>
+      <FilenameWithoutPath>opl1000_patch_m3.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -269,8 +281,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\..\APS\project\nl1000\Output\Objects\nl1000_a0_sdk_at_m3.lib</PathWithFileName>
-      <FilenameWithoutPath>nl1000_a0_sdk_at_m3.lib</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\..\APS\targets\opl1000\Output\Objects\opl1000_sdk_m3.lib</PathWithFileName>
+      <FilenameWithoutPath>opl1000_sdk_m3.lib</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

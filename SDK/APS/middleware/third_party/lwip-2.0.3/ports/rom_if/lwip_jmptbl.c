@@ -49,6 +49,7 @@ extern void lwip_load_interface_ethernet(void);
 extern void lwip_load_interface_sys_arch(void);
 extern void lwip_load_interface_wlannetif(void);
 extern void lwip_load_interface_lwip_helper(void);
+extern void lwip_load_interface_network_config(void);
 
 /* application && cli */
 extern void lwip_load_interface_cli(void);
@@ -168,6 +169,7 @@ void lwip_module_interface_init(void)
 #endif /* if defined(LWIP_ROMBUILD) */
 
     lwip_load_interface_lwip_helper();
+    lwip_load_interface_network_config();
 
     lwip_load_interface_cli();
     lwip_load_interface_socket_app();

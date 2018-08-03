@@ -31,6 +31,8 @@
 osThreadId app_task_id;
 #define WIFI_READY_TIME 2000
 
+bool g_connection_flag = false;
+
 static char WRITE_STRING[] = "Hello from OPL1000";
 
 static void tcp_client(void)
@@ -54,6 +56,9 @@ static void tcp_client(void)
 
 		strcpy(server_ip,TCP_SERVER_ADDR);
 		
+	  if (g_connection_flag == true) 
+	      printf("Opulinks-TEST-AP connected \r\n");
+	
 		printf("Connect %s at port %d \r\n", server_ip,server_port); 
 		
     while (1) {
@@ -108,7 +113,8 @@ static void tcp_client(void)
 
 void user_wifi_app_entry(void *args)
 {
-    
+    g_connection_flag = false;
+	
     /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
     lwip_network_init(WIFI_MODE_STA);
 
@@ -209,6 +215,7 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
     case WIFI_EVENT_STA_GOT_IP:
         printf("\r\nWi-Fi Got IP \r\n");
         lwip_get_ip_info("st1");
+		    g_connection_flag = true;
         break;
     case WIFI_EVENT_STA_CONNECTION_FAILED:
         printf("\r\nWi-Fi Connected failed\r\n");

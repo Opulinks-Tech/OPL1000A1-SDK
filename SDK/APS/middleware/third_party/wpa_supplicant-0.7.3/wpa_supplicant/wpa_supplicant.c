@@ -50,6 +50,8 @@
 #include "wpa_ie.h"
 #include "events_netlink.h"
 #include "at_cmd_common.h"
+#include "wpa_debug.h"
+#include "wpa_at_if.h"
 //#include "blacklist.h"
 //#include "ibss_rsn.h"
 //#include "bgscan.h"
@@ -1616,8 +1618,12 @@ int do_supplicant_init_impl(void)
     }
 #endif
 
-	wpa_debug_level = 0;
+	wpa_debug_level = MSG_DEBUG;
 	wpa_debug_show_keys = 1;
+    wpa_debug_timestamp = 1;
+    g_DbgMode = true;
+
+    wpa_set_wpa_mode(WPA_MODE_STA);
 
 	//params
 	memset(&params, 0, sizeof(params));

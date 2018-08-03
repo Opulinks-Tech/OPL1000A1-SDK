@@ -32,7 +32,8 @@
 #include "../src/drivers/driver_netlink.h"
 #include "at_cmd_msg_ext.h"
 #include "wpa_demo.h"
-
+#include "wpa_debug.h"
+#include "wifi_nvm.h"
 
 #ifndef WPA_CLI_DBG
 #define WPA_CLI_DBG TRUE
@@ -52,6 +53,9 @@ RET_DATA struct wpa_ssid rec_ssid_data;
 
 extern struct wpa_supplicant *wpa_s;
 extern char g_passphrase[MAX_LEN_OF_PASSWD];
+extern auto_connect_cfg_t g_AutoConnect;
+extern u8 gAutoConnMode;
+extern u8 gsta_cfg_mac[MAC_ADDR_LEN];
 
 Boolean isMAC(char *s) {
     int i;
@@ -105,8 +109,9 @@ int wpa_cli_connect_handler_impl(int argc, char *argv[])
         return FALSE;
     }
 
-    if(isMAC(argv[1]))
+    if(isMAC(argv[1])) //wpa_connect "bssid" "passphase"
     {
+        //bssid
         hwaddr_aton2(argv[1], bssid);
 
         for (i=0; i<ETH_ALEN; i++)
@@ -115,12 +120,38 @@ int wpa_cli_connect_handler_impl(int argc, char *argv[])
             g_bssid[i] = bssid[i];
         }
 
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: bssid buffer is ready \r\n");
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: connect bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
+        wpa_printf(MSG_DEBUG, "[CLI]WPA: bssid buffer is ready \r\n");
+        wpa_printf(MSG_DEBUG, "[CLI]WPA: connect bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
                                   bssid[0], bssid[1], bssid[2], bssid[3], bssid[4], bssid[5]);
+
+        //passwd
+        if(argc >= 3)
+        {
+            len_passwd = os_strlen(argv[2]);
+            //msg_print(LOG_HIGH_LEVEL, "strlen(argv[2]):%d \r\n", len_passwd);
+
+            if ((len_passwd >= MAX_LEN_OF_PASSWD) || (len_passwd < MIN_LEN_OF_PASSWD))
+            {
+                msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
+                return FALSE;
+            }
+
+            memset(passwd, 0, MAX_LEN_OF_PASSWD);
+            os_memcpy(passwd, argv[2], len_passwd);
+
+            //conf.ssid->passphrase = os_malloc(MAX_LEN_OF_PASSWD);
+            //memset(conf.ssid->passphrase, 0, MAX_LEN_OF_PASSWD);
+            if(len_passwd > 0)
+            {
+                //os_memcpy(conf.ssid->passphrase, passwd, len_passwd);
+                os_memcpy((void *)g_passphrase, (void *)passwd, MAX_LEN_OF_PASSWD);
+            }
+        }
+
     }
-    else
+    else //wpa_connect "ssid" "passphase" "bssid of hidden AP"
     {
+        //ssid
         len_ssid = os_strlen(argv[1]);
         if(len_ssid > MAX_LEN_OF_SSID)
         {
@@ -130,45 +161,68 @@ int wpa_cli_connect_handler_impl(int argc, char *argv[])
         memset(conf.ssid->ssid, 0, (MAX_LEN_OF_SSID + 1));
         os_memcpy(conf.ssid->ssid, argv[1], len_ssid);
 
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: connect ssid=");
+        wpa_printf(MSG_DEBUG, "[CLI]WPA: connect ssid=");
         for(i=0;i<len_ssid;i++)
         {
-            msg_print(LOG_HIGH_LEVEL, "%02x ", conf.ssid->ssid[i]);
+            wpa_printf(MSG_DEBUG, "%c", conf.ssid->ssid[i]);
         }
-        msg_print(LOG_HIGH_LEVEL, "\r\n");
+        wpa_printf(MSG_DEBUG, "\r\n");
+
+        //passwd
+        if(argc >= 3)
+        {
+            len_passwd = os_strlen(argv[2]);
+            //msg_print(LOG_HIGH_LEVEL, "strlen(argv[2]):%d \r\n", len_passwd);
+
+            if ((len_passwd >= MAX_LEN_OF_PASSWD) || (len_passwd < MIN_LEN_OF_PASSWD))
+            {
+                msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
+                return FALSE;
+            }
+
+            memset(passwd, 0, MAX_LEN_OF_PASSWD);
+            os_memcpy(passwd, argv[2], len_passwd);
+
+            //conf.ssid->passphrase = os_malloc(MAX_LEN_OF_PASSWD);
+            //memset(conf.ssid->passphrase, 0, MAX_LEN_OF_PASSWD);
+            if(len_passwd > 0)
+            {
+                //os_memcpy(conf.ssid->passphrase, passwd, len_passwd);
+                os_memcpy((void *)g_passphrase, (void *)passwd, MAX_LEN_OF_PASSWD);
+            }
+        }
+
+        //bssid for hidden ap connect
+        if(argc >= 4)
+        {
+            if(isMAC(argv[3]))
+            {
+                hwaddr_aton2(argv[3], bssid);
+
+                for (i=0; i<ETH_ALEN; i++)
+                {
+                    conf.ssid->bssid[i] = bssid[i];
+                    g_bssid[i] = bssid[i];
+                }
+            }
+        }
     }
 
-    //passwd
-    if(argc >= 3)
-    {
-        len_passwd = os_strlen(argv[2]);
-        //msg_print(LOG_HIGH_LEVEL, "strlen(argv[2]):%d \r\n", len_passwd);
-
-        if (len_passwd > MAX_LEN_OF_PASSWD)
-        {
-            msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
-            return FALSE;
-        }
-
-        memset(passwd, 0, MAX_LEN_OF_PASSWD);
-        os_memcpy(passwd, argv[2], len_passwd);
-
-        conf.ssid->passphrase = os_malloc(MAX_LEN_OF_PASSWD);
-        memset(conf.ssid->passphrase, 0, MAX_LEN_OF_PASSWD);
-        if(len_passwd > 0)
-        {
-            os_memcpy(conf.ssid->passphrase, passwd, len_passwd);
-            os_memcpy((void *)g_passphrase, (void *)passwd, MAX_LEN_OF_PASSWD);
-        }
+    //For compatible auto/manual connect
+    if (get_auto_connect_mode() == AUTO_CONNECT_ENABLE) {
+        set_auto_connect_mode(AUTO_CONNECT_MANUAL);
     }
 
     wpa_cli_connect(&conf);
 
+    if (conf.ssid->ssid) {
+        os_free(conf.ssid->ssid);
+        conf.ssid->ssid = NULL;
+    }
+    
     return TRUE;
 }
 
-//#ifdef DEMO_TC
-extern int gDemoScanTimes;
 extern void os_sleep(os_time_t sec, os_time_t usec);
 /*
  * wpa_cli_connect_for_demo
@@ -300,11 +354,11 @@ int wpa_cli_reconnect_handler_impl(int argc, char *argv[])
     rec_conf.ssid=&rec_ssid_data;
     if(rec_conf.ssid == NULL) return FALSE;
 
-    msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: bssid buffer is ready \r\n");
+    wpa_printf(MSG_DEBUG, "[CLI]WPA: bssid buffer is ready \r\n");
     for (i=0; i<ETH_ALEN; i++) {
         rec_conf.ssid->bssid[i] = g_bssid[i]; //conf.ssid->bssid => xxxxxxxxxxxx
     }
-    msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: reconnect bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
+    wpa_printf(MSG_DEBUG, "[CLI]WPA: reconnect bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
                                 rec_conf.ssid->bssid[0],
                                 rec_conf.ssid->bssid[1],
                                 rec_conf.ssid->bssid[2],
@@ -323,17 +377,17 @@ int wpa_cli_scan_impl(int mode)
 
 int wpa_cli_scan_handler_impl(int argc, char *argv[])
 {
-    int mode = SCAN_MODE_ACTIVE;
+    int mode = SCAN_MODE_MIX;
 
     if(argc > 1) {
         mode = atoi(argv[1]);
-        if (mode > SCAN_MODE_PASSIVE) {
+        if (mode < SCAN_MODE_ACTIVE || mode > SCAN_MODE_MIX) {
             msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
             return FALSE;
         }
     }
 
-    msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: scan mode=%d \r\n", mode);
+    wpa_printf(MSG_DEBUG, "[CLI]WPA: scan mode=%d \r\n", mode);
     return wpa_cli_scan(mode);
 }
 
@@ -345,8 +399,12 @@ int wpa_cli_getscanresults_impl(struct wpa_scan_results * res)
 
 void wpa_cli_showscanresults_handler_impl(int argc, char *argv[])
 {
+    #if 1
+    wpa_driver_netlink_show_scan_results();
+    #else
     memset(&res, 0, sizeof(res));
     wpa_cli_getscanresults(&res);
+    #endif
 }
 
 void wpa_cli_getbssid_impl(u8 *bssid)
@@ -392,13 +450,33 @@ void wpa_cli_showssid_by_param_impl(int argc, char *argv[])
 void wpa_cli_getmac_impl(u8 *mac)
 {
     if(mac == NULL) return;
-	wpa_driver_netlink_get_mac(mac);
+	//wpa_driver_netlink_get_mac(mac);
+
+    wpa_driver_netlink_sta_cfg(MLME_CMD_GET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, mac);
+    //wpa_driver_netlink_get_sta_cfg(E_WIFI_PARAM_MAC_ADDRESS, mac);
 }
 
 void wpa_cli_setmac_impl(u8 *mac)
 {
     if(mac == NULL) return;
-	wpa_driver_netlink_set_mac(mac);
+	//wpa_driver_netlink_set_mac(mac);
+
+    if ((mac[0] == 0x00 && mac[1] == 0x00) ||
+        (mac[0] == 0xFF) || (mac[0] == 0x01)) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid mac address \r\n");
+        return;
+    }
+    
+    if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid wpa state \r\n");
+        return;
+    }
+    
+    memset(&gsta_cfg_mac[0], 0, MAC_ADDR_LEN);
+    memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
+    //wpa_driver_netlink_sta_cfg(MLME_CMD_SET_PARAM, E_WIFI_PARAM_MAC_ADDRESS, &gsta_cfg_mac[0]);
+
+    wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_ID_MAC_ADDR, MAC_ADDR_LEN, gsta_cfg_mac);
 }
 
 void wpa_cli_mac_by_param_impl(int argc, char *argv[])
@@ -420,13 +498,24 @@ void wpa_cli_mac_by_param_impl(int argc, char *argv[])
     }
 }
 
+void wpa_cli_setdbgmode_by_param_impl(int argc, char *argv[])
+{
+    int mode;
+
+    if(argc == 2) //set debug mode
+    {
+        mode = atoi(argv[1]);
+        wpa_set_debug_mode(mode);
+    }
+}
+
 int wpa_cli_getrssi_impl(void)
 {
     int rssi = wpa_driver_netlink_get_rssi();
     msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: rssi=%d \r\n", rssi);
 
     /** MSG Extend for AT */
-    at_msg_ext_wifi_get_rssi(AT_MSG_EXT_AMPEC, rssi);
+    at_msg_ext_wifi_get_rssi(AT_MSG_EXT_ESPRESSIF, rssi);
 
     return rssi;
 }
@@ -442,6 +531,125 @@ void wpa_cli_scrt_dbg_by_param_impl(int argc, char *argv[])
     aes_ccm_sample();
     aes_ecb_sample();
     hmac_sha_1_sample();
+}
+
+void debug_auto_connect_impl(void)
+{
+    int i;
+    MwFimAutoConnectCFG_t cfg;
+    auto_conn_info_t info;
+    
+    msg_print(LOG_HIGH_LEVEL, "AP mode = %d\r\n", get_auto_connect_mode());
+    msg_print(LOG_HIGH_LEVEL, "AP num = %d\r\n", get_auto_connect_ap_num());
+    
+    get_auto_connect_ap_cfg(&cfg);
+    msg_print(LOG_HIGH_LEVEL, "AP cfg flag = %d, front = %d, rear = %d\r\n", cfg.flag, cfg.front, cfg.rear);
+    msg_print(LOG_HIGH_LEVEL, "AP cfg max_save_num = %d\r\n", cfg.max_save_num);
+
+    for (i=0; i<MAX_NUM_OF_AUTO_CONNECT; i++) {
+        get_auto_connect_info(i, &info);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] info channel = %d\r\n", i, info.ap_channel);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] info fast mode = %d\r\n", i, info.fast_connect);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] info bssid %02x %02x %02x %02x %02x %02x\r\n",
+                    i, info.bssid[0], info.bssid[1], info.bssid[2], info.bssid[3], info.bssid[4],
+                    info.bssid[5]);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] info ssid = %s\r\n", i, info.ssid);
+        msg_print(LOG_HIGH_LEVEL, "AP[%d] info psk = %02x %02x %02x %02x %02x\r\n",
+                    i, info.psk[0], info.psk[1], info.psk[2], info.psk[3], info.psk[4]);
+    }
+}
+
+int wpa_cli_conn_mode_impl(int argc, char *argv[])
+{
+    if (argc == 2) {
+
+        s8 mode = atoi(argv[1]);
+
+        if (mode < AUTO_CONNECT_DISABLE || mode > AUTO_CONNECT_ENABLE) {
+            return FALSE;
+        }
+
+        wifi_nvm_auto_connect_write(WIFI_NVM_ID_AUTO_CONNECT_MODE, 1, NULL, &mode);
+        gAutoConnMode = mode;
+        g_AutoConnect.retryCount = 0; //restart fasct connect
+        g_AutoConnect.targetIdx = 0;
+        
+        msg_print(LOG_HIGH_LEVEL, "connection mode = %d (0:disable, 1:fast connect)\r\n", get_auto_connect_mode());
+        
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+int wpa_cli_clear_ac_list_impl(int argc, char *argv[])
+{
+    // Reset Auto/Fast connect configuartion in the FIM
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_MODE, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_CFG, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 1);
+    MwFim_FileWriteDefault(MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO, 2);
+
+    // Reset Auto/Fast connect configuration of global variables
+    reset_auto_connect_list();
+
+    return TRUE;
+}
+
+int wpa_cli_fast_connect_impl(int argc, char *argv[])
+{
+    u8 mode, ap_index;
+    
+    if(argc != 3) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
+        return FALSE;
+    }
+
+    mode = atoi(argv[1]);
+    ap_index = atoi(argv[2]);
+
+    if (mode > AUTO_CONNECT_ENABLE || ap_index >= MAX_NUM_OF_AUTO_CONNECT) {
+        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: invalid parameter \r\n");
+        return FALSE;
+    }
+
+    wpa_driver_netlink_fast_connect(mode, ap_index);
+    
+    return TRUE;
+}
+
+/* debug use */
+int wpa_cli_dbg_impl(int argc, char *argv[])
+{
+    u8 mac[MAC_ADDR_LEN] = {0};
+    
+    if (!strcmp(argv[1], "h")) {
+        msg_print(LOG_HIGH_LEVEL, "wpa debug :\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   h : help\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   p : print memory variable of auto connect/CBS ...\r\n");
+        msg_print(LOG_HIGH_LEVEL, "   ia : Test input mac addr/manufacture name for CBS\r\n");
+        return TRUE;
+    }
+    
+    if (!strcmp(argv[1], "p") || argc == 1) {
+        debug_auto_connect();
+        return TRUE;
+    }
+
+    if (!strcmp(argv[1], "ia")) {
+        if (argc >= 3) { // debug for CBS
+            hwaddr_aton2(argv[2], mac);
+            wpa_cli_setmac(mac);
+        }
+        
+        if (argc >= 4) {
+            wifi_nvm_sta_info_write(WIFI_NVM_STA_INFO_MANUFACTURE_NAME, STA_INFO_MAX_MANUF_NAME_SIZE, (u8 *)argv[3]);
+        }
+    }
+    
+    return TRUE;
 }
 
 uint32_t wpa_cli_cmd_handler_impl(int argc, char *argv[])
@@ -496,6 +704,21 @@ uint32_t wpa_cli_cmd_handler_impl(int argc, char *argv[])
     }
 //#endif
 
+    else if (os_strncasecmp(WPA_CLI_CMD_DBG_MODE, argv[0], os_strlen(WPA_CLI_CMD_DBG_MODE)) == 0) {
+        wpa_cli_setdbgmode_by_param(argc, argv);
+    }
+    else if (os_strncasecmp(WPA_CLI_CMD_CONN_MODE, argv[0], os_strlen(argv[0])) == 0) {
+        wpa_cli_conn_mode(argc, argv);
+    }
+    else if (os_strncasecmp(WPA_CLI_CMD_CLEAR_AC_LIST, argv[0], os_strlen(argv[0])) == 0){
+        wpa_cli_clear_ac_list(argc, argv);
+    }
+    else if (os_strncasecmp(WPA_CLI_CMD_FAST_CONNECT, argv[0], os_strlen(argv[0])) == 0){
+        wpa_cli_fast_connect(argc, argv);
+    }
+    else if (os_strncasecmp(WPA_CLI_CMD_DBG, argv[0], os_strlen(WPA_CLI_CMD_DBG)) == 0){
+        wpa_cli_dbg(argc, argv);
+    }
     else {
         //nothing
         msg_print(LOG_HIGH_LEVEL, "\r\n");
@@ -550,6 +773,12 @@ RET_DATA wpa_cli_parse_fp_t wpa_cli_parse;
 RET_DATA wpa_cli_scrt_dbg_by_param_fp_t wpa_cli_scrt_dbg_by_param;
 RET_DATA wpa_cli_cmd_handler_fp_t wpa_cli_cmd_handler;
 RET_DATA wpa_cli_getrssi_fp_t wpa_cli_getrssi;
+RET_DATA wpa_cli_setdbgmode_by_param_fp_t wpa_cli_setdbgmode_by_param;
+RET_DATA debug_auto_connect_fp_t debug_auto_connect;
+RET_DATA wpa_cli_conn_mode_fp_t wpa_cli_conn_mode;
+RET_DATA wpa_cli_clear_ac_list_fp_t wpa_cli_clear_ac_list;
+RET_DATA wpa_cli_fast_connect_fp_t wpa_cli_fast_connect;
+RET_DATA wpa_cli_dbg_fp_t wpa_cli_dbg;
 
 //#ifdef DEMO_TC
 RET_DATA wpa_cli_connect_for_demo_fp_t wpa_cli_connect_for_demo;
@@ -584,11 +813,19 @@ void wpa_cli_func_init(void)
     wpa_cli_scrt_dbg_by_param = wpa_cli_scrt_dbg_by_param_impl;
     wpa_cli_cmd_handler = wpa_cli_cmd_handler_impl;
     wpa_cli_getrssi = wpa_cli_getrssi_impl;
-
+    wpa_cli_setdbgmode_by_param = wpa_cli_setdbgmode_by_param_impl;
+    debug_auto_connect = debug_auto_connect_impl;
+    wpa_cli_conn_mode = wpa_cli_conn_mode_impl;
+    wpa_cli_clear_ac_list = wpa_cli_clear_ac_list_impl;
+    wpa_cli_fast_connect  = wpa_cli_fast_connect_impl;
+    wpa_cli_dbg           = wpa_cli_dbg_impl;
+    
 //#ifdef DEMO_TC
     wpa_cli_connect_for_demo = wpa_cli_connect_for_demo_impl;
     wpa_cli_scan_for_demo = wpa_cli_scan_for_demo_impl;
 //#endif
+
+    
 }
 
 

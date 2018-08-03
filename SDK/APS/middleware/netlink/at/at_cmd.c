@@ -20,7 +20,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include "nl1000.h"
+#include "opl1000.h"
 #include "os.h"
 #include "at_cmd.h"
 #include "at_cmd_sys.h"
@@ -36,6 +36,7 @@
 #if defined(__AT_CMD_TASK__)
 #include "at_cmd_task.h"
 #endif
+#include "at_cmd_data_process.h"
 
 /*
  * @brief An external Function at_cmd_handler prototype declaration retention attribute segment
@@ -98,6 +99,7 @@ extern at_command_t *g_AtCmdTbl_Pip_Ptr;
  */
 extern at_command_t *g_AtCmdTbl_Others_Ptr;
 
+#if 0
 /*
  * @brief AT Commands Handler
  *
@@ -115,7 +117,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** System */
     for(cmd_ptr=g_AtCmdTbl_Sys_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -127,7 +129,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** Wi-Fi */
     for(cmd_ptr=g_AtCmdTbl_Wifi_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -139,7 +141,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** BLE */
     for(cmd_ptr=g_AtCmdTbl_Ble_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -151,7 +153,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** TCP/IP */
     for(cmd_ptr=g_AtCmdTbl_Tcpip_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -163,7 +165,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** RF */
     for(cmd_ptr=g_AtCmdTbl_Rf_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -175,7 +177,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** Perpherial IP */
     for(cmd_ptr=g_AtCmdTbl_Pip_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -187,7 +189,7 @@ int at_cmd_handler_impl(int argc, char *argv[])
     /** Others */
     for(cmd_ptr=g_AtCmdTbl_Others_Ptr; cmd_ptr->cmd; cmd_ptr++)
     {
-        if(!strcmp(argv[0], cmd_ptr->cmd))
+        if(!strcasecmp(argv[0], cmd_ptr->cmd))
         {
             isDefCmdFound = 1;
             msg_print_uart1("\r\n");
@@ -237,29 +239,14 @@ int at_cmd_parse_impl(char *pbuf)
 
 	return true;
 }
-
-/*
- * @brief Extending AT commands Entry Point
- *
- * @param [in] argc count of parameters
- *
- * @param [in] argv parameters array
- *
- * @return 0 fail 1 success
- *
- */
-int at_cmd_extend_impl(int argc, char *argv[])
-{
-    msg_print_uart1("\r\nat_cmd_extend, argc:%d argv[0]:%s \r\n", argc, argv[0]);
-    return true;
-}
-
+#endif //#if 0
 /*
  * @brief AT Command Interface Initialization for AT Command module
  *
  */
 void at_cmd_func_init(void)
 {
+#if 0
     /** Command Tables */
     at_cmd_sys_func_init();
     at_cmd_wifi_func_init();
@@ -273,5 +260,57 @@ void at_cmd_func_init(void)
     at_cmd_parse = at_cmd_parse_impl;
     at_cmd_handler = at_cmd_handler_impl;
     at_cmd_extend = at_cmd_extend_impl;
+#endif
+}
+
+
+RET_DATA _at_cmd_parse_fp_t _at_cmd_parse;
+RET_DATA _at_cmd_handler_fp_t _at_cmd_handler;
+RET_DATA _at_cmd_extend_fp_t _at_cmd_extend;
+
+extern _at_command_t *_g_AtCmdTbl_Sys_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Wifi_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Ble_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Tcpip_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Rf_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Pip_Ptr;
+extern _at_command_t *_g_AtCmdTbl_Others_Ptr;
+
+int _at_cmd_parse_impl(char *pbuf)
+{
+    _at_cmd_handler(pbuf, (int)strlen(pbuf), NULL);
+	return true;
+}
+
+int _at_cmd_extend_impl(char *buf, int len, int mode)
+{
+    return true;
+}
+
+int _at_cmd_handler_impl(char *buf, int len, int mode)
+{
+    data_process_handler(buf, len);
+    return true;
+}
+
+/*
+ * @brief AT Command Interface Initialization for AT Command module
+ *
+ */
+void _at_cmd_func_init(void)
+{
+    /** Command Tables */
+    _at_cmd_sys_func_init();
+    _at_cmd_wifi_func_init();
+    _at_cmd_ble_func_init();
+    _at_cmd_tcpip_func_init();
+    _at_cmd_rf_func_init();
+    _at_cmd_pip_func_init();
+    _at_cmd_others_func_init();
+
+    /** Functions */
+    _at_cmd_parse = _at_cmd_parse_impl;
+    _at_cmd_handler = _at_cmd_handler_impl;
+    _at_cmd_extend = _at_cmd_extend_impl;
 }
 

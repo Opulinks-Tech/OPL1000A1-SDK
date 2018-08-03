@@ -19,11 +19,22 @@
 #ifndef __AT_CMD_WIFI_H__
 #define __AT_CMD_WIFI_H__
 
+#define AT_WIFI_SHOW_ECN_BIT        0x00000001U
+#define AT_WIFI_SHOW_SSID_BIT       0x00000002U
+#define AT_WIFI_SHOW_RSSI_BIT       0x00000004U
+#define AT_WIFI_SHOW_MAC_BIT        0x00000008U
+#define AT_WIFI_SHOW_CHANNEL_BIT    0x00000010U
+
+typedef enum {
+    AT_WIFI_SKIP_DTIM_CFG,
+    AT_WIFI_MAX_NUM,
+} at_wifi_mac_cfg_e;
+
 /*
  * @brief AT Command Interface Initialization for Wi-Fi modules
  *
  */
-void at_cmd_wifi_func_init(void);
+void _at_cmd_wifi_func_init(void);
 
 #endif //__AT_CMD_WIFI_H__
 

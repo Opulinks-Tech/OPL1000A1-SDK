@@ -40,10 +40,11 @@ extern __packet_tx_task_fp_t    __packet_tx_task_adpt;
 typedef err_t (*ethernetif_init_fp_t)(struct netif *netif);
 typedef void  (*ethernetif_input_fp_t)(struct netif *netif, void *buf, u16_t len);
 typedef void  (*ethernetif_check_link_fp_t) (struct netif *netif);
+typedef void  (*wlanif_input_fp_t)(struct netif *netif, void *buffer, u16_t len, void *arg);
 
 extern ethernetif_init_fp_t     ethernetif_init_adpt;
 extern ethernetif_input_fp_t    ethernetif_input_adpt;
-
+extern wlanif_input_fp_t        wlanif_input_adpt;
 #endif
 
 #endif /* __WLANNETIF_IF_H__ */

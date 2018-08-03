@@ -27,43 +27,8 @@
 #define WIFI_CONN_TOUT_TIME     8000    // Connection Timer, 8 seconds
 #define WIFI_CMD_TOUT_TIME      8000    // Common Command Timer, 8 seconds
 
-typedef enum
-{
-	TM_MODE,
-	TM_WIFI_TX,
-	TM_WIFI_RX,
-	TM_RX_RESET_CNTS,
-	TM_RX_COUNTERS,
-	TM_CHANNEL,
-	TM_GO,
+#define RF_CMD_PARAM_NUM    10
 
-}TestMode;
-
-typedef struct
-{
-    u8 u8Trigger_wifi_tx;
-    u8 u8media_access;
-    u8 u8TestMode;
-    u8 u8TXEnable;
-    u8 u8RXEnable;
-    u32 u32cmd_type;
-    u32 u32Pramble;
-    u32 u32DataLen;
-    u32 u32Interval;
-    u32 u32Channel;
-    float fDataRate;
-    
-}rf_cmd_t;
-
-typedef struct
-{
-    u8 u8Enable;
-    u32 u32dbg_rx_uc_count;
-    u32 u32dbg_rx_bc_count;
-    u32 u32dbg_rx_er_count;
-    u32 u32dbg_rssi;
-    
-}rf_rev_t;
 
 typedef struct
 {
@@ -79,21 +44,78 @@ typedef struct
     void *prvData;
 } wifi_evt_t;
 
+typedef enum
+{
+    RF_EVT_MODE = 0,
+    RF_EVT_GO,
+    RF_EVT_CHANNEL,
+    RF_EVT_RX_RESET_CNTS,
+    RF_EVT_RX_CNTS,
+    RF_EVT_WIFI_RX,
+    RF_EVT_WIFI_TX,
+
+    RF_EVT_SHOW_SCA,
+    RF_EVT_SET_SCA,
+    RF_EVT_CAL_VCO,
+
+    RF_EVT_BLE_DTM,
+    RF_EVT_BLE_ADV,
+
+    RF_EVT_IPC_ENABLE,
+
+    RF_EVT_MAX
+} T_RfCmdEvtType;
+
+typedef struct
+{
+    uint32_t u32Type;
+    int iArgc;
+    char *saArgv[RF_CMD_PARAM_NUM];
+} T_RfCmd;
+
+typedef struct
+{
+    uint32_t u32Type;
+    uint8_t u8Status;
+    uint8_t u8IpcEnable;
+    uint8_t u8Unicast;
+    uint8_t u8Reserved;
+    uint32_t u32Mode;
+    uint32_t u32RfChannel;
+    uint32_t u32Freq;
+    uint16_t u16RfMode;
+
+    // BLE
+    uint16_t u16RxCnt;
+    uint16_t u16RxCrcOkCnt;
+    uint8_t u8Pkt;
+    uint8_t u8Len;
+    uint8_t u8Freq;
+
+    void *pParam;
+} T_RfEvt;
+
+
 extern scan_report_t gScanReport;
+
+void CtrlWifi_PsTout(void const *arg);
 
 int controller_wifi_init_impl(void *pScanResult);
 int controller_wifi_cmd_handler_impl(wifi_cmd_t * pWifiCmd);
 int controller_wifi_evt_handler_impl(wifi_evt_t * pWifiEvt);
+int CtrlWifi_PsStateForce_impl(WifiSta_PSForceMode_t mode, uint32_t timeout);
 
 /* Rom patch interface */
 typedef int (*controller_wifi_init_fp_t)(void *pScanResult);
 typedef int (*controller_wifi_cmd_handler_fp_t)(wifi_cmd_t *pWifiCmd);
 typedef int (*controller_wifi_evt_handler_fp_t)(wifi_evt_t *pWifiEvt);
+typedef int (*CtrlWifi_PsStateForce_fp_t)(WifiSta_PSForceMode_t mode, uint32_t timeout);
 
 /* Export interface funtion pointer */
 extern controller_wifi_init_fp_t controller_wifi_init;
 extern controller_wifi_cmd_handler_fp_t controller_wifi_cmd_handler;
 extern controller_wifi_evt_handler_fp_t controller_wifi_evt_handler;
+extern CtrlWifi_PsStateForce_fp_t CtrlWifi_PsStateForce;
 
 #endif  //__CONTROLLER_WIFI_H__
 

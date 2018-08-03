@@ -22,7 +22,7 @@
 
 
 /* for iperf task */
-#define IPERF_TASK_NAME                "iperf"
+#define IPERF_TASK_NAME                OS_TASK_NAME_IPERF
 #define IPERF_TASK_STACKSIZE           OS_TASK_STACK_SIZE_IPERF
 #define IPERF_TASK_PRIO                (OS_TASK_PRIORITY_IPERF - OS_TASK_PRIORITY_IDLE)     // if use FreeRTOS API directly,
                                                                                             // translate from cmsis to FreeRTOS

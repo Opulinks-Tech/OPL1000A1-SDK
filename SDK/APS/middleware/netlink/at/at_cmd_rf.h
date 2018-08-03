@@ -23,7 +23,7 @@
  * @brief AT Command Interface Initialization for RF modules
  *
  */
-void at_cmd_rf_func_init(void);
+void _at_cmd_rf_func_init(void);
 
 #endif //__AT_CMD_RF_H__
 

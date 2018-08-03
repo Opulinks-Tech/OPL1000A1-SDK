@@ -1,6 +1,6 @@
 /******************************************************************************
 *  Copyright 2017 - 2018, Opulinks Technology Ltd.
-*  ---------------------------------------------------------------------------
+*  ----------------------------------------------------------------------------
 *  Statement:
 *  ----------
 *  This software is protected by Copyright and the information contained
@@ -16,7 +16,7 @@
 *
 *  Project:
 *  --------
-*  NL1000 Project - the main patch implement file
+*  OPL1000 Project - the main patch implement file
 *
 *  Description:
 *  ------------
@@ -35,12 +35,16 @@ Head Block of The File
 
 // Sec 1: Include File
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
+#include "sys_init.h"
 #include "sys_init_patch.h"
+#include "mw_fim.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 #include "msg_patch.h"
-#include "hal_dbg_uart_patch.h"
+#include "msg.h"
+#include "hal_dbg_uart.h"
 #include "wpa2_station_app.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -54,7 +58,7 @@ Head Block of The File
 /********************************************
 Declaration of data structure
 ********************************************/
-// Sec 3: structure, uniou, enum, linked list
+// Sec 3: structure, union, enum, linked list
 
 /********************************************
 Declaration of Global Variables & Functions
@@ -66,6 +70,7 @@ Declaration of Global Variables & Functions
 typedef void (*T_Main_AppInit_fp)(void);
 extern T_Main_AppInit_fp Main_AppInit;
 
+extern T_TracerLogLevelSetFp tracer_log_level_set_ext;
 
 /***************************************************
 Declaration of static Global Variables & Functions
@@ -88,15 +93,15 @@ uint32_t g_execution_count = 0;
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
+static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 void User_Demo(void);
 
 static void Main_AppThread_1(void *argu);
 static void Main_AppThread_2(void *argu);
 
-extern T_TracerTaskInfo g_taTracerIntTaskInfoBody[];
-extern T_TracerTaskInfo g_taTracerExtTaskInfoBody[];
-
+extern T_TracerTaskInfoExt g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX];
+extern T_TracerTaskInfoExt g_taTracerExtTaskInfoBodyExt[TRACER_EXT_TASK_NUM_MAX];
 /***********
 C Functions
 ***********/
@@ -105,39 +110,40 @@ C Functions
 
 void Internal_Module_Log_Set(char* module_name, bool on_off_set)
 {
-	  uint8_t log_level_set,i,module_index; 	
+	  uint8_t log_level_set,i,module_index = TRACER_INT_TASK_NUM_MAX; 	
 	
     if(on_off_set == true) 
         log_level_set = LOG_ALL_LEVEL;
     else
         log_level_set = LOG_NONE_LEVEL;	
     
-		for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
-		{
-			if (strcmp(module_name,g_taTracerIntTaskInfoBody[i].baName) == 0)
-			{
-				module_index = i;
-				break;
-			}
-		}
-		if(module_index < TRACER_INT_TASK_NUM_MAX) 
-		{
-		    g_taTracerIntTaskInfoBody[module_index].bLevel = log_level_set;
+    for (i = 0; i < TRACER_INT_TASK_NUM_MAX; i++) 
+    {
+        if (strcmp(module_name,g_taTracerDefIntTaskInfoBody[i].baName) == 0)
+        {
+            module_index = i;
+            break;
+        }
+    }
+    if(module_index < TRACER_INT_TASK_NUM_MAX) 
+    {
+        tracer_log_level_set_ext(module_index, log_level_set);
     } 
 } 
 
 void App_Log_Config(uint8_t log_idx, char* app_name , uint8_t level_set)
 {
     //user log
-    g_taTracerExtTaskInfoBody[log_idx].bLevel = level_set;
-    strcpy(g_taTracerExtTaskInfoBody[log_idx].baName,app_name);
+    g_taTracerExtTaskInfoBodyExt[log_idx].bLevel = level_set;
+    strcpy(g_taTracerExtTaskInfoBodyExt[log_idx].baName,app_name);
 }
 
 void Internal_Module_Log_Config(bool on_off_set)
-{
-	  Internal_Module_Log_Set("wifi_mac",true);			
-    Internal_Module_Log_Set("controller_task",true);
-    Internal_Module_Log_Set("event_loop",true);	
+{   
+	  
+    Internal_Module_Log_Set("opl_wifi_mac",true);			
+    Internal_Module_Log_Set("opl_controller_task",true);
+    Internal_Module_Log_Set("opl_event_loop",true);	
 }
 
 /*************************************************************************
@@ -159,8 +165,30 @@ static void __Patch_EntryPoint(void)
     // don't remove this code
     SysInit_EntryPoint();
     
+    // update the flash layout
+    MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+    
     // application init
-    Main_AppInit = Main_AppInit_patch;
+    Sys_AppInit = Main_AppInit_patch;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_FlashLayoutUpdate
+*
+* DESCRIPTION:
+*   update the flash layout
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_FlashLayoutUpdate(void)
+{
+    // update here
 }
 
 /*************************************************************************
@@ -177,13 +205,15 @@ static void __Patch_EntryPoint(void)
 *   none
 *
 *************************************************************************/
-void Main_AppInit_patch(void)
+static void Main_AppInit_patch(void)
 {
     // Enable APS Uart log information output 
     Hal_DbgUart_RxIntEn(1);   
     
-    tracer_def_level_set (TRACER_TASK_TYPE_INTERNAL, LOG_ALL_LEVEL);
-    
+    tracer_log_level_set_ext(2, LOG_ALL_LEVEL);
+    tracer_log_level_set_ext(4, LOG_ALL_LEVEL);
+    tracer_log_level_set_ext(6, LOG_ALL_LEVEL);	
+	
     // Log example executin, create two thread 
     User_Demo();
     

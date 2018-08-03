@@ -59,9 +59,9 @@ RET_DATA __packet_rx_task_fp_t    __packet_rx_task_adpt;
 RET_DATA __packet_tx_task_fp_t    __packet_tx_task_adpt;
 #endif
 
-
 RET_DATA ethernetif_init_fp_t     ethernetif_init_adpt;
 RET_DATA ethernetif_input_fp_t    ethernetif_input_adpt;
+RET_DATA wlanif_input_fp_t        wlanif_input_adpt;
 
 void lwip_load_interface_wlannetif(void)
 {
@@ -81,6 +81,7 @@ void lwip_load_interface_wlannetif(void)
 
     ethernetif_init_adpt        = LWIP_ROMFN(ethernetif_init);
     ethernetif_input_adpt       = LWIP_ROMFN(ethernetif_input);
+    wlanif_input_adpt           = LWIP_ROMFN(wlanif_input);
 }
 
 
@@ -165,6 +166,11 @@ err_t
 ethernetif_init(struct netif *netif)
 {
     return ethernetif_init_adpt(netif);
+}
+
+void wlanif_input(struct netif *netif, void *buffer, u16_t len, void *arg)
+{
+    wlanif_input_adpt(netif, buffer, len, arg);
 }
 
 int wifi_rx_callback(char *pbuf, u16_t length)

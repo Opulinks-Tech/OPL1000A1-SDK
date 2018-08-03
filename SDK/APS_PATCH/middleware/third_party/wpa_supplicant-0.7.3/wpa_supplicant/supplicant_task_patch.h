@@ -8,10 +8,10 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
-#ifndef __SUPPLICANT_TASK_PATCH_H__
-#define __SUPPLICANT_TASK_PATCH_H__
+
+#ifndef _SUPPLICANT_TASK_PATCH_H_
+#define _SUPPLICANT_TASK_PATCH_H_
 
 void wpa_supplicant_task_func_init_patch(void);
 
-#endif
-
+#endif /* _SUPPLICANT_TASK_PATCH_H_ */

@@ -16,12 +16,12 @@
 
 // TODO:Get DHCP, IP configuration from flash
 
-int32_t dhcp_config_init(void)
+int32_t dhcp_config_init_impl(void)
 {
     return (USE_DHCP == 0) ? STA_IP_MODE_STATIC : STA_IP_MODE_DHCP;
 }
 
-int32_t tcpip_config_init(lwip_tcpip_config_t *tcpip_config)
+int32_t tcpip_config_init_impl(lwip_tcpip_config_t *tcpip_config)
 {
     /* Static IP assignment */
     ip4addr_aton(STA_IPADDR, &(tcpip_config->sta_ip));
@@ -30,3 +30,20 @@ int32_t tcpip_config_init(lwip_tcpip_config_t *tcpip_config)
 
     return 0;
 }
+
+
+/*-------------------------------------------------------------------------------------
+ * Definitions of interface function pointer
+ *------------------------------------------------------------------------------------*/
+RET_DATA tcpip_config_init_fp_t tcpip_config_init;
+RET_DATA dhcp_config_init_fp_t  dhcp_config_init;
+
+/*-------------------------------------------------------------------------------------
+ * Interface assignment
+ *------------------------------------------------------------------------------------*/
+void lwip_load_interface_network_config(void)
+{
+    tcpip_config_init = tcpip_config_init_impl;
+    dhcp_config_init  = dhcp_config_init_impl;
+}
+

@@ -41,6 +41,11 @@ typedef enum {
     MAC_SOURCE_FROM_FLASH,     /**< Mac address source from FLASH */
 } mac_source_type_t;
 
+typedef enum {
+    SYS_RF_LOW_POWER = 0,      /**< RF low power */
+    SYS_RF_HIGH_POWER,         /**< RF high power */
+} sys_rf_power_level_t;
+
 /******************************************************
  *                 Type Definitions
  ******************************************************/

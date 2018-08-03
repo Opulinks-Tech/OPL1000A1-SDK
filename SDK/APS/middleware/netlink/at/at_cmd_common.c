@@ -22,7 +22,7 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <stdarg.h>
-#include "nl1000.h"
+#include "opl1000.h"
 #include "os.h"
 #include "at_cmd.h"
 #include "at_cmd_sys.h"
@@ -40,6 +40,9 @@
 #if defined(__AT_CMD_TASK__)
 #include "at_cmd_task.h"
 #endif
+#include "at_cmd_data_process.h"
+#include "wpa_supplicant_i.h"
+#include "le_cmd_app_cmd.h"
 
 /*
  * @brief Global variable msg_print_uart1 retention attribute segment
@@ -138,6 +141,49 @@ RET_DATA unsigned int g_uart1_mode;
 RET_DATA at_uart_buffer_t at_rx_buf;
 
 /*
+ * @brief Global variable _uart1_rx_int_at_data_receive_ble retention attribute segment
+ *
+ */
+RET_DATA _uart1_rx_int_at_data_receive_ble_fp_t _uart1_rx_int_at_data_receive_ble;
+
+/*
+ * @brief Global variable _uart1_rx_int_at_data_receive_tcpip retention attribute segment
+ *
+ */
+RET_DATA _uart1_rx_int_at_data_receive_tcpip_fp_t _uart1_rx_int_at_data_receive_tcpip;
+
+/*
+ * @brief Global variable set_echo_on retention attribute segment
+ *
+ */
+RET_DATA set_echo_on_fp_t set_echo_on;
+
+/*
+ * @brief Global variable _uart1_rx_int_at_data_receive_tcpip retention attribute segment
+ *
+ */
+RET_DATA int at_echo_on;
+
+extern struct wpa_supplicant *wpa_s;
+
+uint8_t at_state = AT_STATE_IDLE;
+uint8_t *pDataLine;
+uint8_t  at_data_line[AT_DATA_LEN_MAX];
+extern uint16_t at_send_len;
+
+
+//at global variables
+static char *at_result_string[AT_RESULT_CODE_MAX] = {
+    "\r\nOK\r\n",         //AT_RESULT_CODE_OK         = 0x00,
+    "\r\nERROR\r\n",      //AT_RESULT_CODE_ERROR      = 0x01,
+    "\r\nERROR\r\n",      //AT_RESULT_CODE_FAIL       = 0x02,
+    "\r\nSEND OK\r\n",    //AT_RESULT_CODE_SEND_OK    = 0x03,
+    "\r\nSEND FAIL\r\n",  //AT_RESULT_CODE_SEND_FAIL  = 0x04,
+    NULL,
+    NULL,
+};
+
+/*
  * @brief Print Message to UART1
  *
  * @param [in] fmt message
@@ -202,6 +248,7 @@ int uart1_mode_set_impl(int argc, char *argv[])
     		break;
         case UART1_MODE_BLE_HCI:
             /** Do something when set BLE HCI mode */
+            uart1_mode_set_default();
             uart1_mode_set_ble_hci();
     		break;
         case UART1_MODE_OTHERS:
@@ -261,6 +308,7 @@ void uart1_mode_set_default_impl(void)
     Hal_Uart_RxIntEn(UART_IDX_1, 1);
 }
 
+#if 0
 /*
  * @brief AT mode handler
  *
@@ -311,6 +359,138 @@ void uart1_rx_int_do_at_impl(uint32_t u32Data)
         Hal_Uart_DataSend(UART_IDX_1, p->buf [p->in]);
     }
 
+}
+#endif
+
+/*
+ * @brief UART1 RX Data Handler of BLE (Reserved)
+ *
+ * @param [in] u32Data 4bytes data from UART1 interrupt
+ */
+void _uart1_rx_int_at_data_receive_ble_impl(uint32_t u32Data)
+{
+	LeCmdAppProcessSendData((char *)&u32Data, 1);
+}
+
+/*
+ * @brief UART1 RX Data Handler of TCP/IP (Reserved)
+ *
+ * @param [in] u32Data 4bytes data from UART1 interrupt
+ */
+void _uart1_rx_int_at_data_receive_tcpip_impl(uint32_t u32Data)
+{
+   int send_len = 0;
+
+    send_len = data_process_data_len_get();
+
+    *pDataLine = (u32Data & 0xFF);
+
+    //ToDo:
+    //Enter transparent transmission, with a 20-ms
+    //interval between each packet, and a maximum of
+    //2048 bytes per packet.
+    //When a single packet containing +++ is received,
+    //returns to normal command mode.
+
+    if (at_state == AT_STATE_SENDING_RECV)
+    {
+        //if not transparent transmission mode, display back
+        //if(( (u32Data & 0xFF) != '\n') && (at_echo_on))
+        {
+            Hal_Uart_DataSend(UART_IDX_1, (u32Data & 0xFF));
+        }
+
+        if ((pDataLine >= &at_data_line[send_len - 1]) || (pDataLine >= &at_data_line[AT_DATA_LEN_MAX - 1]))
+        {
+            at_event_msg_t msg = {0};
+
+            msg.event = AT_DATA_TX_EVENT;
+            msg.length = send_len;
+            msg.param = at_data_line;
+            at_data_task_send(&msg);
+            at_state = AT_STATE_SENDING_DATA;
+            pDataLine = at_data_line;
+        }
+        else
+        {
+            pDataLine++;
+        }
+    }
+    else //AT_STATE_SENDING_DATA
+    {
+        at_uart1_printf((char *)"\r\nbusy p...\r\n");
+    }
+}
+
+void _uart1_rx_int_do_at_impl(uint32_t u32Data)
+{
+    at_uart_buffer_t *p;
+    xATMessage txMsg;
+    int lock = data_process_lock_get();
+
+    p = &at_rx_buf;
+
+    //command input for all modules
+    if (lock == LOCK_NONE)
+    {
+        if ((p->in & ~(AT_RBUF_SIZE-1)) == 0)
+        {
+            if((u32Data & 0xFF) == 0x0D)//Enter
+            {//detect the ending character, send command buffer to at cmd task
+                p->buf [p->in & (AT_RBUF_SIZE-1)] = 0x00;
+
+                /** send message */
+                txMsg.pcMessage = (char *)p;
+                txMsg.length = sizeof(at_uart_buffer_t);
+                txMsg.event = AT_UART1_EVENT;
+
+                /** Post the byte. */
+                at_task_send( txMsg );
+            }
+            else if((u32Data & 0xFF) == 0x08)
+            {//backspace
+                if (p->in > 0)
+                {
+                    p->in--;
+                    p->buf[p->in & (AT_RBUF_SIZE-1)] = 0x00;
+                    Hal_Uart_DataSend(UART_IDX_1, 0x08);
+                    Hal_Uart_DataSend(UART_IDX_1, 0x20);
+                    Hal_Uart_DataSend(UART_IDX_1, 0x08);
+                }
+            }
+            else
+            {//each character input
+                p->buf [p->in & (AT_RBUF_SIZE-1)] = (u32Data & 0xFF);
+                if(at_echo_on) Hal_Uart_DataSend(UART_IDX_1, p->buf [p->in]);
+                p->in++;
+            }
+        }
+        else
+        { //error case: overwrite
+            p->in = 0;
+            p->buf [p->in & (AT_RBUF_SIZE-1)] = (u32Data & 0xFF);
+            Hal_Uart_DataSend(UART_IDX_1, p->buf [p->in]);
+        }
+    }
+
+    //data input for BLE or TCP/IP module
+    else
+    {
+        //Set handler of BLE or TCP/IP module
+        switch(lock)
+        {
+            case LOCK_BLE:
+                _uart1_rx_int_at_data_receive_ble_impl(u32Data);
+                break;
+
+            case LOCK_TCPIP:
+                _uart1_rx_int_at_data_receive_tcpip_impl(u32Data);
+                break;
+
+            default:
+                break;
+        }
+    }
 }
 
 /*
@@ -386,6 +566,132 @@ void at_clear_uart_buffer_impl(void)
     at_rx_buf.in = 0;
 }
 
+char *at_cmd_param_trim(char *sParam)
+{
+    char *sRet = NULL;
+    int iLen = strlen(sParam);
+
+    if(iLen == 0) goto done;
+
+    if(sParam[0] == '"')
+    {
+        if(iLen < 2)
+        {
+            printf("[%s %d] invalid param[%s]\n", __func__, __LINE__, sParam);
+            goto done;
+        }
+
+        if(sParam[iLen - 1] != '"')
+        {
+            printf("[%s %d] invalid param[%s]\n", __func__, __LINE__, sParam);
+            goto done;
+        }
+
+        sParam[0] = 0;
+        sParam[iLen - 1] = 0;
+        sRet = &(sParam[1]);
+    }
+    else
+    {
+        if(sParam[iLen - 1] == '"')
+        {
+            printf("[%s %d] invalid param[%s]\n", __func__, __LINE__, sParam);
+            goto done;
+        }
+
+        sRet = sParam;
+    }
+
+done:
+    return sRet;
+}
+
+int _at_cmd_buf_to_argc_argv(char *pbuf, int *argc, char *argv[], int iArgvNum)
+{
+    int count = 0;
+    char *p = NULL;
+    char *pTrim = NULL;
+
+    if((!pbuf) || (!argc) || (!argv) || (!iArgvNum))
+    {
+        return 0;
+    }
+
+    /** Get the first word */
+    p = strtok(pbuf, "=");
+    argv[count] = p;
+    //msg_print_uart1("\r\n _at_cmd_buf_to_argc_argv, argv[%d]:%s ", count, argv[count]);
+    count++;
+
+	while ((p = strtok(NULL, ",")) != NULL)
+    {
+        if(count >= iArgvNum)
+        {
+            break;
+        }
+
+	    //argv[count] = p;
+        //msg_print_uart1("\r\n _at_cmd_buf_to_argc_argv, argv[%d]:%s ", count, argv[count]);
+        pTrim = at_cmd_param_trim(p);
+        if(pTrim == NULL)
+        {
+            argv[count] = NULL;
+            return false;
+        }
+        argv[count] = pTrim;
+        count++;
+    }
+    *argc = count;
+
+	return true;
+}
+
+void at_uart1_write_buffer(char *buf, int len)
+{
+    int i;
+    for (i = 0; i < len; i++)
+    {
+        if(buf[i] == '\n') {
+            Hal_Uart_DataSend(UART_IDX_1, '\r');
+        }
+        Hal_Uart_DataSend(UART_IDX_1, buf[i]);
+    }
+}
+
+void at_uart1_printf(char *str)
+{
+    if (str == NULL) {
+        return;
+    }
+    at_uart1_write_buffer(str, strlen(str));
+}
+
+void at_response_result(uint8_t result_code)
+{
+    if (result_code < AT_RESULT_CODE_MAX) {
+        at_uart1_printf(at_result_string[result_code]);
+    }
+}
+
+void set_echo_on_impl(int on)
+{
+    int enable = false;
+    if(on) enable = true;
+    at_echo_on = enable;
+}
+
+int wpas_get_state(void)
+{
+    if (wpa_s == NULL) return 0;
+	return ((int)wpa_s->wpa_state);
+}
+
+int wpas_get_assoc_freq(void)
+{
+    if (wpa_s == NULL) return 0;
+    return ((int)wpa_s->assoc_freq);
+}
+
 /*
  * @brief AT Common Interface Initialization (AT Common)
  *
@@ -401,11 +707,18 @@ void at_cmd_common_func_init(void)
     uart1_mode_set_ble_host = uart1_mode_set_ble_host_impl;
     uart1_mode_set_others = uart1_mode_set_others_impl;
     uart1_mode_set_default = uart1_mode_set_default_impl;
-    uart1_rx_int_do_at = uart1_rx_int_do_at_impl;
+    //uart1_rx_int_do_at = uart1_rx_int_do_at_impl;
     uart1_rx_int_do_ble_hci = uart1_rx_int_do_ble_hci_impl;
     uart1_rx_int_do_ble_host = uart1_rx_int_do_ble_host_impl;
     uart1_rx_int_do_others = uart1_rx_int_do_others_impl;
     uart1_rx_int_handler_default = uart1_rx_int_handler_default_impl;
     at_clear_uart_buffer = at_clear_uart_buffer_impl;
+
+    uart1_rx_int_do_at = _uart1_rx_int_do_at_impl;
+    _uart1_rx_int_at_data_receive_ble = _uart1_rx_int_at_data_receive_ble_impl;
+    _uart1_rx_int_at_data_receive_tcpip = _uart1_rx_int_at_data_receive_tcpip_impl;
+
+    at_echo_on = true;
+    set_echo_on = set_echo_on_impl;
 }
 

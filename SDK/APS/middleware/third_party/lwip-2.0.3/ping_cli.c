@@ -2,7 +2,15 @@
 #include <stdlib.h>
 #include "ping_cmd.h"
 #include "ping_cli.h"
+#include "controller_wifi.h"
 
+
+void ping_cli_callback(ping_result_t *ptResult)
+{
+    CtrlWifi_PsStateForce(STA_PS_NONE, 0);
+
+    return;
+}
 
 int ping_cli_handler(int len, char *param[])
 {
@@ -10,6 +18,7 @@ int ping_cli_handler(int len, char *param[])
     uint32_t pktsz;
     uint32_t recv_timeout;
     uint32_t ping_period;
+    uint32_t awake_dur;
 
     if (len < 1) {
         return 1;
@@ -41,7 +50,13 @@ int ping_cli_handler(int len, char *param[])
         ping_period = strtol(param[4], NULL, 10);
     }
 
-    ping_init(count, param[0], strlen(param[0]), pktsz, recv_timeout, ping_period);
+    ping_request(count, param[0], PING_IP_ADDR_V4, pktsz, recv_timeout, ping_period, ping_cli_callback);
+
+    if (count > 0)
+        awake_dur = ((recv_timeout>ping_period)? recv_timeout:ping_period)*(count+1);
+    else
+        awake_dur = 0;
+    CtrlWifi_PsStateForce(STA_PS_AWAKE_MODE, awake_dur);
 
     return 0;
 }

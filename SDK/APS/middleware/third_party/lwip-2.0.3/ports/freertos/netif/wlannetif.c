@@ -66,6 +66,8 @@
 #include "port/wlannetif_if.h"
 #endif
 
+#include "wlannetif.h"
+
 #define TX_TASK_STACKSIZE           (512)
 #ifdef LWIP_DEBUG
 #define RX_TASK_STACKSIZE           (512*2)
@@ -80,6 +82,10 @@ LWIP_RETDATA sys_sem_t TxReadySem;
 LWIP_RETDATA sys_sem_t RxReadySem; /**< RX packet ready semaphore */
 LWIP_RETDATA sys_sem_t TxCleanSem;
 LWIP_RETDATA sys_thread_t rx_thread_handle;
+
+extern struct netif netif;
+
+char g_sLwipHostName[WLAN_HOST_NAME_LEN + 1] = {WLAN_DEF_HOST_NAME};
 
 static char *rx_packet_buf;
 static u16_t rx_packet_len;
@@ -101,6 +107,10 @@ struct ethernetif {
   /* Add whatever per-interface state that is needed here. */
 };
 
+void LWIP_ROMFN(wlanif_input)(struct netif *netif, void *buffer, u16_t len, void *arg)
+{
+    ethernetif_input(netif, buffer, len);
+}
 
 /**
  * In this function, the hardware should be initialized.
@@ -230,28 +240,30 @@ static struct pbuf *
 LWIP_ROMFN(low_level_input)(struct netif *netif, void *buf, u16_t len)
 {
     struct ethernetif *ethernetif = netif->state;
-    struct pbuf *p, *q;
+    struct pbuf *p = NULL, *q = NULL;
     //u16_t l = 0;
 
     LWIP_UNUSED_ARG(ethernetif);
 
     /* Drop oversized packet */
     if (len > 1514) {
-        return NULL;
+        goto done;
+        //return NULL;
     }
 
     if (!netif || !buf || len <= 0)
-      return NULL;
+        goto done;
+        //return NULL;
 
 #if ETH_PAD_SIZE
     len += ETH_PAD_SIZE; /* allow room for Ethernet padding */
 #endif
 
     /* We allocate a pbuf chain of pbufs from the pool. */
-    //p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
+    p = pbuf_alloc(PBUF_RAW, len, PBUF_POOL);
 
     /* We allocate a continous pbuf */
-    p = pbuf_alloc(PBUF_RAW, len, PBUF_RAM);
+    //p = pbuf_alloc(PBUF_RAW, len, PBUF_RAM);
 
     if (p != NULL) {
 
@@ -285,7 +297,7 @@ LWIP_ROMFN(low_level_input)(struct netif *netif, void *buf, u16_t len)
         }
 
         // Acknowledge that packet has been read;
-        wifi_mac_rx_queue_first_entry_free();
+        //wifi_mac_rx_queue_first_entry_free();
 
 #if ETH_PAD_SIZE
         pbuf_header(p, ETH_PAD_SIZE); /* reclaim the padding word */
@@ -294,11 +306,13 @@ LWIP_ROMFN(low_level_input)(struct netif *netif, void *buf, u16_t len)
         LINK_STATS_INC(link.recv);
     } else {
         /* drop packet(); */
-        wifi_mac_rx_queue_first_entry_free();
+        //wifi_mac_rx_queue_first_entry_free();
         LINK_STATS_INC(link.memerr);
         LINK_STATS_INC(link.drop);
     }
 
+done:
+    wifi_mac_rx_queue_first_entry_free();
     return p;
 }
 
@@ -379,7 +393,13 @@ LWIP_ROMFN(ethernetif_init)(struct netif *netif)
 
 #if LWIP_NETIF_HOSTNAME
     /* Initialize interface hostname */
-    netif->hostname = "netlink";
+    //netif->hostname = "netlink";
+    /*
+    snprintf(g_sLwipHostName, sizeof(g_sLwipHostName), "%s%02X%02X%02X",
+             WLAN_DEF_HOST_NAME_PREFIX,
+             s_StaInfo.au8Dot11MACAddress[3], s_StaInfo.au8Dot11MACAddress[4], s_StaInfo.au8Dot11MACAddress[5]);
+    */
+    netif->hostname = g_sLwipHostName;
 #endif /* LWIP_NETIF_HOSTNAME */
 
     /*
@@ -413,12 +433,14 @@ LWIP_ROMFN(ethernetif_init)(struct netif *netif)
 
 #ifdef TRANSPORT_TASK
     /* Packet receive task */
+    #if 0
     err = sys_sem_new(&RxReadySem, 0);
     LWIP_ASSERT("RxReadySem creation error", (err == ERR_OK));
     if((rx_thread_handle = sys_thread_new("receive_thread", __packet_rx_task, netif, RX_TASK_STACKSIZE, RX_PRIORITY)) == NULL)
     {
         printf("__packet_rx_task create failed\r\n");
     }
+    #endif
 	/* Transmit cleanup task */
 	err = sys_sem_new(&TxReadySem, 0);
 	LWIP_ASSERT("TxReadySem  creation error", (err == ERR_OK));
@@ -434,6 +456,7 @@ LWIP_ROMFN(ethernetif_init)(struct netif *netif)
     wifi_mac_rx_notify_tcp_callback_registration((wifi_mac_rx_notify_tcp_callback_t)wifi_rx_callback);
     wifi_mac_tx_notify_tcp_callback_registration((wifi_mac_tx_notify_tcp_callback_t)wifi_tx_callback);
 #endif /* TRANSPORT_TASK */
+
     return ERR_OK;
 }
 

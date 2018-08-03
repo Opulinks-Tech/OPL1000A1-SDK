@@ -13,7 +13,7 @@
 #define _PINMUX_API_H_
 
 #include "stdint.h"
-#include "nl1000.h"
+#include "opl1000.h"
 #include "hal_vic.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -64,6 +64,7 @@ typedef struct
     T_Pin pin2;     /**< UART0 TX :pin2  */
     T_Pin pin6;     /**< UART0 TX :pin6  */
     T_Pin pin10;    /**< UART0 TX :pin10 */
+    T_Pin pin16;    /**< UART0 TX :pin16 */
     T_Pin pin20;    /**< UART0 TX :pin20 */
 }T_Uart0_TX;
 
@@ -75,6 +76,7 @@ typedef struct
     T_Pin pin3;     /**< UART0 RX :pin3  */
     T_Pin pin7;     /**< UART0 RX :pin7  */
     T_Pin pin11;    /**< UART0 RX :pin11 */
+    T_Pin pin17;    /**< UART0 RX :pin17 */
     T_Pin pin21;    /**< UART0 RX :pin21 */
 }T_Uart0_RX;
 
@@ -104,6 +106,7 @@ typedef struct
     T_Pin pin4;     /**< UART1 TX :pin4  */
     T_Pin pin8;     /**< UART1 TX :pin8  */
     T_Pin pin11;    /**< UART1 TX :pin11 */
+    T_Pin pin17;    /**< UART1 TX :pin17 */
     T_Pin pin18;    /**< UART1 TX :pin18 */
     T_Pin pin21;    /**< UART1 TX :pin21 */
     T_Pin pin22;    /**< UART1 TX :pin22 */
@@ -117,6 +120,7 @@ typedef struct
     T_Pin pin5;     /**< UART1 RX :pin5  */
     T_Pin pin9;     /**< UART1 RX :pin9  */
     T_Pin pin10;    /**< UART1 RX :pin10 */
+    T_Pin pin16;    /**< UART1 RX :pin16 */
     T_Pin pin19;    /**< UART1 RX :pin19 */
     T_Pin pin20;    /**< UART1 RX :pin20 */
     T_Pin pin23;    /**< UART1 RX :pin23 */
@@ -230,6 +234,7 @@ typedef struct
     T_Pin pin6;     /**< SPI2 SCL OUT :pin6  */
     T_Pin pin9;     /**< SPI2 SCL OUT :pin9  */
     T_Pin pin10;    /**< SPI2 SCL OUT :pin10  */
+    T_Pin pin16;    /**< SPI2 SCL OUT :pin16  */
     T_Pin pin19;    /**< SPI2 SCL OUT :pin19  */
     T_Pin pin20;    /**< SPI2 SCL OUT :pin20  */
     T_Pin pin23;    /**< SPI2 SCL OUT :pin23  */
@@ -245,6 +250,7 @@ typedef struct
     T_Pin pin6;     /**< I2C SCL IN :pin6   */
     T_Pin pin9;     /**< I2C SCL IN :pin9   */
     T_Pin pin10;    /**< I2C SCL IN :pin10  */
+    T_Pin pin16;    /**< I2C SCL IN :pin16  */
     T_Pin pin19;    /**< I2C SCL IN :pin19  */
     T_Pin pin20;    /**< I2C SCL IN :pin20  */
     T_Pin pin23;    /**< I2C SCL IN :pin23  */
@@ -260,6 +266,7 @@ typedef struct
     T_Pin pin7;      /**< I2C SCL OUT :pin7  */
     T_Pin pin8;      /**< I2C SCL OUT :pin8  */
     T_Pin pin11;     /**< I2C SCL OUT :pin11  */
+    T_Pin pin17;     /**< I2C SCL OUT :pin17  */
     T_Pin pin18;     /**< I2C SCL OUT :pin18  */
     T_Pin pin21;     /**< I2C SCL OUT :pin21  */
     T_Pin pin22;     /**< I2C SCL OUT :pin22  */
@@ -275,6 +282,7 @@ typedef struct
     T_Pin pin7;       /**< I2C SDA IN :pin7  */
     T_Pin pin8;       /**< I2C SDA IN :pin8  */
     T_Pin pin11;      /**< I2C SDA IN :pin11  */
+    T_Pin pin17;      /**< I2C SDA IN :pin17  */
     T_Pin pin18;      /**< I2C SDA IN :pin18  */
     T_Pin pin21;      /**< I2C SDA IN :pin21  */
     T_Pin pin22;      /**< I2C SDA IN :pin22  */

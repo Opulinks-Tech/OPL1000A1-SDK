@@ -20,6 +20,8 @@
 #include "at_cmd_common.h"
 #include "at_cmd_task.h"
 #include "at_cmd_msg_ext.h"
+#include "at_cmd_data_process.h"
+#include "at_cmd_app.h"
 
 /*
  * @brief AT Module API Interface Initialization
@@ -38,5 +40,13 @@ void at_func_init(void)
 
     /** AT Msg Extend */
     at_msg_ext_init();
+
+    /** AT Cmd Architecture */
+    _at_cmd_func_init();
+
+    /** AT Data Process */
+    data_process_func_init();
+
+    at_cmd_app_func_preinit();
 }
 

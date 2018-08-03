@@ -114,6 +114,11 @@
 //#ifdef DEMO_TC
 #define WPA_CLI_CMD_DEMO_CONNECT "wpa_demo_connect"
 //#endif
+#define WPA_CLI_CMD_DBG_MODE "wpa_dbg_mode"
+#define WPA_CLI_CMD_CONN_MODE "wpa_conn_mode"
+#define WPA_CLI_CMD_CLEAR_AC_LIST "wpa_clear_ac"
+#define WPA_CLI_CMD_FAST_CONNECT "wpa_fast_connect"
+#define WPA_CLI_CMD_DBG      "wpa_dbg"
 
 /*
   CLI interface
@@ -142,6 +147,12 @@ void wpa_cli_scrt_dbg_by_param_impl(int argc, char *argv[]);
 int wpa_cli_connect_for_demo_impl(u8 *bssid, u8 *ssid, int ssid_len, u8 *pwd, int pwd_len);
 int wpa_cli_scan_for_demo_impl(int mode);
 //#endif //DEMO_TC
+void wpa_cli_setdbgmode_by_param_impl(int argc, char *argv[]);
+int wpa_cli_conn_mode_impl(int argc, char *argv[]);
+void debug_auto_connect_impl(void);
+int wpa_cli_clear_ac_list_impl(int argc, char *argv[]);
+int wpa_cli_fast_connect_impl(int argc, char *argv[]);
+int wpa_cli_dbg_impl(int argc, char *argv[]);
 
 typedef int (*wpa_cli_connect_fp_t)(struct wpa_config * conf);
 typedef int (*wpa_cli_connect_by_bssid_fp_t)(u8 *bssid);
@@ -169,6 +180,12 @@ typedef int (*wpa_cli_getrssi_fp_t)(void);
 typedef int (*wpa_cli_connect_for_demo_fp_t)(u8 *bssid, u8 *ssid, int ssid_len, u8 *pwd, int pwd_len);
 typedef int (*wpa_cli_scan_for_demo_fp_t)(int mode);
 //#endif //DEMO_TC
+typedef void (*wpa_cli_setdbgmode_by_param_fp_t)(int argc, char *argv[]);
+typedef int (*wpa_cli_conn_mode_fp_t) (int argc, char *argv[]);
+typedef void (*debug_auto_connect_fp_t) (void);
+typedef int (*wpa_cli_clear_ac_list_fp_t) (int argc, char *argv[]);
+typedef int (*wpa_cli_fast_connect_fp_t) (int argc, char *argv[]);
+typedef int (*wpa_cli_dbg_fp_t) (int argc, char *argv[]);
 
 extern wpa_cli_connect_fp_t wpa_cli_connect;
 extern wpa_cli_connect_by_bssid_fp_t wpa_cli_connect_by_bssid;
@@ -196,6 +213,12 @@ extern wpa_cli_getrssi_fp_t wpa_cli_getrssi;
 extern wpa_cli_connect_for_demo_fp_t wpa_cli_connect_for_demo;
 extern wpa_cli_scan_for_demo_fp_t wpa_cli_scan_for_demo;
 //#endif
+extern wpa_cli_setdbgmode_by_param_fp_t wpa_cli_setdbgmode_by_param;
+extern wpa_cli_conn_mode_fp_t wpa_cli_conn_mode;
+extern debug_auto_connect_fp_t debug_auto_connect;
+extern wpa_cli_clear_ac_list_fp_t wpa_cli_clear_ac_list;
+extern wpa_cli_fast_connect_fp_t wpa_cli_fast_connect;
+extern wpa_cli_dbg_fp_t wpa_cli_dbg;
 
 /*
    Interface Initialization: WPA CLI

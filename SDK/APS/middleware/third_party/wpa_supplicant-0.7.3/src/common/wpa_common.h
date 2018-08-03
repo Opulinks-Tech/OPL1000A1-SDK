@@ -275,12 +275,14 @@ struct wpa_ie_data {
   Scan Mode
     #0: Active Scan
     #1: Passive Scan
+    #2: MIX Scan (Combine Active and Passive)
 */
 enum wifi_scan_mode
 {
   SCAN_MODE_ACTIVE = 0,
   SCAN_MODE_PASSIVE,
-  SCAN_MODE_NUM
+  SCAN_MODE_MIX,
+  SCAN_MODE_NUM,
 };
 
 const char * wpa_cipher_txt(int cipher);

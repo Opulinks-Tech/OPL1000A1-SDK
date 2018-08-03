@@ -196,6 +196,8 @@ typedef err_t (*netif_output_ip6_fn)(struct netif *netif, struct pbuf *p,
 typedef err_t (*netif_linkoutput_fn)(struct netif *netif, struct pbuf *p);
 /** Function prototype for netif status- or link-callback functions. */
 typedef void (*netif_status_callback_fn)(struct netif *netif);
+/** Function prototype for netif address change-callback functions. */
+typedef void (*netif_ipchange_callback_fn)( struct netif *netif, const ip4_addr_t *new_ip );
 #if LWIP_IPV4 && LWIP_IGMP
 /** Function prototype for netif igmp_mac_filter functions */
 typedef err_t (*netif_igmp_mac_filter_fn)(struct netif *netif,
@@ -265,6 +267,11 @@ struct netif {
    */
   netif_status_callback_fn status_callback;
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+  /** This function is called when the netif changes IP address
+   */
+  netif_ipchange_callback_fn ipchange_callback;
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
 #if LWIP_NETIF_LINK_CALLBACK
   /** This function is called when the netif link is set to up or down
    */
@@ -403,6 +410,11 @@ void netif_set_down(struct netif *netif);
 #if LWIP_NETIF_STATUS_CALLBACK
 void netif_set_status_callback(struct netif *netif, netif_status_callback_fn status_callback);
 #endif /* LWIP_NETIF_STATUS_CALLBACK */
+
+#if LWIP_NETIF_IP_CHANGE_CALLBACK
+void netif_set_ipchange_callback(struct netif *netif, netif_ipchange_callback_fn ipchange_callback);
+#endif /* LWIP_NETIF_IP_CHANGE_CALLBACK */
+
 #if LWIP_NETIF_REMOVE_CALLBACK
 void netif_set_remove_callback(struct netif *netif, netif_status_callback_fn remove_callback);
 #endif /* LWIP_NETIF_REMOVE_CALLBACK */

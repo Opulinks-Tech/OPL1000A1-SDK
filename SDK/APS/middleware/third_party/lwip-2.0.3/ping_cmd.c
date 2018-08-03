@@ -61,6 +61,7 @@
 #endif /* PING_USE_SOCKETS */
 
 #include "msg.h"
+#include "sys_os_config.h"
 
 /**
  * PING_DEBUG: Enable debugging for PING.
@@ -103,7 +104,7 @@
 #define PING_RESULT(ping_ok)
 #endif
 
-#define PING_TASK_NAME                 "ping_thread"
+#define PING_TASK_NAME                 OS_TASK_NAME_PING
 #define PING_TASK_STACKSIZE            (512 * 4)
 #define PING_TASK_PRIO                 DEFAULT_THREAD_PRIO
 
@@ -447,17 +448,23 @@ void ping_stop(void)
     g_ping_exit = 1;
 }
 
-void ping_request(uint32_t count, char *addr, uint8_t addr_type, uint32_t ping_size, ping_request_result_t callback)
+void ping_request(uint32_t count, char *addr, uint8_t addr_type, uint32_t ping_size,
+                  uint32_t recv_timeout, uint32_t ping_period, ping_request_result_t callback)
 {
     if(is_ping_ongoing == 1)
     {
         PING_LOGI("Ping is ongoing, please try it later.");
         return;
     }
+
     is_ping_ongoing = 1;
+    g_ping_exit = 0;
     g_ping_arg.count = count;
     g_ping_arg.size = ping_size;
+    g_ping_arg.recv_timout = recv_timeout;
+    g_ping_arg.ping_period = ping_period;
     g_ping_arg.callback = callback;
+
     if (addr_type == PING_IP_ADDR_V4)
     {
         int addr_len;

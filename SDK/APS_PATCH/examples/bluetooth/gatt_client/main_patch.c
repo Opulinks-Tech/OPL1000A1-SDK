@@ -36,11 +36,12 @@ Head Block of The File
 // Sec 1: Include File
 #include <stdio.h>
 #include <string.h>
-#include "sys_init_patch.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
 #include "ble_client_app.h"
-
+#include "sys_init.h"
+#include "sys_init_patch.h"
+#include "mw_fim.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
@@ -74,7 +75,7 @@ Declaration of static Global Variables & Functions
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
 void Main_AppInit_patch(void);
-
+static void Main_FlashLayoutUpdate(void);
 
 /***********
 C Functions
@@ -100,8 +101,30 @@ static void __Patch_EntryPoint(void)
     // don't remove this code
     SysInit_EntryPoint();
     
+    // update the flash layout
+    MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+    
     // application init
-    Main_AppInit = Main_AppInit_patch;
+    Sys_AppInit = Main_AppInit_patch;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_FlashLayoutUpdate
+*
+* DESCRIPTION:
+*   update the flash layout
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_FlashLayoutUpdate(void)
+{
+    // update here
 }
 
 /*************************************************************************

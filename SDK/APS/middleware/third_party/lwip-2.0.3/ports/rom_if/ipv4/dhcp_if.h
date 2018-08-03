@@ -183,6 +183,7 @@ typedef void (*dhcp_set_struct_fp_t)(struct netif *netif, struct dhcp *dhcp);
 /** Remove a struct dhcp previously set to the netif using dhcp_set_struct() */
 #define dhcp_remove_struct(netif) netif_set_client_data(netif, LWIP_NETIF_CLIENT_DATA_INDEX_DHCP, NULL)
 typedef void (*dhcp_cleanup_fp_t)(struct netif *netif);
+typedef void (*dhcp_set_cb_fp_t)(struct netif *netif, void (*cb)(struct netif*));
 typedef err_t (*dhcp_start_fp_t)(struct netif *netif);
 typedef err_t (*dhcp_renew_fp_t)(struct netif *netif);
 typedef err_t (*dhcp_release_fp_t)(struct netif *netif);
@@ -201,6 +202,7 @@ typedef void (*dhcp_fine_tmr_fp_t)(void);
 extern dhcp_set_struct_fp_t        dhcp_set_struct_adpt;
 extern dhcp_cleanup_fp_t           dhcp_cleanup_adpt;
 extern dhcp_start_fp_t             dhcp_start_adpt;
+extern dhcp_set_cb_fp_t            dhcp_set_cb_adpt;
 extern dhcp_renew_fp_t             dhcp_renew_adpt;
 extern dhcp_release_fp_t           dhcp_release_adpt;
 extern dhcp_stop_fp_t              dhcp_stop_adpt;

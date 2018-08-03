@@ -40,28 +40,16 @@
 #endif
 
 #ifdef IPC_SUT
-    #ifdef TRACER
-        #define IPC_LOGT        tracer_drct_printf
-    #else
-        #ifdef IPC_MSQ
-            #define IPC_LOGT(...)
-        #else
-            #define IPC_LOGT    printf
-        #endif
-    #endif
+    #define IPC_LOGT        tracer_drct_printf
 
     #undef IPC_LOGE
     #define IPC_LOGE            IPC_LOGT
 #endif
 
-#ifdef TRACER
-    #define IPC_LOGC(args...)   tracer_cli(LOG_MED_LEVEL, args)
-#else
-    #define IPC_LOGC            printf
-#endif
+#define IPC_LOGC(args...)   tracer_cli(LOG_MED_LEVEL, args)
 
 
-#ifdef __NL1000_A0__
+#ifdef __NL1000_An__
 #define IPC_SHARED_MEM_ADDR         0x80000000
 #define IPC_SHARED_MEM_SIZE         0x00010000
 #else   // __NL1000_TC__
@@ -253,6 +241,11 @@
 #define IPC_WIFI_STA_INFO_START         IPC_ADDR_ALIGN(IPC_DBG_TRX_PARAM_END, 4)
 #define IPC_WIFI_STA_INFO_LEN           sizeof(WifiSta_StaInfo_s)
 #define IPC_WIFI_STA_INFO_END           (IPC_WIFI_STA_INFO_START + IPC_WIFI_STA_INFO_LEN)
+
+// For PS module ps_conf
+#define IPC_PS_CONF_START        		 IPC_ADDR_ALIGN(IPC_WIFI_STA_INFO_END, 4)
+#define IPC_PS_CONF_LEN         		  sizeof(t_ps_conf)
+#define IPC_PS_CONF_END          		 (IPC_PS_CONF_START + IPC_PS_CONF_LEN)
 
 #ifdef IPC_SUT
 

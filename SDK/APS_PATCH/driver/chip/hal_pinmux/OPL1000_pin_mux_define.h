@@ -15,24 +15,26 @@
 
 #define  NULL_INDEX       0   
 #define  BLANK_PIN        0
-#define  OPL1000_IO2_PIN   22
-#define  OPL1000_IO3_PIN   23
-#define  OPL1000_IO4_PIN   24
-#define  OPL1000_IO5_PIN   26
-#define  OPL1000_IO6_PIN   27
-#define  OPL1000_IO7_PIN   29
-#define  OPL1000_IO8_PIN   30
-#define  OPL1000_IO9_PIN   31
-#define  OPL1000_IO10_PIN  32
-#define  OPL1000_IO11_PIN  33
-#define  OPL1000_IO18_PIN  43
-#define  OPL1000_IO19_PIN  44
-#define  OPL1000_IO20_PIN  45
-#define  OPL1000_IO21_PIN  46
-#define  OPL1000_IO22_PIN  47
-#define  OPL1000_IO23_PIN  48
+#define  OPL1000_IO2_PIN   23
+#define  OPL1000_IO3_PIN   24
+#define  OPL1000_IO4_PIN   25
+#define  OPL1000_IO5_PIN   27
+#define  OPL1000_IO6_PIN   28
+#define  OPL1000_IO7_PIN   30
+#define  OPL1000_IO8_PIN   31
+#define  OPL1000_IO9_PIN   32
+#define  OPL1000_IO10_PIN  33
+#define  OPL1000_IO11_PIN  34
+#define  OPL1000_IO16_PIN  40
+#define  OPL1000_IO17_PIN  42
+#define  OPL1000_IO18_PIN  44
+#define  OPL1000_IO19_PIN  45
+#define  OPL1000_IO20_PIN  46
+#define  OPL1000_IO21_PIN  47
+#define  OPL1000_IO22_PIN  48
+#define  OPL1000_IO23_PIN  29
 
-#define  OPL1000_AVALIABLE_PIN  16 
+#define  OPL1000_AVALIABLE_PIN  18 
 
 #define  UART_MAX_NUM          2
 #define  I2C_MAX_NUM           1  
@@ -119,7 +121,9 @@ typedef enum
     GPIO13, 
     GPIO14,
     GPIO15, 
-    GPIO16    
+    GPIO16,
+    GPIO17, 
+    GPIO18   
 }E_PortSignal_t;
 
 typedef enum

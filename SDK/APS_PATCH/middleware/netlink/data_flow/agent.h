@@ -13,17 +13,58 @@
 #define __AGENT_H__
 
 
-#define AGENT_TASK_NAME     "opl_agent"
+typedef enum
+{
+    AGENT_MSG_RF = 0,
 
+    AGENT_MSG_MAX
+} T_AgentMsgType;
 
 typedef struct
 {
-    uint32_t u32Type;
+    uint32_t u32Type;   // T_AgentMsgType
     void *pParam;
 
     // Todo
     
 } T_AgentMsg;
+
+typedef enum
+{
+    M3_MSG_RSP = 0,
+    M3_MSG_CFG_SET,
+
+    M3_MSG_MAX
+} T_M3MsgType;
+
+typedef enum
+{
+    M0_MSG_RSP = 0,
+    M0_MSG_CFG_WRITE,
+    M0_MSG_CFG_READ,
+
+    M0_MSG_MAX
+} T_M0MsgType;
+
+typedef struct
+{
+    uint8_t u8Type;     // T_M3MsgType
+    uint8_t u8Req;
+    uint8_t u8Status;
+    uint8_t u8Padding;
+
+    uint8_t u8aData[252];
+} T_M3CommMsg;
+
+typedef struct
+{
+    uint8_t u8Type;     // T_M0MsgType
+    uint8_t u8Req;
+    uint8_t u8Status;
+    uint8_t u8Padding;
+
+    uint8_t u8aData[252];
+} T_M0CommMsg;
 
 
 // internal

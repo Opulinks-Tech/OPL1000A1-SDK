@@ -486,8 +486,10 @@ LWIP_ROMFN(ip_reass_chain_frag_into_datagram_and_validate)(struct ip_reassdata *
   return IP_REASS_VALIDATE_PBUF_QUEUED; /* not yet valid! */
 #if IP_REASS_CHECK_OVERLAP
 freepbuf:
+  #if 0 // new_p will be freed in ip4_reass
   ip_reass_pbufcount -= pbuf_clen(new_p);
   pbuf_free(new_p);
+  #endif
   return IP_REASS_VALIDATE_PBUF_DROPPED;
 #endif /* IP_REASS_CHECK_OVERLAP */
 }

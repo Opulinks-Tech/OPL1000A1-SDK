@@ -23,7 +23,7 @@
  * @brief AT Command Interface Initialization for System modules
  *
  */
-void at_cmd_sys_func_init(void);
+void _at_cmd_sys_func_init(void);
 
 #endif //__AT_CMD_SYS_H__
 

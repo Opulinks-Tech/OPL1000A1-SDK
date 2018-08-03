@@ -15,10 +15,12 @@
 #include <stdint.h>
 
 #include "common.h"
-#include "wifi_nvm_patch.h"
+#include "rf_cfg.h"
 #include "sys_common_ctrl.h"
 #include "sys_common_log.h"
-#include "mw_fim_default_group01.h"
+#include "mw_fim_default_group01_patch.h"
+#include "wifi_nvm_patch.h"
+
 
 int base_mac_addr_src_get_cfg(u8 iface, u8* type)
 {
@@ -130,6 +132,48 @@ int base_nvm_mac_addr_src_write(u16 id, u16 len, void *ptr)
             break;   
         default:
             break;
+    }
+    
+    return true;
+}
+
+int get_rf_power_level(u8 *level)
+{
+    int ret;
+    T_RfCfg rf_cfg = {0};
+    
+    if (level == NULL) {
+        SYS_COMMON_LOGE("Invalid parameters.");
+        return -1;
+    }
+    
+    ret = rf_cfg_get(&rf_cfg);
+    if (ret) {
+        SYS_COMMON_LOGE("Get config of rf power failed.");
+        return -1;
+    }
+    
+    *level = rf_cfg.u8HighPwrStatus;
+    
+    return true;
+}
+
+int set_rf_power_level(u8 level)
+{
+    int ret;
+    T_RfCfg rf_cfg = {0};
+    
+    if (level > SYS_COMMON_RF_TYPE_HIGH) {
+        SYS_COMMON_LOGE("Invalid parameters.");
+        return -1;
+    }
+
+    rf_cfg.u8HighPwrStatus = level;
+    
+    ret = rf_cfg_set(&rf_cfg, 1);
+    if (ret) {
+        SYS_COMMON_LOGE("Set config of rf power failed.");
+        return -1;
     }
     
     return true;

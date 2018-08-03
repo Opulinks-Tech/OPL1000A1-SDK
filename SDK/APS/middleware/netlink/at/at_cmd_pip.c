@@ -35,7 +35,7 @@
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_fun1(int argc, char *argv[])
+int _at_cmd_pip_fun1(char *buf, int len, int mode)
 {
     return true;
 }
@@ -50,7 +50,7 @@ int at_cmd_pip_fun1(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_rsv(int argc, char *argv[])
+int _at_cmd_pip_rsv(char *buf, int len, int mode)
 {
     return true;
 }
@@ -65,7 +65,7 @@ int at_cmd_pip_rsv(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_master_init(int argc, char *argv[])
+int _at_cmd_pip_spi_master_init(char *buf, int len, int mode)
 {
     return true;
 }
@@ -80,7 +80,7 @@ int at_cmd_pip_spi_master_init(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_master_stop(int argc, char *argv[])
+int _at_cmd_pip_spi_master_stop(char *buf, int len, int mode)
 {
     return true;
 }
@@ -95,7 +95,7 @@ int at_cmd_pip_spi_master_stop(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_master_get_data(int argc, char *argv[])
+int _at_cmd_pip_spi_master_get_data(char *buf, int len, int mode)
 {
     return true;
 }
@@ -110,7 +110,7 @@ int at_cmd_pip_spi_master_get_data(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_master_buf_show(int argc, char *argv[])
+int _at_cmd_pip_spi_master_buf_show(char *buf, int len, int mode)
 {
     return true;
 }
@@ -125,7 +125,7 @@ int at_cmd_pip_spi_master_buf_show(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_slave_init(int argc, char *argv[])
+int _at_cmd_pip_spi_slave_init(char *buf, int len, int mode)
 {
     return true;
 }
@@ -140,7 +140,7 @@ int at_cmd_pip_spi_slave_init(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_slave_stop(int argc, char *argv[])
+int _at_cmd_pip_spi_slave_stop(char *buf, int len, int mode)
 {
     return true;
 }
@@ -155,7 +155,7 @@ int at_cmd_pip_spi_slave_stop(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_slave_buf_status(int argc, char *argv[])
+int _at_cmd_pip_spi_slave_buf_status(char *buf, int len, int mode)
 {
     return true;
 }
@@ -170,7 +170,7 @@ int at_cmd_pip_spi_slave_buf_status(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_spi_slave_buf_show(int argc, char *argv[])
+int _at_cmd_pip_spi_slave_buf_show(char *buf, int len, int mode)
 {
     return true;
 }
@@ -185,7 +185,7 @@ int at_cmd_pip_spi_slave_buf_show(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_uart_cts_rts_enable(int argc, char *argv[])
+int _at_cmd_pip_uart_cts_rts_enable(char *buf, int len, int mode)
 {
     return true;
 }
@@ -200,7 +200,7 @@ int at_cmd_pip_uart_cts_rts_enable(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_uart_cts_rts_disable(int argc, char *argv[])
+int _at_cmd_pip_uart_cts_rts_disable(char *buf, int len, int mode)
 {
     return true;
 }
@@ -215,7 +215,7 @@ int at_cmd_pip_uart_cts_rts_disable(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_uart_start(int argc, char *argv[])
+int _at_cmd_pip_uart_start(char *buf, int len, int mode)
 {
     return true;
 }
@@ -230,7 +230,7 @@ int at_cmd_pip_uart_start(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_uart_stop(int argc, char *argv[])
+int _at_cmd_pip_uart_stop(char *buf, int len, int mode)
 {
     return true;
 }
@@ -245,7 +245,7 @@ int at_cmd_pip_uart_stop(int argc, char *argv[])
  * @return 0 fail 1 success
  *
  */
-int at_cmd_pip_uart_write(int argc, char *argv[])
+int _at_cmd_pip_uart_write(char *buf, int len, int mode)
 {
     return true;
 }
@@ -254,39 +254,39 @@ int at_cmd_pip_uart_write(int argc, char *argv[])
   * @brief AT Command Table for Peripherial IP Module
   *
   */
-at_command_t gAtCmdTbl_Pip[] =
+_at_command_t _gAtCmdTbl_Pip[] =
 {
-    { "at+pipfun1",              at_cmd_pip_fun1,                   "Perpherial IP function 1" },
-    { "at+piprsv",               at_cmd_pip_rsv,                    "Perpherial IP Reserved" },
-    { "at+spi_master_init",      at_cmd_pip_spi_master_init,        "Open SPI Master and initialize buffer" },
-    { "at+spi_master_stop",      at_cmd_pip_spi_master_stop,        "Stop SPI Master" },
-    { "at+spi_master_get_data",  at_cmd_pip_spi_master_get_data,    "Get data from SPI Slave" },
-    { "at+spi_master_buf_show",  at_cmd_pip_spi_master_buf_show,    "Show SPI Master Buffer" },
-    { "at+spi_slave_init",       at_cmd_pip_spi_slave_init,         "Open SPI Slave" },
-    { "at+spi_slave_stop",       at_cmd_pip_spi_slave_stop,         "Stop SPI Slave" },
-    { "at+spi_slave_buf_status", at_cmd_pip_spi_slave_buf_status,   "Show SPI Slave Buffer Status" },
-    { "at+spi_slave_buf_show",   at_cmd_pip_spi_slave_buf_show,     "Show SPI Slave Buffer" },
-    { "at+uart_cts_rts_enable",  at_cmd_pip_uart_cts_rts_enable,    "Enable UART CTS/RTS" },
-    { "at+uart_cts_rts_disable", at_cmd_pip_uart_cts_rts_disable,   "Disable UART CTS/RTS" },
-    { "at+uart_start",           at_cmd_pip_uart_start,             "Start UART interface" },
-    { "at+uart_stop",            at_cmd_pip_uart_stop,              "Stop UART interface" },
-    { "at+uart_write",           at_cmd_pip_uart_write,             "Send data to UART interface" },
-    { NULL,                     NULL,                               NULL},
+    { "at+pipfun1",              _at_cmd_pip_fun1,                   "Perpherial IP function 1" },
+    { "at+piprsv",               _at_cmd_pip_rsv,                    "Perpherial IP Reserved" },
+    { "at+spi_master_init",      _at_cmd_pip_spi_master_init,        "Open SPI Master and initialize buffer" },
+    { "at+spi_master_stop",      _at_cmd_pip_spi_master_stop,        "Stop SPI Master" },
+    { "at+spi_master_get_data",  _at_cmd_pip_spi_master_get_data,    "Get data from SPI Slave" },
+    { "at+spi_master_buf_show",  _at_cmd_pip_spi_master_buf_show,    "Show SPI Master Buffer" },
+    { "at+spi_slave_init",       _at_cmd_pip_spi_slave_init,         "Open SPI Slave" },
+    { "at+spi_slave_stop",       _at_cmd_pip_spi_slave_stop,         "Stop SPI Slave" },
+    { "at+spi_slave_buf_status", _at_cmd_pip_spi_slave_buf_status,   "Show SPI Slave Buffer Status" },
+    { "at+spi_slave_buf_show",   _at_cmd_pip_spi_slave_buf_show,     "Show SPI Slave Buffer" },
+    { "at+uart_cts_rts_enable",  _at_cmd_pip_uart_cts_rts_enable,    "Enable UART CTS/RTS" },
+    { "at+uart_cts_rts_disable", _at_cmd_pip_uart_cts_rts_disable,   "Disable UART CTS/RTS" },
+    { "at+uart_start",           _at_cmd_pip_uart_start,             "Start UART interface" },
+    { "at+uart_stop",            _at_cmd_pip_uart_stop,              "Stop UART interface" },
+    { "at+uart_write",           _at_cmd_pip_uart_write,             "Send data to UART interface" },
+    { NULL,                      NULL,                               NULL},
 };
 
 /*
  * @brief Global variable g_AtCmdTbl_Pip_Ptr retention attribute segment
  *
  */
-RET_DATA at_command_t *g_AtCmdTbl_Pip_Ptr;
+RET_DATA _at_command_t *_g_AtCmdTbl_Pip_Ptr;
 
 /*
  * @brief AT Command Interface Initialization for Peripherial IP modules
  *
  */
-void at_cmd_pip_func_init(void)
+void _at_cmd_pip_func_init(void)
 {
     /** Command Table (PIP) */
-    g_AtCmdTbl_Pip_Ptr = gAtCmdTbl_Pip;
+    _g_AtCmdTbl_Pip_Ptr = _gAtCmdTbl_Pip;
 }
 

@@ -41,7 +41,7 @@ int cli_do_multilevel_cmd(cli_command_t *cmd_tble, int argc, char *argv[])
 #if defined(__SIMULATOR__)
 
 #define CLI_MAX_BUFFER_SIZE         80   // CLI Buffer size (char)
-#define CLI_PROMPT "NL1000> "
+#define CLI_PROMPT "OPL1000> "
 
 //extern void CmdProcess(char *pbuf, int len);
 extern char uart_getchar(void);
