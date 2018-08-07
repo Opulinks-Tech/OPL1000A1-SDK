@@ -46,6 +46,8 @@ Head Block of The File
 Declaration of data structure
 ********************************************/
 // Sec 3: structure, uniou, enum, linked list...
+typedef void (*T_Hal_SysPinMuxM3UartInit)(void);
+typedef void (*T_Hal_SysPinMuxM3UartSwitch)(void);
 
 /********************************************
 Declaration of Global Variables & Functions
@@ -71,6 +73,12 @@ C Functions
 void Hal_Sys_SleepInit_patch(void);
 
 /* Pin-Mux relative*/
+void Hal_SysPinMuxAppInit_patch(void);
+void Hal_SysPinMuxDownloadInit_patch(void);
+void Hal_SysPinMuxM3UartInit_impl(void);
+void Hal_SysPinMuxM3UartSwitch_impl(void);
+extern T_Hal_SysPinMuxM3UartInit   Hal_SysPinMuxM3UartInit;
+extern T_Hal_SysPinMuxM3UartSwitch Hal_SysPinMuxM3UartSwitch;
 
 /* Ret RAM relative*/
 

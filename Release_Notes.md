@@ -1,4 +1,41 @@
 ## Release Version:
+SDK Package: 1.1.1.2
+Patch_Lib : 2273
+ROM_CODE: 1655 
+
+## Release Date: 2018/8/7
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.1.1.2,  updated document according to BLE and WIFI part APIs.  
+ 1.2 OPL1000-patch-download-tool-user-guide: R03-V05, add OTA image pack introduction, update download procedure according.   
+ 1.3 OPL1000-AT-instruction-set-and-examples: R05-V12, add more descrption for AT+CWMODE, AT+CWLAP and AT+WRITEFLASH commands.
+ 1.4 OPL1000-OTA-User-Guide: R01-V04, update OTA image pack operation figure according to v0.20 download tool. 
+ 1.5 Add a new document OPL1000-IOT-Application-Framework-User-Guide R01-V01, which introduce BLE configure WIFI AP working principle. 
+2. A new example ota (via WIFI) is added. This example shows how to implement OTA over WIFI connection.     
+3. DEVKIT USB to UART is connected to IO0/IO1 instead of IO8/IO9. 
+4. Tool version information and update:
+ 4.1 download tool: v0.20. Add OTA image pack function. Unify download method to pure patch bin file and OTA image file.      
+ 4.2 pin-mux tool: v0.6. No change since v1.1.1.1    
+5. AT command is mapping to IO0/IO1, not IO8/IO9. IO8 and IO9 is used for debug UART log information output.  
+6. Improve WIFI TX path throughput, waiting time is reduced to 1ms from 2000ms when TX queue is full.     
+7. Remove the limitation of change WIFI mac address before disconnect.
+8. Change hardware sleep related configuration to improve power saving performance. 
+
+## Bug Fix List 
+1. Fix bugs in AT Command " AT+CWLAP", "AT+CWAUTOCONN",  "AT+CWJAP?" and "AT+CWAUTOCONN?" , 
+2. Fix bug of "getting auto connect AP info incorrect" issue
+3. Fix bug of "the UART buffer of AT Cmd is not initialized"
+4. Fix bug of "update connected AP info failed" issue 
+5. Fix AT task produce memory leak problem
+
+## Notes List 
+1. Completed power saving functions are on-developing 
+2. More examples such as MQTT, AT commands are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.1
 Patch_Lib : 2227
 ROM_CODE: 1655

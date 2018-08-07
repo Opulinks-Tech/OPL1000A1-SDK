@@ -455,7 +455,6 @@ int _at_cmd_tcpip_cipstamac_patch(char *buf, int len, int mode)
     uint8_t mac[6] = {0};
     char temp[64]={0};
     char *pstr;
-    int state;
 
     switch (mode) {
         case AT_CMD_MODE_READ:
@@ -504,13 +503,6 @@ int _at_cmd_tcpip_cipstamac_patch(char *buf, int len, int mode)
 
             if (is_zero_ether_addr(mac)) {
                 AT_LOGI("Invalid mac address, all of mac is zero. \r\n");
-                goto exit;
-            }
-
-            state = wpas_get_state();
-            if(state == WPA_COMPLETED || state == WPA_ASSOCIATED) {
-                AT_LOGI("In connected, set mac address failed\r\n");
-                ret = AT_RESULT_CODE_FAIL;
                 goto exit;
             }
 

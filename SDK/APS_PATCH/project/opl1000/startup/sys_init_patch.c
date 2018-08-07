@@ -352,7 +352,7 @@ static void Sys_DriverInit_patch(void)
     Hal_SysPinMuxAppInit();
 
 	  // Added for mapping IO8/9 to mini-USB UART 
-	  Hal_SysPinMuxDownloadInit();
+	  // Hal_SysPinMuxDownloadInit();
 	
     // Init VIC
     Hal_Vic_Init();

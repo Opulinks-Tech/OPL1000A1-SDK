@@ -193,6 +193,8 @@ void _uart1_rx_int_do_at_patch(uint32_t u32Data)
  */
 void at_cmd_common_func_init_patch(void)
 {
+	memset(&at_rx_buf, 0, sizeof(at_uart_buffer_t));
+    
     uart1_rx_int_do_at = _uart1_rx_int_do_at_patch;
     _uart1_rx_int_at_data_receive_tcpip = _uart1_rx_int_at_data_receive_tcpip_patch;
 }

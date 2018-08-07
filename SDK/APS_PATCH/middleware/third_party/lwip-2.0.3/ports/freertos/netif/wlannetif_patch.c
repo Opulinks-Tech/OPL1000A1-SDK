@@ -79,7 +79,7 @@ struct ethernetif {
 };
 
 extern struct netif netif;
-
+extern sys_sem_t TxReadySem;
 
 /**
  * In this function, the hardware should be initialized.
@@ -142,9 +142,46 @@ low_level_init_patch(struct netif *netif)
     /* Do whatever else is needed to initialize interface. */
 }
 
+static err_t
+low_level_output_patch(struct netif *netif, struct pbuf *p)
+{
+    struct ethernetif *ethernetif = netif->state;
+    struct pbuf *q;
+    static int full_count = 0;
+    static int write_count = 0;
+    u16_t len = 0;
+    LWIP_UNUSED_ARG(ethernetif);
+#if ETH_PAD_SIZE
+    pbuf_header(p, -ETH_PAD_SIZE); /* drop the padding word */
+#endif
+    for(q = p; q != NULL; q = q->next) {
+        #ifdef TX_PKT_DUMP
+        dump_buffer(q->payload, q->len, 1);
+        #endif
+        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) )
+        {
+            full_count++;
+            printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
+            sys_arch_sem_wait(&TxReadySem, 1);
+            printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
+        }
+        else
+        {
+            full_count = 0;
+            write_count++;
+        }
+        len = len + q->len;
+    }
+#if ETH_PAD_SIZE
+    pbuf_header(p, ETH_PAD_SIZE); /* reclaim the padding word */
+#endif
+    LINK_STATS_INC(link.xmit);
+  return ERR_OK;
+}
 void lwip_load_interface_wlannetif_patch(void)
 {
     low_level_init_adpt  = low_level_init_patch;
+    low_level_output_adpt = low_level_output_patch;
     return;
 }
 

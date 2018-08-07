@@ -103,6 +103,13 @@ void peripheral_patch_init(void)
     // vic and GPIO
 
     // system (AOS+sys_reg)
+    Hal_Sys_SleepInit       = Hal_Sys_SleepInit_patch;
+    Hal_Sys_ApsClkTreeSetup = Hal_Sys_ApsClkTreeSetup_patch;
+    Hal_Sys_MsqClkTreeSetup = Hal_Sys_MsqClkTreeSetup_patch;
+    Hal_SysPinMuxAppInit      = Hal_SysPinMuxAppInit_patch;
+    Hal_SysPinMuxDownloadInit = Hal_SysPinMuxDownloadInit_patch;
+    Hal_SysPinMuxM3UartInit   = Hal_SysPinMuxM3UartInit_impl;
+    Hal_SysPinMuxM3UartSwitch = Hal_SysPinMuxM3UartSwitch_impl;
 
     // dbg_uart
 
@@ -125,7 +132,4 @@ void peripheral_patch_init(void)
     // dma
 
     // Peripheral
-    Hal_Sys_SleepInit = Hal_Sys_SleepInit_patch;
-    Hal_Sys_ApsClkTreeSetup = Hal_Sys_ApsClkTreeSetup_patch;
-    Hal_Sys_MsqClkTreeSetup = Hal_Sys_MsqClkTreeSetup_patch;
 }

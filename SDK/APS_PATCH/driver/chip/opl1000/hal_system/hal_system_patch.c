@@ -181,6 +181,8 @@ Declaration of Global Variables & Functions
 /* Sleep Mode relative */
 
 /* Pin-Mux relative*/
+RET_DATA T_Hal_SysPinMuxM3UartInit   Hal_SysPinMuxM3UartInit;
+RET_DATA T_Hal_SysPinMuxM3UartSwitch Hal_SysPinMuxM3UartSwitch;
 
 /* Ret RAM relative*/
 
@@ -261,4 +263,474 @@ uint32_t Hal_Sys_MsqClkTreeSetup_patch(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8
 
     // Orignal code
     return Hal_Sys_MsqClkTreeSetup_impl( eClkTreeSrc, u8ClkDivEn );
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_SysPinMuxAppInit
+*
+* DESCRIPTION:
+*   1. Pin-Mux initial for application stage
+*   2. Related reg.: AOS 0x090 ~ 0x0DC
+* CALLS
+*
+* PARAMETERS
+*   None
+* RETURNS
+*   None
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+void Hal_SysPinMuxAppInit_patch(void)
+{
+    volatile uint32_t tmp;
+
+    Hal_SysPinMuxM3UartInit();
+
+// SPI0 standard mode
+    // IO12(CS), IO13(CLK), IO14(MOSI), IO15(MISO)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_B;
+    tmp &= ~(((uint32_t)0xF << 28) | (0xF << 24) | (0xF << 20) | (0xF << 16));
+    tmp |= ((0x0 << 28) | (0x0 << 24) | (0x0 << 20) | (0x0 << 16));
+    AOS->RG_PDI_SRC_IO_B = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_C;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0x0 << 4) | (0x0 << 0));
+    AOS->RG_PTS_INMUX_C = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 15) | (0x1 << 14) | (0x1 << 13) | (0x1 << 12));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 15) | (0x1 << 14) | (0x1 << 13) | (0x1 << 12));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 15) | (0x1 << 14) | (0x1 << 13) | (0x1 << 12));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 15) | (0x1 << 14) | (0x1 << 13) | (0x1 << 12));
+    AOS->RG_PDOV_MODE = tmp;
+
+// MSQ_dbg_uart
+    // IO16(RX), IO17(TX)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_C;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0xB << 4) | (0xD << 0));
+    AOS->RG_PDI_SRC_IO_C = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~(0xF << 20);
+    tmp |= (0x8 << 20);
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 17) | (0x1 << 16));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~(0x1 << 17);
+    tmp |= (0x1 << 16);
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 17) | (0x1 << 16));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 17) | (0x1 << 16));
+    AOS->RG_PDOV_MODE = tmp;
+
+// M0 SWD
+    // IO18(CLK), IO19(DAT)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_C;
+    tmp &= ~((0xF << 12) | (0xF << 8));
+    tmp |= ((0x9 << 12) | (0xD << 8));
+    AOS->RG_PDI_SRC_IO_C = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_B;
+    tmp &= ~((0xF << 24) | (0xF << 20));
+    tmp |= ((0x9 << 24) | (0x9 << 20));
+    AOS->RG_PTS_INMUX_B = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 19) | (0x1 << 18));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 19) | (0x1 << 18));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 19) | (0x1 << 18));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 19) | (0x1 << 18));
+    AOS->RG_PDOV_MODE = tmp;
+
+// M3 SWD
+    // IO20(DAT), IO21(CLK)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_C;
+    tmp &= ~((0xF << 20) | (0xF << 16));
+    tmp |= ((0xD << 20) | (0x8 << 16));
+    AOS->RG_PDI_SRC_IO_C = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_B;
+    tmp &= ~((0xF << 16) | (0xF << 12));
+    tmp |= ((0xA << 16) | (0xA << 12));
+    AOS->RG_PTS_INMUX_B = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 21) | (0x1 << 20));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 21) | (0x1 << 20));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 21) | (0x1 << 20));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 21) | (0x1 << 20));
+    AOS->RG_PDOV_MODE = tmp;
+
+    // M3 SWD enable
+    Hal_Sys_SwDebugEn(0x1);
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_SysPinMuxDownloadInit
+*
+* DESCRIPTION:
+*   1. Pin-Mux initial for download stage
+*   2. Related reg.: AOS 0x090 ~ 0x0DC
+* CALLS
+*
+* PARAMETERS
+*   None
+* RETURNS
+*   None
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+void Hal_SysPinMuxDownloadInit_patch(void)
+{
+    Hal_SysPinMuxM3UartSwitch();
+    Hal_SysPinMuxSpiFlashInit();
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_SysPinMuxM3UartInit
+*
+* DESCRIPTION:
+*   1. Pin-Mux for initial stage
+*   2. Related reg.: AOS 0x090 ~ 0x0DC
+* CALLS
+*
+* PARAMETERS
+*   None
+* RETURNS
+*   None
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+void Hal_SysPinMuxM3UartInit_impl(void)
+{
+    volatile uint32_t tmp;
+
+// UART1
+    // IO0(TX), IO1(RX), IO6(RTS), IO7(CTS)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~(((uint32_t)0xF << 28) | (0xF << 24) | (0xF << 4) | (0xF << 0));
+    tmp |= (((uint32_t)0xD << 28) | (0x3 << 24) | (0xD << 4) | (0x4 << 0));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~((0xF << 12) | (0xF << 8));
+    tmp |= ((0x0 << 12) | (0x0 << 8));
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 1) | (0x1 << 0));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 6) | (0x1 << 0));
+    tmp |= ((0x1 << 7) | (0x1 << 1));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 1) | (0x1 << 0));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 1) | (0x1 << 0));
+    AOS->RG_PDOV_MODE = tmp;
+    
+#if (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_1)
+// APS_dbg_uart
+    // IO8(TX), IO9(RX)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_B;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0xD << 4) | (0xA << 0));
+    AOS->RG_PDI_SRC_IO_B = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~(0xF << 16);
+    tmp |= (0x4 << 16);
+    AOS->RG_PTS_INMUX_A = tmp;
+    
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 9) | (0x1 << 8));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~(0x1 << 8);
+    tmp |= (0x1 << 9);
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8));
+    AOS->RG_PDOV_MODE = tmp;
+    
+#elif (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_2)
+// APS_dbg_uart
+    // IO4(TX), IO5(RX)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~((0xF << 20) | (0xF << 16));
+    tmp |= ((0xD << 20) | (0xA << 16));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~(0xF << 16);
+    tmp |= (0x2 << 16);
+    AOS->RG_PTS_INMUX_A = tmp;
+    
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 5) | (0x1 << 4));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~(0x1 << 4);
+    tmp |= (0x1 << 5);
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 5) | (0x1 << 4));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 5) | (0x1 << 4));
+    AOS->RG_PDOV_MODE = tmp;
+
+// UART0
+    // IO2(TX), IO3(RX), IO8(CTS), IO9(RTS)
+    // output source
+    // IO2, IO3
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~((0xF << 12) | (0xF << 8));
+    tmp |= ((0xD << 12) | (0x3 << 8));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // IO8, IO9
+    tmp = AOS->RG_PDI_SRC_IO_B;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0x3 << 4) | (0xD << 0));
+    AOS->RG_PDI_SRC_IO_B = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0x0 << 4) | (0x1 << 0));
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 3) | (0x1 << 2));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 9) | (0x1 << 2));
+    tmp |= ((0x1 << 8) | (0x1 << 3));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 3) | (0x1 << 2));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 3) | (0x1 << 2));
+    AOS->RG_PDOV_MODE = tmp;
+
+#endif
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_SysPinMuxM3UartSwitch
+*
+* DESCRIPTION:
+*   1. Pin-Mux for download stage
+*   2. Related reg.: AOS 0x090 ~ 0x0DC
+* CALLS
+*
+* PARAMETERS
+*   None
+* RETURNS
+*   None
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+void Hal_SysPinMuxM3UartSwitch_impl(void)
+{
+    volatile uint32_t tmp;
+
+// APS_dbg_uart
+    // IO0(TX), IO1(RX)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0xD << 4) | (0xA << 0));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~(0xF << 16);
+    tmp |= (0x0 << 16);
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 1) | (0x1 << 0));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~(0x1 << 0);
+    tmp |= (0x1 << 1);
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 1) | (0x1 << 0));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 1) | (0x1 << 0));
+    AOS->RG_PDOV_MODE = tmp;
+
+#if (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_1)
+// UART1
+    // IO6(RTS), IO7(CTS), IO8(TX), IO9(RX)
+    // output source
+    // IO6, IO7
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~(((uint32_t)0xF << 28) | (0xF << 24));
+    tmp |= (((uint32_t)0xD << 28) | (0x3 << 24));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // IO8, IO9
+    tmp = AOS->RG_PDI_SRC_IO_B;
+    tmp &= ~((0xF << 4) | (0xF << 0));
+    tmp |= ((0xD << 4) | (0x4 << 0));
+    AOS->RG_PDI_SRC_IO_B = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~((0xF << 12) | (0xF << 8));
+    tmp |= ((0x2 << 12) | (0x0 << 8));
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 7) | (0x1 << 6));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 8) | (0x1 << 6));
+    tmp |= ((0x1 << 9) | (0x1 << 7));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 7) | (0x1 << 6));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 9) | (0x1 << 8) | (0x1 << 7) | (0x1 << 6));
+    AOS->RG_PDOV_MODE = tmp;
+
+#elif (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_2)
+// UART1
+    // IO4(TX), IO5(RX), IO6(RTS), IO7(CTS)
+    // output source
+    tmp = AOS->RG_PDI_SRC_IO_A;
+    tmp &= ~(((uint32_t)0xF << 28) | (0xF << 24) | (0xF << 20) | (0xF << 16));
+    tmp |= (((uint32_t)0xD << 28) | (0x3 << 24) | (0xD << 20) | (0x3 << 16));
+    AOS->RG_PDI_SRC_IO_A = tmp;
+    // input IO
+    tmp = AOS->RG_PTS_INMUX_A;
+    tmp &= ~((0xF << 12) | (0xF << 8));
+    tmp |= ((0x1 << 12) | (0x0 << 8));
+    AOS->RG_PTS_INMUX_A = tmp;
+
+    // input Enable
+    tmp = AOS->RG_PD_IE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 5) | (0x1 << 4));
+    AOS->RG_PD_IE = tmp;
+
+    // pull-up / pull-down
+    tmp = AOS->RG_PD_PE;
+    tmp &= ~((0x1 << 6) | (0x1 << 4));
+    tmp |= ((0x1 << 7) | (0x1 << 5));
+    AOS->RG_PD_PE = tmp;
+
+    // function pin
+    tmp = AOS->RG_PDOC_MODE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 5) | (0x1 << 4));
+    AOS->RG_PDOC_MODE = tmp;
+
+    tmp = AOS->RG_PDOV_MODE;
+    tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 5) | (0x1 << 4));
+    AOS->RG_PDOV_MODE = tmp;
+
+#endif
 }

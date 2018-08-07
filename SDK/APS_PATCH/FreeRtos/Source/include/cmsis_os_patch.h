@@ -18,6 +18,7 @@
 void freertos_patch_init(void);
 osStatus osKernelRestart_patch(void);
 TickType_t osKernelNextTaskUnblockTime(void);
+osStatus osMemoryPoolCreate_patch(void);
 
 // task
 void vTaskRestartScheduler_patch(void);

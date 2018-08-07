@@ -75,10 +75,6 @@ void wpa_cli_setmac_patch(u8 *mac)
         return;
     }
     
-    if (wpa_s->wpa_state == WPA_COMPLETED || wpa_s->wpa_state == WPA_ASSOCIATED) {
-        msg_print(LOG_HIGH_LEVEL, "[CLI]WPA: Invalid wpa state \r\n");
-        return;
-    }
     
     memset(&gsta_cfg_mac[0], 0, MAC_ADDR_LEN);
     memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
@@ -285,7 +281,6 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
 #endif
 
     ret = wpa_cli_connect(&conf);
-    if (ret == FALSE) return FALSE;
 
 DONE:    
     if (conf.ssid->ssid) {
