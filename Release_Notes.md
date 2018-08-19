@@ -1,4 +1,43 @@
 ## Release Version:
+SDK Package: 1.1.1.3
+Patch_Lib : 2314
+ROM_CODE: 1655 
+
+## Release Date: 2018/8/17
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-WIFI-BLE-API-guide: v1.1.1.3,  updated document according to BLE and WIFI part APIs.  
+ 1.2 OPL1000-DEVKIT-getting-start-guide: R02-V07, Update for A1 Devkit board, add OTA image pack introduction.   
+ 1.3 OPL1000-SDK-getting-start-guide:  R02-V06, add introduction of how to build OTA image file .
+ 1.4 OPL1000-SDK-Development-guide: R01-V08, add introduction to two new adding examples, OTA_wifi and https_request. 
+ 1.5 Add a new document OPL1000-PowerSave  V01, which introduce OPL1000 power save mode and setting method . 
+2. A new example https_request is added. This example shows how to send request to https server and get response based on mbedtls module.     
+3. Add and enable watchdog mechanism
+4. Tool version information and update:
+ 4.1 download tool: v0.21. Fix a bug in OTA header define; Remove "scan system process" feature to avoid some anti-virus software recognize download tool as virus.       
+ 4.2 pin-mux tool: v0.6. No change since v1.1.1.1;    
+5. GPIO example is updated, add IO20 support.  
+6. Power saving APIs are re-defined.       
+7. Improve channel selection algorithm.
+8. Add new APIs to support connect to certain AP from auto connect list.
+
+## Bug Fix List 
+1. Fix a bug in deep sleep function.  
+2. Fix bug in GPIO example when program IO20 as output pin.
+3. Fix a bug in LE decide next adv time function. 
+4. Fix a bug of M0 hang up when do BLE advertising and WIFI connection simultaneously
+5. Fix a bug in AT+BLEADDR implementation 
+6. Enlarge MSQ state3 to state4 timeout time in AT+CWJAP implementation. 
+7. Fix a bug in "at+cipserver?" instruction  
+
+## Notes List 
+1. websocket feature is on-developing 
+2. More examples such as MQTT, AT commands are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.2
 Patch_Lib : 2273
 ROM_CODE: 1655 

@@ -382,6 +382,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\project\opl1000\startup\sys_init_patch.c</FilePath>
             </File>
+            <File>
+              <FileName>opl1000_it_patch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\project\opl1000\startup\opl1000_it_patch.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

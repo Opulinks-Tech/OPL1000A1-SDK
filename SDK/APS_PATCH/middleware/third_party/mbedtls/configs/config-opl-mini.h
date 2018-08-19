@@ -83,18 +83,19 @@
 
 //#define MBEDTLS_AES_ROM_TABLES
 
+#define OPL_DEBUG_LEVEL_NONE
 #ifndef OPL_DEBUG_LEVEL_NONE
 #define MBEDTLS_DEBUG_C
 #endif
 
-#define MBEDTLS_SELF_TEST
+//#define MBEDTLS_SELF_TEST
 
 /* Opulink revisions */
 #define MBEDTLS_OPL
 //#define MBEDTLS_THREADING_FREERTOS
 
 /* enable SHA512 for home_ref_design requirement */
-#define MBEDTLS_SHA512_C
+//#define MBEDTLS_SHA512_C   // comment out according to Vincent's email, Aug.14 
 
 #include "mbedtls/check_config.h"
 #endif /* MBEDTLS_CONFIG_H */

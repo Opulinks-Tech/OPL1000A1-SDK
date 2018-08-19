@@ -11,9 +11,9 @@
 
 #include "Hal_pinmux_gpio.h"
 
-#define PIN_TOTAL 16
+#define PIN_TOTAL 18
 
-extern T_Pin_Unit const table[];
+extern T_Pin_Unit const pin_map_table[];
 
 
 E_GpioIdx_t Hal_Pinmux_GetIO(uint8_t io)
@@ -21,9 +21,9 @@ E_GpioIdx_t Hal_Pinmux_GetIO(uint8_t io)
     uint8_t index;
     for(index = 0;index < PIN_TOTAL; index++)
     {
-        if(table[index].sour == io)
+        if(pin_map_table[index].sour == io)
         {
-             return  table[index].dist;
+             return  pin_map_table[index].dist;
         }
     }
     return GPIO_IDX_MAX;
@@ -32,23 +32,27 @@ E_GpioIdx_t Hal_Pinmux_GetIO(uint8_t io)
 
 ERR_CODE Hal_Pinmux_Gpio_Init(T_OPL1000_Gpio *gpio)
 {
-    if(gpio->pin < GPIO_IDX_MAX)
+    E_GpioIdx_t gpioIdx; 
+    gpioIdx = Hal_Pinmux_GetIO(gpio->pin);
+    if(gpioIdx < GPIO_IDX_MAX)
     {
         if(gpio->type == IO_OUTPUT)                                        
         {
-            Hal_Vic_GpioDirection(Hal_Pinmux_GetIO(gpio->pin), GPIO_OUTPUT);
+            //Hal_Vic_GpioDirection(gpioIdx, GPIO_OUTPUT);
             if(gpio->pull == PULL_DOWN)                                     
             {
-                Hal_Vic_GpioOutput(Hal_Pinmux_GetIO(gpio->pin), GPIO_LEVEL_LOW);    
+                //Hal_Vic_GpioOutput(gpioIdx, GPIO_LEVEL_LOW);  
+                Hal_Vic_GpioPinmux(gpioIdx, GPIO_OUTPUT, GPIO_LEVEL_LOW);							
             }
             else if(gpio->pull == PULL_UP)                                 
             {
-                Hal_Vic_GpioOutput(Hal_Pinmux_GetIO(gpio->pin), GPIO_LEVEL_HIGH);   
+                //Hal_Vic_GpioOutput(gpioIdx, GPIO_LEVEL_HIGH); 
+                Hal_Vic_GpioPinmux(gpioIdx, GPIO_OUTPUT, GPIO_LEVEL_HIGH);								
             }
         }
         else if(gpio->type == IO_INPUT)                                 
         {
-            Hal_Vic_GpioDirection(Hal_Pinmux_GetIO(gpio->pin), GPIO_INPUT); 
+            Hal_Vic_GpioDirection(gpioIdx, GPIO_INPUT); 
         }
         else
         {

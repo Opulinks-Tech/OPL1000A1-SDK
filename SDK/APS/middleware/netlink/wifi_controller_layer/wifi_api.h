@@ -267,6 +267,35 @@ int wifi_connection_connect(wifi_config_t *config);
 int wifi_connection_scan_start(uint8_t *ssid, uint8_t ssid_length, uint8_t *bssid, uint8_t scan_mode, uint8_t scan_option);
 
 /**
+  * @brief     Connect OPL1000 Wi-Fi station to certain AP in auto connect list.
+  *
+  * @attention 1. This API only impact WIFI_MODE_STA or WIFI_MODE_AP mode
+  * @attention 2. If OPL1000 is connected to an AP, call wifi_disconnect to disconnect.
+  *
+  * @param[in]  config: Establish connection parameters
+  *
+  * @return    0  : success
+  * @return    1  : Not found in list
+  * @return    other : failed
+  */
+int wifi_connection_connect_from_ac_list(wifi_config_t *config);
+
+/**
+  * @brief     Connect OPL1000 Wi-Fi station to certain AP by auto connect index.
+  *
+  * @attention 1. This API only impact WIFI_MODE_STA or WIFI_MODE_AP mode
+  * @attention 2. If OPL1000 is connected to an AP, call wifi_disconnect to disconnect.
+  * @attention 3. Then index should be 0 to begin.
+  *
+  * @param[in]  index: The index of AP in auto connect list
+  *
+  * @return    0  : success
+  * @return    1  : The index of AP is null
+  * @return    other : failed
+  */
+int wifi_connection_connect_from_ac_index(uint8_t index);
+
+/**
   * @brief get signal strength of AP
   *
   * @attention 1. If the scan is successful, this API returns signal strength value, otherwise it will get wrong result

@@ -106,6 +106,8 @@ extern osThreadId   at_tcp_server_task_handle;
 extern osMessageQId at_tx_task_queue_id;
 extern osPoolId     at_tx_task_pool_id;
 
+RET_DATA uint8_t g_server_mode;
+RET_DATA uint32_t g_server_port;
 
 /******************************************************
  *               Function Definitions
@@ -909,6 +911,127 @@ exit:
     return true;
 }
 
+/*
+ * @brief Command at+cipserver
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int _at_cmd_tcpip_cipserver_patch(char *buf, int len, int mode)
+{
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+    //char *pstr = NULL;
+    //uint8_t linkType = AT_LINK_TYPE_INVALID;
+    uint8_t para = 1;
+    int32_t server_enable = 0;
+    int32_t port = 0;
+    //int32_t ssl_ca_en = 0;
+    //at_socket_t *link;
+    uint8_t ret = AT_RESULT_CODE_ERROR;
+
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+    {
+        AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
+        goto exit;
+    }
+
+    switch (mode)
+    {
+        case AT_CMD_MODE_READ:
+            msg_print_uart1("+CIPSERVER:%d,%d\r\n", g_server_mode, g_server_port);
+            ret = AT_RESULT_CODE_OK;
+            break;
+        case AT_CMD_MODE_SET:
+            if (at_ipMux == FALSE)
+            {
+                goto exit;
+            }
+            
+            server_enable = atoi(argv[para++]);
+            if (server_enable < 0 || server_enable > 1) {
+                goto exit;
+            }
+            
+            g_server_mode = server_enable;
+            
+            if (g_server_mode == 1)
+            {
+                if (para != argc)
+                {
+                    port = atoi(argv[para++]);
+                    if ((port > 65535) || (port <= 0))
+                    {
+                        goto exit;
+                    }
+                    
+                    g_server_port = port;
+                    AT_LOGI("port %d\r\n", g_server_port);
+                }
+                else
+                {
+                    g_server_port = AT_SERVER_DEFAULT_PORT;
+                }
+
+                if (para != argc)
+                {
+                    #if 0
+                    pstr = at_cmd_param_trim(argv[para++]);
+                    if (!pstr)
+                    {
+                        goto exit;
+                    }
+                    if (at_strcmp(pstr, "SSL") == NULL)
+                    {
+                        linkType = AT_LINK_TYPE_SSL;
+                    }
+                    else
+                    {
+                        linkType = AT_LINK_TYPE_TCP;
+                    }
+
+                    if (para != argc)
+                    {
+                        ssl_ca_en = atoi(argv[para++]);
+                    }
+                    #endif
+                }
+            }
+
+            if (g_server_mode == 1)
+            {
+                at_create_tcp_server(g_server_port, 0);
+            }
+            else
+            {
+                if (tcp_server_socket < 0)
+                {
+                    msg_print_uart1("no change\r\n");
+                    ret = AT_RESULT_CODE_OK;
+                    goto exit;
+                }
+                else
+                {
+                    at_socket_server_cleanup_task(tcp_server_socket);
+                    g_server_port = 0;
+                }
+            }
+            
+            ret = AT_RESULT_CODE_OK;
+            break;
+        default:
+            ret = AT_RESULT_CODE_IGNORE;
+            break;
+    }
+    
+exit:
+    at_response_result(ret);
+    return true;
+}
 
 /*-------------------------------------------------------------------------------------
  * Definitions of interface function pointer
@@ -922,6 +1045,9 @@ exit:
 
 void _at_cmd_tcpip_func_init_patch(void)
 {
+    g_server_mode = 0;
+    g_server_port = 0;
+    
     at_update_link_count                = at_update_link_count_patch;
     at_close_client                     = at_close_client_patch;
     at_process_recv_socket              = at_process_recv_socket_patch;
@@ -934,6 +1060,6 @@ void _at_cmd_tcpip_func_init_patch(void)
     _g_AtCmdTbl_Tcpip_Ptr[0].cmd_handle  = _at_cmd_tcpip_cipstatus_patch;
     _g_AtCmdTbl_Tcpip_Ptr[2].cmd_handle  = _at_cmd_tcpip_cipstart_patch;
     _g_AtCmdTbl_Tcpip_Ptr[5].cmd_handle  = _at_cmd_tcpip_cipclose_patch;
+    _g_AtCmdTbl_Tcpip_Ptr[8].cmd_handle  = _at_cmd_tcpip_cipserver_patch;
     _g_AtCmdTbl_Tcpip_Ptr[16].cmd_handle = _at_cmd_tcpip_cipstamac_patch;
 }
-

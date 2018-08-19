@@ -28,6 +28,7 @@
  *         - other: failed              
  */
 ERR_CODE Hal_Pinmux_Gpio_Init(T_OPL1000_Gpio *gpio);
+E_GpioIdx_t Hal_Pinmux_GetIO(uint8_t io);
 
 #endif
 

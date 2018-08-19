@@ -93,7 +93,7 @@ typedef enum
 T_Pin Hal_Get_Point(uint8_t io,E_OPLXXX_Periph temp);
 
 extern T_OPL1000_Periph OPL1000_periph_blank;
-extern T_Pin_Unit const table[];
+extern T_Pin_Unit const pin_map_table[];
 
 void App_Pin_InitConfig(void);
 

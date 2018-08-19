@@ -36,7 +36,7 @@ Head Block of The File
 ***********************/
 // Sec 0: Comment block of the file
 
-// Sec 1: Include File 
+// Sec 1: Include File
 #include <stdint.h>
 #include "hal_system.h"
 
@@ -89,6 +89,7 @@ extern T_Hal_SysPinMuxM3UartSwitch Hal_SysPinMuxM3UartSwitch;
 /* Clock relative */
 uint32_t Hal_Sys_ApsClkTreeSetup_patch(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn, uint8_t u8PclkDivEn );
 uint32_t Hal_Sys_MsqClkTreeSetup_patch(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn );
+void Hal_Sys_ApsClkChangeApply_patch(void);
 
 /* Remap relative */
 

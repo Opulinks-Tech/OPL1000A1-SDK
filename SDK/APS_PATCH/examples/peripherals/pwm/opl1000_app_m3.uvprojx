@@ -378,11 +378,6 @@
           <GroupName>source</GroupName>
           <Files>
             <File>
-              <FileName>main_patch.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main_patch.c</FilePath>
-            </File>
-            <File>
               <FileName>OPL1000_pin_mux_define.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\OPL1000_pin_mux_define.c</FilePath>
@@ -391,6 +386,11 @@
               <FileName>Hal_pinmux_api.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\driver\chip\hal_pinmux\Hal_pinmux_api.c</FilePath>
+            </File>
+            <File>
+              <FileName>main_patch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\main_patch.c</FilePath>
             </File>
             <File>
               <FileName>Hal_pinmux_common.c</FileName>

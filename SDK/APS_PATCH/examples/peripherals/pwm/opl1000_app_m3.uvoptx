@@ -197,8 +197,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\main_patch.c</PathWithFileName>
-      <FilenameWithoutPath>main_patch.c</FilenameWithoutPath>
+      <PathWithFileName>.\OPL1000_pin_mux_define.c</PathWithFileName>
+      <FilenameWithoutPath>OPL1000_pin_mux_define.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -209,8 +209,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\OPL1000_pin_mux_define.c</PathWithFileName>
-      <FilenameWithoutPath>OPL1000_pin_mux_define.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\driver\chip\hal_pinmux\Hal_pinmux_api.c</PathWithFileName>
+      <FilenameWithoutPath>Hal_pinmux_api.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -221,8 +221,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\driver\chip\hal_pinmux\Hal_pinmux_api.c</PathWithFileName>
-      <FilenameWithoutPath>Hal_pinmux_api.c</FilenameWithoutPath>
+      <PathWithFileName>.\main_patch.c</PathWithFileName>
+      <FilenameWithoutPath>main_patch.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

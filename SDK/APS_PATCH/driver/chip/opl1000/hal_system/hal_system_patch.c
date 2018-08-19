@@ -35,6 +35,7 @@ Head Block of The File
 // Sec 1: Include File
 #include "hal_system.h"
 #include "hal_system_patch.h"
+#include "hal_wdt.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define AOS             ((S_Aos_Reg_t *) AOS_BASE)
@@ -51,6 +52,7 @@ Head Block of The File
 #define AOS_RET_SF_VOL_0P86          (0x8 << AOS_RET_SF_VOL_POS)
 #define AOS_RET_SF_VOL_1P20          (0xF << AOS_RET_SF_VOL_POS)
 
+#define WDT_TIMEOUT_SECS            10
 
 /********************************************
 Declaration of data structure
@@ -193,7 +195,7 @@ RET_DATA T_Hal_SysPinMuxM3UartSwitch Hal_SysPinMuxM3UartSwitch;
 /* Clock relative */
 extern uint32_t Hal_Sys_ApsClkTreeSetup_impl(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn, uint8_t u8PclkDivEn );
 extern uint32_t Hal_Sys_MsqClkTreeSetup_impl(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn );
-
+extern void Hal_Sys_ApsClkChangeApply_impl(void);
 /* Remap relative */
 
 /* Miscellaneous */
@@ -213,7 +215,7 @@ void Hal_Sys_SleepInit_patch(void)
 {
     // Set RetRAM voltage
     AOS->RET_SF_VAL_CTL  = AOS_RET_SF_VOL_0P86;
-    
+
     // Need make rising pulse. So clean bit first
     AOS->MODE_CTL &= ~AOS_SLP_MODE_EN;
 
@@ -227,7 +229,7 @@ void Hal_Sys_SleepInit_patch(void)
     AOS->ON6_TIME        = 0xDC03; // ON_6 0b' 0 | 1101 11 | 00 1100 0000
     AOS->ON7_TIME        = 0x6C09; // ON_7 0b' 0 | 0010 11 | 11 1111 1110
     AOS->CPOR_N_ON_TIME  = 0x041A; // CPOR 0b' 0100 1111 1111 1110
-	
+
     AOS->SPS_TIMER_PRESET = 0x0006; // SPS 0b' 00 0000 1011 0000
     AOS->SON1_TIME        = 0xDC01; // SON_1 0b' 1 | 1101 11 | 00 0010 0000
     AOS->SON2_TIME        = 0xDC02; // SON_2 0b' 1 | 1111 11 | 00 0100 0000
@@ -494,7 +496,7 @@ void Hal_SysPinMuxM3UartInit_impl(void)
     tmp = AOS->RG_PDOV_MODE;
     tmp |= ((0x1 << 7) | (0x1 << 6) | (0x1 << 1) | (0x1 << 0));
     AOS->RG_PDOV_MODE = tmp;
-    
+
 #if (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_1)
 // APS_dbg_uart
     // IO8(TX), IO9(RX)
@@ -508,7 +510,7 @@ void Hal_SysPinMuxM3UartInit_impl(void)
     tmp &= ~(0xF << 16);
     tmp |= (0x4 << 16);
     AOS->RG_PTS_INMUX_A = tmp;
-    
+
     // input Enable
     tmp = AOS->RG_PD_IE;
     tmp |= ((0x1 << 9) | (0x1 << 8));
@@ -528,7 +530,7 @@ void Hal_SysPinMuxM3UartInit_impl(void)
     tmp = AOS->RG_PDOV_MODE;
     tmp |= ((0x1 << 9) | (0x1 << 8));
     AOS->RG_PDOV_MODE = tmp;
-    
+
 #elif (SYS_PINMUX_TYPE == SYS_PINMUX_OPTION_2)
 // APS_dbg_uart
     // IO4(TX), IO5(RX)
@@ -542,7 +544,7 @@ void Hal_SysPinMuxM3UartInit_impl(void)
     tmp &= ~(0xF << 16);
     tmp |= (0x2 << 16);
     AOS->RG_PTS_INMUX_A = tmp;
-    
+
     // input Enable
     tmp = AOS->RG_PD_IE;
     tmp |= ((0x1 << 5) | (0x1 << 4));
@@ -733,4 +735,27 @@ void Hal_SysPinMuxM3UartSwitch_impl(void)
     AOS->RG_PDOV_MODE = tmp;
 
 #endif
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_Sys_ApsClkChangeApply
+*
+* DESCRIPTION:
+*   1. Update all system clock relative
+* CALLS
+*
+* PARAMETERS
+*   None
+* RETURNS
+*   None
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+void Hal_Sys_ApsClkChangeApply_patch(void)
+{
+    Hal_Sys_ApsClkChangeApply_impl();
+
+    // WDT
+    Hal_Wdt_Feed(WDT_TIMEOUT_SECS * SystemCoreClockGet());
 }

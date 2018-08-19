@@ -43,6 +43,7 @@ Head Block of The File
 #include "hal_flash.h"
 #include "hal_pwm.h"
 #include "hal_auxadc.h"
+#include "hal_wdt.h"
 #include "mw_fim\mw_fim.h"
 #include "at_cmd_common.h"
 #include "ipc.h"
@@ -68,6 +69,7 @@ Head Block of The File
 #include "wifi_service_func_init_patch.h"
 #include "lwip_jmptbl_patch.h"
 #include "cmsis_os_patch.h"
+#include "opl1000_it_patch.h"
 
 #define __SVN_REVISION__
 #define __DIAG_TASK__
@@ -129,7 +131,9 @@ extern void lwip_task_create(void);
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define BOOT_MODE_ICE       0x2
 #define BOOT_MODE_JTAG      0x3
+#define BOOT_MODE_NORMAL    0xA
 
+#define WDT_TIMEOUT_SECS    10
 
 /********************************************
 Declaration of data structure
@@ -162,7 +166,7 @@ static void __Test_ForSwPatch(void);
 static void Sys_DriverInit_patch(void);
 static void Sys_ServiceInit_patch(void);
 static void SysInit_LibVersion(void);
-
+static void Sys_IdleHook_patch(void);
 
 /***********
 C Functions
@@ -199,6 +203,7 @@ void SysInit_EntryPoint(void)
     Sys_ClockSetup = Sys_ClockSetup_patch;
     Sys_DriverInit = Sys_DriverInit_patch;
     Sys_ServiceInit = Sys_ServiceInit_patch;
+    Sys_IdleHook = Sys_IdleHook_patch;
 
     // FIM Default
     mw_fim_default_patch_init();
@@ -256,6 +261,7 @@ void SysInit_EntryPoint(void)
 	
 	// CMSIS-RTOS
 	freertos_patch_init();
+	ISR_Pre_Init_patch();
 }
 
 /*************************************************************************
@@ -451,6 +457,12 @@ static void Sys_DriverInit_patch(void)
 		uart1_mode_set_default();
 		uart1_mode_set_at();
 	}
+    if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
+    {
+        Hal_Vic_IntTypeSel(WDT_IRQn, INT_TYPE_FALLING_EDGE);
+        Hal_Vic_IntInv(WDT_IRQn, 1);
+        Hal_Wdt_Init(WDT_TIMEOUT_SECS * SystemCoreClockGet());
+    }
 }
 
 /*************************************************************************
@@ -531,6 +543,14 @@ static void Sys_ServiceInit_patch(void)
     tLayout.ulaImageAddr[1] = MW_OTA_IMAGE_ADDR_2;
     tLayout.ulImageSize = MW_OTA_IMAGE_SIZE;
     MwOta_Init(&tLayout, 0);
+}
+void Sys_IdleHook_patch(void)
+{
+    if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
+    {
+        Hal_Wdt_Clear();
+    }
+	ps_sleep();
 }
 
 /*************************************************************************

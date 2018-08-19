@@ -332,20 +332,13 @@ typedef struct {
 typedef struct {
     uint8_t         bssid[WIFI_MAC_ADDRESS_LENGTH];    /* BSS ID - 48 bit HW address */
     uint8_t         ap_channel;                        /* Which Channel */
-    unsigned long long  latest_beacon_rx_time;         /* Timestamp - Last interaction with BSS */
     char            ssid[WIFI_MAX_LENGTH_OF_SSID];     /* SSID of the BSS - 33 bytes */
-    uint8_t         supported_rates[WIFI_MAX_SUPPORTED_RATES];
-    char            rssi;                              /* Last observed Rx Power (dBm) */
+    uint8_t         supported_rates[WIFI_MAX_SUPPORTED_RATES];  /* IEEE80211 supported rates */
+    int8_t          rssi;                              /* Last observed Rx Power (dBm) */
     uint16_t        beacon_interval;                   /* Beacon interval - In time units of 1024 us */
     uint16_t        capabilities;                      /* Supported capabilities */
     uint8_t         dtim_prod;                         /* DTIM Period */
-
-    wifi_wpa_ie_data_t   wpa_data;
-    uint8_t         rsn_ie[100];
-    uint8_t         wpa_ie[100];
-    char            passphrase[64];                    /* maximum number of passphrase is 64 bytes */
-    char            hid_ssid[WIFI_MAX_LENGTH_OF_SSID]; /* [APS write/MSQ read] Hidden SSID of the BSS. When ssid is null, using this field. */
-    uint8_t         psk[32];
+    char            hid_ssid[WIFI_MAX_LENGTH_OF_SSID]; /* Hidden SSID of the BSS. When ssid is null, using this field. */
     uint8_t         fast_connect;
 } wifi_auto_connect_info_t;
 
