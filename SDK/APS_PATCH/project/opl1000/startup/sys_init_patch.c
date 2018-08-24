@@ -121,6 +121,7 @@ extern void lwip_task_create(void);
 // the include file for patch from here
 #include "sys_init_patch.h"
 #include "hal_patch.h"
+#include "hal_system_patch.h"
 #include "peri_patch_init.h"
 #include "mw_ota.h"
 #include "scrt_patch.h"
@@ -303,6 +304,7 @@ void Sys_ClockSetup_patch(void)
     {
         // Switch to Xtal
         Hal_Sys_ApsClkTreeSetup(ASP_CLKTREE_SRC_XTAL, 0, 0);
+        Hal_Sys_DisableClock();
     }
 }
 
@@ -379,15 +381,15 @@ static void Sys_DriverInit_patch(void)
     // Init SPI 0/1/2
     Hal_Spi_Init(SPI_IDX_0, SystemCoreClockGet()/2,
         SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
-    Hal_Spi_Init(SPI_IDX_1, SystemCoreClockGet()/2,
-        SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
-    Hal_Spi_Init(SPI_IDX_2, SystemCoreClockGet()/2,
-        SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
+    //Hal_Spi_Init(SPI_IDX_1, SystemCoreClockGet()/2,
+    //    SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
+    //Hal_Spi_Init(SPI_IDX_2, SystemCoreClockGet()/2,
+    //    SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
 
     // Init flash on SPI 0/1/2
     Hal_Flash_Init(SPI_IDX_0);
-    Hal_Flash_Init(SPI_IDX_1);
-    Hal_Flash_Init(SPI_IDX_2);
+    //Hal_Flash_Init(SPI_IDX_1);
+    //Hal_Flash_Init(SPI_IDX_2);
 
     // FIM
     MwFim_Init();
@@ -396,7 +398,7 @@ static void Sys_DriverInit_patch(void)
     Sys_UartInit();
     
     // Init PWM
-    Hal_Pwm_Init();
+    //Hal_Pwm_Init();
     
     // Init AUXADC
     Hal_Aux_Init();

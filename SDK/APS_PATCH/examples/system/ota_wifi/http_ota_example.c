@@ -136,19 +136,29 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
     return 0;
 }
 
+void ota_write_hexdump(const uint8_t *buf, size_t len)
+{
+	size_t i;
+	for (i = 0; i < len; i++) {
+        if (i%16 == 0)
+            printf("\r\n");
+		printf(" %02x", buf[i]);
+	}
+	printf("\n");
+}
 static uint8_t ota_get_version(uint16_t *project_id, uint16_t *chip_id, uint16_t *firmware_id)
 {
 	uint8_t state = MW_OTA_OK;
 
-	state = MwOta_VersionGet(project_id, project_id, project_id);
+	state = MwOta_VersionGet(project_id, chip_id, firmware_id);
 	return state;
 }
 
-static uint8_t ota_prepare(uint16_t project_id, uint16_t chip_id, uint16_t firmware_id, uint32_t img_id, uint32_t img_sum)
+static uint8_t ota_prepare(uint16_t project_id, uint16_t chip_id, uint16_t firmware_id, uint32_t img_size, uint32_t img_sum)
 {
 	uint8_t state = MW_OTA_OK;
 
-	state = MwOta_Prepare(project_id, chip_id, firmware_id, img_id, img_sum);
+	state = MwOta_Prepare(project_id, chip_id, firmware_id, img_size, img_sum);
 	return state;
 }
 
@@ -175,12 +185,40 @@ static uint8_t ota_abort(void)
     return state;
 }
 
+int ota_http_retrieve_offset(httpclient_t *client, httpclient_data_t *client_data, int offset, int parse_hdr)
+{
+    int ret = HTTPCLIENT_ERROR_CONN;
+    uint8_t ota_hdr1_start = 0;
+    T_MwOtaFlashHeader *ota_hdr = NULL;
 
+    ota_hdr1_start = parse_hdr;
+    do {
+        ret = httpclient_recv_response(client, client_data);
+        if (ret < 0) {
+            LOG_E(TAG, "http client recv response error, ret = %d \r\n", ret);
+            return ret;
+        }
+        if (ota_hdr1_start == 1) {
+            ota_hdr = (T_MwOtaFlashHeader*)client_data->response_buf;
+            LOG_E(TAG, "proj_id=%d, chip_id=%d, fw_id=%d, checksum=%d, total_len=%d\r\n",
+                ota_hdr->uwProjectId, ota_hdr->uwChipId, ota_hdr->uwFirmwareId, ota_hdr->ulImageSum, ota_hdr->ulImageSize);
+		    if (ota_prepare(ota_hdr->uwProjectId, ota_hdr->uwChipId, ota_hdr->uwFirmwareId, ota_hdr->ulImageSize, ota_hdr->ulImageSum) != MW_OTA_OK) {
+                LOG_I(TAG, "ota_prepare fail\r\n");
+    		    return -1;
+    		}
+    		ota_hdr1_start = 0;
+        }
+        if ( (client_data->response_content_len - client_data->retrieve_len) == offset )
+            break;
+    } while (ret == HTTPCLIENT_RETRIEVE_MORE_DATA);
+    return HTTPCLIENT_OK;
+}
 int ota_http_retrieve_get(char* get_url, char* buf, uint32_t len)
 {
     int ret = HTTPCLIENT_ERROR_CONN;
     httpclient_data_t client_data = {0};
-    uint32_t count = 0;
+    uint32_t write_count = 0;
+    uint32_t data_recv = 0;
     uint32_t recv_temp = 0;
     uint32_t data_len = 0;
 
@@ -194,64 +232,62 @@ int ota_http_retrieve_get(char* get_url, char* buf, uint32_t len)
         return ret;
     }
 
-    do {
+
         // Receive response from server
+    ret = ota_http_retrieve_offset(&g_fota_httpclient, &client_data, MW_OTA_HEADER_ADDR_1, 0);
+        if (ret < 0) {
+        LOG_E(TAG, "http retrieve offset error, ret = %d \r\n", ret);
+            return ret;
+        }
+
+        // Response body start
+    ret = ota_http_retrieve_offset(&g_fota_httpclient, &client_data, MW_OTA_HEADER_ADDR_2, 1);
+    if (ret < 0) {
+        LOG_E(TAG, "http retrieve offset error, ret = %d \r\n", ret);
+
+
+
+        return ret;
+    		}
+
+    // skip 2st OTA header,  0x00003000 ~ 0x00004000 : 4 KB
+
+    ret = ota_http_retrieve_offset(&g_fota_httpclient, &client_data, MW_OTA_IMAGE_ADDR_1, 0);
+    if (ret < 0) {
+        LOG_E(TAG, "http retrieve offset error, ret = %d \r\n", ret);
+        return ret;
+            }
+    recv_temp = client_data.retrieve_len;
+    data_recv = client_data.response_content_len - client_data.retrieve_len;
+    do {
         ret = httpclient_recv_response(&g_fota_httpclient, &client_data);
         if (ret < 0) {
             LOG_E(TAG, "http client recv response error, ret = %d \r\n", ret);
             return ret;
         }
 
-        // Response body start
-        if (recv_temp == 0) {
-            uint8_t *data = (uint8_t*)client_data.response_buf;
-            ota_hdr_t ota_hdr;
-
-    		ota_hdr.proj_id = data[1]  | (data[0]  << 8);
-    		ota_hdr.chip_id = data[3]  | (data[2]  << 8);
-    		ota_hdr.fw_id   = data[5]  | (data[4]  << 8);
-    		ota_hdr.chksum  = data[7]  | (data[6]  << 8);
-    		ota_hdr.total_len = data[11] | (data[10] << 8) | (data[9] << 16) | (data[8] << 24);
-
-            LOG_E(TAG, "proj_id=%d, chip_id=%d, fw_id=%d, checksum=%d, total_len=%d\r\n",
-                ota_hdr.proj_id, ota_hdr.chip_id, ota_hdr.fw_id, ota_hdr.chksum, ota_hdr.total_len);
-
-		    if (ota_prepare(ota_hdr.proj_id, ota_hdr.chip_id, ota_hdr.fw_id, ota_hdr.total_len, ota_hdr.chksum) != MW_OTA_OK) {
-                LOG_I(TAG, "ota_prepare fail\r\n");
-    		    return -1;
-    		}
-
-            recv_temp = client_data.response_content_len;
-            data_len = recv_temp - client_data.retrieve_len;
-
-            if (ota_data_write((uint8_t*)client_data.response_buf + sizeof(ota_hdr_t), data_len- sizeof(ota_hdr_t)) != MW_OTA_OK) {
-                LOG_I(TAG, "ota_data_write fail\r\n");
-                return -1;
-            }
-        }
-        else
-        {
             data_len = recv_temp - client_data.retrieve_len;
             if (ota_data_write((uint8_t*)client_data.response_buf, data_len) != MW_OTA_OK) {
                 LOG_I(TAG, "ota_data_write fail\r\n");
                 return -1;
-            }
         }
 
-        count += data_len;
+        write_count += data_len;
+        data_recv += data_len;
         recv_temp = client_data.retrieve_len;
-        LOG_I(TAG, "have written image length %d\r\n", count);
-        LOG_I(TAG, "download progress = %u \r\n", count * 100 / client_data.response_content_len);
+        LOG_I(TAG, "have written image length %d\r\n", write_count);
+        LOG_I(TAG, "download progress = %u \r\n", data_recv * 100 / client_data.response_content_len);
 
     } while (ret == HTTPCLIENT_RETRIEVE_MORE_DATA);
 
-    LOG_I(TAG, "total write data length : %d\r\n", count);
+    LOG_I(TAG, "total write data length : %d\r\n", write_count);
+    LOG_I(TAG, "data received length : %d\r\n", data_recv);
 
-    if (count != client_data.response_content_len || httpclient_get_response_code(&g_fota_httpclient) != 200) {
+    if (data_recv != client_data.response_content_len || httpclient_get_response_code(&g_fota_httpclient) != 200) {
         LOG_E(TAG, "data received not completed, or invalid error code \r\n");
         return -1;
     }
-    else if (count == 0) {
+    else if (data_recv == 0) {
         LOG_E(TAG, "receive length is zero, file not found \n");
         return -2;
     }
@@ -266,6 +302,7 @@ int ota_download_by_http(char *param)
     char get_url[OTA_URL_BUF_LEN];
     int32_t ret = HTTPCLIENT_ERROR_CONN;
     uint32_t len_param = strlen(param);
+    uint16_t retry_count = 0;
 	uint16_t pid;
 	uint16_t cid;
 	uint16_t fid;
@@ -285,13 +322,18 @@ int ota_download_by_http(char *param)
     }
 
     // Connect to server
+    do {
     ret = httpclient_connect(&g_fota_httpclient, get_url);
     if (!ret) {
         LOG_I(TAG, "connect to http server");
+                break;
     } else {
-        LOG_I(TAG, "connect to http server failed!");
-        goto fail;
+            LOG_I(TAG, "connect to http server failed! retry again");
+                vTaskDelay(1000);
+                retry_count++;
+                continue;
     }
+    } while(retry_count < 3);
 
     ota_get_version(&pid, &cid, &fid);
 
@@ -308,8 +350,7 @@ int ota_download_by_http(char *param)
         }
     }
 
-fail:
-    LOG_I(TAG, "Download result = %d \r\n", (int)ret);
+    LOG_I(TAG, "download result = %d \r\n", (int)ret);
 
     // Close http connection
     httpclient_close(&g_fota_httpclient);

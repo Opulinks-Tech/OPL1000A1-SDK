@@ -21,6 +21,7 @@
 extern u8 g_bssid[6];
 extern u8 g_fastconn;
 extern struct wpa_supplicant *wpa_s;
+extern u8 g_wifi_reconnection_counter;
 
 Boolean wpa_driver_netlink_sta_cfg_patch(u8 mode, u8 cmd_idx, u8 *value)
 {
@@ -112,6 +113,7 @@ Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
         
         wpa_supplicant_set_state(wpa_s, WPA_ASSOCIATING);
         g_fastconn = 0;
+        g_wifi_reconnection_counter = 0;
         ret = wifi_sta_join(pInfo->bssid);
     }
 

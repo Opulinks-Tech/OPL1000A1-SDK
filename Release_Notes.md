@@ -1,4 +1,38 @@
 ## Release Version:
+SDK Package: 1.1.1.4
+Patch_Lib : 2350
+ROM_CODE: 1655 
+
+## Release Date: 2018/8/24
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-Power-Saving-Introduction: R01-V02,  document format is  structured.  
+ 1.2 Add a new document OPL1000-Demo-ota-wifi-guide R01-V01 under Demo\OTA_WIFI folder, this document introduce OTA WIFI implementation method and verification flow.   
+ 1.3 Add a new document OPL1000-Power-Consumption-Measurement-Guide R01-V01, which introduce how to measure power consumption for OPL1000 different power save mode. 
+2. A new demo "OTA_WIFI"  is added to Demo\OTA_WIFI. This demo shows how to setup http server and complete OTA function by WIFI.     
+3. OTA_WIFI example is updated to fit new OTA firmware image file format. 
+4. Tool version information and update:
+ 4.1 download tool: v0.21. No change since v1.1.1.3;       
+ 4.2 pin-mux tool: v0.6. No change since v1.1.1.1;    
+5. Optimize current for APS/MSQ peripheral blocks clock control.  
+6. Switch off unused SRAM in case of deep sleep to reduce current consumption.       
+7. Improve WIFI AP connection success rate for certain brand AP, such as CISCO AP.
+8. Use the average method to get the ADC value in order to improve AUXADC precision.
+
+## Bug Fix List 
+1. Fix a bug of deep sleep abnormal behavior.    
+2. Set default IP address ad 0.0.0.0 for ST1 interface instead of 192.168.1.101.
+3. Fix some compiling warnings for power save module.  
+
+
+## Notes List 
+1. websocket feature is on-developing 
+2. More examples such as MQTT, AT commands are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.3
 Patch_Lib : 2314
 ROM_CODE: 1655 

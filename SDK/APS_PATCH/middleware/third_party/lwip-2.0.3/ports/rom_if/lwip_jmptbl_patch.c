@@ -24,6 +24,7 @@ extern void lwip_load_interface_socket_patch(void);
 
 /* network interface */
 
+extern void lwip_load_interface_network_config_patch(void);
 
 /* porting layer */
 extern void lwip_load_interface_wlannetif_patch(void);
@@ -36,5 +37,6 @@ void lwip_module_interface_init_patch(void)
 {
     lwip_load_interface_socket_patch();
     lwip_load_interface_wlannetif_patch();
+    lwip_load_interface_network_config_patch();
     return;
 }

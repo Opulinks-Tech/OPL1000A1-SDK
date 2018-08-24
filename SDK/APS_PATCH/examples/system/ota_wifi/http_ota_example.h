@@ -25,15 +25,6 @@ extern "C" {
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
 #define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
 
-typedef struct
-{
-	uint16_t proj_id;
-	uint16_t chip_id;
-	uint16_t fw_id;
-	uint16_t chksum;
-	uint32_t total_len;
-	uint8_t  reserve[52];
-} __attribute__((packed))ota_hdr_t;
 
 
 void OtaAppInit(void);
