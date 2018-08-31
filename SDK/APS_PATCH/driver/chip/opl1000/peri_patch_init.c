@@ -53,6 +53,7 @@ Head Block of The File
 #include "hal_auxadc_patch.h"
 #include "hal_i2c_patch.h"
 #include "hal_pwm_patch.h"
+#include "hal_vic_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -106,6 +107,7 @@ C Functions
 void peripheral_patch_init(void)
 {
     // vic and GPIO
+    Hal_Vic_Func_Patch();
 
     // system (AOS+sys_reg)
     Hal_Sys_SleepInit       = Hal_Sys_SleepInit_patch;
@@ -129,6 +131,8 @@ void peripheral_patch_init(void)
 
     // i2c
     _Hal_I2c_Eanble = _Hal_I2c_Eanble_patch;
+    Hal_I2c_MasterInit = Hal_I2c_MasterInit_patch;
+    Hal_I2c_MasterReceive = Hal_I2c_MasterReceive_patch;
 
     // tmr
 

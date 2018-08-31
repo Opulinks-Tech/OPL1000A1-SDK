@@ -45,6 +45,7 @@ Head Block of The File
 Declaration of data structure
 ******************************/
 // Sec 3: structure, union, enum, linked list
+#pragma pack(push, 1)
 typedef struct
 {
     uint16_t hci_revision;
@@ -53,7 +54,9 @@ typedef struct
     uint8_t  hci_version;
     uint8_t  lmp_pal_version;
     uint8_t  bd_addr[6];
+    uint8_t  reserved[114];
 } le_cfg_patch_t;
+#pragma pack(pop)
 
 typedef void (*t_le_encrypt_command_handler_fp)(hci_command_packet_01 *cmd_packet);
 typedef void (*t_le_rand_command_handler_fp)(hci_command_packet_01 *cmd_packet);

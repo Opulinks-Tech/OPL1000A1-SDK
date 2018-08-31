@@ -17,7 +17,6 @@ Head Block of The File
 
 // Sec 1: Include File
 #include "mw_fim_default_group05.h"
-#include "mw_fim_default_group05_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -33,6 +32,7 @@ Declaration of data structure
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
+
 
 // the information table of group 05
 const T_MwFimFileInfo g_taMwFimGroupTable05_patch[] =

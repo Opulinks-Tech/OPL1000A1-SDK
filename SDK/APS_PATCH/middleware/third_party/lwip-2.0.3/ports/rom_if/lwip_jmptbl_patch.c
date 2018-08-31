@@ -31,12 +31,13 @@ extern void lwip_load_interface_wlannetif_patch(void);
 
 /* application && cli */
 extern void lwip_load_interface_lwip_helper_patch(void);
-
+extern void lwip_load_interface_cli_patch(void);
 
 void lwip_module_interface_init_patch(void)
 {
     lwip_load_interface_socket_patch();
     lwip_load_interface_wlannetif_patch();
     lwip_load_interface_network_config_patch();
+    lwip_load_interface_cli_patch();
     return;
 }

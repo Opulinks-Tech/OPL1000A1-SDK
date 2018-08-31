@@ -128,9 +128,11 @@ void _uart1_rx_int_do_at_patch(uint32_t u32Data)
     {
         if ((p->in & ~(AT_RBUF_SIZE-1)) == 0)
         {
-            if((u32Data & 0xFF) == 0x0D)//Enter
-            {//detect the ending character, send command buffer to at cmd task
+            if((u32Data & 0xFF) == 0x0A && (p->buf[p->in -1] == 0x0D))//Enter
+            {
+                //detect the ending character(CR+LF)(new line mode), send command buffer to at cmd task
                 p->buf [p->in & (AT_RBUF_SIZE-1)] = 0x00;
+                p->buf [(p->in-1) & (AT_RBUF_SIZE-1)] = 0x00;
 
                 /** send message */
                 txMsg.pcMessage = (char *)p;
@@ -139,6 +141,7 @@ void _uart1_rx_int_do_at_patch(uint32_t u32Data)
 
                 /** Post the byte. */
                 at_task_send( txMsg );
+                at_clear_uart_buffer();
             }
             else if((u32Data & 0xFF) == 0x08)
             {//backspace
@@ -194,7 +197,7 @@ void _uart1_rx_int_do_at_patch(uint32_t u32Data)
 void at_cmd_common_func_init_patch(void)
 {
 	memset(&at_rx_buf, 0, sizeof(at_uart_buffer_t));
-    
+
     uart1_rx_int_do_at = _uart1_rx_int_do_at_patch;
     _uart1_rx_int_at_data_receive_tcpip = _uart1_rx_int_at_data_receive_tcpip_patch;
 }

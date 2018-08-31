@@ -1,4 +1,31 @@
 ## Release Version:
+SDK Package: 1.1.1.5
+Patch_Lib : 2382
+ROM_CODE: 1655 
+## Release Date: 2018/8/30
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-Flash-User-Guide: R01-V02,  Flash layout is updated.  
+2. I2C low driver is updated.     
+3. AT instruction ending is changed from "\r" to "\r\n" 
+4. Tool version information and update:
+ 4.1 download tool: v0.23. AT instruction calling format is changed. Add minimize processing on UI window.        
+ 4.2 pin-mux tool: v0.6. No change since v1.1.1.1;    
+5. RF mode setting is updated.  
+6. Start address of BLE host data and tcpip data in Flash are adjusted. Refer OPL1000-Flash-User-Guide document.         
+7. Improve certain AP connection success rate, such as ASUS AP.
+8. Support IPC command to control WIFI data rate. 
+9. Implement SHA-1 API with HW security engine.
+10. Support DHCP APR check mechanism in AT+DHCPARPCHK command.
+## Bug Fix List 
+1. Fix a bug in I2C driver.    
+2. Fix a bug in ISR UART RX buffer process of AT and CLI command.
+3. Fix a bug in GPIO driver, original driver does not handle race condition case.  
+## Notes List 
+1. websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+*****
+## Release Version:
 SDK Package: 1.1.1.4
 Patch_Lib : 2350
 ROM_CODE: 1655 

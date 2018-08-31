@@ -324,7 +324,7 @@ int _at_cmd_sys_gslp_patch(char *buf, int len, int mode)
 			int ext_io = atoi(argv[2]);
 
 			if (argc == 3)
-				ps_set_wakeup_io((E_GpioIdx_t)ext_io, INT_TYPE_LEVEL);
+				ps_set_wakeup_io((E_GpioIdx_t) ext_io, INT_TYPE_LEVEL);
 			else
 				ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 
@@ -383,6 +383,9 @@ int _at_cmd_sys_restore_patch(char *buf, int len, int mode)
         
         // RF power
         MwFim_FileWriteDefault(MW_FIM_IDX_GP01_RF_CFG, 0);
+        
+        // DHCP ARP
+        MwFim_FileWriteDefault(MW_FIM_IDX_DHCP_ARP_CHK, 0);
         
         msg_print_uart1("\r\nOK\r\n");
 
@@ -511,7 +514,7 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 
 				case 1:
 					if (argc == 3)
-						ps_set_wakeup_io((E_GpioIdx_t)p1, INT_TYPE_LEVEL);
+						ps_set_wakeup_io((E_GpioIdx_t) p1, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 
@@ -521,7 +524,7 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 
 				case 2:
 					if (argc == 4)
-						ps_set_wakeup_io((E_GpioIdx_t)p2, INT_TYPE_LEVEL);
+						ps_set_wakeup_io((E_GpioIdx_t) p2, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 
@@ -532,7 +535,7 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 
 				case 3:
 					if (argc == 3)
-						ps_set_wakeup_io((E_GpioIdx_t)p1, INT_TYPE_LEVEL);
+						ps_set_wakeup_io((E_GpioIdx_t) p1, INT_TYPE_LEVEL);
 					else
 						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 

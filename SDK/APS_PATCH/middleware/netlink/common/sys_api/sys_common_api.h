@@ -115,6 +115,35 @@ int sys_get_config_rf_power_level(sys_rf_power_level_t *level);
  */
 int sys_set_config_rf_power_level(sys_rf_power_level_t level);
 
+/**
+  * @brief     Get the configuration of DHCP ARP check mechanism
+  *
+  * @attention 1. API returns false if try to set Configuration which something error
+  * @attention 2. Default is Enable.
+  *
+  * @param[out]   mode: Enable/Disable DHCP ARP check mechanism
+  *              - 0 : Disable
+  *              - 1 : Enable
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int tcp_get_config_dhcp_arp_check(uint8_t *mode);
+
+/**
+  * @brief     Set the configuration of DHCP ARP check mechanism
+  *
+  * @attention 1. API returns false if try to set Configuration which something error
+  *
+  * @param[in]   mode: Enable/Disable DHCP ARP check mechanism
+  *              - 0 : Disable
+  *              - 1 : Enable
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int tcp_set_config_dhcp_arp_check(uint8_t mode);
+
 #ifdef __cplusplus
 }
 #endif

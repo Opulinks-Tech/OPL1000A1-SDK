@@ -17,5 +17,6 @@
 #define STA_GATEWAY_DEF ("0.0.0.0")
 
 void lwip_load_interface_network_config_patch(void);
+void tcpip_config_dhcp_arp_check_init(void);
 
 #endif /* _NETWORK_CONFIG_PATCH_H_ */

@@ -19,8 +19,10 @@
 #include "sys_common_ctrl.h"
 #include "sys_common_log.h"
 #include "mw_fim_default_group01_patch.h"
+#include "mw_fim_default_group02_patch.h"
 #include "wifi_nvm_patch.h"
 
+extern int dhcp_does_arp_check_flag;
 
 int base_mac_addr_src_get_cfg(u8 iface, u8* type)
 {
@@ -175,6 +177,42 @@ int set_rf_power_level(u8 level)
         SYS_COMMON_LOGE("Set config of rf power failed.");
         return -1;
     }
+    
+    return true;
+}
+
+int get_dhcp_arp_check(void)
+{
+    return dhcp_does_arp_check_flag;
+}
+
+int get_dhcp_arp_check_from_fim(void)
+{
+    u8 ret;
+    u8 dhcp_arp;
+    ret = MwFim_FileRead(MW_FIM_IDX_DHCP_ARP_CHK, 0, MW_FIM_DHCP_ARP_CHK_SIZE, &dhcp_arp);
+    if (ret != MW_FIM_OK) {
+        SYS_COMMON_LOGE("Read DHCP ARP check mode failed.");
+        return -1;
+    }
+    return dhcp_arp;
+}
+
+int set_dhcp_arp_check(u8 mode)
+{
+    u8 ret;
+    
+    if (mode > 1) {
+        return -1;
+    }
+
+    ret = MwFim_FileWrite(MW_FIM_IDX_DHCP_ARP_CHK, 0, MW_FIM_DHCP_ARP_CHK_SIZE, &mode);
+    if (ret != MW_FIM_OK) {
+        SYS_COMMON_LOGE("Write DHCP ARP check mode failed.");
+        return -1;
+    }
+    
+    dhcp_does_arp_check_flag = mode;
     
     return true;
 }

@@ -155,7 +155,7 @@ osStatus at_task_send_patch(xATMessage txMsg)
             msg_print_uart1("at task message allocate fail \r\n");
             goto done;
         }
-        
+
         memcpy((void *)pMsg->pcMessage, (void *)txMsg.pcMessage, txMsg.length);
     }
 
@@ -175,7 +175,7 @@ done:
             {
                 free(pMsg->pcMessage);
             }
-    
+
             osPoolFree(AtMemPoolId, pMsg);
         }
     }
@@ -209,7 +209,7 @@ void at_task_patch(void *pvParameters)
         {
             pData = (at_uart_buffer_t *)rxMsg->pcMessage;
 			at_task_cmd_process(pData->buf, strlen(pData->buf));
-            at_clear_uart_buffer();
+            //at_clear_uart_buffer();
         }
 
         if(rxMsg->pcMessage != NULL) free(rxMsg->pcMessage);

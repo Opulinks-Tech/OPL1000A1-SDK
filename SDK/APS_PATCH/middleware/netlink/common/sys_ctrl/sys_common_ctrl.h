@@ -45,6 +45,10 @@ int base_nvm_mac_addr_src_read(u16 id, u16 len, void *buf);
 int base_nvm_mac_addr_src_write(u16 id, u16 len, void *ptr);
 int get_rf_power_level(u8 *level);
 int set_rf_power_level(u8 level);
+int get_dhcp_arp_check(void);
+int get_dhcp_arp_check_from_fim(void);
+int set_dhcp_arp_check(u8 mode);
+
 
 #ifdef __cplusplus
 }

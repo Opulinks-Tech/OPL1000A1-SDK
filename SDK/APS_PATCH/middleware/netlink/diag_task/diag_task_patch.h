@@ -15,6 +15,12 @@
 /* Scheduler includes. */
 #include "diag_task.h"
 
+typedef enum 
+{
+    CMD_FINISHED=0,
+    CMD_CONTINUE=1, 
+}E_CLI_CMD_PROC;
+typedef E_CLI_CMD_PROC(*T_Cli_UserCmdProcess_fp)(char *pbuf, int len);
 typedef void (*ParseAtVersionCommand_fp_t)(char *sCmd);
 typedef void (*ParseSimpleAtCommand_fp_t)(char *sCmd);
 
@@ -25,5 +31,5 @@ extern ParseSimpleAtCommand_fp_t ParseSimpleAtCommand;
    Interface Initialization: DIAG TASK
  */
 void diag_task_func_patch_init(void);
-
+void Diag_UserCmdSet(T_Cli_UserCmdProcess_fp ptUserCmdFunc);
 #endif

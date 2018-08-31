@@ -616,6 +616,53 @@ done:
     return iRet;
 }
 
+int at_cmd_tcp_dhcp_arp_check(char *buf, int len, int mode)
+{
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    u8 ret_st = 0;
+    u8 arp_mode;
+    
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+
+    switch(mode)
+    {
+        case AT_CMD_MODE_READ:
+            tcp_get_config_dhcp_arp_check(&arp_mode);
+            msg_print_uart1("\r\n+DHCPARPCHK:%d\r\n", arp_mode);
+            
+            ret_st = 1;
+            break;
+        case AT_CMD_MODE_SET:
+            if (argc != 2) {
+                goto done;
+            }
+            
+            arp_mode = atoi(argv[1]);
+            if (arp_mode > 1) {
+                goto done;
+            }
+            
+            if (tcp_set_config_dhcp_arp_check(arp_mode) != 0) {
+                goto done;
+            }
+            
+            ret_st = 1;
+            
+            break;
+        default:
+            break;
+    }
+
+done:
+    if (ret_st)
+        msg_print_uart1("\r\nOK\r\n");
+    else 
+        msg_print_uart1("\r\nError\r\n");
+    
+    return ret_st;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
@@ -627,5 +674,6 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+readflash",           at_cmd_sys_read_flash,    "Read flash" },
     { "at+writeflash",          at_cmd_sys_write_flash,   "Write flash" },
     { "at+eraseflash",          at_cmd_sys_erase_flash,   "Erase flash" },
+    { "at+dhcparpchk",          at_cmd_tcp_dhcp_arp_check,  "Enable/Disable DHCP ARP check mechanism"},
     { NULL,                     NULL,                     NULL},
 };
