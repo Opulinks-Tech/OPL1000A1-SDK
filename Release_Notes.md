@@ -30,8 +30,9 @@ ROM_CODE: 1655
 
 
 ## Notes List 
-1. websocket feature is on-developing 
-2. More examples such as MQTT, power save are on-developing. 
+1. TCP/IP AT instructions has issue in this release and will be fixed in next version.  
+2. websocket feature is on-developing 
+3. More examples such as MQTT, power save are on-developing. 
 
 *****
 
