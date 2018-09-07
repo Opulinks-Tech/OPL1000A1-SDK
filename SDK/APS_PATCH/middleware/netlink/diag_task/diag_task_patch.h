@@ -20,7 +20,18 @@ typedef enum
     CMD_FINISHED=0,
     CMD_CONTINUE=1, 
 }E_CLI_CMD_PROC;
+
+/**
+ * @brief User CLI command in DbgUart.
+ *        OPL1000 DbgUart command parser is after this function
+ * @param pbuf [in] The input buffer pointer.
+ * @param len [in] The length of input buffer.
+ * @return Command searching status.
+ * @retval CMD_FINISHED - Search command success. CLI command finished here.
+ * @retval CMD_CONTINUE - Search command fail. After this function, it will run OPL1000 CLI commands.
+ */
 typedef E_CLI_CMD_PROC(*T_Cli_UserCmdProcess_fp)(char *pbuf, int len);
+
 typedef void (*ParseAtVersionCommand_fp_t)(char *sCmd);
 typedef void (*ParseSimpleAtCommand_fp_t)(char *sCmd);
 

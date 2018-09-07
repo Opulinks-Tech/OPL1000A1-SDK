@@ -135,7 +135,7 @@ int at_cmd_sys_rf_hp(char *buf, int len, int mode)
         case AT_CMD_MODE_READ:
         {
             u8 level = 0;
-            sys_get_config_rf_power_level((sys_rf_power_level_t *)&level);
+            sys_get_config_rf_power_level(&level);
             msg_print_uart1("\r\n+RFHP:%d\r\n", level);
         }
             break;
@@ -150,7 +150,7 @@ int at_cmd_sys_rf_hp(char *buf, int len, int mode)
             
             level = atoi(argv[1]);
             
-            ret = sys_set_config_rf_power_level((sys_rf_power_level_t)level);
+            ret = sys_set_config_rf_power_level(level);
             if (ret != 0) {
                 ret_st = false;
                 goto done;
@@ -667,6 +667,7 @@ done:
   * @brief extern AT Command Table for All Module
   *
   */
+#if defined(__AT_CMD_SUPPORT__)
 _at_command_t gAtCmdTbl_ext[] =
 {
     { "at+macaddrdef",          at_cmd_sys_mac_addr_def,  "Default mac address from OTP or others storage" },
@@ -677,3 +678,4 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+dhcparpchk",          at_cmd_tcp_dhcp_arp_check,  "Enable/Disable DHCP ARP check mechanism"},
     { NULL,                     NULL,                     NULL},
 };
+#endif

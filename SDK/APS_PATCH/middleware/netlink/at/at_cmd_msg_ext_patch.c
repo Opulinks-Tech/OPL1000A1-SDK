@@ -8,6 +8,7 @@
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
 ******************************************************************************/
+#if defined(__AT_CMD_SUPPORT__)
 
 #include <stdio.h>
 #include <stdint.h>
@@ -337,6 +338,7 @@ void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason)
     }
 }
 
+
 void at_msg_ext_init_patch(void)
 {
     set_sorting(false, AT_WIFI_SHOW_ALL_BIT);
@@ -347,3 +349,5 @@ void at_msg_ext_init_patch(void)
     _at_msg_ext_wifi_connect = _at_msg_ext_wifi_connect_patch;
 
 }
+#endif
+

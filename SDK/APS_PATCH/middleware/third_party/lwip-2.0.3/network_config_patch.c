@@ -12,7 +12,9 @@
 #include "network_config.h"
 #include "network_config_patch.h"
 #include "sys_common_ctrl.h"
+
 extern int dhcp_does_arp_check_flag;
+
 int32_t dhcp_config_init_patch(void)
 {
     tcpip_config_dhcp_arp_check_init();
@@ -38,11 +40,12 @@ void tcpip_config_dhcp_arp_check_init(void)
     }
     dhcp_does_arp_check_flag = dhcp_arp;
 }
+
 /*-------------------------------------------------------------------------------------
  * Interface assignment
  *------------------------------------------------------------------------------------*/
 void lwip_load_interface_network_config_patch(void)
 {
     dhcp_config_init     =     dhcp_config_init_patch;
-    tcpip_config_init = tcpip_config_init_patch;
+    tcpip_config_init    =     tcpip_config_init_patch;
 }

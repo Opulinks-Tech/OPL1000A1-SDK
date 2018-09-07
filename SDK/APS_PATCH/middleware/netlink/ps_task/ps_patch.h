@@ -55,17 +55,21 @@ typedef struct
 
 void ps_patch_init(void);
 
-// ps
+// ps - public
 void ps_init_patch(void);
 void ps_wait_xtal_ready_patch(void);
 int ps_sleep_patch(void);
+void ps_update_boot_gpio_int_status(uint32_t gpio_status);
 void ps_dbg_cmd_conf_io(char *io_p);
 void ps_parse_command_patch(char *pbuf, int len);
+
+// ps - private
 uint32_t ps_synchronize_timers_patch(void);
-void ps_enable_wakeup_ext_io(void);
-void ps_inner_io_wakeup_callback(E_GpioIdx_t eIdx);
+void ps_default_io_callback(E_GpioIdx_t eIdx);
 void ps_default_wakeup_callback_patch(PS_WAKEUP_TYPE wakeup_type);
-void ps_config_wakeup_ext_io(E_GpioIdx_t ext_io_num, E_ItrType_t ext_io_type);
+
+// ps - for public API
+void ps_config_wakeup_ext_io(E_GpioIdx_t num, int enable, E_ItrType_t type, int invert, T_Gpio_CallBack callback);
 void ps_config_wakeup_callback(PS_WAKEUP_CALLBACK callback);
 void ps_enable_deep_sleep(void);
 void ps_enable_timer_sleep(uint32_t sleep_duration_us);

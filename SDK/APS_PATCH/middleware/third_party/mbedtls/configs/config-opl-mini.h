@@ -69,7 +69,6 @@
 #define MBEDTLS_X509_CRT_PARSE_C
 #define MBEDTLS_X509_USE_C
 #define MBEDTLS_SSL_SERVER_NAME_INDICATION
-
 //#define MBEDTLS_KEY_EXCHANGE_PSK_ENABLED
 #define MBEDTLS_NO_PLATFORM_ENTROPY
 #define MBEDTLS_ENTROPY_HARDWARE_ALT
@@ -79,11 +78,19 @@
 #define MBEDTLS_CERTS_C
 #define MBEDTLS_PEM_PARSE_C
 
+/* The following units have Opulinks hardware support,
+   uncommenting each MBEDTLS_MODULE_NAME_ALT macro will use the
+   hardware-accelerated implementation.
+*/
+#define MBEDTLS_SHA1_ALT
+#define MBEDTLS_SHA256_ALT
+
 #define MBEDTLS_SSL_MAX_CONTENT_LEN         (6*1024)   /**< Size of the input / output buffer */
 
-//#define MBEDTLS_AES_ROM_TABLES
+#define MBEDTLS_AES_ROM_TABLES
 
 #define OPL_DEBUG_LEVEL_NONE
+
 #ifndef OPL_DEBUG_LEVEL_NONE
 #define MBEDTLS_DEBUG_C
 #endif
@@ -93,9 +100,6 @@
 /* Opulink revisions */
 #define MBEDTLS_OPL
 //#define MBEDTLS_THREADING_FREERTOS
-
-/* enable SHA512 for home_ref_design requirement */
-//#define MBEDTLS_SHA512_C   // comment out according to Vincent's email, Aug.14 
 
 #include "mbedtls/check_config.h"
 #endif /* MBEDTLS_CONFIG_H */

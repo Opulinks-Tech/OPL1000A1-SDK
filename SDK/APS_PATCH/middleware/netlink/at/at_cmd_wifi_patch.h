@@ -12,7 +12,9 @@
 #ifndef _AT_CMD_WIFI_PATCH_H_
 #define _AT_CMD_WIFI_PATCH_H_
 
+#if defined(__AT_CMD_SUPPORT__)
 void _at_cmd_wifi_func_init_patch(void);
+#endif
 
 #define AT_WIFI_SHOW_ALL_BIT        0x0000001FU
 #define MAX_NUM_OF_HOST_NAME_SIZE 32

@@ -41,6 +41,8 @@
 extern _at_command_t *_g_AtCmdTbl_Wifi_Ptr;
 extern int g_wpa_mode;
 
+uint8_t g_wifi_init_mode = 0;
+
 /*
  * @brief Command at+cwmode
  *
@@ -62,7 +64,7 @@ int _at_cmd_wifi_cwmode_patch(char *buf, int len, int mode)
     switch(mode)
     {
         case AT_CMD_MODE_READ:
-            msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wpa_mode);
+            msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wifi_init_mode);
             msg_print_uart1("\r\nOK\r\n");
             break;
 
@@ -77,7 +79,7 @@ int _at_cmd_wifi_cwmode_patch(char *buf, int len, int mode)
                 if (mode_ == 1)
                 {
                     //wpa_set_wpa_mode(WPA_MODE_STA);
-                    g_wpa_mode = WPA_MODE_STA;
+                    g_wifi_init_mode = WPA_MODE_STA;
                     
                     //Initialize AT task (TCPIP data task, event loop task)
                     at_wifi_net_task_init();
@@ -91,7 +93,7 @@ int _at_cmd_wifi_cwmode_patch(char *buf, int len, int mode)
             break;
 
         case AT_CMD_MODE_TESTING:
-            msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wpa_mode);
+            msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wifi_init_mode);
             msg_print_uart1("\r\nOK\r\n");
             break;
 
@@ -460,6 +462,7 @@ int _at_cmd_wifi_cwlapopt_patch(char *buf, int len, int mode)
  * @brief AT Command Interface Initialization for Wi-Fi modules
  *
  */
+#if defined(__AT_CMD_SUPPORT__)
 void _at_cmd_wifi_func_init_patch(void)
 {
     /** Command Table (Wi-Fi) */
@@ -471,3 +474,4 @@ void _at_cmd_wifi_func_init_patch(void)
     _g_AtCmdTbl_Wifi_Ptr[51].cmd_handle = at_cmd_wifi_mac_cfg_patch;
     
 }
+#endif

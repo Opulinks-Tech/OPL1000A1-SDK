@@ -25,6 +25,7 @@
 #include "sys_os_config.h"
 
 #include "at_cmd_task_patch.h"
+#include "sys_os_config_patch.h"
 
 #define CONFIG_MAX_SOCKETS_NUM      5
 
@@ -70,7 +71,7 @@ void at_module_init_patch(uint32_t netconn_max, const char *custom_version)
 
     /** create task */
     at_task_def.name = OS_TASK_NAME_AT;
-    at_task_def.stacksize = OS_TASK_STACK_SIZE_DIAG;
+    at_task_def.stacksize = OS_TASK_STACK_SIZE_AT_PATCH;
     at_task_def.tpriority = OS_TASK_PRIORITY_DIAG;
     at_task_def.pthread = at_task;
     AtTaskHandle = osThreadCreate(&at_task_def, (void *)AtTaskHandle);

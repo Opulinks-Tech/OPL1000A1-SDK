@@ -31,13 +31,59 @@ extern "C" {
 #define OS_TASK_PRIORITY_AGENT          osPriorityLow
 
 // Task - Stack Size, the count of 4 bytes
-#define OS_TASK_STACK_SIZE_TRACER_PATCH (128)
-#define OS_TASK_STACK_SIZE_AGENT        (128)
+#define OS_TASK_STACK_SIZE_REFINED
+
+#ifdef OS_TASK_STACK_SIZE_REFINED
+
+    // Internal Tasks
+    #define OS_TASK_STACK_SIZE_DIAG_PATCH           (444)
+    #define OS_TASK_STACK_SIZE_WIFI_MAC_PATCH       (220)
+    #define OS_TASK_STACK_SIZE_SUPPLICANT_PATCH     (412)
+    #define OS_TASK_STACK_SIZE_CONTROLLER_PATCH     (264)
+    #define OS_TASK_STACK_SIZE_LE_PATCH             (416)
+    #define OS_TASK_STACK_SIZE_AT_PATCH             (264)
+    #define OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH     (116)
+    #define OS_TASK_STACK_SIZE_EVENT_LOOP_PATCH     (372)
+    #define OS_TASK_STACK_SIZE_TCPIP_PATCH          (484)
+    #define OS_TASK_STACK_SIZE_TRACER_PATCH         (128)
+    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (128)
+    #define OS_TASK_STACK_SIZE_AT_WIFI_APP_PATCH    (256) //(180)
+    
+    // Application Tasks
+    #define OS_TASK_STACK_SIZE_BLEWIFI_CTRL         (400)
+    #define OS_TASK_STACK_SIZE_BLEWIFI_USER_APP     (248)
+    #define OS_TASK_STACK_SIZE_SENSOR               (180)
+    #define OS_TASK_STACK_SIZE_SENSOR_DATA          (920)
+
+#else //#ifdef OS_TASK_STACK_SIZE_REFINED
+
+    // Internal Tasks
+    #define OS_TASK_STACK_SIZE_DIAG_PATCH           (512)
+    #define OS_TASK_STACK_SIZE_WIFI_MAC_PATCH       (1024)
+    #define OS_TASK_STACK_SIZE_SUPPLICANT_PATCH     (512)
+    #define OS_TASK_STACK_SIZE_CONTROLLER_PATCH     (512)
+    #define OS_TASK_STACK_SIZE_LE_PATCH             (1024)
+    #define OS_TASK_STACK_SIZE_AT_PATCH             (512)
+    #define OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH     (512)
+    #define OS_TASK_STACK_SIZE_EVENT_LOOP_PATCH     (512)
+    #define OS_TASK_STACK_SIZE_TCPIP_PATCH          (512)
+    #define OS_TASK_STACK_SIZE_TRACER_PATCH         (128)
+    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (128)
+    #define OS_TASK_STACK_SIZE_AT_WIFI_APP_PATCH    (512)
+    
+    // Application Tasks
+    #define OS_TASK_STACK_SIZE_BLEWIFI_CTRL         (512)
+    #define OS_TASK_STACK_SIZE_BLEWIFI_USER_APP     (512)
+    #define OS_TASK_STACK_SIZE_SENSOR               (256)
+    #define OS_TASK_STACK_SIZE_SENSOR_DATA          (1024)
+
+#endif //#ifdef OS_TASK_STACK_SIZE_REFINED
 
 
 // Task - Name (max length is 15 bytes (not including '\0'))
 #define OS_TASK_NAME_AGENT              "opl_agent"
 
+//#define OS_TASK_INFO_DUMP
 
 /******************************
 Declaration of data structure

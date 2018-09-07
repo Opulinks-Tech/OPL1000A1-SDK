@@ -127,6 +127,7 @@ extern void lwip_task_create(void);
 #include "scrt_patch.h"
 #include "controller_task_patch.h"
 #include "rf_cfg.h"
+#include "wifi_mac_task_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -199,7 +200,7 @@ void SysInit_EntryPoint(void)
 
     // apply the sw patch from here
     Test_ForSwPatch = __Test_ForSwPatch;
-    
+
     // system
     Sys_ClockSetup = Sys_ClockSetup_patch;
     Sys_DriverInit = Sys_DriverInit_patch;
@@ -214,18 +215,19 @@ void SysInit_EntryPoint(void)
 
     /** WPA_Supplicant Patch Initialization */
     wpas_init_patch();
-    
+
     //wifi mac patch
     wifi_mac_txdata_func_init_patch();
-    
+    wifi_mac_task_func_init_patch();
+
     //Wifi controller
     wifi_ctrl_init_patch();
     wifi_nvm_func_patch();
     wifi_service_func_init_patch();
-    
+
     // le_ctrl
     le_ctrl_pre_patch_init();
-    
+
     // Agent
     agent_patch_init();
 
@@ -234,23 +236,25 @@ void SysInit_EntryPoint(void)
 
     // BLE HOST
     LeHostPatchAssign();
-    
+
     // AT
+#if defined(__AT_CMD_SUPPORT__)
     _at_cmd_sys_func_patch_init();
+#endif
     at_func_init_patch();
-    
+
     // diag task
     diag_task_func_patch_init();
-    
+
     // LwIP
     lwip_module_interface_init_patch();
-    
+
     // Peripheral
     peripheral_patch_init();
-    
+
     // SCRT
     scrt_drv_func_init_patch();
-    
+
     // power saving
     ps_patch_init();
 
@@ -259,9 +263,11 @@ void SysInit_EntryPoint(void)
 
     // RF config
     rf_cfg_pre_init_patch();
-	
+
 	// CMSIS-RTOS
 	freertos_patch_init();
+
+    // ISR
 	ISR_Pre_Init_patch();
 }
 
@@ -359,14 +365,19 @@ static void Sys_DriverInit_patch(void)
     // Set pin-mux
     Hal_SysPinMuxAppInit();
 
-	  // Added for mapping IO8/9 to mini-USB UART 
-	  // Hal_SysPinMuxDownloadInit();
-	
-    // Init VIC
-    Hal_Vic_Init();
-    
-    // Init GPIO
-    Hal_Vic_GpioInit();
+    // Init VIC at cold-boot
+    if (!Boot_CheckWarmBoot())
+    {
+        Hal_Vic_Init();
+        
+        // Init GPIO
+        Hal_Vic_GpioInit();
+    }
+    // Fetch GPIO interrupt status at warm-boot
+    else
+    {
+        ps_update_boot_gpio_int_status(Hal_Vic_GpioIntStatRead());
+    }
 
 	// Init IPC
     Hal_Vic_IpcIntEn(IPC_IDX_0, 1);
@@ -396,10 +407,10 @@ static void Sys_DriverInit_patch(void)
 
     // Init UART0 / UART1
     Sys_UartInit();
-    
+
     // Init PWM
     //Hal_Pwm_Init();
-    
+
     // Init AUXADC
     Hal_Aux_Init();
 
@@ -417,23 +428,8 @@ static void Sys_DriverInit_patch(void)
     // cold boot
     if (0 == Boot_CheckWarmBoot())
     {
-			  // the default is on
+        // the default is on
         Hal_DbgUart_RxIntEn(1);
-			
-			  /*
-        // ICE or JTag
-        if ((BOOT_MODE_ICE == Hal_Sys_StrapModeRead()) || (BOOT_MODE_JTAG == Hal_Sys_StrapModeRead()))
-        {
-            // the default is on
-            Hal_DbgUart_RxIntEn(1);
-        }
-        // others
-        else
-        {
-            // the default is off
-            Hal_DbgUart_RxIntEn(0);
-        }
-			  */ 
     }
     // warm boot
     else
@@ -458,7 +454,12 @@ static void Sys_DriverInit_patch(void)
 		// TODO: Revision will be provided by Ophelia after peripheral restore mechanism completed
 		uart1_mode_set_default();
 		uart1_mode_set_at();
+
+        // Init GPIO
+        Hal_Vic_GpioInit();
 	}
+
+    //Watch Dog
     if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
     {
         Hal_Vic_IntTypeSel(WDT_IRQn, INT_TYPE_FALLING_EDGE);
@@ -484,9 +485,9 @@ static void Sys_DriverInit_patch(void)
 static void Sys_ServiceInit_patch(void)
 {
     T_MwOtaLayoutInfo tLayout;
-    
+
     Sys_RomVersion();
-    
+
     SysInit_LibVersion();
 
 #if defined(__DIAG_TASK__)
@@ -530,13 +531,13 @@ static void Sys_ServiceInit_patch(void)
 #endif
 
     wifi_sta_info_init();
-    
+
     // Agent
     agent_init();
 
     // Load param from FIM for Tracer
     tracer_load();
-    
+
     // OTA
     MwOta_PreInitCold();
     tLayout.ulaHeaderAddr[0] = MW_OTA_HEADER_ADDR_1;
@@ -546,12 +547,30 @@ static void Sys_ServiceInit_patch(void)
     tLayout.ulImageSize = MW_OTA_IMAGE_SIZE;
     MwOta_Init(&tLayout, 0);
 }
+
+
+/*************************************************************************
+* FUNCTION:
+*   Sys_IdleHook
+*
+* DESCRIPTION:
+*   the hook function of idle task
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
 void Sys_IdleHook_patch(void)
 {
     if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
     {
+        //Clear watchdog interrupt & reload conter
         Hal_Wdt_Clear();
     }
+
 	ps_sleep();
 }
 
@@ -596,6 +615,6 @@ void Sys_StackOverflowHook_patch(TaskHandle_t xTask, char *pcTaskName) __attribu
 void Sys_StackOverflowHook_patch(TaskHandle_t xTask, char *pcTaskName)
 {
 	tracer_drct_printf("stack overflow: %x %s\r\n", (unsigned int)xTask, (portCHAR *)pcTaskName);
-    
+
     while(1) {}
 }

@@ -58,20 +58,25 @@ Head Block of The File
 #define I2C_INT_TX_ABRT          (1<<6)
 #define I2C_INT_RD_REQ           (1<<5)
 #define I2C_INT_RX_FULL          (1<<2)
+
 #define I2C_DATA_RESTART_BIT     (1<<10)
 #define I2C_DATA_STOP_BIT        (1<<9)
 #define I2C_DATA_CMD_WRITE       (0<<8)
 #define I2C_DATA_CMD_READ        (1<<8)
 #define I2C_DATA_CMD_DATA_MASK   (0xFF)
+
 #define I2C_STATUS_SLV_ACTIVITY  (1<<6)
 #define I2C_STATUS_MST_ACTIVITY  (1<<5)
 #define I2C_STATUS_RX_FULL       (1<<4)
 #define I2C_STATUS_RX_NOT_EMPTY  (1<<3)
 #define I2C_STATUS_TX_EMPTY      (1<<2)
 #define I2C_STATUS_TX_NOT_FULL   (1<<1)
+
 #define I2C_ENABLE_EN            1
 #define I2C_ENABLE_STATUS_EN     1
+
 #define I2C_TIMEOUT_COUNT_MAX    (0x30000)
+
 #define I2C_FIFO_SIZE            8
 
 /********************************************
@@ -134,6 +139,7 @@ Declaration of Global Variables & Functions
 // Sec 4: declaration of global  variable
 extern T_Hal_I2c_WaitForMasterCompleted _Hal_I2c_WaitForMasterCompleted;
 
+
 // Sec 5: declaration of global function prototype
 
 
@@ -190,47 +196,126 @@ uint32_t _Hal_I2c_Eanble_patch(uint8_t u8Enable)
     }
     return 0;
 }
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_MasterInit
+* 
+* DESCRIPTION:
+*   1. Initial I2c as master mode
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. eAddrMode: 7/10bit Address mode. refer to E_I2cAddrMode_t
+*   2. eSpeed   : Standard(100K)/Fast(400K)/High speed(3.4M) mode. refer to E_I2cSpeed_t
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
 uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed)
 {
+    // Enable clock of module
     Hal_Sys_ApsClkEn(1, APS_CLK_I2C);
+    // Reset module
     Hal_Sys_ApsModuleRst(ASP_RST_I2C);
+    
+    // ---> Disable first, to set registers 
     _Hal_I2c_Eanble( 0 );
+    
+    // Master Mode, and restart enable
     I2C->CON = I2C_CON_MASTER_MODE | I2C_CON_SLAVE_DISABLE | I2C_CON_RESTART_EN;
+    
+    // Address Bits
     if(eAddrMode == I2C_10BIT)
     {
+        // 10-Bit Master
         I2C->CON |= I2C_CON_MASTER_10BIT;
     }else{
+        // 7-Bit Master
         I2C->CON |= I2C_CON_MASTER_07BIT;
     }
+    
+    // Set FIFO
     I2C->RX_TL = 0;
     I2C->TX_TL = 0;
+    
+    // Speed
     Hal_I2c_SpeedSet( eSpeed );
+
+    // Mask all interrupt, handle Tx abort
     I2C->INTR_MASK = I2C_INT_TX_ABRT;
+    
+    // <--- Enable modules
     _Hal_I2c_Eanble( 1 );
+    
+    // VIC 1) Clear interrupt
     Hal_Vic_IntClear(I2C_IRQn);
+    // VIC 2) un-Mask VIC
     Hal_Vic_IntMask(I2C_IRQn, 0);
+    // VIC 3) Enable VIC
     Hal_Vic_IntEn(I2C_IRQn, 1);
+
+    // NVIC 1) Clean NVIC
     NVIC_ClearPendingIRQ(I2C_IRQn);
+    // NVIC 2) Set prority
     NVIC_SetPriority(I2C_IRQn, IRQ_PRIORITY_I2C);
+    // NVIC 3) Enable NVIC
     NVIC_EnableIRQ(I2C_IRQn);
+    
     return 0;
 }
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_MasterRecieve
+* 
+* DESCRIPTION:
+*   1. Master receive, used before Hal_I2c_TargetAddrSet
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. pu8Data      : Data buff to receive
+*   2. u32Length    : Data length
+*   3. u8NeedStopBit: Need Stop bit when finished
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
 uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8_t u8NeedStopBit)
 {
     uint32_t u32Count = 0;
     uint32_t u32Temp = 0;
     uint32_t u32Idx = 0;
     uint32_t u32WrIdx = 0;
+
+    // Wait for previous action complete, generate START bit
     if( _Hal_I2c_WaitForMasterCompleted() )
         return 1;
+    
+    // Tx dummy only
     while ((u32WrIdx < I2C_FIFO_SIZE) && (u32WrIdx < u32Length))
     {
         u32Temp = I2C_DATA_CMD_READ;
+
+        // Check STOP bit
         if(u32WrIdx == u32Length-1)
         {
+            //Last data, check for stop bit
             if(u8NeedStopBit)
                 u32Temp |= I2C_DATA_STOP_BIT;
         }
+        
+        // Wait for TX not full
         u32Count = 0;
         while( !(I2C->STATUS & I2C_STATUS_TX_NOT_FULL) )
         {
@@ -238,11 +323,17 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
                 return 1;
             u32Count++;
         }
+        
+        // Send data
         I2C->DATA_CMD = u32Temp;
         u32WrIdx++;
     }
+    
+    // Tx and Rx
     while (u32WrIdx < u32Length)
     {
+        // Rx
+        // Wait for RX not empty
         u32Count = 0;
         while( !(I2C->STATUS & I2C_STATUS_RX_NOT_EMPTY) )
         {
@@ -250,14 +341,22 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
                 return 1;
             u32Count++;
         }
+        // Get data
         pu8Data[u32Idx] = (uint8_t)(I2C->DATA_CMD & I2C_DATA_CMD_DATA_MASK);
         u32Idx++;
+        
+        // Tx
         u32Temp = I2C_DATA_CMD_READ;
+
+        // Check STOP bit
         if(u32WrIdx == u32Length-1)
         {
+            //Last data, check for stop bit
             if(u8NeedStopBit)
                 u32Temp |= I2C_DATA_STOP_BIT;
         }
+        
+        // Wait for TX not full
         u32Count = 0;
         while( !(I2C->STATUS & I2C_STATUS_TX_NOT_FULL) )
         {
@@ -265,11 +364,17 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
                 return 1;
             u32Count++;
         }
+        
+        // Send data
         I2C->DATA_CMD = u32Temp;
         u32WrIdx++;
     }
+    
+    // Rx only
     while (u32Idx < u32Length)
     {
+        // Rx
+        // Wait for RX not empty
         u32Count = 0;
         while( !(I2C->STATUS & I2C_STATUS_RX_NOT_EMPTY) )
         {
@@ -277,8 +382,10 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
                 return 1;
             u32Count++;
         }
+        // Get data
         pu8Data[u32Idx] = (uint8_t)(I2C->DATA_CMD & I2C_DATA_CMD_DATA_MASK);
         u32Idx++;
     }
+    
     return 0;
 }

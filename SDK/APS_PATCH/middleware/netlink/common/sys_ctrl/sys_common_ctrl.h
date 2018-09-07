@@ -34,11 +34,6 @@ typedef enum {
     BASE_NVM_MAC_SRC_TYPE_ID_MAX_NUM,
 } base_nvm_mac_src_type_id_t;
 
-typedef enum {
-    SYS_COMMON_RF_TYPE_LOW = 0,
-    SYS_COMMON_RF_TYPE_HIGH,
-} sys_common_rf_type_t;
-
 int base_mac_addr_src_get_cfg(u8 iface, u8 *type);
 int base_mac_addr_src_set_cfg(u8 iface, u8 type);
 int base_nvm_mac_addr_src_read(u16 id, u16 len, void *buf);

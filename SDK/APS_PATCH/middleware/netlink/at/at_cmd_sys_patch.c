@@ -296,7 +296,14 @@ int _at_cmd_sys_gmr_patch(char *buf, int len, int mode)
 
 void _at_cmd_sys_gslp_wakeup_callback_patch(PS_WAKEUP_TYPE type)
 {
-	msg_print_uart1("\r\nWAKEUP, TYPE: %s\r\n", type == PS_WAKEUP_TYPE_IO ? "IO" : "TIMEOUT");
+	msg_print_uart1("\r\nAT Wakeup, Type: %s\r\n", type == PS_WAKEUP_TYPE_IO ? "IO" : "TIMEOUT");
+}
+
+void _at_cmd_sys_gslp_io_callback(E_GpioIdx_t eIdx)
+{
+    Hal_Vic_GpioIntEn(eIdx, 0);
+    ps_smart_sleep(0);
+	msg_print_uart1("AT IO ISR invoked, io_num: %d\r\n", eIdx);
 }
 
 /*
@@ -307,7 +314,6 @@ void _at_cmd_sys_gslp_wakeup_callback_patch(PS_WAKEUP_TYPE type)
  * @param [in] argv parameters array
  *
  * @return 0 fail 1 success
- *
  */
 int _at_cmd_sys_gslp_patch(char *buf, int len, int mode)
 {
@@ -321,13 +327,9 @@ int _at_cmd_sys_gslp_patch(char *buf, int len, int mode)
 		case AT_CMD_MODE_SET:
 		{
 			int sleep_duration_ms = atoi(argv[1]);
-			int ext_io = atoi(argv[2]);
+			int num = atoi(argv[2]);
 
-			if (argc == 3)
-				ps_set_wakeup_io((E_GpioIdx_t) ext_io, INT_TYPE_LEVEL);
-			else
-				ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
-
+			if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) num, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
 			ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 			ps_timer_sleep(sleep_duration_ms);
 
@@ -496,7 +498,7 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
 
-	switch (mode)		
+	switch (mode)
 	{
 		case AT_CMD_MODE_SET:
 		{
@@ -507,38 +509,26 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 			switch (slp_mode)
 			{
 				case 0:
-					ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
 					ps_smart_sleep(0);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
 
 				case 1:
-					if (argc == 3)
-						ps_set_wakeup_io((E_GpioIdx_t) p1, INT_TYPE_LEVEL);
-					else
-						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
-
+					if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+                    ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 					ps_smart_sleep(1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
 
 				case 2:
-					if (argc == 4)
-						ps_set_wakeup_io((E_GpioIdx_t) p2, INT_TYPE_LEVEL);
-					else
-						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
-
+					if (argc == 4) ps_set_wakeup_io((E_GpioIdx_t) p2, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
 					ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 					ps_timer_sleep(p1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
 
 				case 3:
-					if (argc == 3)
-						ps_set_wakeup_io((E_GpioIdx_t) p1, INT_TYPE_LEVEL);
-					else
-						ps_set_wakeup_io(GPIO_IDX_MAX, INT_TYPE_LEVEL);
-
+					if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, NULL);
 					ps_deep_sleep();
 					msg_print_uart1("\r\nOK\r\n");
 					break;
@@ -562,6 +552,7 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
  *
  */
 extern _at_command_t *_g_AtCmdTbl_Sys_Ptr;
+#if defined(__AT_CMD_SUPPORT__)
 void _at_cmd_sys_func_patch_init(void)
 {
     // index = 1, it means "at+gmr"
@@ -572,3 +563,4 @@ void _at_cmd_sys_func_patch_init(void)
     _g_AtCmdTbl_Sys_Ptr[5].cmd_handle = _at_cmd_sys_uartdef_patch;
 	_g_AtCmdTbl_Sys_Ptr[7].cmd_handle = _at_cmd_sys_sleep_patch;
 }
+#endif

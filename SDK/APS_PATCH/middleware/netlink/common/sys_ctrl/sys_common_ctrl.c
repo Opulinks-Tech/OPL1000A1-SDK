@@ -165,8 +165,9 @@ int set_rf_power_level(u8 level)
     int ret;
     T_RfCfg rf_cfg = {0};
     
-    if (level > SYS_COMMON_RF_TYPE_HIGH) {
-        SYS_COMMON_LOGE("Invalid parameters.");
+    ret = rf_cfg_get(&rf_cfg);
+    if (ret) {
+        SYS_COMMON_LOGE("Get config of rf power failed.");
         return -1;
     }
 

@@ -119,7 +119,7 @@ typedef enum
     SCRT_TOKEN_ID_HMAC_SHA_1 = 0xE0D0,
     SCRT_TOKEN_ID_AES_ECB = 0xE0E0,
     SCRT_TOKEN_ID_AES_CMAC = 0xE0F0,
-    SCRT_TOKEN_ID_SHA_1 = 0xE100,
+    SCRT_TOKEN_ID_SHA = 0xE100,
 
     SCRT_TOKEN_ID_MAX = 0xEFFF
 } T_ScrtTokenId;
@@ -178,7 +178,11 @@ extern RET_DATA nl_scrt_key_delete_fp_t nl_scrt_key_delete;
 
 RET_DATA nl_scrt_aes_cmac_fp_t nl_scrt_aes_cmac_get;
 //RET_DATA nl_scrt_hmac_sha_1_step_fp_t nl_scrt_hmac_sha_1_step;
-RET_DATA nl_scrt_sha_1_fp_t nl_scrt_sha_1;
+//RET_DATA nl_scrt_sha_1_fp_t nl_scrt_sha_1;
+//RET_DATA nl_scrt_sha_256_fp_t nl_scrt_sha_256;
+
+RET_DATA nl_scrt_sha_fp_t nl_scrt_sha;
+
 
 extern T_ScrtRes g_tScrtRes[SCRT_MB_IDX_MAX];
 extern osSemaphoreId g_tScrtResSem;
@@ -1206,7 +1210,7 @@ done:
     return status;
 }
 
-int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterMac[32], uint32_t u32TotalLen, uint8_t *u8aData, uint32_t u32DataLen, uint8_t u8aMac[20])
+int nl_scrt_sha_patch(uint8_t u8Type, uint8_t u8Step, uint32_t u32TotalLen, uint8_t *u8aData, uint32_t u32DataLen, uint8_t u8HasInterMac, uint8_t *u8aMac)
 {
     int status = 0;
     volatile uint32_t *u32aBase = NULL;
@@ -1215,8 +1219,10 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
     uint8_t u8ResId = SCRT_MB_IDX_MAX;
     uint16_t u16TokenId = 0;
     uint8_t u8NeedToClr = 0;
-    uint32_t u32BlkSize = 64;
     uint8_t u8Mode = 0;
+    uint8_t u8Alg = 0;
+    uint32_t u32StepSize = 0;
+    uint32_t u32OutputLen = 0;
 
     #ifdef SCRT_ENABLE_UNLINK
     uint8_t u8Link = 0;
@@ -1234,17 +1240,54 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
         goto done;
     }
 
+    switch(u8Type)
+    {
+        case SCRT_TYPE_SHA_1:
+            u8Alg = 1;
+            u32StepSize = SCRT_SHA_1_STEP_SIZE;
+            u32OutputLen = SCRT_SHA_1_OUTPUT_LEN;
+            break;
+    
+        case SCRT_TYPE_SHA_224:
+            u8Alg = 2;
+            u32StepSize = SCRT_SHA_224_STEP_SIZE;
+            u32OutputLen = SCRT_SHA_224_OUTPUT_LEN;
+            break;
+    
+        case SCRT_TYPE_SHA_256:
+            u8Alg = 3;
+            u32StepSize = SCRT_SHA_256_STEP_SIZE;
+            u32OutputLen = SCRT_SHA_256_OUTPUT_LEN;
+            break;
+    
+        case SCRT_TYPE_SHA_384:
+            u8Alg = 4;
+            u32StepSize = SCRT_SHA_384_STEP_SIZE;
+            u32OutputLen = SCRT_SHA_384_OUTPUT_LEN;
+            break;
+    
+        case SCRT_TYPE_SHA_512:
+            u8Alg = 5;
+            u32StepSize = SCRT_SHA_512_STEP_SIZE;
+            u32OutputLen = SCRT_SHA_512_OUTPUT_LEN;
+            break;
+    
+        default:
+            SCRT_LOGE("[%s %d] unknown type[%d]\n", __func__, __LINE__, u8Type);
+            goto done;
+    }
+
     if(u8Step)
     {
-        if(u32DataLen > u32BlkSize)
+        if(u32DataLen > u32StepSize)
         {
-            SCRT_LOGE("[%s %d] invalid data_len[%u] > [%u]\n", __func__, __LINE__, u32DataLen, u32BlkSize);
+            SCRT_LOGE("[%s %d] invalid data_len[%u] > [%u]\n", __func__, __LINE__, u32DataLen, u32StepSize);
             goto done;
         }
 
         if(u8HasInterMac)
         {
-            if(u32DataLen < u32BlkSize)
+            if(u32DataLen < u32StepSize)
             {
                 // final
                 u8Mode = 0x01;
@@ -1257,7 +1300,7 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
         }
         else
         {
-            if(u32DataLen < u32BlkSize)
+            if(u32DataLen < u32StepSize)
             {
                 // initial and final
                 u8Mode = 0x00;
@@ -1266,16 +1309,6 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
             {
                 // initial
                 u8Mode = 0x02;
-            }
-        }
-
-        if(u8Mode & 0x02)
-        {
-            // not final => intermediate mac buffer is necessary
-            if(!u8aInterMac)
-            {
-                SCRT_LOGE("[%s %d] invalid inter-mac buffer\n", __func__, __LINE__);
-                goto done;
             }
         }
     }
@@ -1308,7 +1341,7 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
     // Link: end
     #endif
 
-    u16TokenId = SCRT_TOKEN_ID_SHA_1 + g_tScrtRes[u8ResId].u8MbIdx;
+    u16TokenId = SCRT_TOKEN_ID_SHA + g_tScrtRes[u8ResId].u8MbIdx;
     u32aBase = (volatile uint32_t *)SCRT_BASE_ADDR(g_tScrtRes[u8ResId].u8MbIdx);
 
     // Hash: start
@@ -1318,28 +1351,15 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
     u32aBase[3] = (uint32_t)u8aData;
     u32aBase[4] = 0x00000000;
     u32aBase[5] = u32DataLen;
-    u32aBase[6] = ((u8Mode & 0x03) << 4) | ((0x1) << 0);
+    u32aBase[6] = ((u8Mode & 0x03) << 4) | (u8Alg & 0x0F);
     u32aBase[7] = 0x00000000;
 
     if(u8Mode & 0x01) // continue
     {
-        // copy intermediate MAC (word 8 ~ 15)
-        memcpy((void *)&(u32aBase[8]), u8aInterMac, SCRT_SHA_1_INTER_MAC_LEN);
-    }
-    else // start
-    {
-        // clear intermediate MAC (word 8 ~ 15)
-        memset((void *)&(u32aBase[8]), 0, SCRT_SHA_1_INTER_MAC_LEN);
+        // copy intermediate MAC
+        memcpy((void *)&(u32aBase[8]), u8aMac, u32OutputLen);
     }
     
-    u32aBase[16] = 0x00000000;
-    u32aBase[17] = 0x00000000;
-    u32aBase[18] = 0x00000000;
-    u32aBase[19] = 0x00000000;
-    u32aBase[20] = 0x00000000;
-    u32aBase[21] = 0x00000000;
-    u32aBase[22] = 0x00000000;
-    u32aBase[23] = 0x00000000;
     u32aBase[24] = u32TotalLen;
     u32aBase[25] = 0x00000000;
 
@@ -1367,7 +1387,7 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
 
     if(u32Output != u16TokenId)
     {
-        SCRT_LOGE("[%s %d] output token id[%08X] != SCRT_TOKEN_ID_HMAC_SHA_1[%08X]\n", __func__, __LINE__, 
+        SCRT_LOGE("[%s %d] output token id[%08X] != SCRT_TOKEN_ID_SHA[%08X]\n", __func__, __LINE__, 
                   u32Output, u16TokenId);
 
         #ifdef SCRT_CHECK
@@ -1377,16 +1397,8 @@ int nl_scrt_sha_1_patch(uint8_t u8Step, uint8_t u8HasInterMac, uint8_t u8aInterM
         #endif
     }
 
-    if(u8Mode & 0x02)
-    {
-        // intermediate mac
-        memcpy((void *)u8aInterMac, (void *)&(u32aBase[2]), SCRT_SHA_1_INTER_MAC_LEN);
-    }
-    else
-    {
-        // final mac
-        memcpy((void *)u8aMac, (void *)&(u32aBase[2]), SCRT_SHA_1_OUTPUT_LEN);
-    }
+    // intermediate or final mac
+    memcpy((void *)u8aMac, (void *)&(u32aBase[2]), u32OutputLen);
 
     *u32aStatus = SCRT_CTRL_READ_MSK(g_tScrtRes[u8ResId].u8MbIdx);
     u8NeedToClr = 0;
@@ -1432,7 +1444,7 @@ void scrt_drv_func_init_patch(void)
 
     nl_scrt_aes_ccm = nl_scrt_aes_ccm_patch;
     nl_scrt_aes_ecb = nl_scrt_aes_ecb_patch;
-    nl_scrt_sha_1 = nl_scrt_sha_1_patch;
+    nl_scrt_sha = nl_scrt_sha_patch;
 
     #ifdef SCRT_CMD_PATCH
     nl_scrt_cmd_func_init_patch();

@@ -31,7 +31,7 @@
 #define SCRT_CMD_SUT_TASK
 //#define SCRT_CMD_HMAC_SHA_1_STEP
 #define SCRT_CMD_AES_CMAC
-#define SCRT_CMD_SHA_1
+#define SCRT_CMD_SHA
 
 //#define SCRT_KEY_PAIR_1
 #define SCRT_DHKEY_1
@@ -179,8 +179,8 @@ const uint8_t g_u8aScrtHmacSha1SkStep[] =
 };
 #endif //#ifdef SCRT_CMD_HMAC_SHA_1_STEP
 
-#ifdef SCRT_CMD_SHA_1
-const uint8_t g_u8aScrtSha1Data[] = 
+#ifdef SCRT_CMD_SHA
+const uint8_t g_u8aScrtShaData[] = 
 {
     0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 
     0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 
@@ -203,7 +203,7 @@ const uint8_t g_u8aScrtSha1Data[] =
     0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x61, 0x62, 
     
 };
-#endif //#ifdef SCRT_CMD_SHA_1
+#endif //#ifdef SCRT_CMD_SHA
 
 void nl_scrt_cmd_patch(char *sCmd)
 {
@@ -848,19 +848,19 @@ void nl_scrt_cmd_patch(char *sCmd)
         }
     }
     #endif
-    #ifdef SCRT_CMD_SHA_1
+    #ifdef SCRT_CMD_SHA
     else if(dwCase == 8) // SHA-1
     {
-        uint8_t u8aOutput[20] = {0};
-        uint32_t u32BlkSize = 64;
+        uint8_t u8aOutput[SCRT_SHA_1_OUTPUT_LEN] = {0};
+        uint32_t u32BlkSize = SCRT_SHA_1_STEP_SIZE;
         uint32_t u32Total = 64;
         uint32_t u32Offset = 0;
         uint32_t u32Input = 0;
-        uint32_t u32DataLen = 20;
+        uint32_t u32DataLen = SCRT_SHA_1_OUTPUT_LEN;
         uint32_t u32Time = 0;
         uint8_t u8IsInterMac = 0;
-        uint8_t u8aInterMac[32] = {0};
-        uint8_t u8aScrtSha1Data[256] = {0};
+        //uint8_t u8aInterMac[32] = {0};
+        uint8_t u8aScrtShaData[256] = {0};
         uint8_t u8Step = 1;
 
         if(dwParamNum > 2)
@@ -875,7 +875,7 @@ void nl_scrt_cmd_patch(char *sCmd)
 
         tracer_cli(LOG_HIGH_LEVEL, "u32Total[%u]\n", u32Total);
 
-        memcpy(u8aScrtSha1Data, g_u8aScrtSha1Data, u32Total);
+        memcpy(u8aScrtShaData, g_u8aScrtShaData, u32Total);
 
         while(1)
         {
@@ -900,7 +900,7 @@ void nl_scrt_cmd_patch(char *sCmd)
 
             u32Start = SCRT_CURR_TIME;
 
-            if(!nl_scrt_sha_1(u8Step, u8IsInterMac, u8aInterMac, u32Total, &(u8aScrtSha1Data[u32Offset]), u32Input, u8aOutput))
+            if(!nl_scrt_sha(SCRT_TYPE_SHA_1, u8Step, u32Total, &(u8aScrtShaData[u32Offset]), u32Input, u8IsInterMac, u8aOutput))
             {
                 tracer_cli(LOG_HIGH_LEVEL, "nl_scrt_sha_1_step fail\n");
                 goto done;
@@ -909,23 +909,18 @@ void nl_scrt_cmd_patch(char *sCmd)
             u32End = SCRT_CURR_TIME;
             u32Time = u32End - u32Start;
 
-            if((!u8Step) || (u32Input < 64))
+            if((!u8Step) || (u32Input < u32BlkSize))
             {
                 tracer_cli(LOG_HIGH_LEVEL, "Output:");
-
-                for(i = 0; i < u32DataLen; i++)
-                {
-                    tracer_cli(LOG_HIGH_LEVEL, " %02x", u8aOutput[i]);
-                }
             }
             else
             {
                 tracer_cli(LOG_HIGH_LEVEL, "InterM:");
+            }
 
-                for(i = 0; i < 32; i++)
-                {
-                    tracer_cli(LOG_HIGH_LEVEL, " %02x", u8aInterMac[i]);
-                }
+            for(i = 0; i < u32DataLen; i++)
+            {
+                tracer_cli(LOG_HIGH_LEVEL, " %02x", u8aOutput[i]);
             }
 
             tracer_cli(LOG_HIGH_LEVEL, "\n");
@@ -941,7 +936,7 @@ void nl_scrt_cmd_patch(char *sCmd)
                 break;
             }
 
-            if(u32Input < 64)
+            if(u32Input < u32BlkSize)
             {
                 break;
             }
@@ -953,9 +948,9 @@ void nl_scrt_cmd_patch(char *sCmd)
     {
         extern void mbedtls_sha1( const unsigned char *input, size_t ilen, unsigned char output[20] );
 
-        uint8_t u8aOutput[20] = {0};
-        uint32_t u32DataLen = 20;
-        uint8_t u8aScrtSha1Data[256] = {0};
+        uint8_t u8aOutput[SCRT_SHA_1_OUTPUT_LEN] = {0};
+        uint32_t u32DataLen = SCRT_SHA_1_OUTPUT_LEN;
+        uint8_t u8aScrtShaData[256] = {0};
         uint32_t u32Total = 64;
         uint32_t u32Time = 0;
 
@@ -966,11 +961,11 @@ void nl_scrt_cmd_patch(char *sCmd)
 
         tracer_cli(LOG_HIGH_LEVEL, "u32Total[%u]\n", u32Total);
 
-        memcpy(u8aScrtSha1Data, g_u8aScrtSha1Data, u32Total);
+        memcpy(u8aScrtShaData, g_u8aScrtShaData, u32Total);
 
         u32Start = SCRT_CURR_TIME;
 
-        mbedtls_sha1(u8aScrtSha1Data, u32Total, u8aOutput);
+        mbedtls_sha1(u8aScrtShaData, u32Total, u8aOutput);
 
         u32End = SCRT_CURR_TIME;
         u32Time = u32End - u32Start;
@@ -986,7 +981,7 @@ void nl_scrt_cmd_patch(char *sCmd)
 
         tracer_cli(LOG_HIGH_LEVEL, "mbedtls_sha1 proc_time: %u us\n", u32Time);
     }
-    #endif //#ifdef SCRT_CMD_SHA_1
+    #endif //#ifdef SCRT_CMD_SHA
     #ifdef SCRT_CMD_AES_CMAC
     else if(dwCase == 20) // AES-CMAC
     {

@@ -12,8 +12,11 @@
 #ifndef _AT_CMD_MSG_EXT_PATCH_H_
 #define _AT_CMD_MSG_EXT_PATCH_H_
 
+#if defined(__AT_CMD_SUPPORT__)
 void at_msg_ext_init_patch(void);
 void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason);
+#endif
+
 
 /**
  * @brief AT Extending Error Code for CWJAP

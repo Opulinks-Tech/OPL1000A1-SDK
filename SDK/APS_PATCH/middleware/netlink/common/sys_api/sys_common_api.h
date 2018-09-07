@@ -99,21 +99,21 @@ int mac_addr_set_config_source(mac_iface_t iface, mac_source_type_t type);
   * @return    0  : success
   * @return    other : failed
  */
-int sys_get_config_rf_power_level(sys_rf_power_level_t *level);
+int sys_get_config_rf_power_level(uint8_t *level);
 
 /**
   * @brief     Set the configuration of RF power level
   *
   * @attention 1. API returns false if try to set Configuration which something error
   *
-  * @param[in]   level: The level of RF power
-  *              - SYS_RF_LOW_POWER
-  *              - SYS_RF_HIGH_POWER
+  * @param[in]   level: The level of RF power.
+  *              - [7:4] WiFi Power level. 0 for lowest and 0xF for highest
+  *              - [3:0] BLE Power level. 0 for lowest and 0xF for highest
   *
   * @return    0  : success
   * @return    other : failed
  */
-int sys_set_config_rf_power_level(sys_rf_power_level_t level);
+int sys_set_config_rf_power_level(uint8_t level);
 
 /**
   * @brief     Get the configuration of DHCP ARP check mechanism

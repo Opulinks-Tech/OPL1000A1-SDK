@@ -40,6 +40,7 @@
 #include "at_cmd_tcpip_patch.h"
 #include "wpa_cli_patch.h"
 #include "sys_common_api.h"
+#include "sys_os_config_patch.h"
 
 /******************************************************
  *                      Macros
@@ -105,6 +106,8 @@ extern osThreadId   at_tx_task_id;
 extern osThreadId   at_tcp_server_task_handle;
 extern osMessageQId at_tx_task_queue_id;
 extern osPoolId     at_tx_task_pool_id;
+
+extern const osPoolDef_t os_pool_def_at_tx_task_pool;
 
 RET_DATA uint8_t g_server_mode;
 RET_DATA uint32_t g_server_port;
@@ -1033,6 +1036,43 @@ exit:
     return true;
 }
 
+void at_create_tcpip_tx_task_patch(void)
+{
+    osThreadDef_t task_def;
+    osMessageQDef_t queue_def;
+
+    /* Create task */
+    task_def.name = OS_TASK_NAME_AT_TX_DATA;
+    task_def.stacksize = OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH;
+    task_def.tpriority = OS_TASK_PRIORITY_APP;
+    task_def.pthread = at_data_tx_task;
+    at_tx_task_id = osThreadCreate(&task_def, (void*)NULL);
+    if(at_tx_task_id == NULL)
+    {
+        AT_LOGI("at_data Tx Task create fail \r\n");
+    }
+    else
+    {
+        AT_LOGI("at_data Tx Task create successful \r\n");
+    }
+
+    /* Create memory pool */
+    at_tx_task_pool_id = osPoolCreate (osPool(at_tx_task_pool));
+    if (!at_tx_task_pool_id)
+    {
+        printf("at_data TX Task Pool create Fail \r\n");
+    }
+
+    /* Create message queue*/
+    queue_def.item_sz = sizeof(at_event_msg_t);
+    queue_def.queue_sz = AT_DATA_TASK_QUEUE_SIZE;
+    at_tx_task_queue_id = osMessageCreate(&queue_def, at_tx_task_id);
+    if(at_tx_task_queue_id == NULL)
+    {
+        printf("at_data Tx create queue fail \r\n");
+    }
+}
+
 /*-------------------------------------------------------------------------------------
  * Definitions of interface function pointer
  *------------------------------------------------------------------------------------*/
@@ -1042,7 +1082,7 @@ exit:
  * Interface assignment
  *------------------------------------------------------------------------------------*/
 
-
+#if defined(__AT_CMD_SUPPORT__)
 void _at_cmd_tcpip_func_init_patch(void)
 {
     g_server_mode = 0;
@@ -1055,6 +1095,7 @@ void _at_cmd_tcpip_func_init_patch(void)
     at_socket_server_listen_task        = at_socket_server_listen_task_patch;
     at_socket_server_create_task        = at_socket_server_create_task_patch;
     at_socket_server_cleanup_task       = at_socket_server_cleanup_task_patch;
+    at_create_tcpip_tx_task             = at_create_tcpip_tx_task_patch;
 
     /** Command Table (TCP/IP) */
     _g_AtCmdTbl_Tcpip_Ptr[0].cmd_handle  = _at_cmd_tcpip_cipstatus_patch;
@@ -1063,3 +1104,5 @@ void _at_cmd_tcpip_func_init_patch(void)
     _g_AtCmdTbl_Tcpip_Ptr[8].cmd_handle  = _at_cmd_tcpip_cipserver_patch;
     _g_AtCmdTbl_Tcpip_Ptr[16].cmd_handle = _at_cmd_tcpip_cipstamac_patch;
 }
+#endif
+

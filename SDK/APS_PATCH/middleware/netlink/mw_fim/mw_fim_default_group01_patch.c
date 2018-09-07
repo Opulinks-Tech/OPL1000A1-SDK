@@ -44,7 +44,7 @@ const uint8_t g_tMwFimDefaultMacAddrBleSrc        = BASE_NVM_MAC_SRC_TYPE_ID_OTP
 // the default value of rf cfg
 const T_RfCfg g_tMwFimDefaultRfConfig =
 {
-    0       // u8HighPwrStatus
+    0xF0       // u8HighPwrStatus
 };
 
 // the address buffer of Uart config

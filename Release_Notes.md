@@ -1,8 +1,47 @@
 ## Release Version:
+SDK Package: 1.1.1.6
+Patch_Lib : 2430
+ROM_CODE: 1655 
+
+## Release Date: 2018/9/7
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-AT-instruction-set-and-examples: R05-V15,  Add several new AT instruction description.    
+ 1.2 OPL1000-pinmux-tool-user-guide: R02-V04, updated according to v0.7 SW. GPIO setting is changed.  
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5.        
+ 2.2 pin-mux tool: v0.7. GPIO setting is changed. Fixed one bug in SPI quad mode setting.   
+3. Switch off unused SRAM in deep sleep mode to improve power save performance.  
+4. Support multiple external input wake-up mechanism. 
+5. Add mbedTLS library to support TLS feature.   
+6. Reduce AT patch code to enlarge ram size, provide more space for user application.       
+7. Update driver to use correct deep sleep behavior.
+8. Refine stack size and priority of tasks. 
+9. Set WiFi/BLE power level separately and HIGH FI/FC in Main_PowerSetup to improve RF power consumption. 
+10. Replace SW crypto module with hardware-accelerated function for mbedTLS module.
+11. Implement SHA-related API with HW security engine
+
+## Bug Fix List 
+1. Fix bugs in I2C master initialization and receive data operation.    
+2. Fix a bug in SSID scan list store implementation. 
+3. Fix a bug in smart sleep when it is configured at SysInit.
+4. Fix a bug in wifi mode setting when not initial wifi module. 
+
+
+## Notes List 
+1. websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.5
 Patch_Lib : 2382
 ROM_CODE: 1655 
+
 ## Release Date: 2018/8/30
+
 ## Function & Feature Update 
 1. Documents updating:
  1.1 OPL1000-Flash-User-Guide: R01-V02,  Flash layout is updated.  
@@ -17,14 +56,19 @@ ROM_CODE: 1655
 8. Support IPC command to control WIFI data rate. 
 9. Implement SHA-1 API with HW security engine.
 10. Support DHCP APR check mechanism in AT+DHCPARPCHK command.
+
 ## Bug Fix List 
 1. Fix a bug in I2C driver.    
 2. Fix a bug in ISR UART RX buffer process of AT and CLI command.
 3. Fix a bug in GPIO driver, original driver does not handle race condition case.  
+
+
 ## Notes List 
 1. websocket feature is on-developing 
 2. More examples such as MQTT, power save are on-developing. 
+
 *****
+
 ## Release Version:
 SDK Package: 1.1.1.4
 Patch_Lib : 2350

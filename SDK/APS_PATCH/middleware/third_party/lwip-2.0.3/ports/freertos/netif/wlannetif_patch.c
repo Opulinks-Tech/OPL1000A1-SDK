@@ -142,6 +142,22 @@ low_level_init_patch(struct netif *netif)
     /* Do whatever else is needed to initialize interface. */
 }
 
+/**
+ * This function should do the actual transmission of the packet. The packet is
+ * contained in the pbuf that is passed to the function. This pbuf
+ * might be chained.
+ *
+ * @param netif the lwip network interface structure for this ethernetif
+ * @param p the MAC packet to send (e.g. IP packet including MAC addresses and type)
+ * @return ERR_OK if the packet could be sent
+ *         an err_t value if the packet couldn't be sent
+ *
+ * @note Returning ERR_MEM here if a DMA queue of your MAC is full can lead to
+ *       strange results. You might consider waiting for space in the DMA queue
+ *       to become availale since the stack doesn't retry to send a packet
+ *       dropped because of memory failure (except for the TCP timers).
+ */
+
 static err_t
 low_level_output_patch(struct netif *netif, struct pbuf *p)
 {
@@ -150,34 +166,49 @@ low_level_output_patch(struct netif *netif, struct pbuf *p)
     static int full_count = 0;
     static int write_count = 0;
     u16_t len = 0;
+
     LWIP_UNUSED_ARG(ethernetif);
+
 #if ETH_PAD_SIZE
     pbuf_header(p, -ETH_PAD_SIZE); /* drop the padding word */
 #endif
+
+
     for(q = p; q != NULL; q = q->next) {
+        /* Send the data from the pbuf to the interface, one pbuf at a
+           time. The size of the data in each pbuf is kept in the ->len
+           variable. */
         #ifdef TX_PKT_DUMP
         dump_buffer(q->payload, q->len, 1);
         #endif
+
+        /* Wait for transmit cleanup task to wakeup */
         if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) )
         {
             full_count++;
             printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
             sys_arch_sem_wait(&TxReadySem, 1);
             printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
+            //return ERR_MEM;
         }
         else
         {
             full_count = 0;
             write_count++;
+            //printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
         }
         len = len + q->len;
     }
+
 #if ETH_PAD_SIZE
     pbuf_header(p, ETH_PAD_SIZE); /* reclaim the padding word */
 #endif
+
     LINK_STATS_INC(link.xmit);
+
   return ERR_OK;
 }
+
 void lwip_load_interface_wlannetif_patch(void)
 {
     low_level_init_adpt  = low_level_init_patch;

@@ -25,7 +25,9 @@
  * @brief AT Command Interface Initialization for System modules
  *
  */
+#if defined(__AT_CMD_SUPPORT__)
 void _at_cmd_sys_func_patch_init(void);
+#endif
 
 #endif //__AT_CMD_SYS_PATCH_H__
 

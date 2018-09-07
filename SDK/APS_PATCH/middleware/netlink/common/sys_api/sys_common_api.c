@@ -67,7 +67,7 @@ int mac_addr_set_config_source(mac_iface_t iface, mac_source_type_t type)
     return 0;
 }
 
-int sys_get_config_rf_power_level(sys_rf_power_level_t *level)
+int sys_get_config_rf_power_level(uint8_t *level)
 {
     int ret;
     
@@ -85,15 +85,10 @@ int sys_get_config_rf_power_level(sys_rf_power_level_t *level)
     return 0;
 }
 
-int sys_set_config_rf_power_level(sys_rf_power_level_t level)
+int sys_set_config_rf_power_level(uint8_t level)
 {
     int ret;
-    
-    if (level > SYS_RF_HIGH_POWER) {
-        API_SYS_COMMON_LOGE("Invalid parameter.");
-        return -1;
-    }
-    
+
     ret = set_rf_power_level(level);
     if (ret != true) {
         API_SYS_COMMON_LOGE("Set rf power config failed.");

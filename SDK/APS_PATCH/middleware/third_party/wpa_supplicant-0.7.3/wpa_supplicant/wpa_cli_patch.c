@@ -75,7 +75,6 @@ void wpa_cli_setmac_patch(u8 *mac)
         return;
     }
     
-    
     memset(&gsta_cfg_mac[0], 0, MAC_ADDR_LEN);
     memcpy(&gsta_cfg_mac[0], &mac[0], MAC_ADDR_LEN);
 

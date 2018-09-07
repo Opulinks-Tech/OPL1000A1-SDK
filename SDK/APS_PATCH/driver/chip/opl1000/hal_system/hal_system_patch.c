@@ -55,6 +55,9 @@ Head Block of The File
 #define AOS_RET_SF_VOL_0P86          (0x8 << AOS_RET_SF_VOL_POS)
 #define AOS_RET_SF_VOL_1P20          (0xF << AOS_RET_SF_VOL_POS)
 
+
+//0x134
+
 #define AOS_APS_CLK_EN_I2C_PCLK      (1<<5)
 #define AOS_APS_CLK_EN_TMR_0_PCLK    (1<<6)
 #define AOS_APS_CLK_EN_TMR_1_PCLK    (1<<7)
@@ -68,7 +71,13 @@ Head Block of The File
 #define AOS_APS_CLK_EN_PWM_CLK       (1<<26)
 #define AOS_APS_CLK_EN_JTAG_HCLK     (1<<28)
 #define AOS_APS_CLK_EN_WDT_INTERNAL  (1<<30)
+
+
+
 #define WDT_TIMEOUT_SECS            10
+
+
+
 #define STRAP_NORMAL_MODE       0xA
 
 /********************************************
@@ -194,6 +203,7 @@ Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global  variable
 T_Hal_Sys_DisableClock Hal_Sys_DisableClock;
+
 
 // Sec 5: declaration of global function prototype
 /* Power relative */
@@ -773,25 +783,51 @@ void Hal_SysPinMuxM3UartSwitch_impl(void)
 void Hal_Sys_ApsClkChangeApply_patch(void)
 {
     // FreeRTOS, update system tick.
+    // FIXME: Need used some define...
     SysTick->LOAD =( SystemCoreClockGet()/1000 ) - 1;
 
+    // Modules (ex. I2c, SPI, PWM...)
+    // debug UART
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_DBG_UART_PCLK)
         Hal_DbgUart_BaudRateSet( Hal_DbgUart_BaudRateGet() );
+
+    // SPI
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_0_PCLK)
         Hal_Spi_BaudRateSet(SPI_IDX_0, Hal_Spi_BaudRateGet( SPI_IDX_0 ) );
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_1_PCLK)
         Hal_Spi_BaudRateSet(SPI_IDX_1, Hal_Spi_BaudRateGet( SPI_IDX_1 ) );
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_2_PCLK)
         Hal_Spi_BaudRateSet(SPI_IDX_2, Hal_Spi_BaudRateGet( SPI_IDX_2 ) );
+    
+    // I2C
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_I2C_PCLK)
         Hal_I2c_SpeedSet( Hal_I2c_SpeedGet() );
+    
     // WDT
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_WDT_PCLK)
-    Hal_Wdt_Feed(WDT_TIMEOUT_SECS * SystemCoreClockGet());
+        Hal_Wdt_Feed(WDT_TIMEOUT_SECS * SystemCoreClockGet());
+    
 }
+
+
+/**
+ * @brief To gate perpherials clock.
+ *        When enable perpherial, API needs to turn on the clock.
+ *
+ * Peripherals:
+ *    - I2C
+ *    - TMR 0/1
+ *    - WDT
+ *    - SPI 0/1/2
+ *    - UART 0/1
+ *    - DbgUart
+ *    - Pwm
+ *    - Jtag
+ */
 void Hal_Sys_DisableClock_impl(void)
 {
     uint32_t u32DisClk;
+    
     u32DisClk = AOS_APS_CLK_EN_I2C_PCLK |
                 AOS_APS_CLK_EN_TMR_0_PCLK |
                 AOS_APS_CLK_EN_TMR_1_PCLK |
@@ -804,7 +840,11 @@ void Hal_Sys_DisableClock_impl(void)
                 AOS_APS_CLK_EN_DBG_UART_PCLK |
                 AOS_APS_CLK_EN_PWM_CLK |
                 AOS_APS_CLK_EN_WDT_INTERNAL;
+    
     if (Hal_Sys_StrapModeRead() == STRAP_NORMAL_MODE)
         u32DisClk |= AOS_APS_CLK_EN_JTAG_HCLK;
+    
     AOS->R_M3CLK_SEL = AOS->R_M3CLK_SEL & ~u32DisClk;    
+    
 }
+
