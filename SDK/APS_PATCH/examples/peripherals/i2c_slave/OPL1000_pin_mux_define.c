@@ -1,18 +1,17 @@
 /******************************************************************************
 *  Copyright 2017 - 2018, Opulinks Technology Ltd.
 *  ---------------------------------------------------------------------------
-*  Statement:
+*  ---------------------------------------------------------------------------
+*  Statement: 
 *  ----------
 *  This software is protected by Copyright and the information contained
 *  herein is confidential. The software may not be copied and the information
 *  contained herein may not be used or disclosed except with the written
 *  permission of Opulinks Technology Ltd. (C) 2018
-******************************************************************************/
-
+******************************************************************************/ 
 
 #include "OPL1000_pin_mux_define.h" 
 
-// blank global structure 
 T_OPL1000_Periph OPL1000_periph = {
   0,{{UART_IDX_MAX,
        BLANK_PIN,
@@ -35,12 +34,12 @@ T_OPL1000_Periph OPL1000_periph = {
        STOP_BIT_1,
        UART_SIMPLE}},
   1,{I2C_SPEED_STANDARD,
-       OPL1000_IO10_PIN,
-       OPL1000_IO11_PIN,
-       I2C_07BIT,
-       0x20,
-       MASTER_NO_STOP},
-  1,{{SPI_IDX_MAX,
+     OPL1000_IO10_PIN,
+     OPL1000_IO11_PIN,
+     I2C_07BIT,
+     0x20,
+     SLAVE_FLAG},
+  0,{{SPI_IDX_MAX,
        BLANK_PIN,
        BLANK_PIN,
        BLANK_PIN,
@@ -66,12 +65,18 @@ T_OPL1000_Periph OPL1000_periph = {
        SPI_FMT_MOTOROLA,
        SPI_DFS_08_bit,
        QMODE_DISABLE}},
-  1,{{BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
+  0,{{BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
+       {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
+       {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
        {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
        {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0},
        {BLANK_PIN,CLK_32KHz,CFG_SIMPLE,0,0,0,0,0,0,0,0,0}},
   0,{BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN,BLANK_PIN},
-  1,{{BLANK_PIN,IO_OUTPUT,PULL_UP},
+  0,{{BLANK_PIN,IO_OUTPUT,PULL_UP},
+       {BLANK_PIN,IO_OUTPUT,PULL_UP},
+       {BLANK_PIN,IO_OUTPUT,PULL_UP},
+       {BLANK_PIN,IO_OUTPUT,PULL_UP},
+       {BLANK_PIN,IO_OUTPUT,PULL_UP},
        {BLANK_PIN,IO_OUTPUT,PULL_UP},
        {BLANK_PIN,IO_OUTPUT,PULL_UP},
        {BLANK_PIN,IO_OUTPUT,PULL_UP},
@@ -86,4 +91,3 @@ T_OPL1000_Periph OPL1000_periph = {
        {BLANK_PIN,IO_OUTPUT,PULL_UP},
        {BLANK_PIN,IO_OUTPUT,PULL_UP}}
 };
-

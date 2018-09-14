@@ -24,6 +24,9 @@
 #include "sys_common_api.h"
 #include "hal_flash.h"
 #include "at_cmd_task.h"
+#include "at_cmd_common_patch.h"
+#include "hal_uart.h"
+#include "hal_dbg_uart.h"
 
 //#define AT_FLASH_CHECK_BEFORE_WRITE
 //#define AT_DEBUG
@@ -32,7 +35,7 @@
 
 #define AT_FLASH_READ_START         0x00000000
 #define AT_FLASH_READ_END           0x00100000
-#define AT_FLASH_WRITE_START        0x000F8000
+#define AT_FLASH_WRITE_START        0x00000000
 #define AT_FLASH_WRITE_END          0x00100000
 #define AT_FLASH_WRITE_ARGS_MAX     ((AT_RBUF_SIZE - 18 - 1) / 2) // (AT_RBUF_SIZE - length of "at+writeflash=x,yy") / 2
 #define AT_FLASH_BUF_SIZE           32
@@ -663,19 +666,41 @@ done:
     return ret_st;
 }
 
+
+
+int at_cmd_at_switch_to_dbg(char *buf, int len, int mode)
+{
+    msg_print_uart1("\r\n");
+    tracer_drct_printf("\r\n");
+    
+    at_cmd_switch_uart1_dbguart();
+    
+    /* Make uart host buffer clean */
+    Hal_Uart_DataSend(UART_IDX_1, 0);
+    Hal_DbgUart_DataSend(0);
+    
+    msg_print_uart1("\r\nSwitch: AT UART\r\n>");
+    tracer_drct_printf("\r\nSwitch: Dbg UART\r\n>");
+        
+    return true;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
   */
-#if defined(__AT_CMD_SUPPORT__)
+
 _at_command_t gAtCmdTbl_ext[] =
 {
+#if defined(__AT_CMD_SUPPORT__)
     { "at+macaddrdef",          at_cmd_sys_mac_addr_def,  "Default mac address from OTP or others storage" },
+    { "at+dhcparpchk",          at_cmd_tcp_dhcp_arp_check,  "Enable/Disable DHCP ARP check mechanism"},
+#endif /* __AT_CMD_SUPPORT__ */
+
     { "at+rfhp",                at_cmd_sys_rf_hp,         "Set RF power"},
     { "at+readflash",           at_cmd_sys_read_flash,    "Read flash" },
     { "at+writeflash",          at_cmd_sys_write_flash,   "Write flash" },
     { "at+eraseflash",          at_cmd_sys_erase_flash,   "Erase flash" },
-    { "at+dhcparpchk",          at_cmd_tcp_dhcp_arp_check,  "Enable/Disable DHCP ARP check mechanism"},
+    { "at+switchdbg",           at_cmd_at_switch_to_dbg,  "AT switch to Debug UART"},
     { NULL,                     NULL,                     NULL},
 };
-#endif

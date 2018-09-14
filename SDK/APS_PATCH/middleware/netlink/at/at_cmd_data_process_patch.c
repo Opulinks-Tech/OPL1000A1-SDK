@@ -65,6 +65,7 @@ typedef struct {
 
 static at_cmd_information_t at_cmd_info;
 
+#if defined(__AT_CMD_SUPPORT__)
 int data_process_wifi_patch(char *pbuf, int len, int mode)
 {
     const _at_command_t *cmd_ptr = NULL;
@@ -153,7 +154,7 @@ int data_process_sys_patch(char *pbuf, int len, int mode)
 
     return false;
 }
-
+#endif //#if defined(__AT_CMD_SUPPORT__)
 int data_process_rf_patch(char *pbuf, int len, int mode)
 {
     const _at_command_t *cmd_ptr = NULL;
@@ -172,7 +173,7 @@ int data_process_rf_patch(char *pbuf, int len, int mode)
 
     return false;
 }
-
+#if defined(__AT_CMD_SUPPORT__)
 int data_process_pip_patch(char *pbuf, int len, int mode)
 {
     //1. Check PIP table, if it's ble command, return true; else return false;
@@ -190,7 +191,7 @@ int data_process_others_patch(char *pbuf, int len, int mode)
 
     return false;
 }
-
+#endif
 int data_process_extend_func(char *pbuf, int len, int mode)
 {
     const _at_command_t *cmd_ptr = NULL;
@@ -299,7 +300,7 @@ PARSE_END:
         }
         return true;
     } else {
-        at_uart1_printf("AT CMD ERROR\r\n");
+        at_uart1_printf("\r\nAT CMD ERROR\r\n");
     }
 
     return false;
@@ -339,6 +340,7 @@ int data_process_handler_impl(char *pbuf, int len)
 
     if(g_at_lock == LOCK_NONE) //AT command input
     {
+    #if defined(__AT_CMD_SUPPORT__)
         if (data_process_wifi_patch(pbuf, len, mode))
             return true;
         if (data_process_ble_patch(pbuf, len, mode))
@@ -347,12 +349,15 @@ int data_process_handler_impl(char *pbuf, int len)
             return true;
         if (data_process_sys_patch(pbuf, len, mode))
             return true;
+    #endif
         if (data_process_rf_patch(pbuf, len, mode))
             return true;
+    #if defined(__AT_CMD_SUPPORT__)
         if (data_process_pip_patch(pbuf, len, mode))
             return true;
         if (data_process_others_patch(pbuf, len, mode))
             return true;
+    #endif
         if (data_process_extend_func(pbuf, len, mode))
             return true;
         

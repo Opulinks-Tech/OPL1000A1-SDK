@@ -14,8 +14,6 @@
 
 #include "at_cmd.h"
 
-#if defined(__AT_CMD_SUPPORT__)
 extern _at_command_t gAtCmdTbl_ext[];
-#endif
 
 #endif /* _AT_CMD_TABLE_EXT_H_ */

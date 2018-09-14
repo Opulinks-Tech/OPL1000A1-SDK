@@ -54,6 +54,7 @@ Head Block of The File
 #include "hal_i2c_patch.h"
 #include "hal_pwm_patch.h"
 #include "hal_vic_patch.h"
+#include "hal_pin.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -110,13 +111,13 @@ void peripheral_patch_init(void)
     Hal_Vic_Func_Patch();
 
     // system (AOS+sys_reg)
-    Hal_Sys_SleepInit       = Hal_Sys_SleepInit_patch;
-    Hal_Sys_ApsClkTreeSetup = Hal_Sys_ApsClkTreeSetup_patch;
-    Hal_Sys_MsqClkTreeSetup = Hal_Sys_MsqClkTreeSetup_patch;
+    Hal_Sys_SleepInit         = Hal_Sys_SleepInit_patch;
+    Hal_Sys_ApsClkTreeSetup   = Hal_Sys_ApsClkTreeSetup_patch;
+    Hal_Sys_MsqClkTreeSetup   = Hal_Sys_MsqClkTreeSetup_patch;
     Hal_Sys_ApsClkChangeApply = Hal_Sys_ApsClkChangeApply_patch;
     Hal_SysPinMuxAppInit      = Hal_SysPinMuxAppInit_patch;
     Hal_SysPinMuxDownloadInit = Hal_SysPinMuxDownloadInit_patch;
-    Hal_SysPinMuxM3UartInit   = Hal_SysPinMuxM3UartInit_impl;
+    Hal_SysPinMuxSpiFlashInit = Hal_SysPinMuxSpiFlashInit_patch;
     Hal_SysPinMuxM3UartSwitch = Hal_SysPinMuxM3UartSwitch_impl;
     Hal_Sys_DisableClock      = Hal_Sys_DisableClock_impl;
     // dbg_uart
@@ -146,4 +147,7 @@ void peripheral_patch_init(void)
     // auxadc
     g_ulHalAux_AverageCount = HAL_AUX_AVERAGE_COUNT;
     Hal_Aux_AdcValueGet = Hal_Aux_AdcValueGet_patch;
+
+    // pin-mux
+    Hal_Pin_PreInitCold();
 }

@@ -34,9 +34,11 @@ typedef E_CLI_CMD_PROC(*T_Cli_UserCmdProcess_fp)(char *pbuf, int len);
 
 typedef void (*ParseAtVersionCommand_fp_t)(char *sCmd);
 typedef void (*ParseSimpleAtCommand_fp_t)(char *sCmd);
+typedef void (*ParseSwitchAT_DBGCommand_fp_t)(char *sCmd);
 
 extern ParseAtVersionCommand_fp_t ParseAtVersionCommand;
 extern ParseSimpleAtCommand_fp_t ParseSimpleAtCommand;
+extern ParseSwitchAT_DBGCommand_fp_t ParseSwitchAT_DBGCommand;
 
 /*
    Interface Initialization: DIAG TASK

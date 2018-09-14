@@ -14,6 +14,7 @@ Head Block of The File
 ***********************/
 // Sec 0: Comment block of the file
 
+#if defined(__AT_CMD_SUPPORT__)
 
 // Sec 1: Include File
 #include <stdio.h>
@@ -106,7 +107,7 @@ done:
 
     return true;
 }
-
+#if 0
 extern int _at_cmd_ble_init(char *buf, int len, int mode);
 extern int _at_cmd_ble_addr(char *buf, int len, int mode);
 extern int _at_cmd_ble_scanparam(char *buf, int len, int mode);
@@ -244,4 +245,7 @@ void _at_cmd_ble_func_init_patch(void)
     /** Command Table (BLE) */
     _g_AtCmdTbl_Ble_Ptr = _gAtCmdTbl_Ble_patch;
 }
+#endif
+
+#endif //#if defined(__AT_CMD_SUPPORT__)
 

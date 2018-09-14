@@ -11,7 +11,15 @@
 
 #ifndef __AT_CMD_TASK_PATCH_H__
 #define __AT_CMD_TASK_PATCH_H__
+#include "cmsis_os.h"
 
+typedef enum {
+    UART_AT=0,
+    UART_DBG,
+}E_UART_MODE;
+
+extern osSemaphoreId g_tSwitchuartSem;
+extern E_UART_MODE g_eIO01UartMode;
 
 void at_task_func_init_patch(void);
 int at_wifi_net_task_init(void);

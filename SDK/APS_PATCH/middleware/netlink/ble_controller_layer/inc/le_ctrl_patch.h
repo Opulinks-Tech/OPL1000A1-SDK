@@ -27,6 +27,7 @@ Head Block of The File
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
+#define CommandOpcode_Reset_Command                             (0x03 << 10 | 0x0003)
 #define CommandOpcode_LE_Encrypt_Command                        (CommandOGF_LE_Controller_Commands << 10 | 0x0017)
 #define CommandOpcode_LE_Rand_Command                           (CommandOGF_LE_Controller_Commands << 10 | 0x0018)
 #define CommandOpcode_LE_Read_Local_P_256_Public_Key_Command    (CommandOGF_LE_Controller_Commands << 10 | 0x0025)
@@ -137,11 +138,21 @@ extern t_le_write_cfg_to_flash_patch_fp _le_write_cfg_to_flash;
 // Sec 5: declaration of global function prototype
 /******************** BLE Controller Function Implement ********************/
 void le_ctrl_pre_patch_init(void);
+
+// le_ctrl_data
+void le_ctrl_data_hci_buf_fragment_patch(le_ctrl_conn_t *conn, hci_data_buf_t *buf);
+
+// le_ctrl_enc 
+void le_ctrl_util_encrypt(uint8_t *key, uint8_t *pData, uint8_t *eData);
+uint8_t le_ctrl_util_gen_key_pair(uint8_t *pubKey, uint8_t *privKey);
+uint8_t le_ctrl_util_gen_dhkey(uint8_t *pub_key_x, uint8_t *pub_key_y, uint8_t *priv_key, uint8_t *dhkey);
+
+// le_ctrl_hci 
 void le_ctrl_init_patch(void);
 void le_ctrl_hci_proc_tx_cmd_patch(hci_command_packet_01 *cmd_packet);
+void le_ctrl_hci_proc_rx_event_patch(hci_event_packet_04 *event_packet);
 
-void le_enhanced_connection_complete_event_handler_patch(hci_event_packet_04 *event_packet);
-
+// le_ctrl_hci_handler
 void le_encrypt_command_handler_impl(hci_command_packet_01 *cmd_packet);
 void le_rand_command_handler_impl(hci_command_packet_01 *cmd_packet);
 void le_read_local_p_256_public_key_command_handler_impl(hci_command_packet_01 *md_packet);
@@ -151,15 +162,10 @@ void vendor_specific_throughput_test_command_impl(hci_command_packet_01 *cmd_pac
 
 void send_le_read_local_p_256_public_key_complete_event_impl(uint8_t status, uint8_t *key);
 void send_le_dhkey_generation_complete_event_impl(uint8_t status, uint8_t *key);
+void le_connection_complete_event_handler_patch(hci_event_packet_04 *event_packet);
+void le_enhanced_connection_complete_event_handler_patch(hci_event_packet_04 *event_packet);
 void send_number_of_completed_packets_event_patch(uint16_t handle, uint16_t num);
 
-// le_ctrl_data
-void le_ctrl_data_hci_buf_fragment_patch(le_ctrl_conn_t *conn, hci_data_buf_t *buf);
-
-// le_ctrl_enc 
-void le_ctrl_util_encrypt(uint8_t *key, uint8_t *pData, uint8_t *eData);
-uint8_t le_ctrl_util_gen_key_pair(uint8_t *pubKey, uint8_t *privKey);
-uint8_t le_ctrl_util_gen_dhkey(uint8_t *pub_key_x, uint8_t *pub_key_y, uint8_t *priv_key, uint8_t *dhkey);
 
 // le_ctrl_fim 
 void le_read_cfg_from_flash_patch(le_cfg_patch_t *cfg);

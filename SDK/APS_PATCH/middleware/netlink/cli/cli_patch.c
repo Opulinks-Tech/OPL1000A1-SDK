@@ -10,6 +10,9 @@
 ******************************************************************************/
 #include <string.h>
 #include "cli_patch.h"
+#include "at_cmd_common_patch.h"
+#include "hal_uart.h"
+#include "hal_dbg_uart.h"
 
 
 /**
@@ -37,6 +40,23 @@ E_CLI_CMD_PROC Cli_UserCmdExample(char *pbuf, int len)
 }
 
 
+
+void ParseSwitchAT_DBGCommand_patch(char *sCmd)
+{
+    tracer_drct_printf("\r\n");
+    msg_print_uart1("\r\n");
+    
+    at_cmd_switch_uart1_dbguart();
+    
+    /* Make uart host buffer clean */
+    Hal_Uart_DataSend(UART_IDX_1, 0);
+    Hal_DbgUart_DataSend(0);
+    
+    tracer_drct_printf("\r\nSwitch: Dbg UART\r\n>");
+    msg_print_uart1("\r\nSwitch: AT UART\r\n>");
+}
+
+
 /**
  * @brief To register user command process function to diag_task, 
  *        the CLI command handler in DbgUart.
@@ -45,4 +65,11 @@ E_CLI_CMD_PROC Cli_UserCmdExample(char *pbuf, int len)
 void Cli_UserCmdProcReg(void)
 {
     Diag_UserCmdSet(Cli_UserCmdExample);
+    
+}
+
+
+void Cli_FuncPatchInit(void)
+{
+    ParseSwitchAT_DBGCommand = ParseSwitchAT_DBGCommand_patch;
 }

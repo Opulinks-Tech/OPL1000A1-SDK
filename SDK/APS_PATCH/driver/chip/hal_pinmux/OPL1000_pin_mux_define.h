@@ -187,7 +187,7 @@ typedef enum
 {
     CLK_32KHz = 0x01,    // 32KHz clock, equals HAL_PWM_CLK_32K  
     CLK_22MHz            // 22MHz clock, equals HAL_PWM_CLK_22M   
-} E_PwmClkSrc_t;    // PWM clock source 
+} E_PwmClockSrc_t;    // PWM clock source 
 
 typedef enum
 {
@@ -197,7 +197,7 @@ typedef enum
 
 typedef struct {
     uint8_t pin;                 // pin number 
-    E_PwmClkSrc_t clkSrc;        // clock source
+    E_PwmClockSrc_t clkSrc;        // clock source
     E_PwmCfgType_t cfgType;      // clock pin  
     uint8_t duty;                // MISO or IO0 pin   
     uint32_t clkHz;              // clock frequency in Hz unit 
