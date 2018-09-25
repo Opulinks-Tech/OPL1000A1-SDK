@@ -45,6 +45,7 @@ typedef enum
     MW_FIM_IDX_GP02_PATCH_STA_MAC_ADDR,
     MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM,
     MW_FIM_IDX_DHCP_ARP_CHK,
+    MW_FIM_IDX_MAC_TX_DATA_RATE,
     MW_FIM_IDX_GP02_PATCH_MAX
 } E_MwFimIdxGroup02_Patch;
 
@@ -62,6 +63,9 @@ Declaration of data structure
 #define MW_FIM_DHCP_ARP_CHK_NUM          1
 #define MW_FIM_DHCP_ARP_CHK_SIZE         1
 
+#define MW_FIM_MAC_TX_DATA_RATE_NUM      1
+#define MW_FIM_MAC_TX_DATA_RATE_SIZE     1
+
 
 /********************************************
 Declaration of Global Variables & Functions
@@ -70,6 +74,7 @@ Declaration of Global Variables & Functions
 extern const T_MwFimFileInfo g_taMwFimGroupTable02_patch[];
 extern const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN];
 extern const uint8_t gMwFimDefaultwifiStaSkipDtim;
+extern const uint8_t gMwFimDefaultMacDataRate;
 
 // Sec 5: declaration of global function prototype
 

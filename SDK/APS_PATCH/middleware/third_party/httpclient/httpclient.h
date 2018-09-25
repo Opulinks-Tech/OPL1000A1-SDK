@@ -100,6 +100,7 @@ typedef struct {
     char *auth_user;                /**< Username for basic authentication. */
     char *auth_password;            /**< Password for basic authentication. */
     bool is_http;                   /**< Http connection? if 1, http; if 0, https. */
+    int timeout_ms;                 /**< Socket connect timeout value. Default 0 means socket will block until max SYN retries reached */
 #ifdef HTTPCLIENT_SSL_ENABLE
     const char *server_cert;        /**< Server certification. */
     const char *client_cert;        /**< Client certification. */

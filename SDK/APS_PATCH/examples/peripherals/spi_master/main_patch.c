@@ -105,7 +105,7 @@ static void Main_PinMuxUpdate(void);
 static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 static void spi_flash_test(void);
-static void spi_send_data(int idx);
+static void spi_send_data(int port);
 static void Main_AppThread(void *argu);
 static void spi_test(void);
 
@@ -223,7 +223,7 @@ static void Main_FlashLayoutUpdate(void)
 void App_Pin_InitConfig(void)
 {
     printf("SPI initialization  \r\n");
-    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[SPI2_IDX]);    
+    Hal_Pinmux_Spi_Init(&OPL1000_periph.spi[TEST_SPI]);    
 }
 
 /*************************************************************************
@@ -248,9 +248,6 @@ void Main_AppInit_patch(void)
 		// flash write and read demo, use SPI0 to access on board SPI flash 
 		spi_flash_test();				
 		
-		// communicate with external SPI slave device 
-		spi_send_data(SPI2_IDX); 
-
 	  // create a thread and run SPI access function 
     spi_test();
 
@@ -271,11 +268,13 @@ void Main_AppInit_patch(void)
 *
 *************************************************************************/
 static void Main_AppThread(void *argu)
-{
+{	
     while (1)
     {	
         osDelay(1500);      // delay 1500 ms		
         printf("SPI Running \r\n");			
+				// communicate with external SPI slave device 
+				spi_send_data(TEST_SPI); 			
     }
 }
 
@@ -347,15 +346,20 @@ static void spi_flash_test(void)
 *   none
 *
 *************************************************************************/
-static void spi_send_data(int idx)
+static void spi_send_data(int port)
 {
     char output_str[32]= {0};   
-    uint32_t u32Data, i;
+    uint32_t u32Data, i, spi_idx = 0;
     T_OPL1000_Spi *spi;
-
-    sprintf(output_str,"Hello from SPI%d \r\n",idx+1);
-    spi = &OPL1000_periph.spi[idx];
-    printf("Send data to external SPI%d slave device \r\n",idx+1);    
+		
+    spi = &OPL1000_periph.spi[port];
+		if (spi->index == SPI_IDX_1)
+			  spi_idx = 1; // indicate it is SPI1 
+	  else if (spi->index == SPI_IDX_2)
+			  spi_idx = 2; // indicate it is SPI2 
+		
+    sprintf(output_str,"Hello from SPI%d \r\n",spi_idx);
+    printf("Send data to external SPI%d slave device \r\n",spi_idx);    
     for(i=0;i<strlen(output_str);i++)
     {
         u32Data = output_str[i];

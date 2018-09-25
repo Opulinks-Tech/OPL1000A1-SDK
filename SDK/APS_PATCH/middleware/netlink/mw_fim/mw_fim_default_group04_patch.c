@@ -57,7 +57,6 @@ const T_MwFimFileInfo g_taMwFimGroupTable04_patch[] =
 
 // Sec 5: declaration of global function prototype
 
-
 /***************************************************
 Declaration of static Global Variables & Functions
 ***************************************************/

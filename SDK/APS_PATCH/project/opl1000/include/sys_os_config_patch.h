@@ -43,7 +43,7 @@ extern "C" {
     #define OS_TASK_STACK_SIZE_LE_PATCH             (512)
     #define OS_TASK_STACK_SIZE_AT_PATCH             (256)
     #define OS_TASK_STACK_SIZE_AT_CMD_SUPPORT_PATCH (512)
-    #define OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH     (116)
+    #define OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH     (452)
     #define OS_TASK_STACK_SIZE_EVENT_LOOP_PATCH     (372)
     #define OS_TASK_STACK_SIZE_TCPIP_PATCH          (484)
     #define OS_TASK_STACK_SIZE_TRACER_PATCH         (128)

@@ -71,6 +71,9 @@ Head Block of The File
 #define AOS_APS_CLK_EN_UART_0_PCLK   (1<<13)
 #define AOS_APS_CLK_EN_UART_1_PCLK   (1<<14)
 #define AOS_APS_CLK_EN_DBG_UART_PCLK (1<<15)
+#define AOS_APS_CLK_EN_OTP_PCLK      (1<<16)
+#define AOS_APS_CLK_EN_DMA_HCLK      (1<<18)
+#define AOS_APS_CLK_EN_SCRT_HCLK     (1<<24)
 #define AOS_APS_CLK_EN_PWM_CLK       (1<<26)
 #define AOS_APS_CLK_EN_JTAG_HCLK     (1<<28)
 #define AOS_APS_CLK_EN_WDT_INTERNAL  (1<<30)
@@ -476,6 +479,9 @@ void Hal_Sys_ApsClkChangeApply_patch(void)
  *    - DbgUart
  *    - Pwm
  *    - Jtag
+ *    - OTP
+ *    - DMA
+ *    - SCRT
  */
 void Hal_Sys_DisableClock_impl(void)
 {
@@ -492,7 +498,14 @@ void Hal_Sys_DisableClock_impl(void)
                 AOS_APS_CLK_EN_UART_1_PCLK |
                 AOS_APS_CLK_EN_DBG_UART_PCLK |
                 AOS_APS_CLK_EN_PWM_CLK |
-                AOS_APS_CLK_EN_WDT_INTERNAL;
+                AOS_APS_CLK_EN_WDT_INTERNAL |
+#if 1
+                AOS_APS_CLK_EN_DMA_HCLK;
+#else
+                AOS_APS_CLK_EN_OTP_PCLK |
+                AOS_APS_CLK_EN_DMA_HCLK | 
+                AOS_APS_CLK_EN_SCRT_HCLK;
+#endif
     
     if (Hal_Sys_StrapModeRead() == STRAP_NORMAL_MODE)
         u32DisClk |= AOS_APS_CLK_EN_JTAG_HCLK;

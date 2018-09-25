@@ -237,7 +237,7 @@ void Main_AppInit_patch(void)
     App_Pin_InitConfig();
     
     printf("Main_AppInit_patch-i2c_test.\r\n");
-    // do the i2c_eeprom_test
+    
     i2c_test();
 }
 

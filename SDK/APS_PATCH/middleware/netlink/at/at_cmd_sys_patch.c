@@ -43,6 +43,8 @@
 #include "at_cmd_sys.h"
 #include "sys_common_api.h"
 #include "sys_common_types.h"
+#include "hal_pin.h"
+#include "hal_pin_def.h"
 
 #define CMD_TOKEN_SIZE          16
 #define AT_CMD_SYS_WAIT_TIME    1000   // ms
@@ -329,7 +331,11 @@ int _at_cmd_sys_gslp_patch(char *buf, int len, int mode)
 			int sleep_duration_ms = atoi(argv[1]);
 			int num = atoi(argv[2]);
 
-			if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) num, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+			if (argc == 3)
+            {
+                Hal_Pin_ConfigSet(num, PIN_TYPE_GPIO_INPUT, PIN_DRIVING_HIGH);
+                ps_set_wakeup_io((E_GpioIdx_t) num, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+            }
 			ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 			ps_timer_sleep(sleep_duration_ms);
 
@@ -388,6 +394,9 @@ int _at_cmd_sys_restore_patch(char *buf, int len, int mode)
         
         // DHCP ARP
         MwFim_FileWriteDefault(MW_FIM_IDX_DHCP_ARP_CHK, 0);
+        
+        // Mac data rate
+        MwFim_FileWriteDefault(MW_FIM_IDX_MAC_TX_DATA_RATE, 0);
         
         msg_print_uart1("\r\nOK\r\n");
 
@@ -514,21 +523,33 @@ int _at_cmd_sys_sleep_patch(char *buf, int len, int mode)
 					break;
 
 				case 1:
-					if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+					if (argc == 3)
+                    {
+                        Hal_Pin_ConfigSet(p1, PIN_TYPE_GPIO_INPUT, PIN_DRIVING_HIGH);
+                        ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+                    }
                     ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 					ps_smart_sleep(1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
 
 				case 2:
-					if (argc == 4) ps_set_wakeup_io((E_GpioIdx_t) p2, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+					if (argc == 4)
+                    {
+                        Hal_Pin_ConfigSet(p2, PIN_TYPE_GPIO_INPUT, PIN_DRIVING_HIGH);
+                        ps_set_wakeup_io((E_GpioIdx_t) p2, 1, INT_TYPE_LEVEL, 0, _at_cmd_sys_gslp_io_callback);
+                    }
 					ps_set_wakeup_cb(_at_cmd_sys_gslp_wakeup_callback_patch);
 					ps_timer_sleep(p1);
 					msg_print_uart1("\r\nOK\r\n");
 					break;
 
 				case 3:
-					if (argc == 3) ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, NULL);
+					if (argc == 3)
+                    {
+                        Hal_Pin_ConfigSet(p1, PIN_TYPE_GPIO_INPUT, PIN_DRIVING_HIGH);
+                        ps_set_wakeup_io((E_GpioIdx_t) p1, 1, INT_TYPE_LEVEL, 0, NULL);
+                    }
 					ps_deep_sleep();
 					msg_print_uart1("\r\nOK\r\n");
 					break;

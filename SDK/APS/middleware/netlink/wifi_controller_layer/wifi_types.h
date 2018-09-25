@@ -186,6 +186,17 @@ typedef enum {
     WIFI_CIPHER_TYPE_TKIP_CCMP,     /**< 5, the cipher type is TKIP and CCMP */
     WIFI_CIPHER_TYPE_UNKNOWN,       /**< 6, the cipher type is unknown */
 } wifi_cipher_type_t;
+
+/** @brief This enumeration defines wifi mac tx data rates..
+*/
+typedef enum {
+    WIFI_MAC_DATA_RATE_ARA = 0,     /**< Auto Rate Adaptation */
+    WIFI_MAC_DATA_RATE_1M,          /**< Fix Mac Tx data rate in 1 Mbps */
+    WIFI_MAC_DATA_RATE_2M,          /**< Fix Mac Tx data rate in 2 Mbps */
+    WIFI_MAC_DATA_RATE_5_5M,        /**< Fix Mac Tx data rate in 5.5 Mbps */
+    WIFI_MAC_DATA_RATE_11M,         /**< Fix Mac Tx data rate in 11 Mbps */
+} wifi_mac_data_rate_t;
+
 /**
 * @}
 */

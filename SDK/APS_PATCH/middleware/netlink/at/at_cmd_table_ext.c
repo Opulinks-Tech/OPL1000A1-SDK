@@ -27,6 +27,8 @@
 #include "at_cmd_common_patch.h"
 #include "hal_uart.h"
 #include "hal_dbg_uart.h"
+#include "wifi_types.h"
+#include "wifi_api.h"
 
 //#define AT_FLASH_CHECK_BEFORE_WRITE
 //#define AT_DEBUG
@@ -685,6 +687,51 @@ int at_cmd_at_switch_to_dbg(char *buf, int len, int mode)
     return true;
 }
 
+int at_cmd_mac_data_rate(char *buf, int len, int mode)
+{
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    u8 ret_st = 0;
+    u8 data_rate;
+    
+    _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
+
+    switch(mode)
+    {
+        case AT_CMD_MODE_READ:
+            wifi_config_get_mac_tx_data_rate((wifi_mac_data_rate_t *)&data_rate);
+            msg_print_uart1("\r\n+MACDATARATE:%d\r\n", data_rate);
+            ret_st = 1;
+            break;
+        case AT_CMD_MODE_SET:
+            if (argc != 2) {
+                goto done;
+            }
+
+            data_rate = atoi(argv[1]);
+            if (data_rate > WIFI_MAC_DATA_RATE_11M) {
+                goto done;
+            }
+
+            if (wifi_config_set_mac_tx_data_rate((wifi_mac_data_rate_t)data_rate) != 0) {
+                goto done;
+            }
+            
+            ret_st = 1;
+            break;
+        default:
+            break;
+    }
+
+done:
+    if (ret_st)
+        msg_print_uart1("\r\nOK\r\n");
+    else 
+        msg_print_uart1("\r\nError\r\n");
+    
+    return ret_st;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
@@ -693,8 +740,9 @@ int at_cmd_at_switch_to_dbg(char *buf, int len, int mode)
 _at_command_t gAtCmdTbl_ext[] =
 {
 #if defined(__AT_CMD_SUPPORT__)
-    { "at+macaddrdef",          at_cmd_sys_mac_addr_def,  "Default mac address from OTP or others storage" },
+    { "at+macaddrdef",          at_cmd_sys_mac_addr_def,    "Default mac address from OTP or others storage" },
     { "at+dhcparpchk",          at_cmd_tcp_dhcp_arp_check,  "Enable/Disable DHCP ARP check mechanism"},
+    { "at+macdatarate",         at_cmd_mac_data_rate,       "Control Wifi Mac Tx data rate"},
 #endif /* __AT_CMD_SUPPORT__ */
 
     { "at+rfhp",                at_cmd_sys_rf_hp,         "Set RF power"},

@@ -69,4 +69,5 @@ C Functions
 uint32_t _Hal_I2c_Eanble_patch(uint8_t u8Enable);
 uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed);
 uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8_t u8NeedStopBit);
+
 #endif  /* __HAL_I2C_PATCH_H__ */

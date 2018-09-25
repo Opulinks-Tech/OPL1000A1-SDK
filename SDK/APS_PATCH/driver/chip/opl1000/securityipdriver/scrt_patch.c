@@ -90,6 +90,10 @@
     #define SCRT_ASSERT(...)
 #endif
 
+#define SCRT_SYS_CLK_REG    0x40001134
+#define SCRT_OTP_CLK_MSK    (1 << 16)
+#define SCRT_IP_CLK_MSK     (1 << 24)
+
 
 typedef enum
 {
@@ -1433,6 +1437,237 @@ done:
     return status;
 }
 
+void nl_scrt_otp_clk_enable(uint8_t u8Enable)
+{
+    volatile uint32_t *pu32Reg = (uint32_t *)SCRT_SYS_CLK_REG;
+
+    if(u8Enable)
+    {
+        *pu32Reg = *pu32Reg | SCRT_OTP_CLK_MSK;
+    }
+    else
+    {
+        *pu32Reg = *pu32Reg & ~(SCRT_OTP_CLK_MSK);
+    }
+
+    return;
+}
+
+void nl_scrt_ip_clk_enable(uint8_t u8Enable)
+{
+    volatile uint32_t *pu32Reg = (uint32_t *)SCRT_SYS_CLK_REG;
+
+    if(u8Enable)
+    {
+        *pu32Reg = *pu32Reg | SCRT_IP_CLK_MSK;
+    }
+    else
+    {
+        *pu32Reg = *pu32Reg & ~(SCRT_IP_CLK_MSK);
+    }
+
+    return;
+}
+
+int nl_scrt_init_patch(void)
+{
+    int iRet = 0;
+
+    nl_scrt_ip_clk_enable(1);
+
+    if(scrt_param_init())
+    {
+        SCRT_LOGE("[%s %d] scrt_param_init fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    if(scrt_sem_create())
+    {
+        SCRT_LOGE("[%s %d] scrt_sem_create fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    if(scrt_mb_init())
+    {
+        SCRT_LOGE("[%s %d] scrt_mb_init fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    iRet = 1;
+
+done:
+    //nl_scrt_ip_clk_enable(0);
+    return iRet;
+}
+
+int nl_scrt_otp_status_get_patch(void)
+{
+    int iRet = 0;
+    volatile uint32_t *pu32OtpStatus = NULL;
+
+    nl_scrt_otp_clk_enable(1);
+
+    pu32OtpStatus = (uint32_t *)SCRT_OTP_STATUS_ADDR;
+
+    if(*pu32OtpStatus == 0)
+    {
+        SCRT_LOGI("[%s %d] OTP not ready\n", __func__, __LINE__);
+
+        //nl_scrt_otp_clk_enable(0);
+        goto done;
+    }
+
+    iRet = 1;
+
+done:
+    return iRet;
+}
+
+int scrt_ecdh_lock_patch(void)
+{
+    int iRet = -1;
+
+    if(!g_tScrtEcdhSem)
+    {
+        SCRT_LOGE("[%s %d] sem is null\n", __func__, __LINE__);
+        goto done;
+    }
+    
+    if(osSemaphoreWait(g_tScrtEcdhSem, SCRT_WAIT_ECDH_SEM) != osOK)
+    {
+        SCRT_LOGE("[%s %d] osSemaphoreWait fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    nl_scrt_otp_clk_enable(1);
+
+    iRet = 0;
+
+done:
+    return iRet;
+}
+
+int scrt_ecdh_unlock_patch(void)
+{
+    int iRet = -1;
+
+    if(!g_tScrtEcdhSem)
+    {
+        SCRT_LOGE("[%s %d] sem is null\n", __func__, __LINE__);
+        goto done;
+    }
+
+    //nl_scrt_otp_clk_enable(0);
+    
+    if(osSemaphoreRelease(g_tScrtEcdhSem) != osOK)
+    {
+        SCRT_LOGE("[%s %d] osSemaphoreWait fail\n", __func__, __LINE__);
+        goto done;
+    }
+
+    iRet = 0;
+
+done:
+    return iRet;
+}
+
+uint8_t scrt_res_alloc_patch(void)
+{
+    uint8_t u8Idx = SCRT_MB_IDX_MAX;
+    uint8_t i = 0;
+    uint32_t u32Cnt = 0;
+
+    while(u32Cnt < SCRT_WAIT_RES_MAX_CNT)
+    {
+        if(scrt_res_lock())
+        {
+            SCRT_LOGE("[%s %d] scrt_res_lock fail\n", __func__, __LINE__);
+            break;
+        }
+
+        // reserve SCRT_MB_IDX_0 for M0 usage
+        for(i = SCRT_MB_IDX_1; i < SCRT_MB_IDX_MAX; i++)
+        {
+            if(g_tScrtRes[i].u8Used == 0)
+            {
+                nl_scrt_ip_clk_enable(1);
+
+                g_tScrtRes[i].u8Used = 1;
+                u8Idx = i;
+                break;
+            }
+        }
+
+        if(scrt_res_unlock())
+        {
+            SCRT_LOGE("[%s %d] scrt_res_unlock fail\n", __func__, __LINE__);
+            break;
+        }
+
+        if(u8Idx != SCRT_MB_IDX_MAX)
+        {
+            break;
+        }
+
+        ++u32Cnt;
+        osDelay(SCRT_WAIT_RES);
+    }
+
+    if(u32Cnt >g_u32ScrtWaitResCnt)
+    {
+        g_u32ScrtWaitResCnt = u32Cnt;
+    }
+
+    return u8Idx;
+}
+#if 0
+void scrt_res_free_patch(uint8_t u8Idx)
+{
+    uint8_t u8ResDone = 0;
+    uint8_t i = 0;
+
+    if(u8Idx >= SCRT_MB_IDX_MAX)
+    {
+        SCRT_LOGI("[%s %d] invalid res_id[%d]\n", __func__, __LINE__, u8Idx);
+        goto done;
+    }
+    
+    if(scrt_res_lock())
+    {
+        SCRT_LOGE("[%s %d] scrt_res_lock fail\n", __func__, __LINE__);
+        goto done;
+    }
+    
+    u8ResDone = 1;
+    
+    g_tScrtRes[u8Idx].u8Used = 0;
+
+    // reserve SCRT_MB_IDX_0 for M0 usage
+    for(i = SCRT_MB_IDX_1; i < SCRT_MB_IDX_MAX; i++)
+    {
+        if(g_tScrtRes[i].u8Used)
+        {
+            goto done;
+        }
+    }
+
+    // no used mailbox id
+    nl_scrt_ip_clk_enable(0);
+
+done:
+    if(u8ResDone)
+    {
+        if(scrt_res_unlock())
+        {
+            SCRT_LOGE("[%s %d] scrt_res_unlock fail\n", __func__, __LINE__);
+
+            SCRT_ASSERT(0);
+        }
+    }
+
+    return;
+}
+#endif
 /*
  * scrt_drv_func_init - Interface Initialization: SCRT
  *
@@ -1445,6 +1680,12 @@ void scrt_drv_func_init_patch(void)
     nl_scrt_aes_ccm = nl_scrt_aes_ccm_patch;
     nl_scrt_aes_ecb = nl_scrt_aes_ecb_patch;
     nl_scrt_sha = nl_scrt_sha_patch;
+    nl_scrt_Init = nl_scrt_init_patch;
+    nl_scrt_otp_status_get = nl_scrt_otp_status_get_patch;
+    scrt_ecdh_lock = scrt_ecdh_lock_patch;
+    scrt_ecdh_unlock = scrt_ecdh_unlock_patch;
+    scrt_res_alloc = scrt_res_alloc_patch;
+    //scrt_res_free = scrt_res_free_patch;
 
     #ifdef SCRT_CMD_PATCH
     nl_scrt_cmd_func_init_patch();

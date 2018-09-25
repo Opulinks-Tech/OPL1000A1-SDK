@@ -85,6 +85,10 @@ const uint8_t gMwFimDefaultDhcpArpChk = true;
 /* DHCP ARP check */
 uint32_t gMwFimAddrDhcpArpChk[MW_FIM_DHCP_ARP_CHK_NUM];
 
+/* MAC TX data rate */
+const uint8_t gMwFimDefaultMacDataRate = 0xFF;
+uint32_t gMwFimAddrMacDataRate[MW_FIM_MAC_TX_DATA_RATE_NUM];
+
 // the information table of group 02
 const T_MwFimFileInfo g_taMwFimGroupTable02_patch[] =
 {
@@ -97,6 +101,7 @@ const T_MwFimFileInfo g_taMwFimGroupTable02_patch[] =
     {MW_FIM_IDX_GP02_PATCH_STA_MAC_ADDR,  MW_FIM_STA_MAC_ADDR_NUM,        MW_FIM_STA_MAC_ADDR_SIZE,              (uint8_t*)&gMwFimDefaultWifiStaMacAddr,    gMwFimAddrWifiStaMacAddr}, 
     {MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM, MW_FIM_STA_SKIP_DTIM_NUM,       MW_FIM_STA_SKIP_DTIM_SIZE,             (uint8_t*)&gMwFimDefaultwifiStaSkipDtim,   gMwFimAddrWifiStaSkipDtim}, 
     {MW_FIM_IDX_DHCP_ARP_CHK,             MW_FIM_DHCP_ARP_CHK_NUM,        MW_FIM_DHCP_ARP_CHK_SIZE,              (uint8_t*)&gMwFimDefaultDhcpArpChk,        gMwFimAddrDhcpArpChk},
+    {MW_FIM_IDX_MAC_TX_DATA_RATE,         MW_FIM_MAC_TX_DATA_RATE_NUM,    MW_FIM_MAC_TX_DATA_RATE_SIZE,          (uint8_t*)&gMwFimDefaultMacDataRate,       gMwFimAddrMacDataRate},
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}
 };

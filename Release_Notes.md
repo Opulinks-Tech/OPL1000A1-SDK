@@ -1,4 +1,42 @@
 ## Release Version:
+SDK Package: 1.1.1.10
+Patch_Lib : 2517
+ROM_CODE: 1655 
+
+## Release Date: 2018/9/25
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-AT-instruction-set-and-examples: R05-V23,  add several new AT instructions description.    
+ 1.2 OPL1000-WIFI-BLE-API-guide: v1.1.1.10, wifi part API is updated.   
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5;        
+ 2.2 pin-mux tool: v0.8.No change since v1.1.1.7;   
+3. spi_master example under peripherals folder is updated.   
+4. Add WIFI data rate AT command  AT+MACDATARATE.
+5. Add http post blocking API.   
+6. Close M0 print log in order to improve system performance.
+7. Update power saving RF module setting. 
+8. Refine http client API request realization in lwip module.
+9. Refine stack size and task priority for running "AT+CIPSEND".
+10. Implement new RF setting for WIFI CH11/12 configuration.
+
+
+## Bug Fix List 
+1. Fix a bug in "security API" by temporarily disable dynamic switch of OTP/Security IP clock. 
+2. Fix a bug in "LE 2M PHY configuration" implementation. 
+3. Fix a bug in "HCI_Reset command" implementation.
+4. Fix a bug in WIFI-releasred example realization, change "opl_event_loop" task local variable allocation method.  
+5. Fix  "IO wake-up not working" issue 
+
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.7
 Patch_Lib : 2475
 ROM_CODE: 1655 

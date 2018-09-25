@@ -511,6 +511,38 @@ int wifi_config_get_skip_dtim(uint8_t *value);
 int wifi_config_set_skip_dtim(uint8_t value);
 
 /**
+  * @brief     Get the Mac tx data rate in current wifi setting of OPL1000
+  *
+  * @param[out]  data_rate: Get the Mac tx data rate
+  *              - WIFI_MAC_DATA_RATE_ARA
+  *              - WIFI_MAC_DATA_RATE_1M
+  *              - WIFI_MAC_DATA_RATE_2M
+  *              - WIFI_MAC_DATA_RATE_5_5M
+  *              - WIFI_MAC_DATA_RATE_11M
+  * 
+  * @return    0  : success
+  * @return    other : failed
+  *
+ */
+int wifi_config_get_mac_tx_data_rate(wifi_mac_data_rate_t *data_rate);
+
+/**
+  * @brief     Set the Mac tx data rate setting of OPL1000
+  *
+  * @param[in]  data_rate: Set the Mac tx data rate
+  *              - WIFI_MAC_DATA_RATE_ARA
+  *              - WIFI_MAC_DATA_RATE_1M
+  *              - WIFI_MAC_DATA_RATE_2M
+  *              - WIFI_MAC_DATA_RATE_5_5M
+  *              - WIFI_MAC_DATA_RATE_11M
+  *
+  * @return    0  : success
+  * @return    other : failed
+  *
+ */
+int wifi_config_set_mac_tx_data_rate(wifi_mac_data_rate_t data_rate);
+
+/**
   * @brief     Get the auto connect mode.
   *
   * @attention 1. API returns false if try to get auto connect mode which something error
