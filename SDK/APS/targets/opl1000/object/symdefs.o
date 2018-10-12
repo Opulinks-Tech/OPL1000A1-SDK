@@ -5608,6 +5608,7 @@
 0x00402944 D autoip_accept_packet_adpt
 0x00402948 D dhcp_rx_options_val
 0x00402970 D dhcp_rx_options_given
+0x0040297c D dhcp_pcb
 0x00402984 D dhcp_does_arp_check_flag
 0x00402988 D dhcp_inc_pcb_refcount_adpt
 0x0040298c D dhcp_dec_pcb_refcount_adpt

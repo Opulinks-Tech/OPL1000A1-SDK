@@ -35,14 +35,29 @@ Head Block of The File
 #include "hal_system.h"
 #include "hal_vic.h"
 #include "hal_i2c_patch.h"
+#include "cmsis_os.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define I2C       ((S_I2C_Reg_t *) I2C_BASE)
 
+#define SYSYEM_TICK_PER_US       ( SystemCoreClockGet()/1000000 )
+#define US_TO_NS                 1000
 #define I2C_CLK_STD              100000
 #define I2C_CLK_FAST             400000
 #define I2C_CLK_HIGH             3400000
 #define I2C_CLK_SUPPORT_MAX      I2C_CLK_FAST
+#define I2C_DISABLE_TIMEOUT_TICK 10*( SystemCoreClockGet()/I2C_CLK_SUPPORT_MAX )
+#define I2C_TIMEOUT_COUNT_MAX    (0x30000)
+// According to Section 3.9 page 55
+#define I2C_FS_SPIKE_MAX         50   /* UNIT: ns */
+#define I2C_HS_SPIKE_MAX         10   /* UNIT: ns */
+// According to Section 3.10.2.3 
+#define I2C_STD_SCL_LOW_MIN      4700 /* UNIT: ns */
+#define I2C_STD_SCL_HIGH_MIN     4000 /* UNIT: ns */
+#define I2C_FS_SCL_LOW_MIN       1300 /* UNIT: ns */
+#define I2C_FS_SCL_HIGH_MIN      600  /* UNIT: ns */
+#define I2C_HS_SCL_LOW_MIN       120  /* UNIT: ns */
+#define I2C_HS_SCL_HIGH_MIN      60   /* UNIT: ns */
 
 #define I2C_CON_SLAVE_DISABLE    (1<<6)
 #define I2C_CON_RESTART_EN       (1<<5)
@@ -272,6 +287,74 @@ uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed
 
 /*************************************************************************
 * FUNCTION:
+*  Hal_I2c_MasterTrasmit
+* 
+* DESCRIPTION:
+*   1. Master transmit, used before Hal_I2c_TargetAddrSet
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. pu8Data      : Data to transmit
+*   2. u32Length    : Data length
+*   3. u8NeedStopBit: Need Stop bit when finished
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_MasterTrasmit_patch(uint8_t *pu8Data, uint32_t u32Length, uint8_t u8NeedStopBit)
+{
+    uint32_t u32Count = 0;
+    uint32_t u32Temp = 0;
+    uint32_t u32Idx = 0;
+
+    // Wait for previous action complete, generate START bit
+    if( _Hal_I2c_WaitForMasterCompleted() )
+        return 1;
+
+    // !!! enter the critical section
+    osEnterCritical();
+
+    // Transmit data
+    while(u32Idx < u32Length)
+    {
+        u32Temp = (uint32_t)pu8Data[u32Idx] | I2C_DATA_CMD_WRITE;
+
+        // Check last data
+        if(u32Idx == u32Length-1)
+        {
+            //Check for stop bit
+            if(u8NeedStopBit)
+                u32Temp |= I2C_DATA_STOP_BIT;
+        }
+        // Wait for TX not full
+        while( !(I2C->STATUS & I2C_STATUS_TX_NOT_FULL) )
+        {
+            if(u32Count > I2C_TIMEOUT_COUNT_MAX)
+            {
+                // !!! exit the critical section
+                osExitCritical();
+                return 1;
+            }
+            u32Count++;
+        }
+        
+        // Send data
+        I2C->DATA_CMD = u32Temp;
+        u32Idx++;
+    }
+
+    // !!! exit the critical section
+    osExitCritical();
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
 *  Hal_I2c_MasterRecieve
 * 
 * DESCRIPTION:
@@ -301,6 +384,9 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
     // Wait for previous action complete, generate START bit
     if( _Hal_I2c_WaitForMasterCompleted() )
         return 1;
+
+    // !!! enter the critical section
+    osEnterCritical();
     
     // Tx dummy only
     while ((u32WrIdx < I2C_FIFO_SIZE) && (u32WrIdx < u32Length))
@@ -320,7 +406,11 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
         while( !(I2C->STATUS & I2C_STATUS_TX_NOT_FULL) )
         {
             if(u32Count > I2C_TIMEOUT_COUNT_MAX)
+            {
+                // !!! exit the critical section
+                osExitCritical();
                 return 1;
+            }
             u32Count++;
         }
         
@@ -338,7 +428,11 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
         while( !(I2C->STATUS & I2C_STATUS_RX_NOT_EMPTY) )
         {
             if(u32Count > I2C_TIMEOUT_COUNT_MAX)
+            {
+                // !!! exit the critical section
+                osExitCritical();
                 return 1;
+            }
             u32Count++;
         }
         // Get data
@@ -361,7 +455,11 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
         while( !(I2C->STATUS & I2C_STATUS_TX_NOT_FULL) )
         {
             if(u32Count > I2C_TIMEOUT_COUNT_MAX)
+            {
+                // !!! exit the critical section
+                osExitCritical();
                 return 1;
+            }
             u32Count++;
         }
         
@@ -379,7 +477,11 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
         while( !(I2C->STATUS & I2C_STATUS_RX_NOT_EMPTY) )
         {
             if(u32Count > I2C_TIMEOUT_COUNT_MAX)
+            {
+                // !!! exit the critical section
+                osExitCritical();
                 return 1;
+            }
             u32Count++;
         }
         // Get data
@@ -387,5 +489,110 @@ uint32_t Hal_I2c_MasterReceive_patch(uint8_t *pu8Data, uint32_t u32Length, uint8
         u32Idx++;
     }
     
+    // !!! exit the critical section
+    osExitCritical();
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_SpeedSet
+* 
+* DESCRIPTION:
+*   1. Setup I2C speed.
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. eSpeed : Standard(100K)/Fast(400K)/High speed(3.4M) mode. refer to E_I2cSpeed_t
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_SpeedSet_patch(E_I2cSpeed_t eSpeed)
+{
+    uint32_t u32EnStatus = 0;
+    uint32_t u32Temp = 0;
+
+    // Disable before set
+    u32EnStatus = I2C->ENABLE;
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(0);
+
+    u32Temp = I2C->CON & ~(I2C_CON_SPEED_MASK);
+    switch(eSpeed)
+    {
+        case I2C_SPEED_STANDARD:
+            I2C->CON = u32Temp | I2C_CON_SPEED_STD;
+            I2C->SS_SCL_HCNT = I2C_STD_SCL_HIGH_MIN * SYSYEM_TICK_PER_US / US_TO_NS;
+            I2C->SS_SCL_LCNT = I2C_STD_SCL_LOW_MIN * SYSYEM_TICK_PER_US / US_TO_NS;
+            I2C->FS_SPKLEN = I2C_FS_SPIKE_MAX * SYSYEM_TICK_PER_US / US_TO_NS;
+            break;
+        case I2C_SPEED_FAST:
+            I2C->CON = u32Temp | I2C_CON_SPEED_FAST;
+            I2C->FS_SCL_HCNT = I2C_FS_SCL_HIGH_MIN * SYSYEM_TICK_PER_US / US_TO_NS;
+            I2C->FS_SCL_LCNT = I2C_FS_SCL_LOW_MIN * SYSYEM_TICK_PER_US / US_TO_NS;
+            I2C->FS_SPKLEN = I2C_FS_SPIKE_MAX * SYSYEM_TICK_PER_US / US_TO_NS;
+            break;
+        //case I2C_SPEED_HIGH:
+        default:
+            if( u32EnStatus & I2C_ENABLE_EN )
+                _Hal_I2c_Eanble(1);
+            return 1;
+    }
+    
+    // Enable if need
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(1);
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_FsSpeedSet
+* 
+* DESCRIPTION:
+*   1. Setup mode to Fast-mode and given the High/Low counters
+*      model: 600ns + HCNT time + LCNT time = 1 / Freq
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. u16Hcnt : High voltage time, unit: ticks
+*   2. u16Lcnt : Low voltage time, unit: ticks
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_FsClockSet(uint16_t u16Hcnt, uint16_t u16Lcnt)
+{
+    uint32_t u32EnStatus = 0;
+    uint32_t u32Temp = 0;
+
+    // Disable before set
+    u32EnStatus = I2C->ENABLE;
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(0);
+
+    // Force to Fast mode
+    u32Temp = I2C->CON & ~(I2C_CON_SPEED_MASK);
+    I2C->CON = u32Temp | I2C_CON_SPEED_FAST;
+    
+    // Set CNTs
+    I2C->FS_SCL_HCNT = u16Hcnt;
+    I2C->FS_SCL_LCNT = u16Lcnt;
+    
+    // Enable if need
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(1);
+
     return 0;
 }

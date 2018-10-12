@@ -14,6 +14,7 @@
 
 
 #include "at_cmd_common.h"
+#include "hal_pin_def.h"
 
 
 /**
@@ -33,6 +34,7 @@
 
 void at_cmd_common_func_init_patch(void);
 void at_cmd_switch_uart1_dbguart(void);
+void at_io01_uart_mode_set(E_IO01_UART_MODE eMode);
 
 
 #endif /* __AT_CMD_COMMOM_PATCH_H__ */

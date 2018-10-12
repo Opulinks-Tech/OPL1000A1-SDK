@@ -25,6 +25,7 @@
 #define SCAN_PASSIVE_MIN_DUR_TIME_DEF 150
 #define SCAN_MAX_NUM_OF_DUR_TIME      1500
 
+#define MAX_WIFI_RECONNECTION 10
 int send_port_security_done_event(void);
 int _wifi_get_sta_cfg_from_share_memory_patch(u8 cfg_idx, u8 *ptr);
 

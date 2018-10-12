@@ -55,7 +55,7 @@ extern RET_DATA osSemaphoreId at_semaId;
 
 /** @brief Semaphore for switch Dbguart and AT UART at IO0/IO1 */
 osSemaphoreId g_tSwitchuartSem;
-E_UART_MODE g_eIO01UartMode;
+
 
 extern const osPoolDef_t os_pool_def_atMemPool;
 extern const osSemaphoreDef_t os_semaphore_def_at_sema;
@@ -118,8 +118,7 @@ void at_module_init_patch(uint32_t netconn_max, const char *custom_version)
         tracer_log(LOG_HIGH_LEVEL, "create semaphore fail \r\n");
         msg_print_uart1("create swUART sema fail \r\n");
     }
-    g_eIO01UartMode = UART_AT;
-
+    
     //move from sys_init
     uart1_mode_set_default();
 

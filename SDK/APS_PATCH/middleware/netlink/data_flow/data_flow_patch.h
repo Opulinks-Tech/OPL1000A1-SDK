@@ -14,6 +14,11 @@
 
 
 #include "ipc.h"
+#include "data_flow.h"
+#include "controller_wifi.h"
+
+
+#define RF_EVT_TEST_MODE        (RF_EVT_IPC_ENABLE + 1)
 
 
 extern T_IpcHandleFp ipc_m0_msg_handle;

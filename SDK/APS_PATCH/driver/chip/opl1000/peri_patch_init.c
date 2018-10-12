@@ -134,6 +134,7 @@ void peripheral_patch_init(void)
     _Hal_I2c_Eanble       = _Hal_I2c_Eanble_patch;
     Hal_I2c_MasterInit    = Hal_I2c_MasterInit_patch;
     Hal_I2c_MasterReceive = Hal_I2c_MasterReceive_patch;
+    Hal_I2c_SpeedSet      = Hal_I2c_SpeedSet_patch;
 
     // tmr
 

@@ -47,6 +47,7 @@ extern u16 g_key_info_3_4;
 extern struct wpa_supplicant *wpa_s;
 extern struct wpa_ptk ptk;
 extern u8 g_fastconn;   
+extern u8 g_wifi_reconnection_counter;
 
 extern int g_DbgMode;
 
@@ -192,6 +193,7 @@ void wpa_supplicant_process_3_of_4_patch(struct wpa_sm *sm,
     {
         hiddenap_complete();
     }
+    g_wifi_reconnection_counter = MAX_WIFI_RECONNECTION;
 #endif
 
     wpa_clr_key_info();

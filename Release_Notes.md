@@ -1,4 +1,50 @@
 ## Release Version:
+SDK Package: MP v1.0
+Patch_Lib : 2632
+ROM_CODE: 1655 
+
+## Release Date: 2018/10/12
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-AT-instruction-set-and-examples: R05-V28,  add RF related AT instructions description.    
+ 1.2 Add a new document "OPL1000-AT-UART-Switch-Command" , introduce how to set and switch AT/Debug UART mode for IO0/IO1.    
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;   
+3. hello_world and blink two examples are updated, add  IO0/1 UART work mode setting code.    
+4. Add I2C speed configuration API functions.
+5. Add 2nd bootloader, it supports higher UART baud rate (up to 921600bps) for firmware download.   
+6. Add BLE 1Mbps/2Mbps switch AT command. 
+7. Add AT command to support Uart and DbgUart switch function for IO0 & IO1.
+8. Implement new physical setting to improve WiFi performance. 
+9. Reduce MSQ stack size to extend IRAM3 size.
+10. Add DHCP OPTION to support more APs.
+11. Re-architecture LWIP timer scheduling mechanism for smart sleep.
+12. Add "dynamically turn on/off OTP and Security IP clock" feature. 
+
+
+## Bug Fix List 
+1. Fix "WiFi MAC stuck during establishing connection" issue. 
+2. Fix "TCP tx stress test cause frame encryption failed" issue. 
+3. Delay CPOR 16 cycles to avoid siwtch-to-xtal issue.
+4. Fix  "DTM cannot transmit over 64 length" issue.  
+5. Fix  a bug in BLE HCI command when controller cannot find a RPA associated with the Peer Identity Address.
+6. Fix a bug in AT+CWJAP command when connect to a WPA/WPA2 AP without key in password.
+7. For power save feature, fix a bug in "minimum sleep duration limitation".
+8. Delay SW1 and RET_OFF time to avoid HW RESET issue on warm-boot.
+9. Solve auto connect & retry mechanism conflict problem.
+10. Update "at+rfhp=" command to solve RF HP setting not working problem. 
+
+
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: 1.1.1.10
 Patch_Lib : 2517
 ROM_CODE: 1655 

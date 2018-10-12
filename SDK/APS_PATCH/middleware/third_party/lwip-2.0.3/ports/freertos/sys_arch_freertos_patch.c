@@ -32,7 +32,7 @@
 
 #include "sys_os_config_patch.h"
 
-#ifdef OS_TASK_INFO_DUMP
+
 
 /* lwIP includes. */
 #include "lwip/debug.h"
@@ -75,6 +75,7 @@
  * Outputs:
  *      sys_thread_t            -- Pointer to per-thread timeouts.
  *---------------------------------------------------------------------------*/
+#ifdef OS_TASK_INFO_DUMP
 sys_thread_t sys_thread_new_patch(const char *name, lwip_thread_fn thread, void *arg, int stacksize, int prio)
 {
 	TaskHandle_t xCreatedTask;
@@ -100,14 +101,25 @@ sys_thread_t sys_thread_new_patch(const char *name, lwip_thread_fn thread, void 
 
 	return xReturn;
 }
+#endif //#ifdef OS_TASK_INFO_DUMP
+
+void assert_loop_patch(void)
+{
+    sys_msleep(1000);
+	while (1) {}
+    
+}
 
 void lwip_load_interface_sys_arch_freertos_patch(void)
 {
+    #ifdef OS_TASK_INFO_DUMP
     sys_thread_new_adpt = sys_thread_new_patch;
+    #endif //#ifdef OS_TASK_INFO_DUMP
+    assert_loop_adpt                = assert_loop_patch;
     return;
 }
 
 #endif //#if !NO_SYS
 
-#endif //#ifdef OS_TASK_INFO_DUMP
+
 

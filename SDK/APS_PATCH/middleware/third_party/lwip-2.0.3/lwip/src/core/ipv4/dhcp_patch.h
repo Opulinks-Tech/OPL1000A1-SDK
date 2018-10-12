@@ -1,0 +1,11 @@
+
+/**add options for support more router**/
+#define DHCP_OPTION_DOMAIN_NAME 15
+#define DHCP_OPTION_PRD 31
+#define DHCP_OPTION_STATIC_ROUTER 33
+#define DHCP_OPTION_VSN 43
+#define DHCP_OPTION_NB_TINS 44
+#define DHCP_OPTION_NB_TINT 46
+#define DHCP_OPTION_NB_TIS 47
+#define DHCP_OPTION_CLASSLESS_STATIC_ROUTER 121
+

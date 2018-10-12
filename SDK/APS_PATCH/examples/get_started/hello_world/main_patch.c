@@ -43,6 +43,7 @@ Head Block of The File
 #include "mw_fim.h"
 #include "cmsis_os.h"
 #include "sys_os_config.h"
+#include "at_cmd_common_patch.h"
 #include "hal_pin.h"
 #include "hal_pin_def.h"
 #include "hal_pin_config_project.h"
@@ -168,6 +169,8 @@ static void Main_PinMuxUpdate(void)
     Hal_Pin_ConfigSet(21, HAL_PIN_TYPE_IO_21, HAL_PIN_DRIVING_IO_21);
     Hal_Pin_ConfigSet(22, HAL_PIN_TYPE_IO_22, HAL_PIN_DRIVING_IO_22);
     Hal_Pin_ConfigSet(23, HAL_PIN_TYPE_IO_23, HAL_PIN_DRIVING_IO_23);
+    
+    at_io01_uart_mode_set(HAL_PIN_0_1_UART_MODE);
 }
 
 /*************************************************************************

@@ -499,13 +499,9 @@ void Hal_Sys_DisableClock_impl(void)
                 AOS_APS_CLK_EN_DBG_UART_PCLK |
                 AOS_APS_CLK_EN_PWM_CLK |
                 AOS_APS_CLK_EN_WDT_INTERNAL |
-#if 1
-                AOS_APS_CLK_EN_DMA_HCLK;
-#else
                 AOS_APS_CLK_EN_OTP_PCLK |
                 AOS_APS_CLK_EN_DMA_HCLK | 
                 AOS_APS_CLK_EN_SCRT_HCLK;
-#endif
     
     if (Hal_Sys_StrapModeRead() == STRAP_NORMAL_MODE)
         u32DisClk |= AOS_APS_CLK_EN_JTAG_HCLK;

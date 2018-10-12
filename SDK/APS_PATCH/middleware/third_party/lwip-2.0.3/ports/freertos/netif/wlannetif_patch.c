@@ -165,39 +165,50 @@ low_level_output_patch(struct netif *netif, struct pbuf *p)
     struct pbuf *q;
     static int full_count = 0;
     static int write_count = 0;
-    u16_t len = 0;
 
     LWIP_UNUSED_ARG(ethernetif);
 
 #if ETH_PAD_SIZE
     pbuf_header(p, -ETH_PAD_SIZE); /* drop the padding word */
 #endif
-
-
-    for(q = p; q != NULL; q = q->next) {
-        /* Send the data from the pbuf to the interface, one pbuf at a
-           time. The size of the data in each pbuf is kept in the ->len
-           variable. */
+    
+    q = p;
+        
+    if (q->next == NULL) {
         #ifdef TX_PKT_DUMP
-        dump_buffer(q->payload, q->len, 1);
+            dump_buffer(q->payload, q->len, 1);
         #endif
-
-        /* Wait for transmit cleanup task to wakeup */
-        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) )
-        {
+    
+        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) ) {
             full_count++;
             printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
             sys_arch_sem_wait(&TxReadySem, 1);
             printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
-            //return ERR_MEM;
         }
-        else
-        {
-            full_count = 0;
-            write_count++;
-            //printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
+    }
+    else {
+        q = pbuf_alloc(PBUF_RAW_TX, p->tot_len, PBUF_RAM);
+        
+        if (q != NULL) {
+            pbuf_copy(q, p);
         }
-        len = len + q->len;
+        else {
+            printf("__packet_tx_task: pbuf malloc failed\r\n");
+            return ERR_OK;
+        }
+
+        #ifdef TX_PKT_DUMP
+            dump_buffer(q->payload, q->len, 1);
+        #endif
+        
+        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) ) {
+            full_count++;
+            printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
+            sys_arch_sem_wait(&TxReadySem, 1);
+            printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
+        }
+        
+        pbuf_free(q);
     }
 
 #if ETH_PAD_SIZE
@@ -206,7 +217,7 @@ low_level_output_patch(struct netif *netif, struct pbuf *p)
 
     LINK_STATS_INC(link.xmit);
 
-  return ERR_OK;
+    return ERR_OK;
 }
 
 void lwip_load_interface_wlannetif_patch(void)

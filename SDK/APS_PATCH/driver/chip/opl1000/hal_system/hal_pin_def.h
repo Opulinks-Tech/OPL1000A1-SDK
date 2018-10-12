@@ -149,6 +149,14 @@ typedef enum
     PIN_DRIVING_MAX
 } E_PIN_DRIVING;
 
+
+
+/* Uart mode for switching UART */
+typedef enum {
+    IO01_UART_MODE_AT=0,
+    IO01_UART_MODE_DBG,
+}E_IO01_UART_MODE;
+
 /********************************************
 Declaration of Global Variables & Functions
 ********************************************/
