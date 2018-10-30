@@ -87,6 +87,11 @@ static void httpclient_base64enc(char *out, const char *in)
     out[i] = '\0' ;
 }
 
+static void ms_to_timeval(int timeout_ms, struct timeval *tv)
+{
+    tv->tv_sec = timeout_ms / 1000;
+    tv->tv_usec = (timeout_ms - (tv->tv_sec * 1000)) * 1000;
+}
 
 /*
  * Set the socket blocking or non-blocking
@@ -575,6 +580,10 @@ int httpclient_recv(httpclient_t *client, char *buf, int min_len, int max_len, i
 {
     int ret = 0;
     size_t readLen = 0;
+    struct timeval tv;
+
+    ms_to_timeval(client->timeout_ms, &tv);
+    setsockopt(client->socket, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
 
     while (readLen < max_len) {
         buf[readLen] = '\0';
@@ -967,7 +976,7 @@ HTTPCLIENT_RESULT httpclient_connect(httpclient_t *client, char *url)
 
 #ifdef HTTPCLIENT_TIME_DEBUG
     end_time = sys_now();
-    DBG("client connect time =%d", end_time - start_time);
+    printf("client connect time =%d\r\n", end_time - start_time);
 #endif
 
     DBG("httpclient_connect() result:%d, client:%p", ret, client);
@@ -1050,6 +1059,9 @@ int httpclient_get_response_code(httpclient_t *client)
 static HTTPCLIENT_RESULT httpclient_common(httpclient_t *client, char *url, int method, httpclient_data_t *client_data)
 {
     HTTPCLIENT_RESULT ret = HTTPCLIENT_ERROR_CONN;
+#ifdef HTTPCLIENT_TIME_DEBUG
+    int start_time, end_time;
+#endif
 
     ret = httpclient_connect(client, url);
 
@@ -1057,12 +1069,18 @@ static HTTPCLIENT_RESULT httpclient_common(httpclient_t *client, char *url, int 
         ret = httpclient_send_request(client, url, method, client_data);
 
         if (!ret) {
+#ifdef HTTPCLIENT_TIME_DEBUG
+            start_time = sys_now();
+#endif
             ret = httpclient_recv_response(client, client_data);
+#ifdef HTTPCLIENT_TIME_DEBUG
+            end_time = sys_now();
+            printf("recv_response time =%d\r\n", end_time - start_time);
+#endif
         }
     }
 
     httpclient_close(client);
-
     return ret;
 }
 

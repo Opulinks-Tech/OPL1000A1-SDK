@@ -29,13 +29,14 @@ void wpas_init_patch(void)
     wpa_cli_func_init_patch();
 
     //events_netlink_patch
-    wpa_events_func_init();
+    wpa_events_func_init_patch();
     
     //wpa
     wpa_func_init_patch();
     
     //supplicant_task
     wpa_supplicant_task_func_init_patch();
+    
     return;
 }
 

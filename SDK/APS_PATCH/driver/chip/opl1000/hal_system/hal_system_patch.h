@@ -41,11 +41,12 @@ Head Block of The File
 #include "hal_system.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
+#define SYS_SPARE_0_M0_FLASH_ACCESS_DONE    6 // bit 6
 
 /********************************************
 Declaration of data structure
 ********************************************/
-// Sec 3: structure, uniou, enum, linked list...
+// Sec 3: structure, union, enum, linked list...
 typedef void (*T_Hal_SysPinMuxM3UartSwitch)(void);
 typedef void (*T_Hal_Sys_DisableClock)(void);
 

@@ -46,6 +46,8 @@ Head Block of The File
 
 #define RF_RG_EOCB              (1 << 16)   // the bit[16] of RG_AUX_ADC_ECL_OUT: End of conversion sign
 
+#define HAL_AUX_ADC_ERROR_COUNT (3)
+
 
 /********************************************
 Declaration of data structure
@@ -203,13 +205,16 @@ uint8_t Hal_Aux_AdcValueGet_patch(uint32_t *pulValue)
     uint8_t ubRet = HAL_AUX_FAIL;
     
     uint32_t ulAdcValue;
+    uint32_t ulAdcCurrent;
+    uint32_t ulRepeatCount;
     uint32_t j;
     
     if (g_ulHalAux_AverageCount == 0)
         g_ulHalAux_AverageCount = 1;
     
     ulAdcValue = 0;
-    for (j=0; j<g_ulHalAux_AverageCount; j++)
+    ulRepeatCount = g_ulHalAux_AverageCount;
+    for (j=0; j<ulRepeatCount; j++)
     {
         // Enable AUXADC
         tmp = AOS->ADC_CTL;
@@ -252,7 +257,16 @@ uint8_t Hal_Aux_AdcValueGet_patch(uint32_t *pulValue)
                 goto done;
             i++;
         }
-        ulAdcValue = ulAdcValue + (RF->RG_AUX_ADC_ECL_OUT & 0x03FF);
+        ulAdcCurrent = RF->RG_AUX_ADC_ECL_OUT & 0x03FF;
+        ulAdcValue = ulAdcValue + ulAdcCurrent;
+
+        // !!! ADC value should be not zero, the DC offset is not zero
+        if (ulAdcCurrent == 0)
+        {
+            // error handle if always zero
+            if (ulRepeatCount < (g_ulHalAux_AverageCount * HAL_AUX_ADC_ERROR_COUNT))
+                ulRepeatCount++;
+        }
 
         // Disable AUXADC
         tmp = AOS->ADC_CTL;

@@ -569,11 +569,11 @@ int wifi_auto_connect_get_mode(uint8_t *mode);
 int wifi_auto_connect_set_mode(uint8_t mode);
 
 /**
-  * @brief     Get the number of AP information.
+  * @brief     Get the maximum number of AP information.
   *
-  * @attention 1. API returns false if try to get auto connect numbers which something error
+  * @attention 1. API returns false if try to get maximum auto connect numbers which something error
   *
-  * @param[out]  mode: Get the number of AP information
+  * @param[out]  num: Get the maximum number of AP information
   *
   * @return    0  : success
   * @return    other : failed
@@ -581,17 +581,29 @@ int wifi_auto_connect_set_mode(uint8_t mode);
 int wifi_auto_connect_get_ap_num(uint8_t *num);
 
 /**
-  * @brief     Set the number of AP information.
+  * @brief     Set the maximum number of AP information.
   *
-  * @attention 1. API returns false if try to set auto connect numbers which something error
+  * @attention 1. API returns false if try to set maximum auto connect numbers which something error
   *
-  * @param[in]   num: The number of AP information will be saved in flash.
+  * @param[in]   num: The maximum number of AP information will be saved in flash.
   *              - Range is 1 to 3
   *
   * @return    0  : success
   * @return    other : failed
  */
 int wifi_auto_connect_set_ap_num(uint8_t num);
+
+/**
+  * @brief     Get the current number of AP save in flash.
+  *
+  * @attention 1. API returns false if try to get current auto connect numbers which something error
+  *
+  * @param[out]   num: The current number of AP information will be saved in flash.
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int wifi_auto_connect_get_saved_ap_num(uint8_t *num);
 
 /**
   * @brief     Get the AP information.

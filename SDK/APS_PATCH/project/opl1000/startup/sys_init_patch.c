@@ -346,6 +346,32 @@ void Main_WaitforMsqReady()
 
 /*************************************************************************
 * FUNCTION:
+*   Sys_WaitForMsqFlashAccessDone
+*
+* DESCRIPTION:
+*   wait for M0 flash access done
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+void Sys_WaitForMsqFlashAccessDone(void)
+{
+	const uint32_t m0_ready_msk = 1 << SYS_SPARE_0_M0_FLASH_ACCESS_DONE;
+	uint32_t reg_spare_0_val;
+
+	do {
+		Hal_Sys_SpareRegRead(SPARE_0, &reg_spare_0_val);
+	} while (!(reg_spare_0_val & m0_ready_msk));
+
+	Hal_Sys_SpareRegWrite(SPARE_0, reg_spare_0_val & ~m0_ready_msk);
+}
+
+/*************************************************************************
+* FUNCTION:
 *   Sys_DriverInit
 *
 * DESCRIPTION:
@@ -360,6 +386,11 @@ void Main_WaitforMsqReady()
 *************************************************************************/
 static void Sys_DriverInit_patch(void)
 {
+    if (!Boot_CheckWarmBoot())
+    {
+        Sys_WaitForMsqFlashAccessDone();
+    }
+
     // Set power
     Sys_PowerSetup();
 

@@ -28,9 +28,12 @@
 #include "lwip/netif.h"
 #include "errno.h"
 
+#include "ps_public.h" 
+
+#define ENABLE_SMART_SLEEP   1 
+
 osThreadId app_task_id;
 #define WIFI_READY_TIME 2000
-
 
 #define WEB_SERVER "example.com"
 #define WEB_PORT 80
@@ -229,6 +232,11 @@ int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
     case WIFI_EVENT_STA_CONNECTED:
         lwip_net_start(WIFI_MODE_STA);
         printf("\r\nWi-Fi Connected \r\n");
+		
+#ifdef ENABLE_SMART_SLEEP
+		    printf("\r\nEnable smart sleep \r\n");
+		    ps_smart_sleep(1);
+#endif 				
         break;
     case WIFI_EVENT_STA_DISCONNECTED:
         printf("\r\nWi-Fi Disconnected \r\n");

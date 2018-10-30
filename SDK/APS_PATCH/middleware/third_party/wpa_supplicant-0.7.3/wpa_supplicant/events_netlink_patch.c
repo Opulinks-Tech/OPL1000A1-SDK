@@ -78,7 +78,8 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
     sm = wpa.supp;
 
     //os_memset(passphrase, 0, 32);
-
+    memset(&g_wpa_psk[0], 0, 32);
+    
     wpa_driver_netlink_get_bssid(bssid);
     //wpa_printf_dbg(MSG_DEBUG, "[HDL_ASSO]WPA: bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n", bssid[0], bssid[1], bssid[2], bssid[3], bssid[4], bssid[5]);
 
@@ -219,15 +220,16 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
 
         //1.Caculate the PMK
         //pbkdf2_sha1(passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
-        
-        if (get_auto_connect_mode() != AUTO_CONNECT_ENABLE) {
+
+        if (get_auto_connect_mode() == AUTO_CONNECT_ENABLE ||
+            get_auto_connect_mode() == AUTO_CONNECT_DIRECT) {
+                pacInfo = wifi_get_ac_record(wpa_s->bssid);
+                wpa_sm_set_pmk(wpa_s->wpa, pacInfo->psk, PMK_LEN);
+            }
+        else {
             pbkdf2_sha1(g_passphrase, (char*)ssid, os_strlen((const char*)ssid), 4096, wpa.psk, 32);
             wpa_sm_set_pmk(wpa_s->wpa, wpa.psk, PMK_LEN);
             memcpy(&g_wpa_psk[0], wpa.psk, 32);
-        }
-        else {
-            pacInfo = wifi_get_ac_record(wpa_s->bssid);
-            wpa_sm_set_pmk(wpa_s->wpa, pacInfo->psk, PMK_LEN);
         }
         
         //os_memcpy(wpa.psk, temp_psk, 32);
@@ -241,19 +243,14 @@ void wpa_supplicant_event_assoc_patch(struct wpa_supplicant *wpa_s,
         //2.Set the PMK
         //wpa_sm_set_pmk(wpa_s->wpa, wpa.psk, PMK_LEN);
     }
-#ifdef __WIFI_AUTO_CONNECT__
     else { //Open connection
         /* Set successfully connect info to Auto Connect list */
-        switch(get_auto_connect_mode()) {
-            case AUTO_CONNECT_MANUAL:
-                add_auto_connect_list();
-                set_auto_connect_mode(AUTO_CONNECT_ENABLE);
-                break;
-            default:
-                break;
+        if (get_auto_connect_mode() == AUTO_CONNECT_MANUAL) {
+            add_auto_connect_list();
+            set_auto_connect_mode(AUTO_CONNECT_ENABLE);
         }
     }
-#endif
+
     //wpa_printf_dbg(MSG_DEBUG, "\r\n wpa_supplicant_event_assoc, PMK[%d]: ", PMK_LEN);
     //for(j = 0; j < PMK_LEN; j++){
     //    //wpa_printf_dbg(MSG_DEBUG, "%d ", wpa_s->wpa.pmk[j]);

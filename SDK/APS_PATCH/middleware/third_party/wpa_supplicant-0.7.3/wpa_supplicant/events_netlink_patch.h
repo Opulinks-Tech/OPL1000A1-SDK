@@ -12,6 +12,6 @@
 #ifndef _EVENTS_NETLINK_PATCH_H_
 #define _EVENTS_NETLINK_PATCH_H_
 
-void wpa_events_func_init(void);
+void wpa_events_func_init_patch(void);
 
 #endif /* _EVENTS_NETLINK_PATCH_H_ */

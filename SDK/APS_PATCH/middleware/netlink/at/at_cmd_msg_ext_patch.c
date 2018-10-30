@@ -309,6 +309,8 @@ void _at_msg_ext_wifi_connect_patch(int cusType, int msg_code)
 
 void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason)
 {
+    u8 ap_num;
+    
     switch(reason) {
         case WIFI_REASON_CODE_MIC_FAILURE:
         case WIFI_REASON_CODE_DIFFERENT_INFO_ELEM:
@@ -319,6 +321,9 @@ void at_msg_ext_wifi_dispatch_connect_reason(bool connected, int reason)
             _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_FAIL);
             break;
         case WIFI_REASON_CODE_AUTO_CONNECT_FAILED:
+            wifi_auto_connect_get_saved_ap_num(&ap_num);
+            if (ap_num == 0)
+                break;
             if (connected) {
                 _at_msg_ext_wifi_connect(AT_MSG_EXT_ESPRESSIF, ERR_WIFI_CWJAP_DISCONNECT);
             }

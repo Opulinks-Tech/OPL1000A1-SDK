@@ -38,9 +38,9 @@ typedef enum mlme_evt_type_patch
     MLME_EVT_PORT_SCRT_DONE,      // 19
 } mlme_evt_type_patch_e;
 
-#define AUTO_CONNECT_REASON_CODE_FAILED      200
-#define CONNECT_AP_REASON_CODE_NOT_FOUND     201
-#define CONNECT_AP_REASON_CODE_TIMEOUT       202
+#define CONNECT_AP_ERR_AC_FAILED          200
+#define CONNECT_AP_ERR_NOT_FOUND          201
+#define CONNECT_AP_ERR_TIMEOUT            202
 
 #define AUTO_CONNECT_DIRECT  3 // Direct connect to AP and not try next when failed.
 
@@ -118,6 +118,7 @@ int wifi_sta_join_auto(u8 ap_index);
 void control_auto_connect_by_index(u8 index);
 u8 get_mac_tx_data_rate(void);
 u8 set_mac_tx_data_rate(u8 data_rate);
+void auto_connect_send_evt_failed(void);
 
 #endif /* _CONTROLLER_WIFI_COM_PATCH_H_ */
 

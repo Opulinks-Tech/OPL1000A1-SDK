@@ -60,13 +60,7 @@ int at_wifi_event_handler_cb_patch(wifi_event_id_t event_id, void *data, uint16_
         break;
     case WIFI_EVENT_STA_DISCONNECTED:
         printf("\r\nWiFi Disconnect, reason %d\r\n", reason);
-        if (at_wifi_status == WIFI_EVENT_STA_CONNECTED ||
-            at_wifi_status == WIFI_EVENT_STA_GOT_IP) {
-            at_msg_ext_wifi_dispatch_connect_reason(true, reason);
-        }
-        else {
-            at_msg_ext_wifi_dispatch_connect_reason(false, reason);
-        }
+        at_msg_ext_wifi_dispatch_connect_reason(false, reason);
         at_wifi_status = WIFI_EVENT_STA_DISCONNECTED;
         at_wifi_reason = STATION_CONNECT_FAIL;
         mdState = AT_STA_DISCONNECT;
@@ -86,8 +80,14 @@ int at_wifi_event_handler_cb_patch(wifi_event_id_t event_id, void *data, uint16_
         break;
     case WIFI_EVENT_STA_CONNECTION_FAILED:
         printf("\r\nWiFi Connected failed\r\n");
+        if (at_wifi_status == WIFI_EVENT_STA_CONNECTED ||
+            at_wifi_status == WIFI_EVENT_STA_GOT_IP) {
+            at_msg_ext_wifi_dispatch_connect_reason(true, reason);
+        }
+        else {
+            at_msg_ext_wifi_dispatch_connect_reason(false, reason);
+        }
         at_wifi_reason = STATION_CONNECT_FAIL;
-        at_msg_ext_wifi_dispatch_connect_reason(false, reason);
         break;
     default:
         printf("\r\n Unknown Event %d \r\n", event_id);

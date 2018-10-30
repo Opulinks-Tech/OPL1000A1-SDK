@@ -148,6 +148,15 @@ int wpa_driver_netlink_get_state(void)
 	return ((int)wpa_s->wpa_state);
 }
 
+int wpa_driver_netlink_is_connected(void)
+{
+    if (wpa_driver_netlink_get_state() == WPA_ASSOCIATED ||
+        wpa_driver_netlink_get_state() == WPA_COMPLETED) {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 /*
    Interface Initialization: WPA Driver
  */
