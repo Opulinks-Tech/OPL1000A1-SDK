@@ -1,4 +1,50 @@
 ## Release Version:
+SDK Package: MP v1.1
+Patch_Lib : 2726
+ROM_CODE: 1655 
+
+## Release Date: 2018/10/30
+
+## Function & Feature Update 
+1. Documents updating:
+1.1 OPL1000-AT-instruction-set-and-examples: R05-V29,  Update AT+CWJAP description.
+1.2 OPL1000-SDK-Development-guide: R01-V06, Update section2, example directory is updated. 
+1.3 OPL1000-WIFI-BLE-API-guide: MP1.1, update partial WIFI API.
+1.4 OPL1000-BLEWIFI-Application-Dev-Guide: R01-V06, add BLE/WiFi ota commands description.
+1.5 OPL1000-Demo-BLE-setup-network-guide: R01-V02, update OPL1000 3rd APK, wifi/ble API and the configure scenario.
+2. Tool version information and update:
+2.1 download tool: v0.23. No change since v1.1.1.5;        
+2.2 pin-mux tool: v0.8. No change since v1.1.1.7;   
+3. Update blewifi example, beside support BLE configure WIFI AP function, also support BLE OTA and WIFI OTA.  
+4. Remove old blewifi example from Bluetooth sub-directory, add new blewifi example under “system” sub-directory.
+5. Support over write RF setting parameters in flash by both AT command and CLI command.
+6. Enable SARADC to improve WIFI scan AP performance. 
+7. Add a new AT command “at+phydump” to support  physical layer information dump function 
+8. Update OTP setting and timing function.
+9. Add xtal ready checking at warm-boot, this is used to reduce the average warm-boot cost. 
+10.  Add a feature “return connect failed info when try to auto connect and failed.”
+11. Add API to query current numbers of AP saved in flash.
+12. Add setting for BLW HP (high power amplifier) 
+13. Implement new physical setting for AGC module. 
+
+
+## Bug Fix List 
+1. Fix bug “ enter sleep fail when timer sleep is waked up by IO trigger” 
+2. Fix bug “when read the internal VBAT, the result sometimes is 0.”
+3. Fix a pin-mux restore error bug, solve 1mA residual current issue when enter into sleep over 300ms. 
+4. Solve “connect security AP failed issue when use directly connect from flash”
+5. Solve issue of “WiFi connected distance become shorter after BLE ADV”
+6. Solve issue of "Assertion-Fail happens in Token Switch during smart-sleep”
+7. For WIFI function, event shall be returned to indicate the status “when invoked auto connect start but there is no ap in the auto connect list”
+
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: MP v1.0
 Patch_Lib : 2632
 ROM_CODE: 1655 
