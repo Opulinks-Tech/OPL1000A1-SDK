@@ -96,7 +96,7 @@ extern T_Main_AppInit_fp Main_AppInit;
 Declaration of static Global Variables & Functions
 ***************************************************/
 // Sec 6: declaration of static global variable
-static osThreadId g_tAppThread;
+static osThreadId g_tAppThread1,g_tAppThread2;
 
 // Sec 7: declaration of static function prototype
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
@@ -106,7 +106,10 @@ static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 static void spi_flash_test(void);
 static void spi_send_data(int port);
-static void Main_AppThread(void *argu);
+static void spi_recv_data(int port);
+static void spi_send_block_data(int port);
+static void Main_AppThread1(void *argu);
+static void Main_AppThread2(void *argu);
 static void spi_test(void);
 
 /***********
@@ -255,10 +258,10 @@ void Main_AppInit_patch(void)
 
 /*************************************************************************
 * FUNCTION:
-*   Main_AppThread
+*   Main_AppThread1
 *
 * DESCRIPTION:
-*   the application thread 2
+*   App thread 1 for SPI write opertion 
 *
 * PARAMETERS
 *   1. argu     : [In] the input argument
@@ -267,14 +270,41 @@ void Main_AppInit_patch(void)
 *   none
 *
 *************************************************************************/
-static void Main_AppThread(void *argu)
+static void Main_AppThread1(void *argu)
 {	
     while (1)
     {	
-        osDelay(1500);      // delay 1500 ms		
-        printf("SPI Running \r\n");			
+        osDelay(500);      // delay 500 ms		
+        printf("[Thread1] SPI Running \r\n");			
 				// communicate with external SPI slave device 
-				spi_send_data(TEST_SPI); 			
+				spi_send_data(TEST_SPI);
+        osDelay(500);      // delay 500 ms				
+			  spi_send_block_data(TEST_SPI);
+    }
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_AppThread2
+*
+* DESCRIPTION:
+*   App thread 2 for SPI read opertion 
+*
+* PARAMETERS
+*   1. argu     : [In] the input argument
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_AppThread2(void *argu)
+{	
+    while (1)
+    {	
+        osDelay(500);      // delay 500 ms		
+        printf("[Thread2] SPI Running \r\n");			
+				// communicate with external SPI slave device 
+        spi_recv_data(TEST_SPI);
     }
 }
 
@@ -337,7 +367,7 @@ static void spi_flash_test(void)
 *   spi_send_data
 *
 * DESCRIPTION:
-*   an example of write data to external SPI slave device.
+*   An example of write data to external SPI slave device.
 *
 * PARAMETERS
 *   none
@@ -367,6 +397,88 @@ static void spi_send_data(int port)
     }    
 }
 
+
+/*************************************************************************
+* FUNCTION:
+*   spi_recv_data
+*
+* DESCRIPTION:
+*   An example of read data from external SPI slave device.
+*   String from SPI slave device is ended by '\n'   
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void spi_recv_data(int port)
+{
+    // Assume maximum string length not exceeds 32 bytes.
+    char input_str[32]= {0};    
+    uint32_t u32Temp, i, spi_idx = 0;
+    T_OPL1000_Spi *spi;
+		
+    spi = &OPL1000_periph.spi[port];
+		if (spi->index == SPI_IDX_1)
+			  spi_idx = 1; // indicate it is SPI1 
+	  else if (spi->index == SPI_IDX_2)
+			  spi_idx = 2; // indicate it is SPI2 
+        
+    for(i=0;i<strlen(input_str);i++)
+    {
+        u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_1_BIT | TAG_READ | DUMMY; // complete
+        Hal_Spi_Data_Send(spi->index, u32Temp);
+			
+			  Hal_Spi_Data_Recv(spi->index, &u32Temp);
+			  if (u32Temp == 0x13 || u32Temp == 0x0A)  // received character is '\n' or '\r'
+				   break; 
+				input_str[i] = u32Temp & 0xFF; 
+    } 
+    printf("Receive from SPI%d slave device: %s \r\n",spi_idx,input_str);		
+}
+
+/*************************************************************************
+* FUNCTION:
+*   spi_send_block_data
+*
+* DESCRIPTION:
+*   An example of write block (multiple bytes) to external SPI slave device.
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void spi_send_block_data(int port)
+{
+    char output_str[10]= {0x11,0x22,0x33,0x44,0x55,0x66,0x77,0x88,0x99,0xaa};   
+    uint32_t u32Temp, u32Idx, u32DataSize, spi_idx = 0;
+    T_OPL1000_Spi *spi;
+		
+    spi = &OPL1000_periph.spi[port];
+		if (spi->index == SPI_IDX_1)
+			  spi_idx = 1; // indicate it is SPI1 
+	  else if (spi->index == SPI_IDX_2)
+			  spi_idx = 2; // indicate it is SPI2 
+
+    printf("Send multiple bytes to external SPI%d slave device \r\n",spi_idx);    
+
+		u32DataSize = strlen(output_str);
+		for (u32Idx=0; u32Idx<u32DataSize; u32Idx++)
+		{
+				if (u32Idx != (u32DataSize-1))
+						u32Temp = TAG_DFS_08 | TAG_CS_CONT | TAG_1_BIT | TAG_WRITE | output_str[u32Idx];
+				else
+						u32Temp = TAG_DFS_08 | TAG_CS_COMP | TAG_1_BIT | TAG_WRITE | output_str[u32Idx]; // complete
+				Hal_Spi_Data_Send(spi->index, u32Temp);				
+				//Hal_Spi_Data_Recv(spi->index, &u32Temp); // dummy
+		}		
+}
+
 /*************************************************************************
 * FUNCTION:
 *   SPI test 
@@ -385,16 +497,29 @@ static void spi_test(void)
 {
     osThreadDef_t tThreadDef;
     
-    // create the thread for AppThread
-    tThreadDef.name = "App";
-    tThreadDef.pthread = Main_AppThread;
+    // create thread for SPI write operation 
+    tThreadDef.name = "App_1";
+    tThreadDef.pthread = Main_AppThread1;
     tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
     tThreadDef.instances = 0;                           // reserved, it is no used
     tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
-    g_tAppThread = osThreadCreate(&tThreadDef, NULL);
-    if (g_tAppThread == NULL)
+    g_tAppThread1 = osThreadCreate(&tThreadDef, NULL);
+    if (g_tAppThread1 == NULL)
     {
-        printf("To create the thread for AppThread is fail.\n");
+        printf("Create SPI write thread is fail.\n");
     }	
+
+		// create thread for SPI read operation
+    tThreadDef.name = "App_2";
+    tThreadDef.pthread = Main_AppThread2;
+    tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
+    tThreadDef.instances = 0;                           // reserved, it is no used
+    tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
+    g_tAppThread2 = osThreadCreate(&tThreadDef, NULL);
+    if (g_tAppThread2 == NULL)
+    {
+        printf("Create SPI read thread is fail.\n");
+    }
+	
 }
 

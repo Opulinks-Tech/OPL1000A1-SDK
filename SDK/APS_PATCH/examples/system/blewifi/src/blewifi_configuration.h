@@ -54,7 +54,6 @@ When BLE send connect reqest for connecting AP.
 If failure will retry times which define below.
 */
 #define BLEWIFI_WIFI_REQ_CONNECT_RETRY_TIMES    5
-#define BLEWIFI_WIFI_REQ_CONNECT_RETRY_IDLE     (BLEWIFI_WIFI_REQ_CONNECT_RETRY_TIMES + 1)
 
 
 /* Auto Connection Interval:
@@ -71,15 +70,9 @@ if the auto connection is fail, the interval will be increased
 #define BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_DIFF     (1000)      // ms
 #define BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_MAX      (30000)     // ms
 
-/* DTIM the times of Interval:
-when set n, it means "skip n-1 times"
-the time of once is set by Wifi AP
-    Ex: if the time of once is 300ms
-    the interval is set to 20
-    it means that the time of DTIM is 300 * 20 ms (6 sec)
+/* DTIM the times of Interval: ms
 */
-#define BLEWIFI_WIFI_DTIM_INTERVAL                  (1)         // skip (n-1) times
-
+#define BLEWIFI_WIFI_DTIM_INTERVAL                  (2000)      // ms
 
 // Sensor part
 /* 

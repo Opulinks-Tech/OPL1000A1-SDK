@@ -129,6 +129,8 @@ extern void lwip_task_create(void);
 #include "controller_task_patch.h"
 #include "rf_cfg.h"
 #include "wifi_mac_task_patch.h"
+#include "mw_fim_patch.h"
+#include "network_config_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -273,6 +275,9 @@ void SysInit_EntryPoint(void)
 
     // ISR
 	ISR_Pre_Init_patch();
+
+    // FIM
+    MwFim_PreInit_patch();
 }
 
 /*************************************************************************
@@ -496,6 +501,7 @@ static void Sys_DriverInit_patch(void)
         Hal_Vic_GpioInit();
 	}
 
+	#if defined(__WATCHDOG__) //close watch dog here.
     //Watch Dog
     if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
     {
@@ -503,6 +509,7 @@ static void Sys_DriverInit_patch(void)
         Hal_Vic_IntInv(WDT_IRQn, 1);
         Hal_Wdt_Init(WDT_TIMEOUT_SECS * SystemCoreClockGet());
     }
+	#endif
 }
 
 /*************************************************************************
@@ -583,6 +590,9 @@ static void Sys_ServiceInit_patch(void)
     tLayout.ulaImageAddr[1] = MW_OTA_IMAGE_ADDR_2;
     tLayout.ulImageSize = MW_OTA_IMAGE_SIZE;
     MwOta_Init(&tLayout, 0);
+
+    // DHCP ARP check
+    tcpip_config_dhcp_arp_check_init();
 }
 
 

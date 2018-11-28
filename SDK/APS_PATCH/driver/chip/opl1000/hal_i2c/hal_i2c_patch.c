@@ -70,6 +70,10 @@ Head Block of The File
 #define I2C_CON_SPEED_MASK       (0x3<<1)
 #define I2C_CON_MASTER_MODE      (1<<0)
 
+#define I2C_TAR_TARGET_ADDR_MASK (0x3FF)
+
+#define I2C_SAR_SLAVE_ADDR_MASK  (0x3FF)
+
 #define I2C_INT_TX_ABRT          (1<<6)
 #define I2C_INT_RD_REQ           (1<<5)
 #define I2C_INT_RX_FULL          (1<<2)
@@ -282,6 +286,47 @@ uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed
     // NVIC 3) Enable NVIC
     NVIC_EnableIRQ(I2C_IRQn);
     
+    return 0;
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_I2c_TargetAddrSet
+* 
+* DESCRIPTION:
+*   1. Setup master's target address
+* 
+* CALLS
+* 
+* PARAMETERS
+*   1. u16TargetAddr : Target address
+* 
+* RETURNS
+*   0: setting complete
+*   1: error 
+* 
+* GLOBALS AFFECTED
+* 
+*************************************************************************/
+uint32_t Hal_I2c_TargetAddrSet_patch(uint16_t u16TargetAddr)
+{
+    uint32_t u32EnStatus = 0;
+    
+    // Wait for previous action complete, generate START bit
+    if( _Hal_I2c_WaitForMasterCompleted() )
+        return 1;
+
+    // Disable before set
+    u32EnStatus = I2C->ENABLE;
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(0);
+    
+    I2C->TAR &= ~I2C_TAR_TARGET_ADDR_MASK;
+    I2C->TAR |= (u16TargetAddr & I2C_TAR_TARGET_ADDR_MASK);
+    
+    // Enable if need
+    if( u32EnStatus & I2C_ENABLE_EN )
+        _Hal_I2c_Eanble(1);
     return 0;
 }
 

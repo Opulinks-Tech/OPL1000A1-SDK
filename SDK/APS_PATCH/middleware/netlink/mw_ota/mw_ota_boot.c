@@ -68,8 +68,8 @@ Head Block of The File
 #define CHANGE_BAUD_ACK     0x5A                /* 'Z' */
 #define CHANGE_BAUD_NACK    0x00
 #define DEFAULT_WAIT_UART_DELAY         1       /* unit: ms */
-#define BEFORE_CHANGE_BAUD_DELAY        2       /* unit: ms */
-#define CHANGE_BAUD_SEND_SYNC_DELAY     8       /* unit: ms */
+#define BEFORE_CHANGE_BAUD_DELAY        5       /* unit: ms */
+#define CHANGE_BAUD_SEND_SYNC_DELAY     95      /* unit: ms */
 
 #define HAL_DBG_UART_RX_TIMEOUT         1
 #define HAL_DBG_UART_RX_SUCCESS         0
@@ -328,25 +328,17 @@ uint8_t MwOta_Boot_LoadPatchImage_impl(void)
 *************************************************************************/
 uint8_t MwOta_Boot_HeaderPaser_impl(void)
 {
-    T_MwOtaImageHeader tHeader;
+    uint8_t ubaData[64];
+    T_MwOtaFlashHeader *ptHeader;
     
     Boot_SendMultiData(START);
     
-    // receive the data
-    if (0 == Boot_RecvMultiData((uint8_t *)&tHeader, sizeof(T_MwOtaImageHeader)))
+    // receive the 64 bytes data
+    if (0 == Boot_RecvMultiData(ubaData, 64))
     {
-        // change from big-endian to little-endian
-        tHeader.uwProjectId = ((tHeader.uwProjectId & 0x00FF) << 8) + ((tHeader.uwProjectId & 0xFF00) >> 8);
-        tHeader.uwChipId = ((tHeader.uwChipId & 0x00FF) << 8) + ((tHeader.uwChipId & 0xFF00) >> 8);
-        tHeader.uwFirmwareId = ((tHeader.uwFirmwareId & 0x00FF) << 8) + ((tHeader.uwFirmwareId & 0xFF00) >> 8);
-        tHeader.uwCheckSum = ((tHeader.uwCheckSum & 0x00FF) << 8) + ((tHeader.uwCheckSum & 0xFF00) >> 8);
-        tHeader.ulImageSize = ((tHeader.ulImageSize & 0x000000FF) << 24)
-                            + ((tHeader.ulImageSize & 0x0000FF00) << 8)
-                            + ((tHeader.ulImageSize & 0x00FF0000) >> 8)
-                            + ((tHeader.ulImageSize & 0xFF000000) >> 24);
-        
         // prepare the information
-        if (MW_OTA_OK != MwOta_Prepare(tHeader.uwProjectId, tHeader.uwChipId, tHeader.uwFirmwareId, tHeader.ulImageSize, tHeader.uwCheckSum))
+        ptHeader = (T_MwOtaFlashHeader*)ubaData;
+        if (MW_OTA_OK != MwOta_Prepare(ptHeader->uwProjectId, ptHeader->uwChipId, ptHeader->uwFirmwareId, ptHeader->ulImageSize, ptHeader->ulImageSum))
         {
             Boot_SendMultiData(NACK);
             return MW_OTA_FAIL;

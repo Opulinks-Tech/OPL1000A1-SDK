@@ -54,11 +54,7 @@ const T_TracerTaskInfoExt g_taTracerDefIntTaskInfoBody[TRACER_INT_TASK_NUM_MAX] 
 };
 
 T_TracerTaskInfoExt g_taTracerIntTaskInfoBodyExt[TRACER_INT_TASK_NUM_MAX] = {0};
-T_TracerTaskInfoExt g_taTracerExtTaskInfoBodyExt[TRACER_EXT_TASK_NUM_MAX] = {
-    {"demo_app1", LOG_ALL_LEVEL, 0, 0},
-    {"demo_app2", LOG_ALL_LEVEL, 0, 0},
-		{"",  LOG_NONE_LEVEL, 0, 0}, // end
-};
+T_TracerTaskInfoExt g_taTracerExtTaskInfoBodyExt[TRACER_EXT_TASK_NUM_MAX] = {0};
 
 extern osPoolId g_tTracerPoolId;
 extern osMessageQId g_tTracerQueueId;

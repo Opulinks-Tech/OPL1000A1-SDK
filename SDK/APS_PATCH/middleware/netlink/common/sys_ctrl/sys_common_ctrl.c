@@ -20,9 +20,13 @@
 #include "sys_common_log.h"
 #include "mw_fim_default_group01_patch.h"
 #include "mw_fim_default_group02_patch.h"
+#include "mw_fim_default_group03_patch.h"
 #include "wifi_nvm_patch.h"
 
 extern int dhcp_does_arp_check_flag;
+extern uint8_t dhcp_retry_mode;
+extern int lwip_dhcp_autoip_coop_tries;
+extern int dhcp_retry_interval;
 
 int base_mac_addr_src_get_cfg(u8 iface, u8* type)
 {
@@ -71,7 +75,7 @@ int base_nvm_mac_addr_src_read(u16 id, u16 len, void *buf)
     
     switch(id) {
         case BASE_NVM_MAC_SRC_IFACE_ID_STA:
-            ret = MwFim_FileRead(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE, buf);
+            ret = MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_STA_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE, buf);
             if (ret != MW_FIM_OK) {
                 memcpy(buf, &g_tMwFimDefaultMacAddrWifiSTASrc, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE);
                 SYS_COMMON_LOGE("MwFim_FileRead mac address STA cfg failed");
@@ -79,7 +83,7 @@ int base_nvm_mac_addr_src_read(u16 id, u16 len, void *buf)
             }
             break;
         case BASE_NVM_MAC_SRC_IFACE_ID_SOFTAP:
-            ret = MwFim_FileRead(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, buf);
+            ret = MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_SOFTAP_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, buf);
             if (ret != MW_FIM_OK) {
                 memcpy(buf, &g_tMwFimDefaultMacAddrWifiSoftAPSrc, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE);
                 SYS_COMMON_LOGE("MwFim_FileRead mac address SoftAP cfg failed");
@@ -87,7 +91,7 @@ int base_nvm_mac_addr_src_read(u16 id, u16 len, void *buf)
             }
             break;
         case BASE_NVM_MAC_SRC_IFACE_ID_BLE:
-            ret = MwFim_FileRead(MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE, buf);
+            ret = MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_BLE_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE, buf);
             if (ret != MW_FIM_OK) {
                 memcpy(buf, &g_tMwFimDefaultMacAddrBleSrc, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE);
                 SYS_COMMON_LOGE("MwFim_FileRead mac address Ble cfg failed");
@@ -112,21 +116,21 @@ int base_nvm_mac_addr_src_write(u16 id, u16 len, void *ptr)
     
     switch(id) {
         case BASE_NVM_MAC_SRC_IFACE_ID_STA:
-            ret = MwFim_FileWrite(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE, ptr);
+            ret = MwFim_FileWrite(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_STA_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE, ptr);
             if (ret != MW_FIM_OK) {
                 SYS_COMMON_LOGE("MwFim_FileWrite mac address STA cfg failed");
                 return false;
             }  
             break;
         case BASE_NVM_MAC_SRC_IFACE_ID_SOFTAP:
-            ret = MwFim_FileWrite(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, ptr);
+            ret = MwFim_FileWrite(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_SOFTAP_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, ptr);
             if (ret != MW_FIM_OK) {
                 SYS_COMMON_LOGE("MwFim_FileWrite mac address SoftAP cfg failed");
                 return false;
             }  
             break;
         case BASE_NVM_MAC_SRC_IFACE_ID_BLE:
-            ret = MwFim_FileWrite(MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE, ptr);
+            ret = MwFim_FileWrite(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_BLE_SRC, 0, MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE, ptr);
             if (ret != MW_FIM_OK) {
                 SYS_COMMON_LOGE("MwFim_FileWrite mac address Ble cfg failed");
                 return false;
@@ -215,5 +219,18 @@ int set_dhcp_arp_check(u8 mode)
     
     dhcp_does_arp_check_flag = mode;
     
+    return true;
+}
+
+int set_dhcp_interval_retry_times(u8 dhcp_mode,u32 dhcp_interval,u8 dhcp_retry_times)
+{
+    
+    if (dhcp_interval ==0 || dhcp_retry_times==0 || dhcp_mode>1) {
+        return -1;
+    }
+    dhcp_retry_mode = dhcp_mode;
+    dhcp_retry_interval = dhcp_interval;
+    lwip_dhcp_autoip_coop_tries = dhcp_retry_times;
+        
     return true;
 }

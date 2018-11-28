@@ -157,15 +157,13 @@ low_level_init_patch(struct netif *netif)
  *       to become availale since the stack doesn't retry to send a packet
  *       dropped because of memory failure (except for the TCP timers).
  */
-
 static err_t
 low_level_output_patch(struct netif *netif, struct pbuf *p)
 {
     struct ethernetif *ethernetif = netif->state;
     struct pbuf *q;
-    static int full_count = 0;
-    static int write_count = 0;
-
+    int full_count = 0;
+    
     LWIP_UNUSED_ARG(ethernetif);
 
 #if ETH_PAD_SIZE
@@ -178,12 +176,17 @@ low_level_output_patch(struct netif *netif, struct pbuf *p)
         #ifdef TX_PKT_DUMP
             dump_buffer(q->payload, q->len, 1);
         #endif
-    
-        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) ) {
+        
+        while (TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len)) {
+            
+            sys_msleep(1);
+            
+            if (full_count == 50) {
+                //printf("__packet_tx_task: retry times reach full count. \n");
+                break;
+            }
+            
             full_count++;
-            printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
-            sys_arch_sem_wait(&TxReadySem, 1);
-            printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
         }
     }
     else {
@@ -200,14 +203,19 @@ low_level_output_patch(struct netif *netif, struct pbuf *p)
         #ifdef TX_PKT_DUMP
             dump_buffer(q->payload, q->len, 1);
         #endif
-        
-        if ( TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len) ) {
+
+        while (TX_QUEUE_FULL == wifi_mac_tx_start(q->payload, q->len)) {
+            
+            sys_msleep(1);
+            
+            if (full_count == 50) {
+                //printf("__packet_tx_task: retry times reach full count. \n");
+                break;
+            }
+            
             full_count++;
-            printf("__packet_tx_task: Tx WriteCount: %d  FullCount:%d\r\n", write_count, full_count);
-            sys_arch_sem_wait(&TxReadySem, 1);
-            printf("__packet_tx_task: recevie Tx ready event to wakeup\r\n");
         }
-        
+
         pbuf_free(q);
     }
 

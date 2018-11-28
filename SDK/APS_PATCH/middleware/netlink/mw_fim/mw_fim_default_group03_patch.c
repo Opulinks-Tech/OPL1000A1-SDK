@@ -18,6 +18,7 @@ Head Block of The File
 // Sec 1: Include File
 #include "mw_fim_default_group03.h"
 #include "mw_fim_default_group03_patch.h"
+#include "le_ctrl_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -34,12 +35,12 @@ Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
 // the calibration data of AUXADC
-const T_HalAuxCalData g_tMwFimDefaultCalAuxadc_patch =
+const T_HalAuxCalData_patch g_tMwFimDefaultCalAuxadc_patch =
 {
-    0.003333,   // float fSlopeVbat;
-    0.003333,   // float fSlopeIo;
-    105,        // uint16_t uwDcOffsetVbat;            // 0V
-    92          // uint16_t uwDcOffsetIo;              // 0V
+    0.003215,   // float fSlopeVbat;
+    0.003260,   // float fSlopeIo;
+    105,        // int16_t wDcOffsetVbat;      // 0V
+    92          // int16_t wDcOffsetIo;        // 0V
 };
 
 // the address buffer of AUXADC
@@ -63,11 +64,51 @@ const T_HalTmprCalData g_tMwFimDefaultCalTmpr_patch =
 // the address buffer of Temperature Sensor
 extern uint32_t g_ulaMwFimAddrBufferCalTmpr[MW_FIM_CAL_TEMPERATURE_NUM];
 
+// the default value of mac address source
+const uint8_t g_tMwFimDefaultMacAddrWifiSTASrc    = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
+uint32_t g_MwFimAddrBufferMacAddrWifiSTASrc[MW_FIM_MAC_ADDR_SRC_WIFI_STA_NUM];
+
+const uint8_t g_tMwFimDefaultMacAddrWifiSoftAPSrc = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
+uint32_t g_MwFimAddrBufferMacAddrWifiAPSrc[MW_FIM_MAC_ADDR_SRC_WIFI_SOFTAP_NUM];
+
+const uint8_t g_tMwFimDefaultMacAddrBleSrc        = BASE_NVM_MAC_SRC_TYPE_ID_OTP;
+uint32_t g_MwFimAddrBufferMacAddrBleSrc[MW_FIM_MAC_ADDR_SRC_WIFI_BLE_NUM];
+
+extern const uint8_t gMwFimDefaultManufName[STA_INFO_MAX_MANUF_NAME_SIZE];
+extern uint32_t gMwFimAddrManufName[MW_FIM_DEVICE_MANUF_NAME_NUM];
+
+const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN] = {
+    0x22, 0x33, 0x44, 0x55, 0x66, 0x76
+};
+uint32_t gMwFimAddrWifiStaMacAddr[MW_FIM_STA_MAC_ADDR_NUM];
+
+const le_cfg_patch_t g_tMwFimDefaultLeCfg_patch = 
+{
+    .hci_revision = FIM_HCI_Version,
+    .manufacturer_name = FIM_Manufacturer_Name, 
+    .lmp_pal_subversion = FIM_LMP_PAL_Subversion, 
+    .hci_version = FIM_HCI_Version,
+    .lmp_pal_version = FIM_LMP_PAL_Version,
+    .bd_addr = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11}
+};
+// the address buffer of LE config
+extern uint32_t g_u32aMwFimAddrLeCfg[MW_FIM_LE_CFG_NUM];
+
+
 // the information table of group 03
 const T_MwFimFileInfo g_taMwFimGroupTable03_patch[] =
 {
-    {MW_FIM_IDX_GP03_CAL_AUXADC,      MW_FIM_CAL_AUXADC_NUM,      MW_FIM_CAL_AUXADC_SIZE,      (uint8_t*)&g_tMwFimDefaultCalAuxadc_patch, g_ulaMwFimAddrBufferCalAuxadc},
-    {MW_FIM_IDX_GP03_CAL_TEMPERATURE, MW_FIM_CAL_TEMPERATURE_NUM, MW_FIM_CAL_TEMPERATURE_SIZE, (uint8_t*)&g_tMwFimDefaultCalTmpr_patch,   g_ulaMwFimAddrBufferCalTmpr},
+    {MW_FIM_IDX_GP03_PATCH_CAL_AUXADC,               MW_FIM_CAL_AUXADC_NUM,               MW_FIM_CAL_AUXADC_SIZE,                (uint8_t*)&g_tMwFimDefaultCalAuxadc_patch,      g_ulaMwFimAddrBufferCalAuxadc},
+    {MW_FIM_IDX_GP03_PATCH_CAL_TEMPERATURE,          MW_FIM_CAL_TEMPERATURE_NUM,          MW_FIM_CAL_TEMPERATURE_SIZE,           (uint8_t*)&g_tMwFimDefaultCalTmpr_patch,        g_ulaMwFimAddrBufferCalTmpr},
+
+    {MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_STA_SRC,    MW_FIM_MAC_ADDR_SRC_WIFI_STA_NUM,    MW_FIM_MAC_ADDR_SRC_WIFI_STA_SIZE,     (uint8_t*)&g_tMwFimDefaultMacAddrWifiSTASrc,    g_MwFimAddrBufferMacAddrWifiSTASrc},
+    {MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_SOFTAP_SRC, MW_FIM_MAC_ADDR_SRC_WIFI_SOFTAP_NUM, MW_FIM_MAC_ADDR_SRC_WIFI_SOFT_AP_SIZE, (uint8_t*)&g_tMwFimDefaultMacAddrWifiSoftAPSrc, g_MwFimAddrBufferMacAddrWifiAPSrc},
+    {MW_FIM_IDX_GP03_PATCH_MAC_ADDR_BLE_SRC,         MW_FIM_MAC_ADDR_SRC_WIFI_BLE_NUM,    MW_FIM_MAC_ADDR_SRC_WIFI_BLE_SIZE,     (uint8_t*)&g_tMwFimDefaultMacAddrBleSrc,        g_MwFimAddrBufferMacAddrBleSrc},
+
+    {MW_FIM_IDX_GP03_PATCH_DEVICE_MANUF_NAME,        MW_FIM_DEVICE_MANUF_NAME_NUM,        MW_FIM_DEVICE_MANUF_NAME_SIZE,         (uint8_t*)&gMwFimDefaultManufName,              gMwFimAddrManufName},
+    {MW_FIM_IDX_GP03_PATCH_STA_MAC_ADDR,             MW_FIM_STA_MAC_ADDR_NUM,             MW_FIM_STA_MAC_ADDR_SIZE,              (uint8_t*)&gMwFimDefaultWifiStaMacAddr,         gMwFimAddrWifiStaMacAddr},
+
+    {MW_FIM_IDX_GP03_PATCH_LE_CFG,                   MW_FIM_LE_CFG_NUM,                   MW_FIM_IDX_LE_CFG_SIZE_PATCH,          (uint8_t*)&g_tMwFimDefaultLeCfg_patch,          g_u32aMwFimAddrLeCfg},
 
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}

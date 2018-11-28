@@ -40,6 +40,7 @@
 #include "at_cmd_sys_patch.h"
 #include "mw_fim_default_group01_patch.h"
 #include "mw_fim_default_group02_patch.h"
+#include "mw_fim_default_group03_patch.h"
 #include "at_cmd_sys.h"
 #include "sys_common_api.h"
 #include "sys_common_types.h"
@@ -381,13 +382,13 @@ int _at_cmd_sys_restore_patch(char *buf, int len, int mode)
         }
 
         // rest STA information
-        MwFim_FileWriteDefault(MW_FIM_IDX_GP02_PATCH_STA_MAC_ADDR, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_STA_MAC_ADDR, 0);
         MwFim_FileWriteDefault(MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM, 0);
         
         // Mac address source
-        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_STA_SRC, 0);
-        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_WIFI_SOFTAP_SRC, 0);
-        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_MAC_ADDR_BLE_SRC, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_STA_SRC, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_WIFI_SOFTAP_SRC, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_BLE_SRC, 0);
         
         // RF power
         MwFim_FileWriteDefault(MW_FIM_IDX_GP01_RF_CFG, 0);

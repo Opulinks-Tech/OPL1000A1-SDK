@@ -38,6 +38,10 @@ Head Block of The File
 #include "hal_auxadc.h"
 #include "hal_auxadc_internal.h"
 #include "hal_auxadc_patch.h"
+#include "cmsis_os.h"
+#include "boot_sequence.h"
+#include "mw_fim_default_group03.h"
+#include "mw_fim_default_group03_patch.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -162,8 +166,15 @@ typedef struct
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
+extern uint8_t g_ubHalAux_Init;
 extern E_HalAux_Src_t g_tHalAux_CurrentType;
+extern uint8_t g_ubHalAux_CurrentGpioIdx;
+RET_DATA T_HalAuxCalData_patch g_tHalAux_CalData_patch;
+extern osSemaphoreId g_taHalAux_SemaphoreId;
 RET_DATA uint32_t g_ulHalAux_AverageCount;
+
+RET_DATA T_Hal_Aux_VbatCalibration_Fp Hal_Aux_VbatCalibration;
+RET_DATA T_Hal_Aux_IoVoltageCalibration_Fp Hal_Aux_IoVoltageCalibration;
 
 
 // Sec 5: declaration of global function prototype
@@ -182,6 +193,113 @@ Declaration of static Global Variables & Functions
 C Functions
 ***********/
 // Sec 8: C Functions
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_Aux_Init
+*
+* DESCRIPTION:
+*   AUXADC init
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+void Hal_Aux_Init_patch(void)
+{
+    osSemaphoreDef_t tSemaphoreDef;
+    volatile uint32_t tmp;
+
+    // before init
+    g_ubHalAux_Init = 0;
+
+    // cold boot
+    if (0 == Boot_CheckWarmBoot())
+    {
+        if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP03_CAL_AUXADC, 0, MW_FIM_CAL_AUXADC_SIZE, (uint8_t*)&g_tHalAux_CalData_patch))
+        {
+            // if fail, get the default value
+            memcpy(&g_tHalAux_CalData_patch, &g_tMwFimDefaultCalAuxadc_patch, MW_FIM_CAL_AUXADC_SIZE);
+        }
+    }
+
+    // AUXADC and HPBG bias
+    tmp = AOS->ADC_CTL;
+    tmp &= ~((0x1F << 7) | (0x1F << 2));
+    tmp |= ((0x10 << 7) | (0x10 << 2));
+    AOS->ADC_CTL = tmp;
+
+    // Disable AUXADC
+    tmp = AOS->ADC_CTL;
+    tmp &= ~(0x1 << 0);
+    tmp |= (0x0 << 0);
+    AOS->ADC_CTL = tmp;
+    
+    // Disable the internal temperature sensor
+    tmp = AOS->HPBG_CTL;
+    tmp &= ~(0x1 << 18);
+    tmp |= (0x0 << 18);
+    AOS->HPBG_CTL = tmp;
+
+    // Select output from PMU side
+    tmp = AOS->PMS_SPARE;
+    tmp &= ~((0x1 << 7) | (0x1 << 5) | (0x7 << 1) | (0x1 << 0));
+    tmp |= ((0x1 << 7) | (0x1 << 5) | (0x0 << 1) | (0x0 << 0));
+    AOS->PMS_SPARE = tmp;
+
+    // Turn off PU of AUXADC
+    tmp = RF->PU_VAL;
+    tmp &= ~(0x1 << 26);
+    tmp |= (0x0 << 26);
+    RF->PU_VAL = tmp;
+
+    // Turn off clock to AUXADC
+    tmp = RF->RG_CK_GATE_CTRL;
+    tmp &= ~(0x1 << 6);
+    tmp |= (0x0 << 6);
+    RF->RG_CK_GATE_CTRL = tmp;
+
+    // Select input to AUXADC
+    // cold boot
+    if (0 == Boot_CheckWarmBoot())
+    {
+        g_tHalAux_CurrentType = HAL_AUX_SRC_GPIO;
+        g_ubHalAux_CurrentGpioIdx = 0;
+    }
+    Hal_Aux_SourceSelect(g_tHalAux_CurrentType, g_ubHalAux_CurrentGpioIdx);
+
+    // Adjust AUXADC performance
+    tmp = RF->AUXADC_CTRL0;
+    tmp &= ~((0x3 << 4) | (0xF << 0));
+    tmp |= ((0x1 << 4) | (0x9 << 0));
+    RF->AUXADC_CTRL0 = tmp;
+
+    // Idle (non-trigger)
+    tmp = RF->AUX_ADC_CK_GEN_CTL;
+    tmp &= ~(0x1 << 0);
+    tmp |= (0x0 << 0);
+    RF->AUX_ADC_CK_GEN_CTL = tmp;
+
+    // cold boot
+    if (0 == Boot_CheckWarmBoot())
+    {
+        // create the semaphore
+        tSemaphoreDef.dummy = 0;                            // reserved, it is no used
+        g_taHalAux_SemaphoreId = osSemaphoreCreate(&tSemaphoreDef, 1);
+        if (g_taHalAux_SemaphoreId == NULL)
+        {
+            printf("To create the semaphore for Hal_Aux is fail.\n");
+            return;
+        }
+    }
+
+    // after init
+    g_ubHalAux_Init = 1;
+}
+
 
 /*************************************************************************
 * FUNCTION:
@@ -306,5 +424,215 @@ uint8_t Hal_Aux_AdcValueGet_patch(uint32_t *pulValue)
     ubRet = HAL_AUX_OK;
 
 done:
+    return ubRet;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_Aux_VbatGet
+*
+* DESCRIPTION:
+*   get the VBAT value from AUXADC
+*
+* PARAMETERS
+*   1. pfVbat : [Out] the VBAT value
+*
+* RETURNS
+*   1. HAL_AUX_OK   : success
+*   2. HAL_AUX_FAIL : fail
+*
+*************************************************************************/
+uint8_t Hal_Aux_VbatGet_patch(float *pfVbat)
+{
+    uint32_t ulAdcValue;
+    uint8_t ubRet = HAL_AUX_FAIL;
+
+    // check init
+    if (g_ubHalAux_Init != 1)
+        return ubRet;
+
+    // wait the semaphore
+    osSemaphoreWait(g_taHalAux_SemaphoreId, osWaitForever);
+
+    if (HAL_AUX_OK != Hal_Aux_SourceSelect(HAL_AUX_SRC_VBAT, 0))
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_AdcValueGet(&ulAdcValue))
+        goto done;
+
+    // check the base(DC offset)
+    if (ulAdcValue <= g_tHalAux_CalData_patch.wDcOffsetVbat)
+    {
+        *pfVbat = HAL_AUX_BASE_VBAT;
+    }
+    // others
+    else
+    {
+        *pfVbat = HAL_AUX_BASE_VBAT + (ulAdcValue - g_tHalAux_CalData_patch.wDcOffsetVbat) * g_tHalAux_CalData_patch.fSlopeVbat;
+    }
+
+    ubRet = HAL_AUX_OK;
+
+done:
+    // release the semaphore
+    osSemaphoreRelease(g_taHalAux_SemaphoreId);
+    return ubRet;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_Aux_IoVoltageGet
+*
+* DESCRIPTION:
+*   get the IO voltage value from AUXADC
+*
+* PARAMETERS
+*   1. ubGpioIdx : [In] the index of GPIO
+*   2. pfVoltage : [Out] the IO voltage value
+*
+* RETURNS
+*   1. HAL_AUX_OK   : success
+*   2. HAL_AUX_FAIL : fail
+*
+*************************************************************************/
+uint8_t Hal_Aux_IoVoltageGet_patch(uint8_t ubGpioIdx, float *pfVoltage)
+{
+    uint32_t ulAdcValue;
+    uint8_t ubRet = HAL_AUX_FAIL;
+
+    // check init
+    if (g_ubHalAux_Init != 1)
+        return ubRet;
+
+    // wait the semaphore
+    osSemaphoreWait(g_taHalAux_SemaphoreId, osWaitForever);
+
+    // check IO number
+    if (ubGpioIdx >= HAL_AUX_GPIO_NUM_MAX)
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_SourceSelect(HAL_AUX_SRC_GPIO, ubGpioIdx))
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_AdcValueGet(&ulAdcValue))
+        goto done;
+
+    // check the base(DC offset)
+    if (ulAdcValue <= g_tHalAux_CalData_patch.wDcOffsetIo)
+    {
+        *pfVoltage = HAL_AUX_BASE_IO_VOL;
+    }
+    // others
+    else
+    {
+        *pfVoltage = HAL_AUX_BASE_IO_VOL + (ulAdcValue - g_tHalAux_CalData_patch.wDcOffsetIo) * g_tHalAux_CalData_patch.fSlopeIo;
+    }
+
+    ubRet = HAL_AUX_OK;
+
+done:
+    // release the semaphore
+    osSemaphoreRelease(g_taHalAux_SemaphoreId);
+    return ubRet;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_Aux_VbatCalibration
+*
+* DESCRIPTION:
+*   do the calibration of VBAT
+*
+* PARAMETERS
+*   1. fVbat : [In] the voltage of VBAT
+*
+* RETURNS
+*   1. HAL_AUX_OK   : success
+*   2. HAL_AUX_FAIL : fail
+*
+*************************************************************************/
+uint8_t Hal_Aux_VbatCalibration_impl(float fVbat)
+{
+    uint32_t ulAdcValue;
+    uint8_t ubRet = HAL_AUX_FAIL;
+
+    // check init
+    if (g_ubHalAux_Init != 1)
+        return ubRet;
+
+    // wait the semaphore
+    osSemaphoreWait(g_taHalAux_SemaphoreId, osWaitForever);
+
+    if (HAL_AUX_OK != Hal_Aux_SourceSelect(HAL_AUX_SRC_VBAT, 0))
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_AdcValueGet(&ulAdcValue))
+        goto done;
+
+    // Vbat = base voltage + (ADC value - base ADC value) * slope
+    // base ADC value = ADC value - (Vbat - base voltage) / slope
+    g_tHalAux_CalData_patch.wDcOffsetVbat = ulAdcValue - (fVbat - HAL_AUX_BASE_VBAT) / g_tHalAux_CalData_patch.fSlopeVbat;
+
+    if (MW_FIM_OK != MwFim_FileWrite(MW_FIM_IDX_GP03_CAL_AUXADC, 0, MW_FIM_CAL_AUXADC_SIZE, (uint8_t*)&g_tHalAux_CalData_patch))
+        goto done;
+
+    ubRet = HAL_AUX_OK;
+
+done:
+    // release the semaphore
+    osSemaphoreRelease(g_taHalAux_SemaphoreId);
+    return ubRet;
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Hal_Aux_IoVoltageCalibration
+*
+* DESCRIPTION:
+*   do the calibration of the IO voltage
+*
+* PARAMETERS
+*   1. ubGpioIdx : [In] the index of GPIO
+*   2. fVoltage  : [In] the IO voltage value
+*
+* RETURNS
+*   1. HAL_AUX_OK   : success
+*   2. HAL_AUX_FAIL : fail
+*
+*************************************************************************/
+uint8_t Hal_Aux_IoVoltageCalibration_impl(uint8_t ubGpioIdx, float fVoltage)
+{
+    uint32_t ulAdcValue;
+    uint8_t ubRet = HAL_AUX_FAIL;
+
+    // check init
+    if (g_ubHalAux_Init != 1)
+        return ubRet;
+
+    // wait the semaphore
+    osSemaphoreWait(g_taHalAux_SemaphoreId, osWaitForever);
+
+    // check IO number
+    if (ubGpioIdx >= HAL_AUX_GPIO_NUM_MAX)
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_SourceSelect(HAL_AUX_SRC_GPIO, ubGpioIdx))
+        goto done;
+
+    if (HAL_AUX_OK != Hal_Aux_AdcValueGet(&ulAdcValue))
+        goto done;
+
+    // IoVoltage = base voltage + (ADC value - base ADC value) * slope
+    // base ADC value = ADC value - (IoVoltage - base voltage) / slope
+    g_tHalAux_CalData_patch.wDcOffsetIo = ulAdcValue - (fVoltage - HAL_AUX_BASE_IO_VOL) / g_tHalAux_CalData_patch.fSlopeIo;
+
+    if (MW_FIM_OK != MwFim_FileWrite(MW_FIM_IDX_GP03_CAL_AUXADC, 0, MW_FIM_CAL_AUXADC_SIZE, (uint8_t*)&g_tHalAux_CalData_patch))
+        goto done;
+    
+    ubRet = HAL_AUX_OK;
+
+done:
+    // release the semaphore
+    osSemaphoreRelease(g_taHalAux_SemaphoreId);
     return ubRet;
 }

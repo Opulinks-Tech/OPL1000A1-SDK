@@ -17,7 +17,7 @@ extern int dhcp_does_arp_check_flag;
 
 int32_t dhcp_config_init_patch(void)
 {
-    tcpip_config_dhcp_arp_check_init();
+    //tcpip_config_dhcp_arp_check_init();
     return (USE_DHCP == 0) ? STA_IP_MODE_STATIC : STA_IP_MODE_DHCP;
 }
 

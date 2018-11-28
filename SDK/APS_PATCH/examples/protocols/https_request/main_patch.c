@@ -107,8 +107,8 @@ static void __Patch_EntryPoint(void)
     MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
     
     // modify the heap size, from 0x43C000 to 0x44F000
-    g_ucaMemPartAddr = (uint8_t*) 0x43D000;
-    g_ulMemPartTotalSize = 0x12000;
+    g_ucaMemPartAddr = (uint8_t*) 0x43E000;
+    g_ulMemPartTotalSize = 0x11000; //0x44F000 - 0x43E000
 
     
     // application init

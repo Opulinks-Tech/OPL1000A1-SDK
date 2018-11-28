@@ -73,6 +73,11 @@ static void BleWifi_OtaSendEndRsp(uint8_t status, uint8_t stop)
                 MwOta_DataGiveUp();
             free(gTheOta);
             gTheOta = 0;
+
+            if (status != BLEWIFI_OTA_SUCCESS)
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL, NULL, 0);
+            else
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF, NULL, 0);
         }
     }
 }
@@ -157,6 +162,8 @@ static void BleWifi_HandleOtaUpgradeReq(uint8_t *data, int len)
         {
 	        BleWifi_OtaSendUpgradeRsp(BLEWIFI_OTA_SUCCESS);
 	        gTheOta = ota;
+
+	        BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_ON, NULL, 0);
         }
         else
             BleWifi_OtaSendEndRsp(BLEWIFI_OTA_ERR_HW_FAILURE, TRUE);

@@ -299,7 +299,7 @@ int at_cmd_wifi_mac_cfg_patch(char *buf, int len, int mode)
                         skip_dtim = atoi(argv[2]);
                         if (skip_dtim <= WIFI_MAX_SKIP_DTIM_PERIODS_PATCH) {
                             //Update share memory by M0
-                            ret =  wifi_config_set_skip_dtim(skip_dtim);
+                            ret =  wifi_config_set_skip_dtim(skip_dtim, true);
                             if (ret == 0) {
                                 bIsValid = TRUE;
                             }

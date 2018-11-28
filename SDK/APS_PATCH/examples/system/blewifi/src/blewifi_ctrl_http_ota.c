@@ -22,10 +22,13 @@
 #include <stdio.h>
 #include "cmsis_os.h"
 #include "sys_os_config.h"
+#include "blewifi_configuration.h"
 #include "blewifi_ctrl_http_ota.h"
 #include "blewifi_http_ota.h"
 #include "blewifi_data.h"
 #include "blewifi_common.h"
+#include "blewifi_ctrl.h"
+#include "blewifi_wifi_api.h"
 
 osThreadId   BleWifCtrliHttpOtaTaskId;
 osMessageQId BleWifiCtrlHttpOtaQueueId;
@@ -39,11 +42,20 @@ void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int l
     {
         case BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG \r\n");
+            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_ON, NULL, 0);
+            BleWifi_Wifi_SetDTIM(0);
             if (ota_download_by_http(HTTP_GET_URL) != 0)
             {
+                BleWifi_Wifi_SetDTIM(BLEWIFI_WIFI_DTIM_INTERVAL);
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_FAILURE);
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL, NULL, 0);
             }
-            BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_SUCCESS);
+            else
+            {
+                BleWifi_Wifi_SetDTIM(BLEWIFI_WIFI_DTIM_INTERVAL);
+                BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_SUCCESS);
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF, NULL, 0);
+            }
             break;
         case BLEWIFI_CTRL_HTTP_OTA_MSG_DEVICE_VERSION:
         {

@@ -34,8 +34,34 @@ int lwip_cli_cfg_dhcp(int len, char *param[])
     return 0;
 }
 
+int lwip_cli_cfg_dhcp_timeout(int len, char *param[])
+{
+    int ret;
+    u8 dhcp_mode = atoi(param[0]);
+    u32 dhcp_interval = atoi(param[1]);
+    u8 dhcp_retry_times = atoi(param[2]);
+    ret=set_dhcp_interval_retry_times(dhcp_mode,dhcp_interval,dhcp_retry_times);
+    if(ret==-1)
+        printf("\nDHCP interval and retry times config fail \n");
+    else
+        {
+            if(dhcp_mode==0)
+            {
+                printf("\nCurrent DHCP Mode is \"Fix Mode\"\n");
+            }
+            else
+            {
+                printf("\nCurrent DHCP Mode is \"Exponential Mode\"\n");
+            }
+            printf("\nDHCP interval Current Setting:%d\n",dhcp_interval);
+            printf("\nDHCP retry times Current Setting:%d\n",dhcp_retry_times);
+        }       
+    return 0;
+}
+
 cli_command_t lwip_cfg_cli[] = {
     { "cfg_dhcp",       "Enable/Disable DHCP ARP check",      lwip_cli_cfg_dhcp,          NULL },
+    { "cfg_dhcp_timeout",       "Setting DHCP retry mode,discover sending interval and retry times",      lwip_cli_cfg_dhcp_timeout,          NULL },
     { NULL,          NULL,                  NULL,                           NULL }
 };
 

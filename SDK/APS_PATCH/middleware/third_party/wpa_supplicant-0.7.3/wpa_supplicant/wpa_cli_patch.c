@@ -26,6 +26,7 @@
 #include "wpa_cli_patch.h"
 #include "wifi_nvm_patch.h"
 #include "mw_fim_default_group02_patch.h"
+#include "mw_fim_default_group03_patch.h"
 
 extern struct wpa_supplicant *wpa_s;
 extern u8 gsta_cfg_mac[MAC_ADDR_LEN];
@@ -182,7 +183,7 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
             g_bssid[i] = bssid[i];
         }
 
-        wpa_printf(MSG_DEBUG, "[CLI]WPA: bssid buffer is ready \r\n");
+        //wpa_printf(MSG_DEBUG, "[CLI]WPA: bssid buffer is ready \r\n");
         wpa_printf(MSG_DEBUG, "[CLI]WPA: connect bssid=%02x:%02x:%02x:%02x:%02x:%02x \r\n",
                                   bssid[0], bssid[1], bssid[2], bssid[3], bssid[4], bssid[5]);
 
@@ -272,13 +273,6 @@ int wpa_cli_connect_handler_patch(int argc, char *argv[])
         }
     }
 
-#ifdef __WIFI_AUTO_CONNECT__
-    //For compatible auto/manual connect
-    if (get_auto_connect_mode() == AUTO_CONNECT_ENABLE) {
-        set_auto_connect_mode(AUTO_CONNECT_MANUAL);
-    }
-#endif
-
     ret = wpa_cli_connect(&conf);
 
 DONE:    
@@ -314,7 +308,7 @@ int wpa_cli_clear_ac_list_patch(int argc, char *argv[])
     reset_auto_connect_list();
 
     //Reset Sta information
-    MwFim_FileWriteDefault(MW_FIM_IDX_GP02_PATCH_STA_MAC_ADDR, 0);
+    MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_STA_MAC_ADDR, 0);
     MwFim_FileWriteDefault(MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM, 0);
     
     return TRUE;

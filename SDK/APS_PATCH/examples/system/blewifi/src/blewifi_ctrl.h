@@ -22,6 +22,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "blewifi_configuration.h"
 
 #define BLEWIFI_CTRL_QUEUE_SIZE         (20)
 
@@ -46,8 +47,23 @@ typedef enum blewifi_ctrl_msg_type
     BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND,           //Wi-Fi report status
     BLEWIFI_CTRL_MSG_WIFI_AUTO_CONNECT_IND,     //Wi-Fi the auto connection is triggered by timer
 
-    BLEWIFI_CTRL_MSG_WIFI_NUM
+    BLEWIFI_CTRL_MSG_WIFI_NUM,
+
+    /* Others Event */
+    BLEWIFI_CTRL_MSG_OTHER_OTA_ON = 0x100,      //OTA
+    BLEWIFI_CTRL_MSG_OTHER_OTA_OFF,             //OTA success
+    BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL,        //OTA fail
+    
+    BLEWIFI_CTRL_MSG_OTHER__NUM
 } blewifi_ctrl_msg_type_e;
+
+typedef enum blewifi_ctrl_auto_conn_state
+{
+    BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE = (BLEWIFI_WIFI_REQ_CONNECT_RETRY_TIMES + 1),
+    BLEWIFI_CTRL_AUTO_CONN_STATE_SCAN,
+
+    BLEWIFI_CTRL_AUTO_CONN_STATE_NUM
+} blewifi_ctrl_auto_conn_state_e;
 
 typedef struct
 {

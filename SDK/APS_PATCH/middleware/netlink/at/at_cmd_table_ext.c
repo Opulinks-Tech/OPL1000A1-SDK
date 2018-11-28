@@ -36,6 +36,8 @@
 //#define AT_LOG                      msg_print_uart1
 #define AT_LOG(...)
 
+#if defined(__AT_CMD_SUPPORT__)
+
 #define AT_FLASH_READ_START         0x00000000
 #define AT_FLASH_READ_END           0x00100000
 #define AT_FLASH_WRITE_START        0x00000000
@@ -47,6 +49,8 @@ uint32_t g_u32FlashReadStart = AT_FLASH_READ_START;
 uint32_t g_u32FlashReadEnd = AT_FLASH_READ_END;
 uint32_t g_u32FlashWriteStart = AT_FLASH_WRITE_START;
 uint32_t g_u32FlashWriteEnd = AT_FLASH_WRITE_END;
+
+#endif /* __AT_CMD_SUPPORT__ */
 
 extern volatile uint8_t g_u8RfCmdRun;
 extern T_RfCmd g_tRfCmd;
@@ -600,6 +604,7 @@ ignore:
     return iRet;
 }
 
+#if defined(__AT_CMD_SUPPORT__)
 int at_cmd_sys_read_flash(char *buf, int len, int mode)
 {
     int iRet = 0;
@@ -1044,6 +1049,7 @@ done:
     
     return iRet;
 }
+#endif /* __AT_CMD_SUPPORT__ */
 
 int at_cmd_at_switch_to_dbg(char *buf, int len, int mode)
 {
@@ -1079,13 +1085,14 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+showow",              at_cmd_sys_show_ow,       "Display overwrite table"},
     { "at+addow",               at_cmd_sys_add_ow,        "Add entry to overwrite table"},
     { "at+delow",               at_cmd_sys_del_ow,        "Delete entry from overwrite table"},
+
+    { "at+readflash",           at_cmd_sys_read_flash,    "Read flash" },
+    { "at+writeflash",          at_cmd_sys_write_flash,   "Write flash" },
+    { "at+eraseflash",          at_cmd_sys_erase_flash,   "Erase flash" },
 #endif /* __AT_CMD_SUPPORT__ */
 
     { "at+rfhp",                at_cmd_sys_rf_hp,         "Set RF power"},
     { "at+rftm",                at_cmd_sys_rf_test_mode,  "Set RF test mode"},
-    { "at+readflash",           at_cmd_sys_read_flash,    "Read flash" },
-    { "at+writeflash",          at_cmd_sys_write_flash,   "Write flash" },
-    { "at+eraseflash",          at_cmd_sys_erase_flash,   "Erase flash" },
     { "at+switchdbg",           at_cmd_at_switch_to_dbg,  "AT switch to Debug UART"},
     { NULL,                     NULL,                     NULL},
 };

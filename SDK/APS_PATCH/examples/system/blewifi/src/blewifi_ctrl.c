@@ -32,7 +32,9 @@
 #include "blewifi_app.h"
 #include "mw_ota_def.h"
 #include "mw_ota.h"
+#include "hal_system.h"
 
+#define BLEWIFI_CTRL_RESET_DELAY    (3000)  // ms
 
 osThreadId   g_tAppCtrlTaskId;
 osPoolId     g_tAppCtrlMemPoolId;
@@ -41,6 +43,7 @@ osTimerId    g_tAppCtrlAutoConnectTriggerTimer;
 
 uint8_t g_ubAppCtrlBleStatus;     //true:BLE is connected false:BLE is idle
 uint8_t g_ubAppCtrlWifiStatus;    //true:Wifi is connected false:Wifi is idle
+uint8_t g_ubAppCtrlOtaStatus;
 
 uint8_t g_ubAppCtrlRequestRetryTimes;
 uint32_t g_ulAppCtrlAutoConnectInterval;
@@ -65,8 +68,20 @@ uint8_t BleWifi_Ctrl_WifiStatusGet(void)
     return g_ubAppCtrlWifiStatus;
 }
 
+void BleWifi_Ctrl_OtaStatusSet(uint8_t status)
+{
+    g_ubAppCtrlOtaStatus = status;
+}
+
+uint8_t BleWifi_Ctrl_OtaStatusGet(void)
+{
+    return g_ubAppCtrlOtaStatus;
+}
+
 void BleWifi_Ctrl_DoAutoConnect(void)
 {
+    uint8_t data[2];
+
     // if the count of auto-connection list is empty, don't do the auto-connect
     if (0 == BleWifi_Wifi_AutoConnectListNum())
         return;
@@ -78,10 +93,16 @@ void BleWifi_Ctrl_DoAutoConnect(void)
     // BLE is disconnect and Wifi is disconnect, too.
     if ((false == BleWifi_Ctrl_BleStatusGet()) && (false == BleWifi_Ctrl_WifiStatusGet()))
     {
-        BleWifi_Wifi_DoAutoConnect();
-        g_ulAppCtrlAutoConnectInterval = g_ulAppCtrlAutoConnectInterval + BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_DIFF;
-        if (g_ulAppCtrlAutoConnectInterval > BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_MAX)
-            g_ulAppCtrlAutoConnectInterval = BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_MAX;
+        // start to scan
+        // after scan, do the auto-connect
+        if (g_ubAppCtrlRequestRetryTimes == BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE)
+        {
+            data[0] = 1;    // Enable to scan AP whose SSID is hidden
+            data[1] = 2;    // mixed mode
+            BleWifi_Wifi_DoScan(data, 2);
+
+            g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_SCAN;
+        }
     }
 }
 
@@ -139,6 +160,8 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
                 MwOta_DataGiveUp();
                 free(gTheOta);
                 gTheOta = 0;
+
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL, NULL, 0);
             }
             break;
 
@@ -158,8 +181,23 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
             
         case BLEWIFI_CTRL_MSG_WIFI_SCAN_DONE_IND:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_SCAN_DONE_IND \r\n");
-            BleWifi_Wifi_SendScanReport();
-            BleWifi_Ble_SendResponse(BLEWIFI_RSP_SCAN_END, 0);
+            // scan by auto-connect
+            if (g_ubAppCtrlRequestRetryTimes == BLEWIFI_CTRL_AUTO_CONN_STATE_SCAN)
+            {
+                BleWifi_Wifi_UpdateScanInfoToAutoConnList();
+                BleWifi_Wifi_DoAutoConnect();
+                g_ulAppCtrlAutoConnectInterval = g_ulAppCtrlAutoConnectInterval + BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_DIFF;
+                if (g_ulAppCtrlAutoConnectInterval > BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_MAX)
+                    g_ulAppCtrlAutoConnectInterval = BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_MAX;
+
+                g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;
+            }
+            // scan by user
+            else
+            {
+                BleWifi_Wifi_SendScanReport();
+                BleWifi_Ble_SendResponse(BLEWIFI_RSP_SCAN_END, 0);
+            }
             break;
 
         case BLEWIFI_CTRL_MSG_WIFI_CONNECTION_IND:
@@ -167,7 +205,7 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
             BleWifi_Ctrl_WifiStatusSet(true);
             
             // return to the idle of the connection retry
-            g_ubAppCtrlRequestRetryTimes = BLEWIFI_WIFI_REQ_CONNECT_RETRY_IDLE;
+            g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;
             g_ulAppCtrlAutoConnectInterval = BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_INIT;
             BleWifi_Ble_SendResponse(BLEWIFI_RSP_CONNECT, BLEWIFI_WIFI_CONNECTED_DONE);
             break;
@@ -175,6 +213,7 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
         case BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND \r\n");
             BleWifi_Ctrl_WifiStatusSet(false);
+            BleWifi_Wifi_SetDTIM(0);
 
             // continue the connection retry
             if (g_ubAppCtrlRequestRetryTimes < BLEWIFI_WIFI_REQ_CONNECT_RETRY_TIMES)
@@ -186,7 +225,7 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
             else if (g_ubAppCtrlRequestRetryTimes == BLEWIFI_WIFI_REQ_CONNECT_RETRY_TIMES)
             {
                 // return to the idle of the connection retry
-                g_ubAppCtrlRequestRetryTimes = BLEWIFI_WIFI_REQ_CONNECT_RETRY_IDLE;
+                g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;
                 g_ulAppCtrlAutoConnectInterval = BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_INIT;
                 BleWifi_Ble_SendResponse(BLEWIFI_RSP_CONNECT, BLEWIFI_WIFI_CONNECTED_FAIL);
 
@@ -212,12 +251,34 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
 
         case BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND \r\n");
+            BleWifi_Wifi_UpdateBeaconInfo();
+            BleWifi_Wifi_SetDTIM(BLEWIFI_WIFI_DTIM_INTERVAL);
             BleWifi_Wifi_SendStatusInfo(BLEWIFI_IND_IP_STATUS_NOTIFY);
             break;
 
         case BLEWIFI_CTRL_MSG_WIFI_AUTO_CONNECT_IND:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_AUTO_CONNECT_IND \r\n");
             BleWifi_Ctrl_DoAutoConnect();
+            break;
+
+        // Others
+        case BLEWIFI_CTRL_MSG_OTHER_OTA_ON:
+            BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_ON \r\n");
+            BleWifi_Ctrl_OtaStatusSet(true);
+            break;
+
+        case BLEWIFI_CTRL_MSG_OTHER_OTA_OFF:
+            BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_OFF \r\n");
+            BleWifi_Ctrl_OtaStatusSet(false);
+
+            // restart the system
+            osDelay(BLEWIFI_CTRL_RESET_DELAY);
+            Hal_Sys_SwResetAll();
+            break;
+
+        case BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL:
+            BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL \r\n");
+            BleWifi_Ctrl_OtaStatusSet(false);
             break;
 
 		default:
@@ -359,8 +420,10 @@ void BleWifi_Ctrl_Init(void)
     g_ubAppCtrlBleStatus = false;
     /* the init state of Wifi is idle */
     g_ubAppCtrlWifiStatus = false;
+    /* the init state of OTA is idle */
+    g_ubAppCtrlOtaStatus = false;
 
     // the idle of the connection retry
-    g_ubAppCtrlRequestRetryTimes = BLEWIFI_WIFI_REQ_CONNECT_RETRY_IDLE;
+    g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;
     g_ulAppCtrlAutoConnectInterval = BLEWIFI_WIFI_AUTO_CONNECT_INTERVAL_INIT;
 }

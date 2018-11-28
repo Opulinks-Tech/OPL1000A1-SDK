@@ -33,24 +33,10 @@ Declaration of data structure
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
-const le_cfg_patch_t g_tMwFimDefaultLeCfg_patch = 
-{
-    .hci_revision = FIM_HCI_Version,
-    .manufacturer_name = FIM_Manufacturer_Name, 
-    .lmp_pal_subversion = FIM_LMP_PAL_Subversion, 
-    .hci_version = FIM_HCI_Version,
-    .lmp_pal_version = FIM_LMP_PAL_Version,
-    .bd_addr = {0x66, 0x55, 0x44, 0x33, 0x22, 0x11}
-};
-
-// the address buffer of LE config
-extern uint32_t g_u32aMwFimAddrLeCfg[MW_FIM_LE_CFG_NUM]; 
 
 // the information table of group 04
 const T_MwFimFileInfo g_taMwFimGroupTable04_patch[] =
 {
-    {MW_FIM_IDX_LE_CFG, MW_FIM_LE_CFG_NUM, MW_FIM_IDX_LE_CFG_SIZE_PATCH, (uint8_t*)&g_tMwFimDefaultLeCfg_patch, g_u32aMwFimAddrLeCfg},
-
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}
 };

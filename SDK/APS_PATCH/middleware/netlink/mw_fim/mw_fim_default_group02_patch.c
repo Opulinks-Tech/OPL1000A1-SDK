@@ -49,13 +49,7 @@ extern const mw_wifi_auto_connect_ap_info_t gMwFimDefaultAutoConnectAPInfo;
 // please refer to WifiSta_StaInfoInit()
 extern const mw_wifi_sta_info_t gMwFimDefaultWifiStaCfg;
 
-const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN] = {
-    0x22, 0x33, 0x44, 0x55, 0x66, 0x76
-};
-
 const uint8_t gMwFimDefaultwifiStaSkipDtim = 0;
-
-extern const uint8_t gMwFimDefaultManufName[STA_INFO_MAX_MANUF_NAME_SIZE];
 
 /* Auto Connection Mode */
 extern uint32_t gMwFimAddrAutoConnectMode[MW_FIM_AUTO_CONN_MODE_NUM];
@@ -72,12 +66,7 @@ extern uint32_t gMwFimAddrBufferFastConnectApInfo[MW_FIM_AUTO_CONN_INFO_NUM];
 /* WIFI STA Information configuration */
 extern uint32_t gMwFimAddrBufferWifiStaInfo[MW_FIM_STA_INFO_NUM];
 
-static uint32_t gMwFimAddrWifiStaMacAddr[MW_FIM_STA_MAC_ADDR_NUM];
-
 static uint32_t gMwFimAddrWifiStaSkipDtim[MW_FIM_STA_SKIP_DTIM_NUM];
-
-/* For blewifi CBS store use */
-extern uint32_t gMwFimAddrManufName[MW_FIM_DEVICE_MANUF_NAME_NUM];
 
 /* Default value of DHCP ARP check */
 const uint8_t gMwFimDefaultDhcpArpChk = true;
@@ -97,8 +86,6 @@ const T_MwFimFileInfo g_taMwFimGroupTable02_patch[] =
     {MW_FIM_IDX_WIFI_AUTO_CONN_AP_NUM,    MW_FIM_AUTO_CONN_AP_NUM,        MW_FIM_AUTO_COMM_AP_SIZE,              (uint8_t*)&gMwFimDefaultAutoConnectAPNum,  gMwFimAddrAutoConnectAPNum},
     {MW_FIM_IDX_WIFI_AUTO_CONN_AP_INFO,   MW_FIM_AUTO_CONN_INFO_NUM,      MW_FIM_AUTO_CONN_INFO_SIZE,            (uint8_t*)&gMwFimDefaultAutoConnectAPInfo, gMwFimAddrBufferFastConnectApInfo},
     {MW_FIM_IDX_STA_INFO_CFG,             MW_FIM_STA_INFO_NUM,            MW_FIM_STA_INFO_SIZE,                  (uint8_t*)&gMwFimDefaultWifiStaCfg,        gMwFimAddrBufferWifiStaInfo},
-    {MW_FIM_IDX_DEVICE_MANUF_NAME,        MW_FIM_DEVICE_MANUF_NAME_NUM,   MW_FIM_DEVICE_MANUF_NAME_SIZE,         (uint8_t*)&gMwFimDefaultManufName,         gMwFimAddrManufName},
-    {MW_FIM_IDX_GP02_PATCH_STA_MAC_ADDR,  MW_FIM_STA_MAC_ADDR_NUM,        MW_FIM_STA_MAC_ADDR_SIZE,              (uint8_t*)&gMwFimDefaultWifiStaMacAddr,    gMwFimAddrWifiStaMacAddr}, 
     {MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM, MW_FIM_STA_SKIP_DTIM_NUM,       MW_FIM_STA_SKIP_DTIM_SIZE,             (uint8_t*)&gMwFimDefaultwifiStaSkipDtim,   gMwFimAddrWifiStaSkipDtim}, 
     {MW_FIM_IDX_DHCP_ARP_CHK,             MW_FIM_DHCP_ARP_CHK_NUM,        MW_FIM_DHCP_ARP_CHK_SIZE,              (uint8_t*)&gMwFimDefaultDhcpArpChk,        gMwFimAddrDhcpArpChk},
     {MW_FIM_IDX_MAC_TX_DATA_RATE,         MW_FIM_MAC_TX_DATA_RATE_NUM,    MW_FIM_MAC_TX_DATA_RATE_SIZE,          (uint8_t*)&gMwFimDefaultMacDataRate,       gMwFimAddrMacDataRate},

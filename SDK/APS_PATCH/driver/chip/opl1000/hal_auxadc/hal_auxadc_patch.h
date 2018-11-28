@@ -52,17 +52,38 @@ extern "C" {
 Declaration of data structure
 ******************************/
 // Sec 3: structure, uniou, enum, linked list
+// the calibration data of AUXADC
+typedef struct
+{
+    float fSlopeVbat;
+    float fSlopeIo;
+    int16_t wDcOffsetVbat;      // 0V
+    int16_t wDcOffsetIo;        // 0V
+} T_HalAuxCalData_patch;
 
 
 /********************************************
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global variable
+extern T_HalAuxCalData_patch g_tHalAux_CalData_patch;
 extern uint32_t g_ulHalAux_AverageCount;
 
 
 // Sec 5: declaration of global function prototype
+extern void Hal_Aux_Init_patch(void);
 extern uint8_t Hal_Aux_AdcValueGet_patch(uint32_t *pulValue);
+extern uint8_t Hal_Aux_VbatGet_patch(float *pfVbat);
+extern uint8_t Hal_Aux_IoVoltageGet_patch(uint8_t ubGpioIdx, float *pfVoltage);
+
+typedef uint8_t (*T_Hal_Aux_VbatCalibration_Fp)(float fVbat);
+typedef uint8_t (*T_Hal_Aux_IoVoltageCalibration_Fp)(uint8_t ubGpioIdx, float fVoltage);
+
+extern T_Hal_Aux_VbatCalibration_Fp Hal_Aux_VbatCalibration;
+extern T_Hal_Aux_IoVoltageCalibration_Fp Hal_Aux_IoVoltageCalibration;
+
+extern uint8_t Hal_Aux_VbatCalibration_impl(float fVbat);
+extern uint8_t Hal_Aux_IoVoltageCalibration_impl(uint8_t ubGpioIdx, float fVoltage);
 
 
 /***************************************************

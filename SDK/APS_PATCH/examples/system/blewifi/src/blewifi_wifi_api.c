@@ -26,6 +26,7 @@
 extern uint8_t g_ubAppCtrlRequestRetryTimes;
 
 wifi_config_t wifi_config_req_connect;
+uint32_t g_ulBleWifi_Wifi_BeaconTime;
 
 void BleWifi_Wifi_DoScan(uint8_t *data, int len)
 {
@@ -287,6 +288,46 @@ void BleWifi_Wifi_ResetRecord(void)
     wifi_connection_disconnect_ap();
 }
 
+static void BleWifi_Wifi_UpdateAutoConnList(uint16_t apCount, wifi_scan_info_t *ap_list)
+{
+    wifi_auto_connect_info_t *info = NULL;
+    uint8_t ubAutoCount;
+    uint16_t i, j;
+
+    // if the count of auto-connection list is empty, don't update the auto-connect list
+    ubAutoCount = BleWifi_Wifi_AutoConnectListNum();
+    if (0 == ubAutoCount)
+        return;
+
+    // compare and update the auto-connect list
+    // 1. prepare the buffer of auto-connect information
+    info = (wifi_auto_connect_info_t *)malloc(sizeof(wifi_auto_connect_info_t));
+    if (NULL == info)
+    {
+        printf("malloc fail, prepare is NULL\r\n");
+        return;
+    }
+    // 2. comapre
+    for (i=0; i<ubAutoCount; i++)
+    {
+        // get the auto-connect information
+        memset(info, 0, sizeof(wifi_auto_connect_info_t));
+        wifi_auto_connect_get_ap_info(i, info);
+        for (j=0; j<apCount; j++)
+        {
+            if (0 == MemCmp(ap_list[j].bssid, info->bssid, sizeof(info->bssid)))
+            {
+                // if the channel is not the same, update it
+                if (ap_list[j].channel != info->ap_channel)
+                    wifi_auto_connect_update_ch(i, ap_list[j].channel);
+                continue;
+            }
+        }
+    }
+    // 3. free the buffer of auto-connect information
+    free(info);
+}
+
 static void BleWifi_Wifi_SendSingleScanReport(uint16_t apCount, blewifi_scan_info_t *ap_list)
 {
     uint8_t *data;
@@ -351,6 +392,8 @@ int BleWifi_Wifi_SendScanReport(void)
     }
 
     wifi_scan_get_ap_records(&apCount, ap_list);
+
+    BleWifi_Wifi_UpdateAutoConnList(apCount, ap_list);
 
     blewifi_ap_list = (blewifi_scan_info_t *)malloc(sizeof(blewifi_scan_info_t) *apCount);
     if (!blewifi_ap_list) {
@@ -418,7 +461,38 @@ err:
         free(info);
 
     return ubAppErr; 
+}
 
+int BleWifi_Wifi_UpdateScanInfoToAutoConnList(void)
+{
+    wifi_scan_info_t *ap_list = NULL;
+    uint16_t apCount = 0;
+    int8_t ubAppErr = 0;
+
+    wifi_scan_get_ap_num(&apCount);
+
+    if (apCount == 0) {
+        printf("No AP found\r\n");
+        goto err;
+    }
+    printf("ap num = %d\n", apCount);
+    ap_list = (wifi_scan_info_t *)malloc(sizeof(wifi_scan_info_t) * apCount);
+
+    if (!ap_list) {
+        printf("malloc fail, ap_list is NULL\r\n");
+        ubAppErr = -1;
+        goto err;
+    }
+
+    wifi_scan_get_ap_records(&apCount, ap_list);
+
+    BleWifi_Wifi_UpdateAutoConnList(apCount, ap_list);
+
+err:
+    if (ap_list)
+        free(ap_list);
+    
+    return ubAppErr; 
 }
 
 uint8_t BleWifi_Wifi_AutoConnectListNum(void)
@@ -439,6 +513,43 @@ void BleWifi_Wifi_ReqConnectRetry(void)
     wifi_connection_connect(&wifi_config_req_connect);
 }
 
+int BleWifi_Wifi_Rssi(int8_t *rssi)
+{    
+    return wifi_connection_get_rssi(rssi);
+}
+
+int BleWifi_Wifi_SetDTIM(uint32_t value)
+{
+    uint32_t ulDtimInterval;
+
+    // DTIM interval
+    ulDtimInterval = (value + (g_ulBleWifi_Wifi_BeaconTime / 2)) / g_ulBleWifi_Wifi_BeaconTime;
+    // the max is 8 bits
+    if (ulDtimInterval > 255)
+        ulDtimInterval = 255;
+
+    /* DTIM: skip n-1 */
+    if (ulDtimInterval == 0)
+        return wifi_config_set_skip_dtim(0, false);
+    else
+        return wifi_config_set_skip_dtim(ulDtimInterval - 1, false);
+}
+
+void BleWifi_Wifi_UpdateBeaconInfo(void)
+{
+    wifi_scan_info_t tInfo;
+
+    // get the information of Wifi AP
+    wifi_sta_get_ap_info(&tInfo);
+
+    // beacon time (ms)
+    g_ulBleWifi_Wifi_BeaconTime = tInfo.beacon_interval * tInfo.dtim_period;
+
+    // error handle
+    if (g_ulBleWifi_Wifi_BeaconTime == 0)
+        g_ulBleWifi_Wifi_BeaconTime = 100;
+}
+
 // it is used in the Wifi task
 int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t length)
 {
@@ -452,11 +563,8 @@ int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t l
             /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
             lwip_network_init(WIFI_MODE_STA);
 
-            /* DTIM: skip n-1 */
-            if (BLEWIFI_WIFI_DTIM_INTERVAL == 0)
-                wifi_config_set_skip_dtim(0);
-            else
-                wifi_config_set_skip_dtim(BLEWIFI_WIFI_DTIM_INTERVAL - 1);
+            /* DTIM */
+            BleWifi_Wifi_SetDTIM(0);
             
             BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_INIT_COMPLETE, NULL, 0);
             break;
@@ -504,4 +612,7 @@ void BleWifi_Wifi_Init(void)
 
     /* Wi-Fi operation start */
     wifi_start();
+
+    /* Init the beacon time (ms) */
+    g_ulBleWifi_Wifi_BeaconTime = 100;
 }

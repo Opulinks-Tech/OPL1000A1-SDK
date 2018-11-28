@@ -53,17 +53,6 @@ extern "C" {
 Declaration of data structure
 ******************************/
 // Sec 3: structure, uniou, enum, linked list
-// the information of OTA image header (64 bytes)
-typedef struct
-{
-    uint16_t uwProjectId;
-    uint16_t uwChipId;
-    uint16_t uwFirmwareId;
-    uint16_t uwCheckSum;
-    uint32_t ulImageSize;
-    uint8_t ubaReserved[52];
-} T_MwOtaImageHeader;
-
 typedef uint8_t (*T_MwOta_Boot_Init_Fp)(void);
 typedef uint8_t (*T_MwOta_Boot_CheckUartBehavior_Fp)(void);
 typedef uint8_t (*T_MwOta_Boot_LoadPatchImage_Fp)(void);

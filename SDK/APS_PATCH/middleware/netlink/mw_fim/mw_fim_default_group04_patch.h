@@ -37,18 +37,9 @@ extern "C" {
 typedef enum
 {
     MW_FIM_IDX_GP04_PATCH_START = 0x00040000,             // the start IDX of group 04
-    MW_FIM_IDX_GP04_PATCH_LE_CFG,
     
     MW_FIM_IDX_GP04_PATCH_MAX
 } E_MwFimIdxGroup04_Patch;
-
-#define MW_FIM_IDX_LE_CFG_SIZE_PATCH   sizeof(le_cfg_patch_t)
-
-#define FIM_HCI_Version          0x08
-#define FIM_HCI_Revision         0x0001
-#define FIM_LMP_PAL_Version      0x08
-#define FIM_Manufacturer_Name    0x0000  // TODO: not manufacturer name currently
-#define FIM_LMP_PAL_Subversion   0x0001
 
 /******************************
 Declaration of data structure

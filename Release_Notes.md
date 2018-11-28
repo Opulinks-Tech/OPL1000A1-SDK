@@ -1,4 +1,58 @@
 ## Release Version:
+<<<<<<< HEAD
+=======
+SDK Package: MP v1.2
+Patch_Lib : 2882
+ROM_CODE: 1655 
+
+## Release Date: 2018/11/28
+
+## Function & Feature Update 
+1. Documents updating:
+    1.1 OPL1000-multiple-dev-download-tool-user-guide, R01-v01, add user guide for download-tool to support mass production.
+ 1.2 OPL1000-DEVKIT-getting-start-guide, R02-v07, update using ICE interface part.
+ 1.3 OPL1000-Flash-User-Guide, R01-v03, update chapter 5.
+ 1.4 OPL1000-Iperf-Measurement-Guide, R01-v03, user guide document for iperf demo. 
+ 1.5 OPL1000-Demo-BLE-setup-network-guide，R01-v03, update test steps.   
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;   
+ 2.3 MP download tool: v0.8, support multiple device firmware download for mass production. 
+3. Release multiple device download tool to support mass production. Place folder: Tool\Mass_Production .
+4. update all examples pinmux setting, enable IO20,IO21 to use M3 ICE interface.
+5. update SPI_master example, add multi-byte write function as master.   
+6. Build Iperf Example for wifi conection stress test. Folder: examples\wifi\iperf
+7. Add new API for update AP’s channel in auto connect list.
+8. Rearrange stack and heap size for HTTP with MbedTLS example.
+9. Redefine wifi_config_set_skip_dtim function prototype.
+10. BLE configure AP demo is updated, mobile APP supports BLE OTA function. 
+11. Implement new DCOC algorithm to improve RF performance.
+12. Enhance power saving realization, easy to enter into power save mode when there is no wifi data traffic.
+13. Refine FIM groups for MAC address.
+14. Add new feature of "store the bonding information to flash for LE host" 
+15. Support run-time modify retry times and interval in DHCP mechanism.
+
+## Bug Fix List 
+
+1. Fix “can't sleep" issue in smart sleep scenario.
+2. Fix "BLE meets disconnection caused by Wi-Fi scanning enabled" issue. 
+3. Fix “Add xtal ready checking at warm-boot” issue.
+4. Fix bug of “M3 sometimes asserts and lead to watchdog timer reset”.
+5. Fix a bug in I2C target address change operation. Before change the target address, need to wait that the master Tx/Rx behavior is finished.
+6. Fix "Too short delay time for host changing baud rate” issue.
+7. Fix bug of "Send service rsp error in LE function"
+8. Fix bug of "token switch priority tuning for WiFi/BLE stable coexistence" 
+9. Fix bug of "ICE cannot be connected under power save mode" 
+
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing.
+
+*****
+
+## Release Version:
+>>>>>>> commit code for MP1.2.
 SDK Package: MP v1.1
 Patch_Lib : 2726
 ROM_CODE: 1655 
