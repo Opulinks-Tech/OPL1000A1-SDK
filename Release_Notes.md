@@ -1,6 +1,4 @@
 ## Release Version:
-<<<<<<< HEAD
-=======
 SDK Package: MP v1.2
 Patch_Lib : 2882
 ROM_CODE: 1655 
@@ -52,9 +50,10 @@ ROM_CODE: 1655
 *****
 
 ## Release Version:
->>>>>>> commit code for MP1.2.
 SDK Package: MP v1.1
+
 Patch_Lib : 2726
+
 ROM_CODE: 1655 
 
 ## Release Date: 2018/10/30
