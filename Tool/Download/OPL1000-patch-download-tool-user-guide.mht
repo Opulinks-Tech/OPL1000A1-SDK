@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01D42DC2.907E7920"
+Content-Type: multipart/related; boundary="----=_NextPart_01D48BCF.9533D440"
 
 ´ËÎÄµµÎª¡°µ¥¸öÎÄ¼þÍøÒ³¡±£¬Ò²³ÆÎª¡°Web µµ°¸¡±ÎÄ¼þ¡£Èç¹ûÄú¿´µ½´ËÏûÏ¢£¬µ«ÊÇÄúµÄä¯ÀÀÆ÷»ò±à¼­Æ÷²»Ö§³Ö¡°Web µµ°¸¡±ÎÄ¼þ¡£ÇëÏÂÔØÖ§³Ö¡°Web µµ°¸¡±µÄä¯ÀÀÆ÷¡£
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -33,18 +33,18 @@ w\:* {behavior:url(#default#VML);}
 <![endif]--><!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>Officeuser1</o:Author>
-  <o:LastAuthor>Dong</o:LastAuthor>
+  <o:LastAuthor>admin</o:LastAuthor>
   <o:Revision>2</o:Revision>
-  <o:TotalTime>491</o:TotalTime>
-  <o:LastPrinted>2018-08-06T12:17:00Z</o:LastPrinted>
-  <o:Created>2018-08-06T12:17:00Z</o:Created>
-  <o:LastSaved>2018-08-06T12:17:00Z</o:LastSaved>
-  <o:Pages>16</o:Pages>
-  <o:Words>985</o:Words>
-  <o:Characters>5617</o:Characters>
+  <o:TotalTime>494</o:TotalTime>
+  <o:LastPrinted>2018-07-13T10:07:00Z</o:LastPrinted>
+  <o:Created>2018-12-04T04:47:00Z</o:Created>
+  <o:LastSaved>2018-12-04T04:47:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>978</o:Words>
+  <o:Characters>5581</o:Characters>
   <o:Lines>46</o:Lines>
   <o:Paragraphs>13</o:Paragraphs>
-  <o:CharactersWithSpaces>6589</o:CharactersWithSpaces>
+  <o:CharactersWithSpaces>6546</o:CharactersWithSpaces>
   <o:Version>16.00</o:Version>
  </o:DocumentProperties>
  <o:OfficeDocumentSettings>
@@ -401,6 +401,9 @@ ue"
    Name=3D"HTML Variable"/>
   <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
 ue"
+   Name=3D"Normal Table"/>
+  <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
+ue"
    QFormat=3D"true" Name=3D"annotation subject"/>
   <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
 ue"
@@ -530,10 +533,16 @@ ue"
    Name=3D"Table Subtle 1"/>
   <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
 ue"
+   Name=3D"Table Subtle 2"/>
+  <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
+ue"
    Name=3D"Table Web 1"/>
   <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
 ue"
    Name=3D"Table Web 2"/>
+  <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
+ue"
+   Name=3D"Table Web 3"/>
   <w:LsdException Locked=3D"false" SemiHidden=3D"true" UnhideWhenUsed=3D"tr=
 ue"
    QFormat=3D"true" Name=3D"Balloon Text"/>
@@ -1008,6 +1017,7 @@ ue"
 @font-face
 	{font-family:"Cordia New";
 	panose-1:2 11 3 4 2 2 2 2 2 4;
+	mso-font-alt:"Cordia New";
 	mso-font-charset:222;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
@@ -1042,14 +1052,6 @@ ue"
 	mso-font-pitch:variable;
 	mso-font-signature:679 684672000 22 0 1048585 0;}
 @font-face
-	{font-family:"Microsoft JhengHei";
-	panose-1:2 11 6 4 3 5 4 4 2 4;
-	mso-font-alt:Î¢Ü›ÕýºÚów;
-	mso-font-charset:136;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:679 684672000 22 0 1048585 0;}
-@font-face
 	{font-family:Tahoma;
 	panose-1:2 11 6 4 3 5 4 4 2 4;
 	mso-font-charset:0;
@@ -1079,6 +1081,13 @@ ue"
 	mso-font-pitch:variable;
 	mso-font-signature:647 2048 0 0 159 0;}
 @font-face
+	{font-family:"Microsoft JhengHei";
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:136;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:679 684672000 22 0 1048585 0;}
+@font-face
 	{font-family:Impact;
 	panose-1:2 11 8 6 3 9 2 5 2 4;
 	mso-font-charset:0;
@@ -1087,12 +1096,14 @@ ue"
 	mso-font-signature:647 0 0 0 159 0;}
 @font-face
 	{font-family:"\@Microsoft JhengHei";
+	panose-1:2 11 6 4 3 5 4 4 2 4;
 	mso-font-charset:136;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
 	mso-font-signature:679 684672000 22 0 1048585 0;}
 @font-face
 	{font-family:"\@Microsoft JhengHei UI";
+	panose-1:2 11 6 4 3 5 4 4 2 4;
 	mso-font-charset:136;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
@@ -1121,7 +1132,6 @@ ue"
 @font-face
 	{font-family:"\@PMingLiU";
 	panose-1:2 1 6 1 0 1 1 1 1 1;
-	mso-font-alt:"\@ÐÂ¼šÃ÷ów";
 	mso-font-charset:136;
 	mso-generic-font-family:roman;
 	mso-font-pitch:variable;
@@ -2387,7 +2397,7 @@ span.HTML
 	mso-fareast-font-family:ËÎÌå;
 	mso-hansi-font-family:ËÎÌå;
 	mso-bidi-font-family:ËÎÌå;
-	color:windowtext;
+	mso-color-alt:windowtext;
 	mso-fareast-language:ZH-CN;}
 p.msonormal0, li.msonormal0, div.msonormal0
 	{mso-style-name:msonormal;
@@ -2471,7 +2481,7 @@ span.a0
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 span.a1
 	{mso-style-name:"Ò³Ã¼ ×Ö·û";
 	mso-style-priority:99;
@@ -2482,7 +2492,7 @@ span.a1
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 span.a2
 	{mso-style-name:"Ò³½Å ×Ö·û";
 	mso-style-priority:99;
@@ -2541,7 +2551,7 @@ span.a4
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 span.a5
 	{mso-style-name:"±êÌâ ×Ö·û";
 	mso-style-unhide:no;
@@ -2600,7 +2610,7 @@ span.a8
 	mso-hansi-font-family:"Microsoft JhengHei UI";
 	mso-bidi-font-family:"Cordia New";
 	mso-bidi-theme-font:major-bidi;
-	color:windowtext;
+	mso-color-alt:windowtext;
 	mso-font-kerning:10.0pt;
 	font-weight:bold;}
 span.a9
@@ -3105,7 +3115,7 @@ span.MxLFigureCaptionChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:"Times New Roman";
-	color:windowtext;
+	mso-color-alt:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;}
 span.Char
@@ -3230,7 +3240,7 @@ span.MxLMajorHeadingChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:Arial;
-	color:windowtext;
+	mso-color-alt:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
@@ -4337,7 +4347,7 @@ span.emailstyle18
 	mso-ascii-font-family:Calibri;
 	mso-hansi-font-family:Calibri;
 	mso-bidi-font-family:Calibri;
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 span.CharChar
 	{mso-style-name:"Char Char";
 	mso-style-unhide:no;
@@ -4748,7 +4758,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:"Courier New";
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 @list l3:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4827,7 +4837,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 @list l4:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4908,7 +4918,7 @@ div.WordSection8
 	text-indent:-24.0pt;
 	font-family:"Arial",sans-serif;
 	mso-fareast-font-family:Arial;
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 @list l5:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -5284,7 +5294,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	color:windowtext;}
+	mso-color-alt:windowtext;}
 @list l11:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -6753,7 +6763,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6761,7 +6771,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6769,7 +6779,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
     </tr>
    </table>
@@ -6795,8 +6805,8 @@ b></p>
 -height:
  140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"=
 Cordia New";
- mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
- mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
+ mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:
+ EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
  style=3D'page-break-before:always;mso-break-type:section-break'>
  </span>
  <div class=3DWordSection2>
@@ -7026,8 +7036,8 @@ nbsp;</o:p></span></p>
  style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span>=
-</p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </=
+span></span></p>
  <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
  <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
  <p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p>
@@ -7035,16 +7045,16 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
  <p class=3DMsoNormal style=3D'tab-stops:72.0pt'><span lang=3DEN-US><span
  style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></p>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></p>
  </div>
  <span lang=3DEN-US style=3D'font-size:10.0pt;line-height:140%;font-family:=
 "Microsoft JhengHei UI",sans-serif;
- mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:win=
-dowtext;
- mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA=
-'><br
- clear=3Dall style=3D'page-break-before:always;mso-break-type:section-break=
-'>
+ mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color=
+-alt:
+ windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lan=
+guage:
+ AR-SA'><br clear=3Dall style=3D'page-break-before:always;mso-break-type:se=
+ction-break'>
  </span>
  <div class=3DWordSection3><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of =
 Contents"
@@ -7052,10 +7062,10 @@ Contents"
   <p class=3DMsoTocHeading><span lang=3DEN-US style=3D'font-variant:normal =
 !important;
   text-transform:uppercase'>Table Of Contents<o:p></o:p></span><span
-  lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;col=
-or:windowtext;
-  mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sdtPr></w:sdt=
-Pr></span></p>
+  lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;mso=
+-color-alt:
+  windowtext;mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sd=
+tPr></w:sdtPr></span></p>
   <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US><span
   style=3D'mso-element:field-begin'></span><span
   style=3D'mso-spacerun:yes'>&nbsp;</span>TOC \o &quot;1-3&quot; \h \z \u <=
@@ -7067,40 +7077,40 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
-ndowtext;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;
-  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'=
->&nbsp;&nbsp;&nbsp; </span></span><span
-  lang=3DZH-TW>½éÉÜ</span><span style=3D'color:windowtext;display:none;mso-=
-hide:screen;
-  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
-lined'>__ </span></span><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349947 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
+r-alt:
+  windowtext;mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:
+  normal;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
+ount:
+  1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZH-TW>½éÉÜ</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
+></span><!--[if supportFields]><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349947 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900340037000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7119,39 +7129,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>ÎÄµµÓ¦ÓÃ·¶Î§</span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
-an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349948 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
+></span><!--[if supportFields]><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349948 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900340038000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7170,39 +7180,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>ËõÂÔÓï</span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
-an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349949 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
+></span><!--[if supportFields]><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349949 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900340039000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7220,38 +7230,39 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span><span
-  lang=3DZH-TW>¹¤¾ß°ü</span><span style=3D'color:windowtext;display:none;ms=
-o-hide:
-  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
-ount:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'> P=
-AGEREF
-  _Toc521349950 \h </span><span style=3D'color:windowtext;display:none;
+  lang=3DZH-TW>¹¤¾ß°ü</span><span style=3D'mso-color-alt:windowtext;display=
+:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>2</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349950 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>2</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350030000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7269,40 +7280,39 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span>Patch<span
-  lang=3DZH-TW>ÏÂÔØ¹¤¾ß½éÉÜ</span><span style=3D'color:windowtext;display:n=
-one;
+  lang=3DZH-TW>ÏÂÔØ¹¤¾ß½éÉÜ</span><span style=3D'mso-color-alt:windowtext;d=
+isplay:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349951 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>3</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349951 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>3</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350031000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7321,39 +7331,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Patch<span
-  lang=3DZH-TW>ÏÂÔØ½ÓÏß·½·¨</span><span style=3D'color:windowtext;display:n=
-one;
+  lang=3DZH-TW>ÏÂÔØ½ÓÏß·½·¨</span><span style=3D'mso-color-alt:windowtext;d=
+isplay:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349952 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349952 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350032000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7372,39 +7382,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>´®¿ÚÑ¡ÔñºÍ¶Ë¿Ú¸üÐÂ</span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
-an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349953 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
+></span><!--[if supportFields]><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349953 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350033000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7423,39 +7433,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Bin<span lang=
 =3DZH-TW>ÎÄ¼þºÏ²¢¹¦ÄÜ</span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
-an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349954 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>5</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
+></span><!--[if supportFields]><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349954 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>5</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350034000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7466,50 +7476,50 @@ ly:
 idi;
   mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p>=
 </o:p></span></p>
-  <p class=3DMsoToc3><span class=3DMsoHyperlink><span lang=3DEN-US><a
-  href=3D"#_Toc521349955"><span style=3D'mso-fareast-language:ZH-CN'>3.3.1.=
-</span><span
-  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
-ans-serif;
-  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
-Hei";
-  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
-ndowtext;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;
-  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; </span></span><span
-  lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><span lang=3DEN-US>²Ù×÷=
-½çÃæ</span></span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
+  <p class=3DMsoToc3><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
+'mso-fareast-language:
+  ZH-CN'><a href=3D"#_Toc521349955">3.3.1.<span style=3D'font-size:10.5pt;
+  mso-bidi-font-size:11.0pt;font-family:"Arial",sans-serif;mso-ascii-theme-=
+font:
+  minor-latin;mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-them=
+e-font:
+  minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
+ia New";
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
+unt:
+  1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang=3DEN-US><span
+  lang=3DEN-US>²Ù×÷½çÃæ</span></span><span style=3D'mso-color-alt:windowtex=
+t;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349955 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>5</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-elemen=
+t:
+  field-begin'></span></span><span style=3D'mso-color-alt:windowtext;displa=
+y:
+  none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;
+  text-underline:none'> PAGEREF _Toc521349955 \h </span><span style=3D'mso-=
+color-alt:
+  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
+d-separator'></span></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'>5</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350035000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
+d-end'></span></span><![endif]--></a></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7526,38 +7536,40 @@ nt-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><s=
 pan
-  lang=3DZH-TW>²Ù×÷²½Öè</span><span style=3D'color:windowtext;display:none;=
-mso-hide:
-  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
-ount:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'> P=
-AGEREF
-  _Toc521349956 \h </span><span style=3D'color:windowtext;display:none;
+  lang=3DZH-TW>²Ù×÷²½Öè</span><span style=3D'mso-color-alt:windowtext;displ=
+ay:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>6</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349956 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>6</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350036000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7575,39 +7587,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Patch<span
-  lang=3DZH-TW>¹Ì¼þÏÂÔØ¹¦ÄÜ</span><span style=3D'color:windowtext;display:n=
-one;
+  lang=3DZH-TW>¹Ì¼þÏÂÔØ¹¦ÄÜ</span><span style=3D'mso-color-alt:windowtext;d=
+isplay:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349957 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349957 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350037000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7625,38 +7637,40 @@ nt-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
-  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
+'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><s=
 pan
-  lang=3DZH-TW>²Ù×÷½çÃæ</span><span style=3D'color:windowtext;display:none;=
-mso-hide:
-  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
-ount:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'> P=
-AGEREF
-  _Toc521349958 \h </span><span style=3D'color:windowtext;display:none;
+  lang=3DZH-TW>²Ù×÷½çÃæ</span><span style=3D'mso-color-alt:windowtext;displ=
+ay:none;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
+</span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'> PAGEREF _Toc521349958 \h </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
+pan></span><![endif]--><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
+ation:
+  none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
+--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350038000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
+ne:
+  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
+></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7667,50 +7681,52 @@ ly:
 idi;
   mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN'><o:p></o:p></span></p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
-'mso-no-proof:
-  yes'><a href=3D"#_Toc521349959"><span style=3D'mso-fareast-language:ZH-CN=
-'>3.5.</span><span
-  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
-ans-serif;
-  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
-Hei";
-  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
-ndowtext;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;
-  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
-/span></span><span
-  lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><span lang=3DEN-US>°æ±¾=
-¶ÁÈ¡¼°ÓÃ»§ÊÖ²á</span></span><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
-an><!--[if supportFields]><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
-n><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'> PAGEREF _Toc521349959 \h </span><span style=3D'colo=
-r:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
-ne;
-  text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
- 9]><xml>
+'mso-fareast-language:
+  ZH-CN;mso-no-proof:yes'><a href=3D"#_Toc521349959">3.5.<span style=3D'fon=
+t-size:
+  10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",sans-serif;mso-ascii=
+-theme-font:
+  minor-latin;mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-them=
+e-font:
+  minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
+ia New";
+  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
+  1.0pt;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
+unt:
+  1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DEN-US><span lang=3DEN-US=
+>°æ±¾¶ÁÈ¡¼°ÓÃ»§ÊÖ²á</span></span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
+unt:
+  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color=
+-alt:
+  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
+d-begin'></span></span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349959 \h=
+ </span><span
+  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
+t-language:
+  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-elemen=
+t:
+  field-separator'></span></span><![endif]--><span style=3D'mso-color-alt:w=
+indowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350039000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
-owtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
+d-end'></span></span><![endif]--></a></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7738,7 +7754,8 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
+mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
+N-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -7750,7 +7767,8 @@ ontents"
 important;
  text-transform:uppercase'>List Of Figures<o:p></o:p></span><span lang=3DEN=
 -US
- style=3D'font-size:10.0pt;font-variant:normal !important;color:windowtext;
+ style=3D'font-size:10.0pt;font-variant:normal !important;mso-color-alt:win=
+dowtext;
  text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
 pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
@@ -7761,41 +7779,44 @@ ment:
 z \t
  &quot;Figure,1&quot; <span style=3D'mso-element:field-separator'></span></=
 span><![endif]--><span
- class=3DMsoHyperlink><span lang=3DEN-US><a href=3D"#_Toc521349960"><span
- style=3D'mso-fareast-language:ZH-CN'>Figure 1</span>:<span style=3D'mso-fa=
-reast-language:
- ZH-CN'> </span><span lang=3DEN-US style=3D'mso-bidi-font-family:ËÎÌå;mso-f=
-areast-language:
- ZH-CN'><span lang=3DEN-US>¹Ì¼þ²¹¶¡ÏÂÔØ¹¤¾ß°üº¬µÄÎÄ¼þ</span></span><span st=
-yle=3D'color:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
-pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349960 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>2</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-fareast-language:ZH-C=
+N'><a
+ href=3D"#_Toc521349960">Figure 1<span style=3D'mso-fareast-language:ZH-TW'=
+>:</span>
+ <span lang=3DEN-US style=3D'mso-bidi-font-family:ËÎÌå'><span lang=3DEN-US>=
+¹Ì¼þ²¹¶¡ÏÂÔØ¹¤¾ß°üº¬µÄÎÄ¼þ</span></span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
+nt:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349960 \h =
+</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
+:field-separator'></span></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'>2</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360030000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
+pan><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7807,36 +7828,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349961">Figure 2: Patch<span lang=3DEN-US style=3D'mso-far=
 east-language:
- ZH-CN'><span lang=3DEN-US>ÏÂÔØ½çÃæ</span></span><span style=3D'color:windo=
-wtext;
+ ZH-CN'><span lang=3DEN-US>ÏÂÔØ½çÃæ</span></span><span style=3D'mso-color-a=
+lt:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349961 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>3</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349961 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>3</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360031000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7848,36 +7869,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349962">Figure 3: DevKit<span lang=3DEN-US style=3D'mso-fa=
 reast-language:
- ZH-CN'><span lang=3DEN-US>½ÓÏßÍ¼</span></span><span style=3D'color:windowt=
-ext;
+ ZH-CN'><span lang=3DEN-US>½ÓÏßÍ¼</span></span><span style=3D'mso-color-alt=
+:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349962 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349962 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360032000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7889,34 +7910,34 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349963">Figure 4: <span lang=3DZH-TW>´®¿ÚÑ¡Ôñ½çÃæ</span><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
-n><!--[if supportFields]><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349963 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>5</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span>=
+</span><!--[if supportFields]><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349963 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>5</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360033000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7925,47 +7946,57 @@ ei";
  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font-=
 kerning:
  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></p>
- <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
- href=3D"#_Toc521349964"><span style=3D'font-family:"Microsoft JhengHei",sa=
-ns-serif;
- mso-ascii-theme-font:minor-fareast;mso-fareast-font-family:"Microsoft Jhen=
-gHei UI";
- mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'>Figure 5:Bi=
-n </span><span
- lang=3DEN-US style=3D'mso-ascii-font-family:"Microsoft JhengHei";mso-ascii=
--theme-font:
- minor-fareast;mso-hansi-font-family:"Microsoft JhengHei";mso-hansi-theme-f=
-ont:
- minor-fareast;mso-fareast-language:ZH-CN'><span lang=3DEN-US>ÎÄ¼þºÏ²¢¹¦ÄÜ<=
-/span></span><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+ <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'=
+font-family:
+ "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:minor-fareast;mso-far=
+east-font-family:
+ "Microsoft JhengHei UI";mso-hansi-theme-font:minor-fareast;mso-fareast-lan=
+guage:
+ ZH-CN'><a href=3D"#_Toc521349964">Figure 5:Bin <span lang=3DEN-US
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-ascii-font-fam=
+ily:
+ "Microsoft JhengHei";mso-ascii-theme-font:minor-fareast;mso-hansi-font-fam=
+ily:
+ "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast'><span lang=3DEN-U=
+S>ÎÄ¼þºÏ²¢¹¦ÄÜ</span></span><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
 n><!--[if supportFields]><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
  text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
 ><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349964 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>6</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'> PAGEREF _Toc521349964 \h </span><span style=3D'font-=
+family:
+ "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
+ mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-under=
+line:
+ none'><span style=3D'mso-element:field-separator'></span></span><![endif]-=
+-><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'>6</span><span style=3D'font-family:"Microsoft JhengHe=
+i UI",sans-serif;
+ mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
+ ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360034000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-family=
+:"Microsoft JhengHei UI",sans-serif;
+ mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
+:field-end'></span></span><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7974,47 +8005,57 @@ ei";
  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font-=
 kerning:
  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></p>
- <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
- href=3D"#_Toc521349965"><span style=3D'font-family:"Microsoft JhengHei",sa=
-ns-serif;
- mso-ascii-theme-font:minor-fareast;mso-fareast-font-family:"Microsoft Jhen=
-gHei UI";
- mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'>Figure 6: P=
-ACK</span><span
- lang=3DEN-US style=3D'mso-ascii-font-family:"Microsoft JhengHei";mso-ascii=
--theme-font:
- minor-fareast;mso-hansi-font-family:"Microsoft JhengHei";mso-hansi-theme-f=
-ont:
- minor-fareast;mso-fareast-language:ZH-CN'><span lang=3DEN-US>²Ù×÷½á¹û</spa=
-n></span><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+ <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'=
+font-family:
+ "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:minor-fareast;mso-far=
+east-font-family:
+ "Microsoft JhengHei UI";mso-hansi-theme-font:minor-fareast;mso-fareast-lan=
+guage:
+ ZH-CN'><a href=3D"#_Toc521349965">Figure 6: PACK<span lang=3DEN-US
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-ascii-font-fam=
+ily:
+ "Microsoft JhengHei";mso-ascii-theme-font:minor-fareast;mso-hansi-font-fam=
+ily:
+ "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast'><span lang=3DEN-U=
+S>²Ù×÷½á¹û</span></span><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
 n><!--[if supportFields]><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
  text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
 ><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349965 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>7</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'> PAGEREF _Toc521349965 \h </span><span style=3D'font-=
+family:
+ "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
+ mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-under=
+line:
+ none'><span style=3D'mso-element:field-separator'></span></span><![endif]-=
+-><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'>7</span><span style=3D'font-family:"Microsoft JhengHe=
+i UI",sans-serif;
+ mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
+ ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360035000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-family=
+:"Microsoft JhengHei UI",sans-serif;
+ mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
+:field-end'></span></span><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8023,41 +8064,44 @@ ei";
  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font-=
 kerning:
  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></p>
- <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
- href=3D"#_Toc521349966"><span style=3D'mso-fareast-language:ZH-CN'>Figure =
-7: </span><span
- lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><span lang=3DEN-US>ºÏ³ÉO=
-TA Image bin
- </span></span><span lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><span
- lang=3DEN-US>ÎÄ¼þ</span></span><span style=3D'color:windowtext;display:non=
-e;
- mso-hide:screen;text-decoration:none;text-underline:none'><span
- style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
-pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349966 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>7</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'=
+mso-fareast-language:
+ ZH-CN'><a href=3D"#_Toc521349966">Figure 7: <span lang=3DEN-US><span lang=
+=3DEN-US>ºÏ³ÉOTA
+ Image bin </span></span><span lang=3DEN-US><span lang=3DEN-US>ÎÄ¼þ</span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
+nt:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349966 \h =
+</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
+:field-separator'></span></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'>7</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360036000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
+pan><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8073,36 +8117,36 @@ nt-family:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast;mso-fareast-langua=
 ge:
- ZH-CN'><span lang=3DEN-US>¹Ì¼þÏÂÔØ¹¦ÄÜ</span></span><span style=3D'color:w=
-indowtext;
+ ZH-CN'><span lang=3DEN-US>¹Ì¼þÏÂÔØ¹¦ÄÜ</span></span><span style=3D'mso-col=
+or-alt:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349967 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349967 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360037000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8118,36 +8162,36 @@ nt-family:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast;mso-fareast-langua=
 ge:
- ZH-CN'><span lang=3DEN-US>¹Ì¼þÏÂÔØÊ¾ÒâÍ¼</span></span><span style=3D'color=
-:windowtext;
+ ZH-CN'><span lang=3DEN-US>¹Ì¼þÏÂÔØÊ¾ÒâÍ¼</span></span><span style=3D'mso-c=
+olor-alt:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349968 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349968 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360038000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8159,36 +8203,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349969">Figure 10: About <span lang=3DEN-US style=3D'mso-f=
 areast-language:
- ZH-CN'><span lang=3DEN-US>½çÃæ</span></span><span style=3D'color:windowtex=
-t;
+ ZH-CN'><span lang=3DEN-US>½çÃæ</span></span><span style=3D'mso-color-alt:w=
+indowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349969 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>9</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349969 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>9</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360039000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8202,36 +8246,36 @@ kerning:
 -language:
  ZH-CN'><span lang=3DEN-US>¶ÁÈ¡</span></span>ROM<span lang=3DEN-US style=3D=
 'mso-fareast-language:
- ZH-CN'><span lang=3DEN-US>°æ±¾</span></span><span style=3D'color:windowtex=
-t;
+ ZH-CN'><span lang=3DEN-US>°æ±¾</span></span><span style=3D'mso-color-alt:w=
+indowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349970 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>9</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349970 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>9</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370030000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8243,36 +8287,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349971">Figure 12: <span lang=3DEN-US style=3D'mso-fareast=
 -language:
- ZH-CN'><span lang=3DEN-US>ÓÃ»§ÊÖ²áÍ¼Àý</span></span><span style=3D'color:w=
-indowtext;
+ ZH-CN'><span lang=3DEN-US>ÓÃ»§ÊÖ²áÍ¼Àý</span></span><span style=3D'mso-col=
+or-alt:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349971 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>10</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'> PAGEREF _Toc521349971 \h </span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
+an></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
+tion:
+ none;text-underline:none'>10</span><span style=3D'mso-color-alt:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
+-[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370031000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
+e:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8299,7 +8343,8 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
+mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
+N-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -8311,7 +8356,8 @@ ontents"
 important;
  text-transform:uppercase'>List Of Tables<o:p></o:p></span><span lang=3DEN-=
 US
- style=3D'font-size:10.0pt;font-variant:normal !important;color:windowtext;
+ style=3D'font-size:10.0pt;font-variant:normal !important;mso-color-alt:win=
+dowtext;
  text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
 pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
@@ -8321,41 +8367,44 @@ pan></p>
  style=3D'mso-spacerun:yes'>&nbsp;</span>TOC \h \z \t &quot;Table,1&quot; <=
 span
  style=3D'mso-element:field-separator'></span></span><![endif]--><span
- class=3DMsoHyperlink><span lang=3DEN-US><a href=3D"#_Toc521349972"><span
- style=3D'mso-fareast-language:ZH-CN'>Table 1</span>:<span style=3D'mso-far=
-east-language:
- ZH-CN'> </span><span lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><sp=
-an
- lang=3DEN-US>¹Ì¼þ²¹¶¡ÏÂÔØ¹¤¾ß°üÎÄ¼þËµÃ÷</span></span><span style=3D'color:=
-windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
-pan
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
-><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'> PAGEREF _Toc521349972 \h </span><span style=3D'color=
-:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
- text-underline:none'>2</span><span style=3D'color:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
-9]><xml>
+ class=3DMsoHyperlink><span lang=3DEN-US style=3D'mso-fareast-language:ZH-C=
+N'><a
+ href=3D"#_Toc521349972">Table 1<span style=3D'mso-fareast-language:ZH-TW'>=
+:</span>
+ <span lang=3DEN-US><span lang=3DEN-US>¹Ì¼þ²¹¶¡ÏÂÔØ¹¤¾ß°üÎÄ¼þËµÃ÷</span></s=
+pan><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
+nt:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
+alt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
+/span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349972 \h =
+</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
+:field-separator'></span></span><![endif]--><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'>2</span><span
+ style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
+-language:
+ ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370032000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
-wtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
-an
- style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
-n><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
+lt:
+ windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
+coration:
+ none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
+pan><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8381,7 +8430,8 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
+mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
+N-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -8398,7 +8448,7 @@ style=3D'mso-bookmark:_Toc509069588'><![if !supportLists]><span lang=3DEN-US
 style=3D'mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-l=
 ist:
 Ignore'>1.<span style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DZH-TW>½éÉÜ</span></span></span>=
 </a><span
 style=3D'mso-bookmark:_Toc509069588'></span></h1>
@@ -8415,8 +8465,8 @@ kmark:
 _Toc521349948'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>1.1.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
-n></span></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span></span><![endif]><span
 lang=3DZH-TW>ÎÄµµÓ¦ÓÃ·¶Î§</span></span></a><span lang=3DZH-TW> </span></spa=
 n></h2>
 
@@ -8426,8 +8476,7 @@ lang=3DEN-US>OPL1000 </span><span lang=3DZH-TW>¹Ì¼þ²¹¶¡</span><span lang=3D=
 EN-US>
 (firmware patch) </span><span lang=3DZH-TW>³ÌÐòÏÂÔØ¹¤¾ßµÄÊ¹ÓÃ·½·¨¡£</span><=
 span lang=3DEN-US><span
-style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span></p>
+style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span></span></p>
 
 <p class=3DMsoNormal style=3D'line-height:120%'><span style=3D'mso-bookmark=
 :_Toc509069588'><span
@@ -8439,7 +8488,7 @@ ZH-CN'><o:p>&nbsp;</o:p></span></span></p>
 9588'><![if !supportLists]><span
 lang=3DEN-US style=3D'mso-bidi-font-family:"Microsoft JhengHei UI"'><span
 style=3D'mso-list:Ignore'>1.2.<span style=3D'font:7.0pt "Times New Roman"'>=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]></span><a href=3D"javascript:;"><span
 style=3D'mso-bookmark:_Toc521349949'><span style=3D'mso-bookmark:_Toc512599=
 714'><span
@@ -8571,7 +8620,7 @@ name=3D"_Toc512599716"><span style=3D'mso-bookmark:_Toc521349950'><![if !su=
 pportLists]><span
 lang=3DEN-US style=3D'mso-bidi-font-family:"Microsoft JhengHei UI"'><span
 style=3D'mso-list:Ignore'>2.<span style=3D'font:7.0pt "Times New Roman"'>&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DZH-TW>¹¤¾ß°ü</span></span></a><=
 /span></h1>
 
@@ -8673,7 +8722,7 @@ n></span></p>
 style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-CN;mso-no-pro=
 of:yes'><v:shape
  id=3D"Í¼Æ¬_x0020_14" o:spid=3D"_x0000_i1037" type=3D"#_x0000_t75" style=3D=
-'width:263.5pt;
+'width:263.4pt;
  height:36pt;visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image002.=
 png"
@@ -8964,7 +9013,7 @@ name=3D"_Toc512599717"><span style=3D'mso-bookmark:_Toc521349951'><![if !su=
 pportLists]><span
 lang=3DEN-US style=3D'mso-bidi-font-family:"Microsoft JhengHei UI"'><span
 style=3D'mso-list:Ignore'>3.<span style=3D'font:7.0pt "Times New Roman"'>&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DEN-US>Patch</span><span lang=3D=
 ZH-TW>ÏÂÔØ¹¤¾ß½éÉÜ</span></span></a></span></h1>
 
@@ -9008,8 +9057,8 @@ _Toc509069588'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:1=
 line-height:106%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>1.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DJA style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft=
  JhengHei UI",sans-serif;
 mso-ascii-font-family:Arial;mso-ascii-theme-font:minor-latin;mso-hansi-font=
@@ -9028,8 +9077,8 @@ _Toc509069588'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:1=
 line-height:106%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>2.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DJA style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft=
  JhengHei UI",sans-serif;
 mso-ascii-font-family:Arial;mso-ascii-theme-font:minor-latin;mso-hansi-font=
@@ -9046,8 +9095,8 @@ style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft JhengHei =
 UI",sans-serif;
 mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-list:Ignor=
 e'>a.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DEN-US style=3D'font-size:10.0pt;line-height:106%;font-family:"Micros=
 oft JhengHei UI",sans-serif'>Bin</span></span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DJA style=3D'font-size:10.=
@@ -9066,8 +9115,8 @@ style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft JhengHei =
 UI",sans-serif;
 mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-list:Ignor=
 e'>b.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 class=3DSpellE><span lang=3DEN-US style=3D'font-size:10.0pt;line-height:106=
 %;
 font-family:"Microsoft JhengHei UI",sans-serif'>builed</span></span></span>=
@@ -9105,8 +9154,8 @@ style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft JhengHei =
 UI",sans-serif;
 mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-list:Ignor=
 e'>d.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DJA style=3D'font-size:10.0pt;line-height:106%;font-family:"Microsoft=
  JhengHei UI",sans-serif'>°æ±¾¶ÁÈ¡¼°ÓÃ»§ÊÖ²á</span></span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'font-size:=
@@ -9123,8 +9172,8 @@ _Toc509069588'><![if !supportLists]><span lang=3DEN-US style=3D'font-size:1=
 line-height:106%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>3.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DEN-US style=3D'font-size:10.0pt;line-height:106%'>LOGO<o:p></o:p></s=
 pan></span></p>
 
@@ -9136,8 +9185,8 @@ lang=3DEN-US style=3D'font-size:10.0pt;line-height:106%;font-family:"Micros=
 oft JhengHei UI",sans-serif;
 mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-list:Ignor=
 e'>4.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp; </span></sp=
-an></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
+n></span></span><![endif]><span
 lang=3DEN-US style=3D'font-size:10.0pt;line-height:106%'>LOG<span
 style=3D'mso-spacerun:yes'>&nbsp; </span></span></span><span style=3D'mso-b=
 ookmark:
@@ -9200,7 +9249,7 @@ style=3D'mso-bookmark:_Toc521349961'><span style=3D'mso-fareast-language:ZH=
 style=3D'mso-fareast-language:ZH-CN;mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x=
 0020_3"
  o:spid=3D"_x0000_i1036" type=3D"#_x0000_t75" style=3D'width:456pt;height:2=
-77.5pt;
+77.2pt;
  visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image003.=
 png"
@@ -9215,7 +9264,7 @@ style=3D'mso-bookmark:_Toc512268029'><span style=3D'mso-bookmark:_Toc521349=
 952'><![if !supportLists]><span
 lang=3DEN-US style=3D'mso-bidi-font-family:"Microsoft JhengHei UI"'><span
 style=3D'mso-list:Ignore'>3.1.<span style=3D'font:7.0pt "Times New Roman"'>=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><strong><span lang=3DEN-US style=3D'font-fam=
 ily:
 "Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"Cordia New";
@@ -9372,8 +9421,8 @@ CN'><o:p></o:p></span></span></p>
 style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-CN;mso-no-pro=
 of:yes'><v:shape
  id=3D"Í¼Æ¬_x0020_2" o:spid=3D"_x0000_i1035" type=3D"#_x0000_t75" style=3D'=
-width:355.5pt;
- height:182pt;visibility:visible;mso-wrap-style:square'>
+width:355.2pt;
+ height:181.8pt;visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image004.=
 png"
   o:title=3D""/>
@@ -9431,8 +9480,8 @@ kmark:
 _Toc521349953'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>3.2.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
-n></span></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span></span><![endif]><span
 lang=3DZH-TW>´®¿ÚÑ¡ÔñºÍ¶Ë¿Ú¸üÐÂ</span></span></a></span></h2>
 
 <p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
@@ -9537,8 +9586,8 @@ style=3D'mso-bookmark:_Toc521349963'><span lang=3DZH-TW>´®¿ÚÑ¡Ôñ½çÃæ</span>=
 =3DEN-US
 style=3D'mso-fareast-language:ZH-CN;mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x=
 0020_24"
- o:spid=3D"_x0000_i1034" type=3D"#_x0000_t75" style=3D'width:195.5pt;height=
-:119.5pt;
+ o:spid=3D"_x0000_i1034" type=3D"#_x0000_t75" style=3D'width:195pt;height:1=
+19.4pt;
  visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image005.=
 png"
@@ -9594,7 +9643,7 @@ _Toc521349954'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI";color:black;mso-themecolor:text1'><span
 style=3D'mso-list:Ignore'>3.3.<span style=3D'font:7.0pt "Times New Roman"'>=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DEN-US style=3D'color:black;mso-=
 themecolor:
 text1'>Bin</span></span></a></span><span style=3D'mso-bookmark:_Toc50906958=
@@ -9688,7 +9737,7 @@ nt-family:
 "Microsoft JhengHei UI";color:black;mso-themecolor:text1;mso-fareast-langua=
 ge:
 ZH-CN'><span style=3D'mso-list:Ignore'>3.3.1.<span style=3D'font:7.0pt "Tim=
-es New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+es New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span style=3D'color:black;mso-themecolor:te=
 xt1;
 mso-fareast-language:ZH-CN'>²Ù×÷½çÃæ</span></span></a></span><span
@@ -9709,26 +9758,24 @@ style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-element:fiel=
 d-begin'></span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'mso-fareas=
 t-language:
-ZH-CN'> REF _Ref512502676 \h<span style=3D'mso-spacerun:yes'>&nbsp; </span>=
-\*
-MERGEFORMAT </span><span lang=3DEN-US><span style=3D'mso-element:field-sepa=
-rator'></span></span></span><![endif]--><span
+ZH-CN'> REF _Ref531683036 \h <span style=3D'mso-element:field-separator'></=
+span></span></span><![endif]--><span
 style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-bookmark:_To=
-c509069588'><b><span
-style=3D'font-family:ËÎÌå;mso-ascii-font-family:"Microsoft JhengHei UI";mso=
--hansi-font-family:
-"Microsoft JhengHei UI";mso-fareast-language:ZH-CN'>´íÎó</span></b></span><=
-span
-style=3D'mso-bookmark:_Toc509069588'><b><span lang=3DEN-US style=3D'mso-far=
-east-font-family:
-ËÎÌå;mso-fareast-language:ZH-CN'>!</span></b></span><span style=3D'mso-book=
-mark:
-_Toc509069588'><b><span style=3D'font-family:ËÎÌå;mso-ascii-font-family:"Mi=
-crosoft JhengHei UI";
-mso-hansi-font-family:"Microsoft JhengHei UI";mso-fareast-language:ZH-CN'>Î=
-´ÕÒµ½ÒýÓÃÔ´¡£</span></b></span><!--[if supportFields]><span
-style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-element:fiel=
-d-end'></span><![endif]--><span
+c509069588'><span
+lang=3DEN-US style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii=
+-theme-font:
+minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:min=
+or-fareast;
+mso-fareast-language:ZH-CN'>Figure 5</span></span><span style=3D'mso-bookma=
+rk:
+_Toc509069588'><span lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><!--=
+[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F005200=
+650066003500330031003600380033003000330036000000</w:data>
+</xml><![endif]--></span></span><!--[if supportFields]><span style=3D'mso-b=
+ookmark:
+_Toc509069588'></span><span style=3D'mso-element:field-end'></span><![endif=
+]--><span
 style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-bookmark:_To=
 c509069588'><span
 style=3D'mso-fareast-language:ZH-CN'>ËùÊ¾¡£<span lang=3DEN-US><o:p></o:p></=
@@ -9738,7 +9785,8 @@ span></span></span></p>
 i",sans-serif;
 mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
 mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:"Cordia New";
-mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
+mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
+N-US;
 mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'mso-special-character:line-break;page-break-before:always'>
 </span>
@@ -9752,40 +9800,50 @@ mso-hansi-theme-font:minor-fareast;color:#B10F0F;mso-fareast-language:ZH-CN=
 '><o:p>&nbsp;</o:p></span></span></p>
 
 <p class=3DFigure><span style=3D'mso-bookmark:_Toc509069588'><a name=3D"_To=
-c521349964"><span
+c521349964"></a><a
+name=3D"_Ref531683036"><span style=3D'mso-bookmark:_Toc521349964'><span lan=
+g=3DEN-US
+style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii-theme-font:m=
+inor-fareast;
+mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
+mso-fareast-language:ZH-CN'>Figure </span></span></a></span><!--[if support=
+Fields]><span
+style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Ref531683=
+036'><span
+style=3D'mso-bookmark:_Toc521349964'></span></span></span><span style=3D'ms=
+o-element:
+field-begin'></span><span style=3D'mso-bookmark:_Toc509069588'><span
+style=3D'mso-bookmark:_Ref531683036'><span style=3D'mso-bookmark:_Toc521349=
+964'><span
 lang=3DEN-US style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii=
 -theme-font:
 minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:min=
 or-fareast;
-mso-fareast-language:ZH-CN'>Figure </span></a></span><!--[if supportFields]=
-><span
-style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc521349=
-964'></span></span><span
-style=3D'mso-element:field-begin'></span><span style=3D'mso-bookmark:_Toc50=
-9069588'><span
+mso-fareast-language:ZH-CN'><span style=3D'mso-spacerun:yes'>&nbsp;</span>S=
+EQ
+Figure \* ARABIC <span style=3D'mso-element:field-separator'></span></span>=
+</span></span></span><![endif]--><span
+style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Ref531683=
+036'><span
 style=3D'mso-bookmark:_Toc521349964'><span lang=3DEN-US style=3D'font-famil=
 y:"Microsoft JhengHei",sans-serif;
 mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
-mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'><span
-style=3D'mso-spacerun:yes'>&nbsp;</span>SEQ Figure \* ARABIC <span
-style=3D'mso-element:field-separator'></span></span></span></span><![endif]=
---><span
+mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'>5</span></sp=
+an></span></span><!--[if supportFields]><span
+style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Ref531683=
+036'><span
+style=3D'mso-bookmark:_Toc521349964'></span></span></span><span style=3D'ms=
+o-element:
+field-end'></span><![endif]--><span style=3D'mso-bookmark:_Toc509069588'><s=
+pan
+style=3D'mso-bookmark:_Ref531683036'><span style=3D'mso-bookmark:_Toc521349=
+964'></span></span></span><span
 style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc521349=
 964'><span
 lang=3DEN-US style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii=
 -theme-font:
 minor-fareast;mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:min=
 or-fareast;
-mso-fareast-language:ZH-CN'><span style=3D'mso-no-proof:yes'>5</span></span=
-></span></span><!--[if supportFields]><span
-style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc521349=
-964'></span></span><span
-style=3D'mso-element:field-end'></span><![endif]--><span style=3D'mso-bookm=
-ark:
-_Toc509069588'><span style=3D'mso-bookmark:_Toc521349964'><span lang=3DEN-US
-style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii-theme-font:m=
-inor-fareast;
-mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
 mso-fareast-language:ZH-CN'>:Bin </span></span></span><span style=3D'mso-bo=
 okmark:
 _Toc509069588'><span style=3D'mso-bookmark:_Toc521349964'><span style=3D'fo=
@@ -9806,7 +9864,7 @@ style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-CN;mso-no-pro=
 of:yes'><v:shape
  id=3D"Í¼Æ¬_x0020_23" o:spid=3D"_x0000_i1033" type=3D"#_x0000_t75" style=3D=
 'width:396pt;
- height:172pt;visibility:visible;mso-wrap-style:square'>
+ height:172.2pt;visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image006.=
 png"
   o:title=3D"1533541451(1)"/>
@@ -9849,7 +9907,7 @@ _Toc521349956'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>3.3.2.<span
 style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DZH-TW>²Ù×÷²½Öè</span></span></a=
 ></span></h3>
 
@@ -9871,12 +9929,13 @@ t-font-family:
 
 <span lang=3DEN-US style=3D'font-size:10.0pt;line-height:140%;font-family:"=
 Microsoft JhengHei UI",sans-serif;
-mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wind=
-owtext;
-mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'=
-><br
-clear=3Dall style=3D'mso-special-character:line-break;page-break-before:alw=
-ays'>
+mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color-=
+alt:
+windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lang=
+uage:
+AR-SA'><br clear=3Dall style=3D'mso-special-character:line-break;page-break=
+-before:
+always'>
 </span>
 
 <p class=3DMsoNormal align=3Dleft style=3D'margin-bottom:21.6pt;text-align:=
@@ -9959,8 +10018,8 @@ mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'><o:p></o:p><=
 style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-CN;mso-no-pro=
 of:yes'><v:shape
  id=3D"Í¼Æ¬_x0020_25" o:spid=3D"_x0000_i1032" type=3D"#_x0000_t75" style=3D=
-'width:438.5pt;
- height:244pt;visibility:visible;mso-wrap-style:square'>
+'width:438pt;
+ height:243.6pt;visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image007.=
 png"
   o:title=3D"1533542555(1)"/>
@@ -10025,8 +10084,8 @@ style=3D'mso-element:field-separator'></span></span></span></span><![endif]=
 --><span
 style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc521349=
 966'><span
-lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'><span style=3D'mso-no-pro=
-of:yes'>7</span></span></span></span><!--[if supportFields]><span
+lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'>7</span></span></span><!-=
+-[if supportFields]><span
 style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc521349=
 966'></span></span><span
 style=3D'mso-element:field-end'></span><![endif]--><span style=3D'mso-bookm=
@@ -10046,8 +10105,8 @@ ZH-CN'><o:p></o:p></span></span></p>
 style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-CN;mso-no-pro=
 of:yes'><v:shape
  id=3D"Í¼Æ¬_x0020_33" o:spid=3D"_x0000_i1031" type=3D"#_x0000_t75" style=3D=
-'width:438.5pt;
- height:193pt;visibility:visible;mso-wrap-style:square'>
+'width:438.6pt;
+ height:193.2pt;visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image008.=
 png"
   o:title=3D"1533547806(1)"/>
@@ -10082,8 +10141,8 @@ kmark:
 _Toc521349957'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>3.4.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
-n></span></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span></span><![endif]><span
 lang=3DEN-US>Patch</span><span lang=3DZH-TW>¹Ì¼þÏÂÔØ¹¦ÄÜ</span></span></a><=
 /span></h2>
 
@@ -10095,7 +10154,7 @@ _Toc521349958'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI"'><span style=3D'mso-list:Ignore'>3.4.1.<span
 style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span></span><![endif]><span lang=3DZH-TW>²Ù×÷½çÃæ</span></span></a=
 ></span></h3>
 
@@ -10113,10 +10172,9 @@ an>Ò³Ãæ<span
 lang=3DEN-US>Pack</span>²Ù×÷ºó£¬£¬´¿<span lang=3DEN-US>M3+M0 Bin</span>ÎÄ¼þ=
 ÃûºÍÂ·¾¶»á±»ÌîÈë<span
 class=3DGramE><span lang=3DEN-US>¡±</span></span><span lang=3DEN-US>Patch B=
-in<span
-class=3DGramE>¡±</span></span>ÎÄ±¾¿ò¡£ÓÃ»§Ò²¿ÉÒÔÊÖ¶¯Ñ¡ÔñÖ¸¶¨ÐèÒªÏÂÔØµÄ<span=
- lang=3DEN-US>Bin</span>ÎÄ¼þ¡£<span
-lang=3DEN-US><o:p></o:p></span></span></span></p>
+in¡±</span>ÎÄ±¾¿ò¡£ÓÃ»§Ò²¿ÉÒÔÊÖ¶¯Ñ¡ÔñÖ¸¶¨ÐèÒªÏÂÔØµÄ<span
+lang=3DEN-US>Bin</span>ÎÄ¼þ¡£<span lang=3DEN-US><o:p></o:p></span></span></=
+span></p>
 
 <p class=3DFigure><span style=3D'mso-bookmark:_Toc509069588'><a name=3D"_To=
 c521349967"></a><a
@@ -10193,8 +10251,8 @@ CN'><o:p></o:p></span></span></p>
 =3DEN-US
 style=3D'mso-fareast-language:ZH-CN;mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x=
 0020_34"
- o:spid=3D"_x0000_i1030" type=3D"#_x0000_t75" style=3D'width:394.5pt;height=
-:163.5pt;
+ o:spid=3D"_x0000_i1030" type=3D"#_x0000_t75" style=3D'width:394.8pt;height=
+:163.2pt;
  visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image009.=
 png"
@@ -10212,8 +10270,11 @@ ZH-CN'> REF _Ref519253613 \h </span><span lang=3DEN-US><span style=3D'mso-e=
 lement:
 field-separator'></span></span></span><![endif]--><span style=3D'mso-bookma=
 rk:
-_Toc509069588'><span lang=3DEN-US>Figure <span style=3D'mso-no-proof:yes'>8=
-</span><!--[if gte mso 9]><xml>
+_Toc509069588'><span lang=3DEN-US>Figure </span></span><span style=3D'mso-b=
+ookmark:
+_Toc509069588'><span lang=3DEN-US style=3D'font-family:ºÚÌå;mso-fareast-lan=
+guage:
+ZH-CN;mso-no-proof:yes'>8</span><span lang=3DEN-US><!--[if gte mso 9]><xml>
  <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F005200=
 650066003500310039003200350033003600310033000000</w:data>
 </xml><![endif]--></span></span><!--[if supportFields]><span style=3D'mso-b=
@@ -10363,8 +10424,8 @@ _Toc521349959'><![if !supportLists]><span lang=3DEN-US style=3D'mso-bidi-fo=
 nt-family:
 "Microsoft JhengHei UI";mso-fareast-language:ZH-CN'><span style=3D'mso-list=
 :Ignore'>3.5.<span
-style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
-n></span></span><![endif]><span
+style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+ </span></span></span><![endif]><span
 style=3D'mso-fareast-language:ZH-CN'>°æ±¾¶ÁÈ¡¼°ÓÃ»§ÊÖ²á</span></span></a></=
 span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'mso-fareas=
@@ -10472,7 +10533,7 @@ t-font-family:
 style=3D'mso-fareast-language:ZH-CN;mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x=
 0020_30"
  o:spid=3D"_x0000_i1028" type=3D"#_x0000_t75" style=3D'width:375pt;height:1=
-64pt;
+63.8pt;
  visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image011.=
 png"
@@ -10600,8 +10661,8 @@ CN'><o:p></o:p></span></span></p>
 =3DEN-US
 style=3D'mso-fareast-language:ZH-CN;mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x=
 0020_32"
- o:spid=3D"_x0000_i1027" type=3D"#_x0000_t75" style=3D'width:379pt;height:1=
-74pt;
+ o:spid=3D"_x0000_i1027" type=3D"#_x0000_t75" style=3D'width:379.2pt;height=
+:174pt;
  visibility:visible;mso-wrap-style:square'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image012.=
 png"
@@ -10734,7 +10795,7 @@ CN'><o:p></o:p></span></p>
 <p class=3DMsoNormal><span lang=3DEN-US style=3D'mso-fareast-language:ZH-CN;
 mso-no-proof:yes'><v:shape id=3D"Í¼Æ¬_x0020_1" o:spid=3D"_x0000_i1026" type=
 =3D"#_x0000_t75"
- style=3D'width:455.5pt;height:297.5pt;visibility:visible;mso-wrap-style:sq=
+ style=3D'width:455.4pt;height:297.6pt;visibility:visible;mso-wrap-style:sq=
 uare'>
  <v:imagedata src=3D"OPL1000-patch-download-tool-user-guide.files/image013.=
 png"
@@ -10751,8 +10812,9 @@ style=3D'font-variant:normal !important;text-transform:uppercase'>Contact<o=
 <p class=3DMsoNormal align=3Dright style=3D'text-align:right'><span
 class=3DMsoHyperlink><span lang=3DEN-US style=3D'font-size:12.0pt;line-heig=
 ht:140%;
-color:windowtext'><a href=3D"mailto:sales@Opulinks.com"><span style=3D'colo=
-r:windowtext'>sales@Opulinks.com</span></a></span></span><span
+mso-color-alt:windowtext'><a href=3D"mailto:sales@Opulinks.com"><span
+style=3D'mso-color-alt:windowtext'>sales@Opulinks.com</span></a></span></sp=
+an><span
 lang=3DEN-US style=3D'font-size:12.0pt;line-height:140%'><o:p></o:p></span>=
 </p>
 
@@ -10766,7 +10828,7 @@ lang=3DEN-US style=3D'font-size:12.0pt;line-height:140%'><o:p></o:p></span>=
 
 </html>
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0001.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10775,7 +10837,7 @@ Content-Type: text/xml
 erties xmlns=3D"http://schemas.microsoft.com/office/2006/coverPageProps"><P=
 ublishDate/><Abstract/><CompanyAddress/><CompanyPhone/><CompanyFax/><Compan=
 yEmail/></CoverPageProperties>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props002.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10785,7 +10847,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 06/coverPageProps"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0003.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10793,7 +10855,7 @@ Content-Type: text/xml
 <?mso-contentType?><FormTemplates xmlns=3D"http://schemas.microsoft.com/sha=
 repoint/v3/contenttype/forms"><Display>DocumentLibraryForm</Display><Edit>A=
 ssetEditForm</Edit><New>DocumentLibraryForm</New></FormTemplates>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props004.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10803,7 +10865,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/sharepoin=
 t/v3/contenttype/forms"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0005.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10938,7 +11000,7 @@ thor><IntlLocPriority xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:ni=
 l=3D"true"></IntlLocPriority><Provider xmlns=3D"c66daf58-3c46-4c48-8560-c48=
 5e881f7f9" xsi:nil=3D"true"></Provider><TaxCatchAll xmlns=3D"c66daf58-3c46-=
 4c48-8560-c485e881f7f9"/></documentManagement></p:properties>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props006.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10951,7 +11013,7 @@ s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 om/office/infopath/2007/PartnerControls"/><ds:schemaRef ds:uri=3D"c66daf58-=
 3c46-4c48-8560-c485e881f7f9"/><ds:schemaRef ds:uri=3D"8e8ea6d1-e150-4704-b4=
 7c-0a92d6aed386"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0007.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12408,7 +12470,7 @@ s:element>
 <xs:element name=3D"TermId" type=3D"xs:string"></xs:element>
 </xs:schema>
 </ct:contentTypeSchema>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props008.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12429,7 +12491,7 @@ ds:uri=3D"http://schemas.openxmlformats.org/package/2006/metadata/core-prop=
 erties"/><ds:schemaRef ds:uri=3D"http://purl.org/dc/elements/1.1/"/><ds:sch=
 emaRef ds:uri=3D"http://purl.org/dc/terms/"/><ds:schemaRef ds:uri=3D"http:/=
 /schemas.microsoft.com/internal/obd"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0009.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12437,17 +12499,17 @@ Content-Type: text/xml
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"yes"?><b:Sources Sel=
 ectedStyle=3D"\APA.XSL" StyleName=3D"APA" xmlns:b=3D"http://schemas.openxml=
 formats.org/officeDocument/2006/bibliography"></b:Sources>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props010.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{9802EC52-BCA0-40E9-A6F1-499B7D4CA2F2}" xmln=
+<ds:datastoreItem ds:itemID=3D"{A566C2ED-04B6-431A-8929-59DDBC17C31B}" xmln=
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.openxmlformats.org/offi=
 ceDocument/2006/bibliography"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
@@ -12510,7 +12572,7 @@ AAAAAAAAANYCAAB0aGVtZS90aGVtZS90aGVtZTEueG1sUEsBAi0AFAAGAAgAAAAhAA3RkJ+2AAAA
 GwEAACcAAAAAAAAAAAAAAAAAJAoAAHRoZW1lL3RoZW1lL19yZWxzL3RoZW1lTWFuYWdlci54bWwu
 cmVsc1BLBQYAAAAABQAFAF0BAAAfCwAAAAA=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12520,7 +12582,7 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image001.jpg
 Content-Transfer-Encoding: base64
 Content-Type: image/jpeg
@@ -12795,7 +12857,7 @@ PfHnJVizq1Y3KcJJaZuMOREBO8hlx5K09iXAPRQVpK8vePpdIi808RdZ6Fuz22lb/kpU6P7VBsLJ
 W21cKDpr+zQDpvNBc1AoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFA
 oFAoP//Z
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image002.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -12860,7 +12922,7 @@ fhYXt1rzaILGG5gPxA0AHf+RXP6xm/4dPVgni4obuHogbgDUoesjfr9EDbdsDw0QNwAAAKsD4gYA
 AGB1QNwAAACsDogbAACA1QFxAwAAsDogbgAAAFYHxA0AAMDKGIb/AyJNFL6hsbJnAAAAAElFTkSu
 QmCC
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image003.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -13505,7 +13567,7 @@ ACCU6r6+bhwSijkAAAAAAKFU9/V145AUU8z7UswBAAAAAB1MdV9fNw5JsUfMX3kp3mIAAAAAADrE
 ijkAAAAAAHWgmAMAAAAA0IMo5gAAAAAA9CCKOQAAAAAAPYhiDgAAAABAD6KYAwAAAADQg5pTzN8z
 /x96cR0ErtRdTQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image004.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -16981,7 +17043,7 @@ sBGwEbARsBH4J0XAain+SeGzO9sI2AjYCNgI2AjYCGgELKSwvwk2AjYCNgI2AjYCNgK/gwhYSPE7
 CKI9hI2AjYCNgI2AjYCNgIUU9nfARsBGwEbARsBGwEbgdxABCyl+B0G0h7ARsBGwEbARsBGwEbCQ
 wv4O2AjYCNgI2AjYCNgI/A4i8H8BmSxGVS3J9owAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image005.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17037,7 +17099,7 @@ FtOjzxSCdGjM/Px8+dX4NGc/TtnXkHMJDcIIDZBAaOoRGiCB0NQjNEACoalHaIAEQlOP0AAJhKYe
 oQESCE09QgMkEJp6hAZIIDT1CA2QQGjqfdjQAFsK/ZxhvQ8ZGgD/FkIDoDlCA6A5QgOgOUIDoDlC
 A6A5QgOgOUIDoDlCA6A5JzQA0IoOjV0fANjeb/V/1CEepdtbMnoAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image006.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17175,7 +17237,7 @@ KAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCN
 MgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFDNj2VURERERGTNxP45KaMi
 IiIiIn8zyqiIiIiIVIsyKiIiIiKV8p/m/wOMPvpGU7skngAAAABJRU5ErkJggk==
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image007.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17741,7 +17803,7 @@ ACgYZRsAAAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsA
 AAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsAAAAAgIJR
 tgEAAAAAKBhlGwAAAACAglG2AQAAAAAoWO2y/Z76/+ntYtxr6+RrAAAAAElFTkSuQmCC
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image008.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17950,7 +18012,7 @@ CKMAAAAAsBtPh1FERERExGeMKAqjAAAAAABrQBgFAAAAgN0gjAIAAADAbhBGAQAAAGA3CKMAAAAA
 sBuEUQAAAADYDcIoAAAAAOwGYRQAAAAAdmM2jCIiIiIirqnNn5MwioiIiIi4pYRRRERERNxNwigi
 IiIi7iZhFBERERF3kzCKiIiIiLtJGEVERETEnfz37f8Dhy/JN4qk+yMAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image009.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18041,7 +18103,7 @@ AEAqBRQAgFQKKAAAqRRQAABSKaAAAKRSQAEASKWAAgCQSgEFACCVAgoAQCoFFACAVAooAACpFFAA
 AFIpoAAApFJAAQBIpYACAJBKAQUAIJUCCgBAKgUUAIBUCigAAKm6BfS/w/8BmpZe3jrpC/gAAAAA
 SUVORK5CYIJ=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image010.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18079,7 +18141,7 @@ NJ5vebjxvy0FdNLbUMMRCIDAawmsvOP0WhhIDARAAASWCKCTLmHDJBAAARAQBNBJIQcQAAEQ6BJA
 J+0SxHwQAAEQQCeFBkAABECgSwCdtEsQ80EABEAAnRQaAAEQAIEuAXTSLkHMBwEQAAF0UmgABEAA
 BLoE/gDXkWO3aPdDuQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image011.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18166,7 +18228,7 @@ AJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQ
 gNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDS
 BwDw8F5e/g8OjPHxNkM3ewAAAABJRU5ErkJggk==
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image012.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -19253,7 +19315,7 @@ ef365fn5hw8frj/34uLi7du39+7du/4fcU0CBAgQIECAAIErBF69evXo0aO7d+9eU+nWrVs/knHv
 gACBEwnIuBPBGkuAAAECBAgQOK3A5Rcc+eevvz5+/HjaPaYTIECAAAECBAj0BM7Ozv4Fsdl68+rY
 Om8AAAAASUVORK5CYIJ=
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image013.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -20263,7 +20325,7 @@ rc3Rv7U8732eN9/Xe59/lPeZmx+hPndGfS7dNqKsWv/Iq+u0zVHX+K95R3jrpKbD8+r1cK8s3mv1
 Ot60m3f0NZZ39O8s/5j/9eqhnf+aJ715es335uUdc23d/qIetQ29Hvv7wPBnmj4mU62T8mhv3Sq9
 Mh3l9Mp9lHcsR/7WDv3ZEbbPfvtVue/++9v/B25+/miqbi0nAAAAAElFTkSuQmCC
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/header.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -20539,7 +20601,7 @@ er-top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.05pt;border:none;mso-border=
 -top-alt:
@@ -20554,7 +20616,7 @@ er-top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -20593,9 +20655,11 @@ S><span
 style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; </span>Copyright
-&copy; 2017, <span class=3DSpellE>Opulinks</span>. All Rights <span class=
-=3DGramE>Reserved..</span></span></p>
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; </span>Copyright
+&copy; 2017, Opulinks. All Rights Reserved..</span></p>
 
 </div>
 
@@ -20674,8 +20738,8 @@ t'><span
   style=3D'mso-bookmark:_Hlk496204885'></span>
   <p class=3DMsoNormal><span style=3D'mso-bookmark:_Hlk496204885'><span lan=
 g=3DEN-US
-  style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%'><o:p=
->&nbsp;</o:p></span></span></p>
+  style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%;color=
+:white'><o:p>&nbsp;</o:p></span></span></p>
   </td>
   <span style=3D'mso-bookmark:_Hlk496204885'></span>
   <td width=3D19 valign=3Dtop style=3D'width:14.15pt;border:none;padding:0c=
@@ -20699,8 +20763,8 @@ ndowtext .5pt;
   height:7.0pt'><span style=3D'mso-bookmark:_Hlk496204885'></span>
   <p class=3DMsoNormal><span style=3D'mso-bookmark:_Hlk496204885'><span lan=
 g=3DEN-US
-  style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%'><o:p=
->&nbsp;</o:p></span></span></p>
+  style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%;color=
+:white'><o:p>&nbsp;</o:p></span></span></p>
   </td>
   <span style=3D'mso-bookmark:_Hlk496204885'></span>
  </tr>
@@ -20748,8 +20812,8 @@ right 411.1pt'><span lang=3DEN-US>Copyright &copy; 2017-2018, Opulinks. All=
  Rights
 Reserved.</span></p>
 
-<p class=3DMsoFooter style=3D'margin-right:-1.35pt;tab-stops:right 411.1pt'>=
-<span
+<p class=3DMsoFooter style=3D'margin-right:-1.35pt;tab-stops:right 411.1pt'=
+><span
 lang=3DEN-US>OPL1000-patch-download-tool-user-guide-R0</span><span lang=3DE=
 N-US
 style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii-theme-font:m=
@@ -20816,7 +20880,7 @@ top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
@@ -20831,7 +20895,7 @@ r-top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -20892,7 +20956,7 @@ top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
@@ -20907,7 +20971,7 @@ r-top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -20968,7 +21032,7 @@ top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
@@ -20983,7 +21047,7 @@ r-top-alt:
   padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -21036,7 +21100,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
   height:7.0pt'>
@@ -21049,7 +21113,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -21218,7 +21282,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
   height:7.0pt'>
@@ -21231,7 +21295,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -21287,7 +21351,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
   height:7.0pt'>
@@ -21300,7 +21364,7 @@ ckground-themecolor:
   text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
-  10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
+  10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
 </table>
@@ -21313,7 +21377,7 @@ ckground-themecolor:
 
 </html>
 
-------=_NextPart_01D42DC2.907E7920
+------=_NextPart_01D48BCF.9533D440
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
@@ -21348,4 +21412,4 @@ Content-Type: text/xml; charset="utf-8"
  <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
 </xml>
-------=_NextPart_01D42DC2.907E7920--
+------=_NextPart_01D48BCF.9533D440--
