@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01D48BCF.9533D440"
+Content-Type: multipart/related; boundary="----=_NextPart_01D48D8C.1D1C5180"
 
 ´ËÎÄµµÎª¡°µ¥¸öÎÄ¼şÍøÒ³¡±£¬Ò²³ÆÎª¡°Web µµ°¸¡±ÎÄ¼ş¡£Èç¹ûÄú¿´µ½´ËÏûÏ¢£¬µ«ÊÇÄúµÄä¯ÀÀÆ÷»ò±à¼­Æ÷²»Ö§³Ö¡°Web µµ°¸¡±ÎÄ¼ş¡£ÇëÏÂÔØÖ§³Ö¡°Web µµ°¸¡±µÄä¯ÀÀÆ÷¡£
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -33,12 +33,12 @@ w\:* {behavior:url(#default#VML);}
 <![endif]--><!--[if gte mso 9]><xml>
  <o:DocumentProperties>
   <o:Author>Officeuser1</o:Author>
-  <o:LastAuthor>admin</o:LastAuthor>
+  <o:LastAuthor>Lenovo</o:LastAuthor>
   <o:Revision>2</o:Revision>
   <o:TotalTime>494</o:TotalTime>
   <o:LastPrinted>2018-07-13T10:07:00Z</o:LastPrinted>
-  <o:Created>2018-12-04T04:47:00Z</o:Created>
-  <o:LastSaved>2018-12-04T04:47:00Z</o:LastSaved>
+  <o:Created>2018-12-06T09:50:00Z</o:Created>
+  <o:LastSaved>2018-12-06T09:50:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
   <o:Words>978</o:Words>
   <o:Characters>5581</o:Characters>
@@ -74,8 +74,6 @@ href=3D"OPL1000-patch-download-tool-user-guide.files/colorschememapping.xml=
 ">
 <!--[if gte mso 9]><xml>
  <w:WordDocument>
-  <w:SpellingState>Clean</w:SpellingState>
-  <w:GrammarState>Clean</w:GrammarState>
   <w:TrackMoves>false</w:TrackMoves>
   <w:TrackFormatting/>
   <w:PunctuationKerning/>
@@ -1000,7 +998,7 @@ ue"
 	mso-font-signature:3 680460288 22 0 262145 0;}
 @font-face
 	{font-family:PMingLiU;
-	panose-1:2 1 6 1 0 1 1 1 1 1;
+	panose-1:2 2 5 0 0 0 0 0 0 0;
 	mso-font-alt:ĞÂ¼šÃ÷ów;
 	mso-font-charset:136;
 	mso-generic-font-family:roman;
@@ -1017,7 +1015,6 @@ ue"
 @font-face
 	{font-family:"Cordia New";
 	panose-1:2 11 3 4 2 2 2 2 2 4;
-	mso-font-alt:"Cordia New";
 	mso-font-charset:222;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
@@ -1028,7 +1025,7 @@ ue"
 	mso-font-charset:0;
 	mso-generic-font-family:roman;
 	mso-font-pitch:variable;
-	mso-font-signature:-536869121 1107305727 33554432 0 415 0;}
+	mso-font-signature:3 0 0 0 1 0;}
 @font-face
 	{font-family:µÈÏß;
 	panose-1:2 1 6 0 3 1 1 1 1 1;
@@ -1095,15 +1092,20 @@ ue"
 	mso-font-pitch:variable;
 	mso-font-signature:647 0 0 0 159 0;}
 @font-face
-	{font-family:"\@Microsoft JhengHei";
-	panose-1:2 11 6 4 3 5 4 4 2 4;
+	{font-family:"\@Microsoft JhengHei UI";
 	mso-font-charset:136;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
 	mso-font-signature:679 684672000 22 0 1048585 0;}
 @font-face
-	{font-family:"\@Microsoft JhengHei UI";
-	panose-1:2 11 6 4 3 5 4 4 2 4;
+	{font-family:"\@ºÚÌå";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
+@font-face
+	{font-family:"\@Microsoft JhengHei";
 	mso-font-charset:136;
 	mso-generic-font-family:swiss;
 	mso-font-pitch:variable;
@@ -1122,13 +1124,6 @@ ue"
 	mso-generic-font-family:auto;
 	mso-font-pitch:variable;
 	mso-font-signature:-1610612033 953122042 22 0 262159 0;}
-@font-face
-	{font-family:"\@ºÚÌå";
-	panose-1:2 1 6 0 3 1 1 1 1 1;
-	mso-font-charset:134;
-	mso-generic-font-family:modern;
-	mso-font-pitch:fixed;
-	mso-font-signature:-2147482945 953122042 22 0 262145 0;}
 @font-face
 	{font-family:"\@PMingLiU";
 	panose-1:2 1 6 1 0 1 1 1 1 1;
@@ -4405,12 +4400,6 @@ span.apple-converted-space
 	mso-style-unhide:no;
 	mso-style-qformat:yes;
 	mso-style-parent:"";}
-span.SpellE
-	{mso-style-name:"";
-	mso-spl-e:yes;}
-span.GramE
-	{mso-style-name:"";
-	mso-gram-e:yes;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	mso-default-props:yes;
@@ -6625,10 +6614,9 @@ d'><span
  lang=3DEN-US style=3D'mso-bidi-font-size:72.0pt;font-family:"Microsoft Jhe=
 ngHei UI",sans-serif;
  text-transform:uppercase'>OPL1000<o:p></o:p></span></p>
- <p class=3Daf><span lang=3DEN-US style=3D'font-variant:normal !important;t=
-ext-transform:
- uppercase'>Ultra-Low Power 2.4GHz Wi-Fi + Bluetooth Smart SoC<o:p></o:p></=
-span></p>
+ <p class=3Daf><span lang=3DEN-US>Ultra-Low Power 2.4GHz Wi-Fi + Bluetooth =
+Smart
+ SoC</span></p>
  <p class=3DMsoSubtitle style=3D'word-break:break-all'><span lang=3DEN-US>P=
 atch
  Download Tool User Guide</span></p>
@@ -7059,9 +7047,7 @@ ction-break'>
  <div class=3DWordSection3><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of =
 Contents"
   DocPartUnique=3D"t" ID=3D"2002154435">
-  <p class=3DMsoTocHeading><span lang=3DEN-US style=3D'font-variant:normal =
-!important;
-  text-transform:uppercase'>Table Of Contents<o:p></o:p></span><span
+  <p class=3DMsoTocHeading><span lang=3DEN-US>Table Of Contents</span><span
   lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;mso=
 -color-alt:
   windowtext;mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sd=
@@ -7763,14 +7749,11 @@ style=3D'page-break-before:always;mso-break-type:section-break'>
 <div class=3DWordSection4><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of C=
 ontents"
  DocPartUnique=3D"t" ID=3D"-655690572">
- <p class=3DMsoTocHeading><span lang=3DEN-US style=3D'font-variant:normal !=
-important;
- text-transform:uppercase'>List Of Figures<o:p></o:p></span><span lang=3DEN=
--US
- style=3D'font-size:10.0pt;font-variant:normal !important;mso-color-alt:win=
-dowtext;
- text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
-pan></p>
+ <p class=3DMsoTocHeading><span lang=3DEN-US>List Of Figures</span><span
+ lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;mso-=
+color-alt:
+ windowtext;text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></=
+w:sdtPr></span></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
 -size:
  9.0pt;mso-bidi-font-size:10.0pt;font-weight:normal'><span style=3D'mso-ele=
@@ -8352,10 +8335,8 @@ style=3D'page-break-before:always;mso-break-type:section-break'>
 <div class=3DWordSection5><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of C=
 ontents"
  DocPartUnique=3D"t" ID=3D"-972668488">
- <p class=3DMsoTocHeading><span lang=3DEN-US style=3D'font-variant:normal !=
-important;
- text-transform:uppercase'>List Of Tables<o:p></o:p></span><span lang=3DEN-=
-US
+ <p class=3DMsoTocHeading><span lang=3DEN-US>List Of Tables</span><span lan=
+g=3DEN-US
  style=3D'font-size:10.0pt;font-variant:normal !important;mso-color-alt:win=
 dowtext;
  text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
@@ -8540,8 +8521,8 @@ rmal'><span
 ttom:solid windowtext 1.0pt;
   mso-border-top-alt:solid windowtext 1.0pt;padding:0cm 3.6pt 0cm 3.6pt'>
   <p class=3DMsoNormal style=3D'margin-top:3.0pt;line-height:normal'><span
-  style=3D'mso-bookmark:_Toc509069588'><span class=3DSpellE><span lang=3DEN=
--US>DevKit</span></span></span></p>
+  style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US>DevKit</span></sp=
+an></p>
   </td>
   <span style=3D'mso-bookmark:_Toc509069588'></span>
   <td width=3D425 valign=3Dtop style=3D'width:318.95pt;border:none;border-b=
@@ -8569,10 +8550,9 @@ ottom:
   solid windowtext 1.0pt;mso-border-top-alt:solid windowtext 1.0pt;padding:
   0cm 3.6pt 0cm 3.6pt'>
   <p class=3DMsoNormal style=3D'margin-top:3.0pt;line-height:normal'><span
-  style=3D'mso-bookmark:_Toc509069588'><span class=3DSpellE><span lang=3DEN=
--US>FirmWare</span></span><span
-  lang=3DEN-US> </span><span lang=3DZH-TW>¹Ì¼ş£¬´¦ÀíÆ÷ÉÏÔËĞĞµÄÇ¶ÈëÊ½Èí¼ş</s=
-pan></span></p>
+  style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US>FirmWare </span><=
+span
+  lang=3DZH-TW>¹Ì¼ş£¬´¦ÀíÆ÷ÉÏÔËĞĞµÄÇ¶ÈëÊ½Èí¼ş</span></span></p>
   </td>
   <span style=3D'mso-bookmark:_Toc509069588'></span>
  </tr>
@@ -8826,9 +8806,9 @@ t-language:
 ZH-CN'><o:p></o:p></span></span></p>
 
 <table class=3Dafc border=3D1 cellspacing=3D0 cellpadding=3D0 width=3D"100%"
- style=3D'width:100.0%;border-collapse:collapse;border:none;mso-border-top-=
-alt:
- solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext 1.0pt;
+ style=3D'border-collapse:collapse;mso-table-layout-alt:fixed;border:none;
+ mso-border-top-alt:solid windowtext 1.0pt;mso-border-bottom-alt:solid wind=
+owtext 1.0pt;
  mso-yfti-tbllook:1056;mso-padding-alt:0cm 3.6pt 0cm 3.6pt'>
  <thead>
   <tr style=3D'mso-yfti-irow:-1;mso-yfti-firstrow:yes;mso-yfti-lastfirstrow=
@@ -9022,12 +9002,10 @@ ZH-TW>ÏÂÔØ¹¤¾ß½éÉÜ</span></span></a></span></h1>
 <p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
 =3DEN-US><o:p>&nbsp;</o:p></span></span></p>
 
-<p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span class=
-=3DSpellE><span
-lang=3DEN-US>Patch_download</span></span><span lang=3DZH-TW>¹¤¾ßÖ÷ÒªÓĞ</spa=
-n><span
-lang=3DEN-US>4</span><span lang=3DZH-TW>²¿·Ö¹¹³É£¬ÈçÍ¼</span></span><!--[if=
- supportFields]><span
+<p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
+=3DEN-US>Patch_download</span><span
+lang=3DZH-TW>¹¤¾ßÖ÷ÒªÓĞ</span><span lang=3DEN-US>4</span><span lang=3DZH-TW=
+>²¿·Ö¹¹³É£¬ÈçÍ¼</span></span><!--[if supportFields]><span
 style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-element:fiel=
 d-begin'></span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US> REF _Ref511406117 =
@@ -9117,14 +9095,9 @@ mso-bidi-font-family:"Microsoft JhengHei UI"'><span style=3D'mso-list:Ignor=
 e'>b.<span
 style=3D'font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </spa=
 n></span></span><![endif]><span
-class=3DSpellE><span lang=3DEN-US style=3D'font-size:10.0pt;line-height:106=
-%;
-font-family:"Microsoft JhengHei UI",sans-serif'>builed</span></span></span>=
-<span
-style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'font-size:=
-10.0pt;
-line-height:106%;font-family:"Microsoft JhengHei UI",sans-serif'> OTA image=
-<o:p></o:p></span></span></p>
+lang=3DEN-US style=3D'font-size:10.0pt;line-height:106%;font-family:"Micros=
+oft JhengHei UI",sans-serif'>builed
+OTA image<o:p></o:p></span></span></p>
 
 <p class=3DMsoListParagraphCxSpMiddle style=3D'text-indent:-18.0pt;mso-list=
 :l6 level1 lfo40'><span
@@ -9280,17 +9253,15 @@ span></span></a></span></h2>
 style=3D'font-family:"Microsoft JhengHei",sans-serif;mso-ascii-theme-font:m=
 inor-fareast;
 mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-fareast;
-mso-fareast-language:ZH-CN'>OPL1000 <span class=3DSpellE>DevKit</span></spa=
-n></span><span
-style=3D'mso-bookmark:_Toc509069588'><span style=3D'font-family:"Microsoft =
-JhengHei",sans-serif;
+mso-fareast-language:ZH-CN'>OPL1000 DevKit</span></span><span style=3D'mso-=
+bookmark:
+_Toc509069588'><span style=3D'font-family:"Microsoft JhengHei",sans-serif;
 mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
 mso-hansi-theme-font:minor-fareast;mso-fareast-language:ZH-CN'>°åÄ¬ÈÏ¿ª·ÅÁ½=
 ¸ö´®¿Ú£¬¼´Á¬½Ó<span
-class=3DSpellE><span lang=3DEN-US>miniUSB</span></span>µÄ<span lang=3DEN-US=
->AT</span>´®¿ÚºÍ<span
-lang=3DEN-US>DEBUG </span>´®¿Ú¡£<span lang=3DEN-US><o:p></o:p></span></span=
-></span></p>
+lang=3DEN-US>miniUSB</span>µÄ<span lang=3DEN-US>AT</span>´®¿ÚºÍ<span lang=
+=3DEN-US>DEBUG </span>´®¿Ú¡£<span
+lang=3DEN-US><o:p></o:p></span></span></span></p>
 
 <p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
 =3DEN-US
@@ -9401,8 +9372,8 @@ _Toc521349962'></span></span></span></span><span style=3D'mso-bookmark:_Toc=
 512592316'><span
 style=3D'mso-bookmark:_Toc512268044'><span style=3D'mso-bookmark:_Toc521349=
 962'><span
-lang=3DEN-US style=3D'mso-no-proof:yes'>:</span><span lang=3DEN-US> <span
-class=3DSpellE>DevKit</span></span></span></span></span></span><span
+lang=3DEN-US style=3D'mso-no-proof:yes'>:</span><span lang=3DEN-US> DevKit<=
+/span></span></span></span></span><span
 style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-bookmark:_Toc512592=
 316'><span
 style=3D'mso-bookmark:_Toc512268044'><span style=3D'mso-bookmark:_Toc521349=
@@ -9438,10 +9409,9 @@ mso-bidi-font-family:Wingdings'><span style=3D'mso-list:Ignore'>n<span
 style=3D'font:7.0pt "Times New Roman"'> </span></span></span><![endif]><span
 lang=3DEN-US>UART model</span><span lang=3DZH-TW>µÄ</span><span lang=3DEN-U=
 S>Rx</span><span
-lang=3DZH-TW>Á¬½Óµ½</span><span class=3DSpellE><span lang=3DEN-US>DevKit</s=
-pan></span><span
-lang=3DZH-TW>°åµÄ</span><span lang=3DEN-US>IO8</span><span lang=3DZH-TW>¿Ú<=
-/span></span></p>
+lang=3DZH-TW>Á¬½Óµ½</span><span lang=3DEN-US>DevKit</span><span lang=3DZH-T=
+W>°åµÄ</span><span
+lang=3DEN-US>IO8</span><span lang=3DZH-TW>¿Ú</span></span></p>
 
 <p class=3D10 style=3D'mso-list:l11 level1 lfo4'><span style=3D'mso-bookmar=
 k:_Toc509069588'><![if !supportLists]><span
@@ -9451,11 +9421,9 @@ mso-bidi-font-family:Wingdings'><span style=3D'mso-list:Ignore'>n<span
 style=3D'font:7.0pt "Times New Roman"'> </span></span></span><![endif]><span
 lang=3DEN-US>UART model </span><span lang=3DZH-TW>µÄ</span><span lang=3DEN-=
 US>Tx </span><span
-lang=3DZH-TW>Á¬½Óµ½</span><span class=3DSpellE><span lang=3DEN-US>DevKit</s=
-pan></span><span
-lang=3DEN-US> </span><span lang=3DZH-TW>°åµÄ</span><span lang=3DEN-US>IO9</=
-span><span
-lang=3DZH-TW>¿Ú</span></span></p>
+lang=3DZH-TW>Á¬½Óµ½</span><span lang=3DEN-US>DevKit </span><span lang=3DZH-=
+TW>°åµÄ</span><span
+lang=3DEN-US>IO9</span><span lang=3DZH-TW>¿Ú</span></span></p>
 
 <p class=3D10 style=3D'mso-list:l11 level1 lfo4'><span style=3D'mso-bookmar=
 k:_Toc509069588'><![if !supportLists]><span
@@ -9465,13 +9433,12 @@ mso-bidi-font-family:Wingdings'><span style=3D'mso-list:Ignore'>n<span
 style=3D'font:7.0pt "Times New Roman"'> </span></span></span><![endif]><span
 lang=3DEN-US>UART model </span><span lang=3DZH-TW>µÄ</span><span lang=3DEN-=
 US>ground</span><span
-lang=3DZH-TW>Á¬½Ó</span><span class=3DSpellE><span lang=3DEN-US>DevKit</spa=
-n></span><span
-lang=3DZH-TW>µÄ½ÓµØ½Å£¬Èç</span><span lang=3DEN-US>J3</span><span lang=3DZH=
--TW>µÄ</span><span
-lang=3DEN-US>12</span><span lang=3DZH-TW>»ò</span><span lang=3DEN-US>14 pin=
- </span><span
-lang=3DZH-TW>½ÅµÈ</span></span></p>
+lang=3DZH-TW>Á¬½Ó</span><span lang=3DEN-US>DevKit</span><span lang=3DZH-TW>=
+µÄ½ÓµØ½Å£¬Èç</span><span
+lang=3DEN-US>J3</span><span lang=3DZH-TW>µÄ</span><span lang=3DEN-US>12</sp=
+an><span
+lang=3DZH-TW>»ò</span><span lang=3DEN-US>14 pin </span><span lang=3DZH-TW>½=
+ÅµÈ</span></span></p>
 
 <h2 style=3D'mso-list:l2 level2 lfo2'><span style=3D'mso-bookmark:_Toc50906=
 9588'><a
@@ -9702,9 +9669,8 @@ style=3D'mso-bookmark:_Toc509069588'><span style=3D'color:black;mso-themeco=
 lor:
 text1;mso-fareast-language:ZH-CN'>ÎÄ¼ş¹Ì¶¨Îª<span lang=3DEN-US>SDK</span>Ä¿=
 Â¼ÏÂ<span
-class=3DSpellE><span lang=3DEN-US>FW_Binary</span></span><span lang=3DEN-US=
->/PatchData.txt</span>¡£<span
-lang=3DEN-US><o:p></o:p></span></span></span></p>
+lang=3DEN-US>FW_Binary/PatchData.txt</span>¡£<span lang=3DEN-US><o:p></o:p>=
+</span></span></span></p>
 
 <p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
 =3DEN-US
@@ -9714,9 +9680,8 @@ style=3D'mso-bookmark:_Toc509069588'><span style=3D'color:black;mso-themeco=
 lor:
 text1;mso-fareast-language:ZH-CN'>ÎÄ¼ş¹Ì¶¨Îª<span lang=3DEN-US>SDK</span>Ä¿=
 Â¼ÏÂ<span
-class=3DSpellE><span lang=3DEN-US>FW_Binary</span></span><span lang=3DEN-US=
->/opl1000_m0.bin</span>¡£<span
-lang=3DEN-US><o:p></o:p></span></span></span></p>
+lang=3DEN-US>FW_Binary/opl1000_m0.bin</span>¡£<span lang=3DEN-US><o:p></o:p=
+></span></span></span></p>
 
 <p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
 =3DEN-US
@@ -9746,10 +9711,9 @@ k;
 mso-themecolor:text1;mso-fareast-language:ZH-CN'><o:p></o:p></span></span><=
 /h3>
 
-<p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span class=
-=3DSpellE><span
-lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'>Patch_download</span></sp=
-an></span><span
+<p class=3DMsoNormal><span style=3D'mso-bookmark:_Toc509069588'><span lang=
+=3DEN-US
+style=3D'mso-fareast-language:ZH-CN'>Patch_download</span></span><span
 style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-fareast-language:ZH=
 -CN'>¹¤¾ßÌá¹©ÁËÒ»¸ö<span
 lang=3DEN-US>Bin</span>ÎÄ¼şºÏ²¢¹¦ÄÜ¡£ÈçÍ¼</span></span><!--[if supportField=
@@ -10120,19 +10084,18 @@ style=3D'mso-fareast-language:ZH-CN'>ÔØÈë<span lang=3DEN-US>opl1000.bin </s=
 pan>Ê±£¬³ÌĞò»á×Ô¶¯¼ÆËã<span
 lang=3DEN-US>check-sum</span>£¬²¢¸ù¾İ<span lang=3DEN-US>Production ID, Chip=
  ID</span>£¬<span
-class=3DSpellE><span lang=3DEN-US>FirmwareID</span></span>Ñ¡ÔñÌî³ä¡°<span l=
-ang=3DEN-US>Header
-Definition</span>¡±ÇøÓòµÄÊıÖµ¡£ÓÃ»§¿ÉÒÔÊÖ¶¯¶¨Òå<span lang=3DEN-US>Firmware =
-ID </span></span></span><span
-style=3D'mso-bookmark:_Toc509069588'><span style=3D'font-family:ºÚÌå;mso-fa=
-reast-language:
-ZH-CN'>¡£</span></span><span style=3D'mso-bookmark:_Toc509069588'><span
-lang=3DEN-US style=3D'mso-fareast-language:ZH-CN'>Firmware ID</span></span>=
+lang=3DEN-US>FirmwareID</span>Ñ¡ÔñÌî³ä¡°<span lang=3DEN-US>Header Definitio=
+n</span>¡±ÇøÓòµÄÊıÖµ¡£ÓÃ»§¿ÉÒÔÊÖ¶¯¶¨Òå<span
+lang=3DEN-US>Firmware ID </span></span></span><span style=3D'mso-bookmark:_=
+Toc509069588'><span
+style=3D'font-family:ºÚÌå;mso-fareast-language:ZH-CN'>¡£</span></span><span
+style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'mso-fareas=
+t-language:
+ZH-CN'>Firmware ID</span></span><span style=3D'mso-bookmark:_Toc509069588'>=
 <span
-style=3D'mso-bookmark:_Toc509069588'><span style=3D'mso-fareast-language:ZH=
--CN'>ÓÃÓÚ±êÊ¶²»Í¬°æ±¾µÄ<span
-lang=3DEN-US>OTA image</span>ÎÄ¼ş¡£<span lang=3DEN-US><o:p></o:p></span></s=
-pan></span></p>
+style=3D'mso-fareast-language:ZH-CN'>ÓÃÓÚ±êÊ¶²»Í¬°æ±¾µÄ<span lang=3DEN-US>O=
+TA image</span>ÎÄ¼ş¡£<span
+lang=3DEN-US><o:p></o:p></span></span></span></p>
 
 <h2 style=3D'mso-list:l2 level2 lfo2'><span style=3D'mso-bookmark:_Toc50906=
 9588'><a
@@ -10171,10 +10134,9 @@ lang=3DEN-US>OTA Image</span>ÎÄ¼ş¡£Ä¬ÈÏµØÔËĞĞ¹ı<span lang=3DEN-US>Pack </sp=
 an>Ò³Ãæ<span
 lang=3DEN-US>Pack</span>²Ù×÷ºó£¬£¬´¿<span lang=3DEN-US>M3+M0 Bin</span>ÎÄ¼ş=
 ÃûºÍÂ·¾¶»á±»ÌîÈë<span
-class=3DGramE><span lang=3DEN-US>¡±</span></span><span lang=3DEN-US>Patch B=
-in¡±</span>ÎÄ±¾¿ò¡£ÓÃ»§Ò²¿ÉÒÔÊÖ¶¯Ñ¡ÔñÖ¸¶¨ĞèÒªÏÂÔØµÄ<span
-lang=3DEN-US>Bin</span>ÎÄ¼ş¡£<span lang=3DEN-US><o:p></o:p></span></span></=
-span></p>
+lang=3DEN-US>¡±Patch Bin¡±</span>ÎÄ±¾¿ò¡£ÓÃ»§Ò²¿ÉÒÔÊÖ¶¯Ñ¡ÔñÖ¸¶¨ĞèÒªÏÂÔØµÄ<s=
+pan lang=3DEN-US>Bin</span>ÎÄ¼ş¡£<span
+lang=3DEN-US><o:p></o:p></span></span></span></p>
 
 <p class=3DFigure><span style=3D'mso-bookmark:_Toc509069588'><a name=3D"_To=
 c521349967"></a><a
@@ -10285,9 +10247,8 @@ style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-bookmark:_To=
 c509069588'><span
 style=3D'mso-fareast-language:ZH-CN'>ÖĞµÄ<span lang=3DEN-US>Download</span>=
 °´Å¥£¬²¢ÔÚ<span
-lang=3DEN-US>5</span>ÃëÄÚĞèÒªÊÖ¶¯°´<span class=3DSpellE><span lang=3DEN-US>=
-DevKit</span></span>°åÉÏµÄ¸´Î»°´¼ü£¨Èç</span></span><!--[if supportFields]>=
-<span
+lang=3DEN-US>5</span>ÃëÄÚĞèÒªÊÖ¶¯°´<span lang=3DEN-US>DevKit</span>°åÉÏµÄ¸´=
+Î»°´¼ü£¨Èç</span></span><!--[if supportFields]><span
 style=3D'mso-bookmark:_Toc509069588'></span><span style=3D'mso-element:fiel=
 d-begin'></span><span
 style=3D'mso-bookmark:_Toc509069588'><span lang=3DEN-US style=3D'mso-fareas=
@@ -10318,13 +10279,11 @@ style=3D'mso-fareast-language:ZH-CN'>¡¯</span></b></span><span style=3D'mso=
 -bookmark:
 _Toc509069588'><span style=3D'mso-fareast-language:ZH-CN'>£©£¬ÔòºÏ²¢ºóµÄ<sp=
 an
-lang=3DEN-US>Bin</span>ÎÄ¼ş»á±»ÏÂÔØµ½<span class=3DSpellE><span lang=3DEN-U=
-S>DevKit</span></span><span
-lang=3DEN-US><span style=3D'mso-spacerun:yes'>&nbsp; </span>Flash</span>ÖĞ¡=
-£Èç¹ûÏÂÔØ³É¹¦£¬ĞÅÏ¢ÌáÊ¾¿òÖĞ£¬»áÌáÊ¾<span
-class=3DGramE><b style=3D'mso-bidi-font-weight:normal'>¡¯</b></span><b
-style=3D'mso-bidi-font-weight:normal'><span lang=3DEN-US>Download path\opl1=
-000.bin
+lang=3DEN-US>Bin</span>ÎÄ¼ş»á±»ÏÂÔØµ½<span lang=3DEN-US>DevKit<span
+style=3D'mso-spacerun:yes'>&nbsp; </span>Flash</span>ÖĞ¡£Èç¹ûÏÂÔØ³É¹¦£¬ĞÅÏ¢=
+ÌáÊ¾¿òÖĞ£¬»áÌáÊ¾<b
+style=3D'mso-bidi-font-weight:normal'>¡¯<span lang=3DEN-US>Download path\op=
+l1000.bin
 successfully !</span>¡¯</b>¡£</span></span><span style=3D'mso-bookmark:_Toc=
 509069588'><span
 lang=3DEN-US style=3D'mso-fareast-font-family:ºÚÌå;mso-fareast-language:ZH-=
@@ -10805,9 +10764,8 @@ png"
 <p class=3Dae style=3D'margin-top:360.0pt;margin-right:25.4pt;margin-bottom=
 :18.0pt;
 margin-left:1.4pt;mso-para-margin-top:30.0gd;mso-para-margin-right:25.4pt;
-mso-para-margin-bottom:18.0pt;mso-para-margin-left:1.4pt'><span lang=3DEN-US
-style=3D'font-variant:normal !important;text-transform:uppercase'>Contact<o=
-:p></o:p></span></p>
+mso-para-margin-bottom:18.0pt;mso-para-margin-left:1.4pt'><span lang=3DEN-U=
+S>Contact</span></p>
 
 <p class=3DMsoNormal align=3Dright style=3D'text-align:right'><span
 class=3DMsoHyperlink><span lang=3DEN-US style=3D'font-size:12.0pt;line-heig=
@@ -10828,7 +10786,7 @@ lang=3DEN-US style=3D'font-size:12.0pt;line-height:140%'><o:p></o:p></span>=
 
 </html>
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0001.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10837,7 +10795,7 @@ Content-Type: text/xml
 erties xmlns=3D"http://schemas.microsoft.com/office/2006/coverPageProps"><P=
 ublishDate/><Abstract/><CompanyAddress/><CompanyPhone/><CompanyFax/><Compan=
 yEmail/></CoverPageProperties>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props002.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10847,174 +10805,8 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 06/coverPageProps"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0003.xml
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/xml
-
-<?mso-contentType?><FormTemplates xmlns=3D"http://schemas.microsoft.com/sha=
-repoint/v3/contenttype/forms"><Display>DocumentLibraryForm</Display><Edit>A=
-ssetEditForm</Edit><New>DocumentLibraryForm</New></FormTemplates>
-------=_NextPart_01D48BCF.9533D440
-Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props004.xml
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/xml
-
-<?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{699AAE84-6C4F-4937-BBF2-1EE5832040D5}" xmln=
-s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
-s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/sharepoin=
-t/v3/contenttype/forms"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D48BCF.9533D440
-Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0005.xml
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/xml
-
-<?xml version=3D"1.0" encoding=3D"utf-8"?><p:properties xmlns:p=3D"http://s=
-chemas.microsoft.com/office/2006/metadata/properties" xmlns:xsi=3D"http://w=
-ww.w3.org/2001/XMLSchema-instance" xmlns:pc=3D"http://schemas.microsoft.com=
-/office/infopath/2007/PartnerControls"><documentManagement><AssetStart xmln=
-s=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">2018-05-23T06:33:17+00:00</Asset=
-Start><CrawlForDependencies xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">=
-false</CrawlForDependencies><EditorialTags xmlns=3D"c66daf58-3c46-4c48-8560=
--c485e881f7f9" xsi:nil=3D"true"></EditorialTags><LocComments xmlns=3D"c66da=
-f58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></LocComments><LocRecomme=
-ndedHandoff xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"=
-></LocRecommendedHandoff><LocalizationTagsTaxHTField0 xmlns=3D"c66daf58-3c4=
-6-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/offi=
-ce/infopath/2007/PartnerControls"></Terms></LocalizationTagsTaxHTField0><TP=
-Namespace xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"><=
-/TPNamespace><OriginalRelease xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
-">15</OriginalRelease><BusinessGroup xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
-881f7f9" xsi:nil=3D"true"></BusinessGroup><PublishStatusLookup xmlns=3D"c66=
-daf58-3c46-4c48-8560-c485e881f7f9"/><ScenarioTagsTaxHTField0 xmlns=3D"c66da=
-f58-3c46-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.c=
-om/office/infopath/2007/PartnerControls"></Terms></ScenarioTagsTaxHTField0>=
-<AcquiredFrom xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Internal MS</A=
-cquiredFrom><OriginAsset xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi=
-:nil=3D"true"></OriginAsset><ArtSampleDocs xmlns=3D"c66daf58-3c46-4c48-8560=
--c485e881f7f9" xsi:nil=3D"true"></ArtSampleDocs><TrustLevel xmlns=3D"c66daf=
-58-3c46-4c48-8560-c485e881f7f9">1 Microsoft Managed Content</TrustLevel><UA=
-CurrentWords xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true=
-"></UACurrentWords><AssetId xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" =
-xsi:nil=3D"true"></AssetId><AssetType xmlns=3D"c66daf58-3c46-4c48-8560-c485=
-e881f7f9" xsi:nil=3D"true"></AssetType><DirectSourceMarket xmlns=3D"c66daf5=
-8-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></DirectSourceMarket><TPIns=
-tallLocation xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true=
-"></TPInstallLocation><NumericId xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f=
-7f9" xsi:nil=3D"true"></NumericId><OOCacheId xmlns=3D"c66daf58-3c46-4c48-85=
-60-c485e881f7f9" xsi:nil=3D"true"/><TemplateStatus xmlns=3D"c66daf58-3c46-4=
-c48-8560-c485e881f7f9" xsi:nil=3D"true"></TemplateStatus><AverageRating xml=
-ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><TPCommandLin=
-e xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPComma=
-ndLine><CSXUpdate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</CSX=
-Update><UAProjectedTotalWords xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
-" xsi:nil=3D"true"></UAProjectedTotalWords><TPExecutable xmlns=3D"c66daf58-=
-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPExecutable><SourceTitle x=
-mlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></SourceTitl=
-e><EditorialStatus xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=
-=3D"true"></EditorialStatus><PublishTargets xmlns=3D"c66daf58-3c46-4c48-856=
-0-c485e881f7f9">OfficeOnlineVNext</PublishTargets><ThumbnailAssetId xmlns=
-=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ThumbnailAsset=
-Id><UALocComments xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D=
-"true"></UALocComments><AssetExpire xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
-81f7f9">2029-01-01T00:00:00+00:00</AssetExpire><CampaignTagsTaxHTField0 xml=
-ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.=
-microsoft.com/office/infopath/2007/PartnerControls"></Terms></CampaignTagsT=
-axHTField0><IntlLangReviewDate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f=
-9" xsi:nil=3D"true"/><DSATActionTaken xmlns=3D"c66daf58-3c46-4c48-8560-c485=
-e881f7f9" xsi:nil=3D"true"></DSATActionTaken><PolicheckWords xmlns=3D"c66da=
-f58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></PolicheckWords><CSXSubm=
-issionDate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/=
-><ApprovalStatus xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">InProgress<=
-/ApprovalStatus><BugNumber xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" x=
-si:nil=3D"true"></BugNumber><LegacyData xmlns=3D"c66daf58-3c46-4c48-8560-c4=
-85e881f7f9" xsi:nil=3D"true"></LegacyData><Milestone xmlns=3D"c66daf58-3c46=
--4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Milestone><TPAppVersion xmlns=
-=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPAppVersion><=
-VoteCount xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"><=
-/VoteCount><Component xmlns=3D"8e8ea6d1-e150-4704-b47c-0a92d6aed386" xsi:ni=
-l=3D"true"/><IsSearchable xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">fa=
-lse</IsSearchable><IsDeleted xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
->false</IsDeleted><Downloads xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
->0</Downloads><OriginalSourceMarket xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
-81f7f9" xsi:nil=3D"true"></OriginalSourceMarket><APEditor xmlns=3D"c66daf58=
--3c46-4c48-8560-c485e881f7f9"><UserInfo><DisplayName></DisplayName><Account=
-Id xsi:nil=3D"true"></AccountId><AccountType/></UserInfo></APEditor><Primar=
-yImageGen xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</PrimaryImag=
-eGen><LocLastLocAttemptVersionLookup xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
-881f7f9" xsi:nil=3D"true"/><ParentAssetId xmlns=3D"c66daf58-3c46-4c48-8560-=
-c485e881f7f9" xsi:nil=3D"true"></ParentAssetId><Description0 xmlns=3D"8e8ea=
-6d1-e150-4704-b47c-0a92d6aed386" xsi:nil=3D"true"/><ClipArtFilename xmlns=
-=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ClipArtFilenam=
-e><APDescription xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"=
-true"></APDescription><FeatureTagsTaxHTField0 xmlns=3D"c66daf58-3c46-4c48-8=
-560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/office/infop=
-ath/2007/PartnerControls"></Terms></FeatureTagsTaxHTField0><OpenTemplate xm=
-lns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</OpenTemplate><ApprovalL=
-og xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Approv=
-alLog><BlockPublish xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</B=
-lockPublish><InternalTagsTaxHTField0 xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
-881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/office/infopath/2007/=
-PartnerControls"></Terms></InternalTagsTaxHTField0><MarketSpecific xmlns=3D=
-"c66daf58-3c46-4c48-8560-c485e881f7f9">false</MarketSpecific><TPLaunchHelpL=
-inkType xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Template</TPLaunchHe=
-lpLinkType><TPLaunchHelpLink xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
- xsi:nil=3D"true"></TPLaunchHelpLink><LocMarketGroupTiers2 xmlns=3D"c66daf5=
-8-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><RecommendationsModifier x=
-mlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Recommenda=
-tionsModifier><TemplateTemplateType xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
-81f7f9" xsi:nil=3D"true"></TemplateTemplateType><CSXSubmissionMarket xmlns=
-=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><HandoffToMSDN =
-xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><ShowIn xm=
-lns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Show everywhere</ShowIn><TPApp=
-lication xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></=
-TPApplication><TPClientViewer xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
-" xsi:nil=3D"true"></TPClientViewer><CSXHash xmlns=3D"c66daf58-3c46-4c48-85=
-60-c485e881f7f9" xsi:nil=3D"true"></CSXHash><IntlLangReview xmlns=3D"c66daf=
-58-3c46-4c48-8560-c485e881f7f9">false</IntlLangReview><IntlLangReviewer xml=
-ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></IntlLangRevi=
-ewer><TPComponent xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D=
-"true"></TPComponent><FriendlyTitle xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
-81f7f9" xsi:nil=3D"true"></FriendlyTitle><LastHandOff xmlns=3D"c66daf58-3c4=
-6-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><LastModifiedDateTime xmlns=3D"=
-c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><LocManualTestRequi=
-red xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</LocManualTestRequ=
-ired><Providers xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"t=
-rue"></Providers><TimesCloned xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
-" xsi:nil=3D"true"></TimesCloned><UANotes xmlns=3D"c66daf58-3c46-4c48-8560-=
-c485e881f7f9" xsi:nil=3D"true"></UANotes><ContentItem xmlns=3D"c66daf58-3c4=
-6-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ContentItem><Markets xmlns=3D"=
-c66daf58-3c46-4c48-8560-c485e881f7f9"/><UALocRecommendation xmlns=3D"c66daf=
-58-3c46-4c48-8560-c485e881f7f9">Localize</UALocRecommendation><TPFriendlyNa=
-me xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPFrie=
-ndlyName><MachineTranslated xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">=
-false</MachineTranslated><Manager xmlns=3D"c66daf58-3c46-4c48-8560-c485e881=
-f7f9" xsi:nil=3D"true"/><OutputCachingOn xmlns=3D"c66daf58-3c46-4c48-8560-c=
-485e881f7f9">false</OutputCachingOn><PlannedPubDate xmlns=3D"c66daf58-3c46-=
-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><SubmitterId xmlns=3D"c66daf58-3c=
-46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></SubmitterId><APAuthor xmlns=
-=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"><UserInfo><DisplayName></DisplayN=
-ame><AccountId xsi:nil=3D"true"></AccountId><AccountType/></UserInfo></APAu=
-thor><IntlLocPriority xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:ni=
-l=3D"true"></IntlLocPriority><Provider xmlns=3D"c66daf58-3c46-4c48-8560-c48=
-5e881f7f9" xsi:nil=3D"true"></Provider><TaxCatchAll xmlns=3D"c66daf58-3c46-=
-4c48-8560-c485e881f7f9"/></documentManagement></p:properties>
-------=_NextPart_01D48BCF.9533D440
-Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props006.xml
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/xml
-
-<?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{68668713-B5C3-4A39-AAB5-C13F692869D6}" xmln=
-s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
-s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
-06/metadata/properties"/><ds:schemaRef ds:uri=3D"http://schemas.microsoft.c=
-om/office/infopath/2007/PartnerControls"/><ds:schemaRef ds:uri=3D"c66daf58-=
-3c46-4c48-8560-c485e881f7f9"/><ds:schemaRef ds:uri=3D"8e8ea6d1-e150-4704-b4=
-7c-0a92d6aed386"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D48BCF.9533D440
-Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0007.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
@@ -12470,8 +12262,8 @@ s:element>
 <xs:element name=3D"TermId" type=3D"xs:string"></xs:element>
 </xs:schema>
 </ct:contentTypeSchema>
-------=_NextPart_01D48BCF.9533D440
-Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props008.xml
+------=_NextPart_01D48D8C.1D1C5180
+Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props004.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
@@ -12491,7 +12283,173 @@ ds:uri=3D"http://schemas.openxmlformats.org/package/2006/metadata/core-prop=
 erties"/><ds:schemaRef ds:uri=3D"http://purl.org/dc/elements/1.1/"/><ds:sch=
 emaRef ds:uri=3D"http://purl.org/dc/terms/"/><ds:schemaRef ds:uri=3D"http:/=
 /schemas.microsoft.com/internal/obd"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
+Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0005.xml
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/xml
+
+<?mso-contentType?><FormTemplates xmlns=3D"http://schemas.microsoft.com/sha=
+repoint/v3/contenttype/forms"><Display>DocumentLibraryForm</Display><Edit>A=
+ssetEditForm</Edit><New>DocumentLibraryForm</New></FormTemplates>
+------=_NextPart_01D48D8C.1D1C5180
+Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props006.xml
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/xml
+
+<?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
+<ds:datastoreItem ds:itemID=3D"{699AAE84-6C4F-4937-BBF2-1EE5832040D5}" xmln=
+s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
+s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/sharepoin=
+t/v3/contenttype/forms"/></ds:schemaRefs></ds:datastoreItem>
+------=_NextPart_01D48D8C.1D1C5180
+Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0007.xml
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/xml
+
+<?xml version=3D"1.0" encoding=3D"utf-8"?><p:properties xmlns:p=3D"http://s=
+chemas.microsoft.com/office/2006/metadata/properties" xmlns:xsi=3D"http://w=
+ww.w3.org/2001/XMLSchema-instance" xmlns:pc=3D"http://schemas.microsoft.com=
+/office/infopath/2007/PartnerControls"><documentManagement><AssetStart xmln=
+s=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">2018-05-23T06:33:17+00:00</Asset=
+Start><CrawlForDependencies xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">=
+false</CrawlForDependencies><EditorialTags xmlns=3D"c66daf58-3c46-4c48-8560=
+-c485e881f7f9" xsi:nil=3D"true"></EditorialTags><LocComments xmlns=3D"c66da=
+f58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></LocComments><LocRecomme=
+ndedHandoff xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"=
+></LocRecommendedHandoff><LocalizationTagsTaxHTField0 xmlns=3D"c66daf58-3c4=
+6-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/offi=
+ce/infopath/2007/PartnerControls"></Terms></LocalizationTagsTaxHTField0><TP=
+Namespace xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"><=
+/TPNamespace><OriginalRelease xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
+">15</OriginalRelease><BusinessGroup xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
+881f7f9" xsi:nil=3D"true"></BusinessGroup><PublishStatusLookup xmlns=3D"c66=
+daf58-3c46-4c48-8560-c485e881f7f9"/><ScenarioTagsTaxHTField0 xmlns=3D"c66da=
+f58-3c46-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.c=
+om/office/infopath/2007/PartnerControls"></Terms></ScenarioTagsTaxHTField0>=
+<AcquiredFrom xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Internal MS</A=
+cquiredFrom><OriginAsset xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi=
+:nil=3D"true"></OriginAsset><ArtSampleDocs xmlns=3D"c66daf58-3c46-4c48-8560=
+-c485e881f7f9" xsi:nil=3D"true"></ArtSampleDocs><TrustLevel xmlns=3D"c66daf=
+58-3c46-4c48-8560-c485e881f7f9">1 Microsoft Managed Content</TrustLevel><UA=
+CurrentWords xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true=
+"></UACurrentWords><AssetId xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" =
+xsi:nil=3D"true"></AssetId><AssetType xmlns=3D"c66daf58-3c46-4c48-8560-c485=
+e881f7f9" xsi:nil=3D"true"></AssetType><DirectSourceMarket xmlns=3D"c66daf5=
+8-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></DirectSourceMarket><TPIns=
+tallLocation xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true=
+"></TPInstallLocation><NumericId xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f=
+7f9" xsi:nil=3D"true"></NumericId><OOCacheId xmlns=3D"c66daf58-3c46-4c48-85=
+60-c485e881f7f9" xsi:nil=3D"true"/><TemplateStatus xmlns=3D"c66daf58-3c46-4=
+c48-8560-c485e881f7f9" xsi:nil=3D"true"></TemplateStatus><AverageRating xml=
+ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><TPCommandLin=
+e xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPComma=
+ndLine><CSXUpdate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</CSX=
+Update><UAProjectedTotalWords xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
+" xsi:nil=3D"true"></UAProjectedTotalWords><TPExecutable xmlns=3D"c66daf58-=
+3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPExecutable><SourceTitle x=
+mlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></SourceTitl=
+e><EditorialStatus xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=
+=3D"true"></EditorialStatus><PublishTargets xmlns=3D"c66daf58-3c46-4c48-856=
+0-c485e881f7f9">OfficeOnlineVNext</PublishTargets><ThumbnailAssetId xmlns=
+=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ThumbnailAsset=
+Id><UALocComments xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D=
+"true"></UALocComments><AssetExpire xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
+81f7f9">2029-01-01T00:00:00+00:00</AssetExpire><CampaignTagsTaxHTField0 xml=
+ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"><Terms xmlns=3D"http://schemas.=
+microsoft.com/office/infopath/2007/PartnerControls"></Terms></CampaignTagsT=
+axHTField0><IntlLangReviewDate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f=
+9" xsi:nil=3D"true"/><DSATActionTaken xmlns=3D"c66daf58-3c46-4c48-8560-c485=
+e881f7f9" xsi:nil=3D"true"></DSATActionTaken><PolicheckWords xmlns=3D"c66da=
+f58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></PolicheckWords><CSXSubm=
+issionDate xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/=
+><ApprovalStatus xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">InProgress<=
+/ApprovalStatus><BugNumber xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" x=
+si:nil=3D"true"></BugNumber><LegacyData xmlns=3D"c66daf58-3c46-4c48-8560-c4=
+85e881f7f9" xsi:nil=3D"true"></LegacyData><Milestone xmlns=3D"c66daf58-3c46=
+-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Milestone><TPAppVersion xmlns=
+=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPAppVersion><=
+VoteCount xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"><=
+/VoteCount><Component xmlns=3D"8e8ea6d1-e150-4704-b47c-0a92d6aed386" xsi:ni=
+l=3D"true"/><IsSearchable xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">fa=
+lse</IsSearchable><IsDeleted xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
+>false</IsDeleted><Downloads xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
+>0</Downloads><OriginalSourceMarket xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
+81f7f9" xsi:nil=3D"true"></OriginalSourceMarket><APEditor xmlns=3D"c66daf58=
+-3c46-4c48-8560-c485e881f7f9"><UserInfo><DisplayName></DisplayName><Account=
+Id xsi:nil=3D"true"></AccountId><AccountType/></UserInfo></APEditor><Primar=
+yImageGen xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</PrimaryImag=
+eGen><LocLastLocAttemptVersionLookup xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
+881f7f9" xsi:nil=3D"true"/><ParentAssetId xmlns=3D"c66daf58-3c46-4c48-8560-=
+c485e881f7f9" xsi:nil=3D"true"></ParentAssetId><Description0 xmlns=3D"8e8ea=
+6d1-e150-4704-b47c-0a92d6aed386" xsi:nil=3D"true"/><ClipArtFilename xmlns=
+=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ClipArtFilenam=
+e><APDescription xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"=
+true"></APDescription><FeatureTagsTaxHTField0 xmlns=3D"c66daf58-3c46-4c48-8=
+560-c485e881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/office/infop=
+ath/2007/PartnerControls"></Terms></FeatureTagsTaxHTField0><OpenTemplate xm=
+lns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</OpenTemplate><ApprovalL=
+og xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Approv=
+alLog><BlockPublish xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</B=
+lockPublish><InternalTagsTaxHTField0 xmlns=3D"c66daf58-3c46-4c48-8560-c485e=
+881f7f9"><Terms xmlns=3D"http://schemas.microsoft.com/office/infopath/2007/=
+PartnerControls"></Terms></InternalTagsTaxHTField0><MarketSpecific xmlns=3D=
+"c66daf58-3c46-4c48-8560-c485e881f7f9">false</MarketSpecific><TPLaunchHelpL=
+inkType xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Template</TPLaunchHe=
+lpLinkType><TPLaunchHelpLink xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"=
+ xsi:nil=3D"true"></TPLaunchHelpLink><LocMarketGroupTiers2 xmlns=3D"c66daf5=
+8-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><RecommendationsModifier x=
+mlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Recommenda=
+tionsModifier><TemplateTemplateType xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
+81f7f9" xsi:nil=3D"true"></TemplateTemplateType><CSXSubmissionMarket xmlns=
+=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><HandoffToMSDN =
+xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><ShowIn xm=
+lns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">Show everywhere</ShowIn><TPApp=
+lication xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></=
+TPApplication><TPClientViewer xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
+" xsi:nil=3D"true"></TPClientViewer><CSXHash xmlns=3D"c66daf58-3c46-4c48-85=
+60-c485e881f7f9" xsi:nil=3D"true"></CSXHash><IntlLangReview xmlns=3D"c66daf=
+58-3c46-4c48-8560-c485e881f7f9">false</IntlLangReview><IntlLangReviewer xml=
+ns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></IntlLangRevi=
+ewer><TPComponent xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D=
+"true"></TPComponent><FriendlyTitle xmlns=3D"c66daf58-3c46-4c48-8560-c485e8=
+81f7f9" xsi:nil=3D"true"></FriendlyTitle><LastHandOff xmlns=3D"c66daf58-3c4=
+6-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><LastModifiedDateTime xmlns=3D"=
+c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><LocManualTestRequi=
+red xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">false</LocManualTestRequ=
+ired><Providers xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"t=
+rue"></Providers><TimesCloned xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9=
+" xsi:nil=3D"true"></TimesCloned><UANotes xmlns=3D"c66daf58-3c46-4c48-8560-=
+c485e881f7f9" xsi:nil=3D"true"></UANotes><ContentItem xmlns=3D"c66daf58-3c4=
+6-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></ContentItem><Markets xmlns=3D"=
+c66daf58-3c46-4c48-8560-c485e881f7f9"/><UALocRecommendation xmlns=3D"c66daf=
+58-3c46-4c48-8560-c485e881f7f9">Localize</UALocRecommendation><TPFriendlyNa=
+me xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></TPFrie=
+ndlyName><MachineTranslated xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9">=
+false</MachineTranslated><Manager xmlns=3D"c66daf58-3c46-4c48-8560-c485e881=
+f7f9" xsi:nil=3D"true"/><OutputCachingOn xmlns=3D"c66daf58-3c46-4c48-8560-c=
+485e881f7f9">false</OutputCachingOn><PlannedPubDate xmlns=3D"c66daf58-3c46-=
+4c48-8560-c485e881f7f9" xsi:nil=3D"true"/><SubmitterId xmlns=3D"c66daf58-3c=
+46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></SubmitterId><APAuthor xmlns=
+=3D"c66daf58-3c46-4c48-8560-c485e881f7f9"><UserInfo><DisplayName></DisplayN=
+ame><AccountId xsi:nil=3D"true"></AccountId><AccountType/></UserInfo></APAu=
+thor><IntlLocPriority xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:ni=
+l=3D"true"></IntlLocPriority><Provider xmlns=3D"c66daf58-3c46-4c48-8560-c48=
+5e881f7f9" xsi:nil=3D"true"></Provider><TaxCatchAll xmlns=3D"c66daf58-3c46-=
+4c48-8560-c485e881f7f9"/></documentManagement></p:properties>
+------=_NextPart_01D48D8C.1D1C5180
+Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props008.xml
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/xml
+
+<?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
+<ds:datastoreItem ds:itemID=3D"{68668713-B5C3-4A39-AAB5-C13F692869D6}" xmln=
+s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
+s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
+06/metadata/properties"/><ds:schemaRef ds:uri=3D"http://schemas.microsoft.c=
+om/office/infopath/2007/PartnerControls"/><ds:schemaRef ds:uri=3D"c66daf58-=
+3c46-4c48-8560-c485e881f7f9"/><ds:schemaRef ds:uri=3D"8e8ea6d1-e150-4704-b4=
+7c-0a92d6aed386"/></ds:schemaRefs></ds:datastoreItem>
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0009.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12499,17 +12457,17 @@ Content-Type: text/xml
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"yes"?><b:Sources Sel=
 ectedStyle=3D"\APA.XSL" StyleName=3D"APA" xmlns:b=3D"http://schemas.openxml=
 formats.org/officeDocument/2006/bibliography"></b:Sources>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props010.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{A566C2ED-04B6-431A-8929-59DDBC17C31B}" xmln=
+<ds:datastoreItem ds:itemID=3D"{96DC34B1-1A40-4794-AEBA-8A5A28A2FE66}" xmln=
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.openxmlformats.org/offi=
 ceDocument/2006/bibliography"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
@@ -12572,7 +12530,7 @@ AAAAAAAAANYCAAB0aGVtZS90aGVtZS90aGVtZTEueG1sUEsBAi0AFAAGAAgAAAAhAA3RkJ+2AAAA
 GwEAACcAAAAAAAAAAAAAAAAAJAoAAHRoZW1lL3RoZW1lL19yZWxzL3RoZW1lTWFuYWdlci54bWwu
 cmVsc1BLBQYAAAAABQAFAF0BAAAfCwAAAAA=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12582,7 +12540,7 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image001.jpg
 Content-Transfer-Encoding: base64
 Content-Type: image/jpeg
@@ -12857,7 +12815,7 @@ PfHnJVizq1Y3KcJJaZuMOREBO8hlx5K09iXAPRQVpK8vePpdIi808RdZ6Fuz22lb/kpU6P7VBsLJ
 W21cKDpr+zQDpvNBc1AoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFA
 oFAoP//Z
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image002.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -12922,7 +12880,7 @@ fhYXt1rzaILGG5gPxA0AHf+RXP6xm/4dPVgni4obuHogbgDUoesjfr9EDbdsDw0QNwAAAKsD4gYA
 AGB1QNwAAACsDogbAACA1QFxAwAAsDogbgAAAFYHxA0AAMDKGIb/AyJNFL6hsbJnAAAAAElFTkSu
 QmCC
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image003.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -13567,7 +13525,7 @@ ACCU6r6+bhwSijkAAAAAAKFU9/V145AUU8z7UswBAAAAAB1MdV9fNw5JsUfMX3kp3mIAAAAAADrE
 ijkAAAAAAHWgmAMAAAAA0IMo5gAAAAAA9CCKOQAAAAAAPYhiDgAAAABAD6KYAwAAAADQg5pTzN8z
 /x96cR0ErtRdTQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image004.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17043,7 +17001,7 @@ sBGwEbARsBH4J0XAain+SeGzO9sI2AjYCNgI2AjYCGgELKSwvwk2AjYCNgI2AjYCNgK/gwhYSPE7
 CKI9hI2AjYCNgI2AjYCNgIUU9nfARsBGwEbARsBGwEbgdxABCyl+B0G0h7ARsBGwEbARsBGwEbCQ
 wv4O2AjYCNgI2AjYCNgI/A4i8H8BmSxGVS3J9owAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image005.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17099,7 +17057,7 @@ FtOjzxSCdGjM/Px8+dX4NGc/TtnXkHMJDcIIDZBAaOoRGiCB0NQjNEACoalHaIAEQlOP0AAJhKYe
 oQESCE09QgMkEJp6hAZIIDT1CA2QQGjqfdjQAFsK/ZxhvQ8ZGgD/FkIDoDlCA6A5QgOgOUIDoDlC
 A6A5QgOgOUIDoDlCA6A5JzQA0IoOjV0fANjeb/V/1CEepdtbMnoAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image006.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17237,7 +17195,7 @@ KAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCN
 MgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFDNj2VURERERGTNxP45KaMi
 IiIiIn8zyqiIiIiIVIsyKiIiIiKV8p/m/wOMPvpGU7skngAAAABJRU5ErkJggk==
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image007.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17803,7 +17761,7 @@ ACgYZRsAAAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsA
 AAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsAAAAAgIJR
 tgEAAAAAKBhlGwAAAACAglG2AQAAAAAoWO2y/Z76/+ntYtxr6+RrAAAAAElFTkSuQmCC
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image008.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18012,7 +17970,7 @@ CKMAAAAAsBtPh1FERERExGeMKAqjAAAAAABrQBgFAAAAgN0gjAIAAADAbhBGAQAAAGA3CKMAAAAA
 sBuEUQAAAADYDcIoAAAAAOwGYRQAAAAAdmM2jCIiIiIirqnNn5MwioiIiIi4pYRRRERERNxNwigi
 IiIi7iZhFBERERF3kzCKiIiIiLtJGEVERETEnfz37f8Dhy/JN4qk+yMAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image009.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18103,7 +18061,7 @@ AEAqBRQAgFQKKAAAqRRQAABSKaAAAKRSQAEASKWAAgCQSgEFACCVAgoAQCoFFACAVAooAACpFFAA
 AFIpoAAApFJAAQBIpYACAJBKAQUAIJUCCgBAKgUUAIBUCigAAKm6BfS/w/8BmpZe3jrpC/gAAAAA
 SUVORK5CYIJ=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image010.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18141,7 +18099,7 @@ NJ5vebjxvy0FdNLbUMMRCIDAawmsvOP0WhhIDARAAASWCKCTLmHDJBAAARAQBNBJIQcQAAEQ6BJA
 J+0SxHwQAAEQQCeFBkAABECgSwCdtEsQ80EABEAAnRQaAAEQAIEuAXTSLkHMBwEQAAF0UmgABEAA
 BLoE/gDXkWO3aPdDuQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image011.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18228,7 +18186,7 @@ AJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQ
 gNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDS
 BwDw8F5e/g8OjPHxNkM3ewAAAABJRU5ErkJggk==
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image012.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -19315,7 +19273,7 @@ ef365fn5hw8frj/34uLi7du39+7du/4fcU0CBAgQIECAAIErBF69evXo0aO7d+9eU+nWrVs/knHv
 gACBEwnIuBPBGkuAAAECBAgQOK3A5Rcc+eevvz5+/HjaPaYTIECAAAECBAj0BM7Ozv4Fsdl68+rY
 Om8AAAAASUVORK5CYIJ=
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image013.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -20325,7 +20283,7 @@ rc3Rv7U8732eN9/Xe59/lPeZmx+hPndGfS7dNqKsWv/Iq+u0zVHX+K95R3jrpKbD8+r1cK8s3mv1
 Ot60m3f0NZZ39O8s/5j/9eqhnf+aJ715es335uUdc23d/qIetQ29Hvv7wPBnmj4mU62T8mhv3Sq9
 Mh3l9Mp9lHcsR/7WDv3ZEbbPfvtVue/++9v/B25+/miqbi0nAAAAAElFTkSuQmCC
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/header.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -20426,14 +20384,18 @@ ortFootnotes]>
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D"100%" style=3D'width:100.0%;border-collapse:collapse;mso-yfti-tbl=
-look:
- 1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid window=
-text'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D"100%" style=3D'border-collapse:collapse;mso-table-layout-alt:fixe=
+d;
+ mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1=
+.0pt solid windowtext'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D136 valign=3Dbottom style=3D'width:101.65pt;border:none;borde=
 r-bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'mso-no-proof:yes'><v:sha=
 petype
    id=3D"_x0000_t202" coordsize=3D"21600,21600" o:spt=3D"202" path=3D"m,l,2=
@@ -20579,7 +20541,9 @@ ked=3D"f">
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.05pt;border:none;border-=
 bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -20587,25 +20551,30 @@ bottom:
   </td>
   <td width=3D547 valign=3Dbottom style=3D'width:409.95pt;border:none;borde=
 r-bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>Revision
-  History<o:p></o:p></span></p>
+=3DEN-US>Revision
+  History</span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D136 valign=3Dtop style=3D'width:101.65pt;border:none;mso-bord=
 er-top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.05pt;border:none;mso-border=
 -top-alt:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-ru=
+le:
+  exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
@@ -20613,7 +20582,7 @@ er-top-alt:
   <td width=3D547 valign=3Dtop style=3D'width:409.95pt;border:none;mso-bord=
 er-top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -20669,17 +20638,20 @@ p;&nbsp; </span>Copyright
 
 <table class=3DMsoNormalTable border=3D1 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;border-collapse:collapse;border:none;mso-bord=
-er-alt:
- solid windowtext .5pt;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0c=
-m;
- mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid win=
-dowtext'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'border-collapse:collapse;mso-table-layout-alt:fixed;bor=
+der:
+ none;mso-border-alt:solid windowtext .5pt;mso-yfti-tbllook:1184;mso-paddin=
+g-alt:
+ 0cm 0cm 0cm 0cm;mso-border-insideh:.5pt solid windowtext;mso-border-inside=
+v:
+ .5pt solid windowtext'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;border:none;border-bottom:solid wind=
 owtext 1.0pt;
   mso-border-bottom-alt:solid windowtext .5pt;padding:0cm 0cm 0cm 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><a name=3D"_Hlk496204885"><b style=3D'mso-bidi-font-=
 weight:
   normal'><span lang=3DEN-US style=3D'font-size:18.0pt;line-height:140%;fon=
@@ -20695,7 +20667,8 @@ ct",sans-serif;
   <span style=3D'mso-bookmark:_Hlk496204885'></span>
   <td width=3D19 valign=3Dbottom style=3D'width:14.15pt;border:none;padding=
 :0cm 0cm 0cm 0cm;
-  height:50.95pt'><span style=3D'mso-bookmark:_Hlk496204885'></span>
+  height:50.95pt;mso-height-rule:exactly'><span style=3D'mso-bookmark:_Hlk4=
+96204885'></span>
   <p class=3DMsoNormal style=3D'margin-top:0cm;margin-right:7.1pt;margin-bo=
 ttom:
   18.0pt;margin-left:0cm;mso-para-margin-top:0cm;mso-para-margin-right:.71g=
@@ -20709,23 +20682,21 @@ e:24.0pt;
   <td width=3D607 valign=3Dbottom style=3D'width:454.95pt;border:none;borde=
 r-bottom:
   solid windowtext 1.0pt;mso-border-bottom-alt:solid windowtext .5pt;
-  padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-rule:exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span
-  style=3D'mso-bookmark:_Hlk496204885'><span lang=3DEN-US style=3D'font-var=
-iant:normal !important;
-  color:#C00000;text-transform:uppercase'>Revision </span></span><span
-  style=3D'mso-bookmark:_Hlk496204885'><span lang=3DEN-US style=3D'font-var=
-iant:normal !important;
-  text-transform:uppercase'>History </span></span><span style=3D'mso-bookma=
-rk:
-  _Hlk496204885'><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font=
--size:
-  24.0pt;line-height:140%;font-variant:normal !important;text-transform:upp=
-ercase'><o:p></o:p></span></span></p>
+  style=3D'mso-bookmark:_Hlk496204885'><span lang=3DEN-US style=3D'color:#C=
+00000'>Revision
+  </span><span lang=3DEN-US>History </span></span><span style=3D'mso-bookma=
+rk:_Hlk496204885'><span
+  lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font-size:24.0pt;line-hei=
+ght:
+  140%'><o:p></o:p></span></span></p>
   </td>
   <span style=3D'mso-bookmark:_Hlk496204885'></span>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;border-top:none;border-=
 left:solid windowtext 1.0pt;
   border-bottom:solid windowtext 1.0pt;border-right:none;mso-border-top-alt:
@@ -20734,8 +20705,9 @@ left:solid windowtext 1.0pt;
   solid windowtext .5pt;mso-border-bottom-alt:solid windowtext .5pt;backgro=
 und:
   black;mso-background-themecolor:text1;padding:0cm 0cm 0cm 0cm;height:7.0p=
-t'><span
-  style=3D'mso-bookmark:_Hlk496204885'></span>
+t;
+  mso-height-rule:exactly'><span style=3D'mso-bookmark:_Hlk496204885'></spa=
+n>
   <p class=3DMsoNormal><span style=3D'mso-bookmark:_Hlk496204885'><span lan=
 g=3DEN-US
   style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%;color=
@@ -20744,7 +20716,8 @@ g=3DEN-US
   <span style=3D'mso-bookmark:_Hlk496204885'></span>
   <td width=3D19 valign=3Dtop style=3D'width:14.15pt;border:none;padding:0c=
 m 0cm 0cm 0cm;
-  height:7.0pt'><span style=3D'mso-bookmark:_Hlk496204885'></span>
+  height:7.0pt;mso-height-rule:exactly'><span style=3D'mso-bookmark:_Hlk496=
+204885'></span>
   <p class=3DMsoNormal><span style=3D'mso-bookmark:_Hlk496204885'><span lan=
 g=3DEN-US
   style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%'><o:p=
@@ -20760,7 +20733,8 @@ ext .5pt;
   mso-border-bottom-alt:solid windowtext .5pt;mso-border-right-alt:solid wi=
 ndowtext .5pt;
   background:black;mso-background-themecolor:text1;padding:0cm 0cm 0cm 0cm;
-  height:7.0pt'><span style=3D'mso-bookmark:_Hlk496204885'></span>
+  height:7.0pt;mso-height-rule:exactly'><span style=3D'mso-bookmark:_Hlk496=
+204885'></span>
   <p class=3DMsoNormal><span style=3D'mso-bookmark:_Hlk496204885'><span lan=
 g=3DEN-US
   style=3D'font-size:5.0pt;mso-bidi-font-size:10.0pt;line-height:140%;color=
@@ -20836,13 +20810,16 @@ mso-fareast-language:ZH-CN'>5</span></p>
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;border-collapse:collapse;mso-yfti-tbllook:118=
-4;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid windowtext'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'border-collapse:collapse;mso-table-layout-alt:fixed;mso=
+-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid window=
+text'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;border:none;border-bottom:solid wind=
 owtext 1.0pt;
-  padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -20855,7 +20832,9 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;border:none;border-b=
 ottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -20863,28 +20842,32 @@ ottom:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.9pt;border:none;border=
 -bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>Table Of
-  Contents</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font=
--size:
-  24.0pt;line-height:140%;font-variant:normal !important;text-transform:upp=
-ercase'><o:p></o:p></span></p>
+=3DEN-US>Table
+  Of Contents</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-f=
+ont-size:
+  24.0pt;line-height:140%'><o:p></o:p></span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;border:none;mso-border-=
 top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-ru=
+le:
+  exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
@@ -20892,7 +20875,7 @@ top-alt:
   <td width=3D607 valign=3Dtop style=3D'width:454.9pt;border:none;mso-borde=
 r-top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -20912,13 +20895,16 @@ r-top-alt:
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;border-collapse:collapse;mso-yfti-tbllook:118=
-4;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid windowtext'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'border-collapse:collapse;mso-table-layout-alt:fixed;mso=
+-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid window=
+text'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;border:none;border-bottom:solid wind=
 owtext 1.0pt;
-  padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -20931,7 +20917,9 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;border:none;border-b=
 ottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -20939,28 +20927,32 @@ ottom:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.9pt;border:none;border=
 -bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>List Of
-  Figures</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font-=
-size:
-  24.0pt;line-height:140%;font-variant:normal !important;text-transform:upp=
-ercase'><o:p></o:p></span></p>
+=3DEN-US>List
+  Of Figures</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-fo=
+nt-size:
+  24.0pt;line-height:140%'><o:p></o:p></span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;border:none;mso-border-=
 top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-ru=
+le:
+  exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
@@ -20968,7 +20960,7 @@ top-alt:
   <td width=3D607 valign=3Dtop style=3D'width:454.9pt;border:none;mso-borde=
 r-top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -20988,13 +20980,16 @@ r-top-alt:
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;border-collapse:collapse;mso-yfti-tbllook:118=
-4;
- mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid windowtext'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'border-collapse:collapse;mso-table-layout-alt:fixed;mso=
+-yfti-tbllook:
+ 1184;mso-padding-alt:0cm 0cm 0cm 0cm;mso-border-insideh:1.0pt solid window=
+text'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;border:none;border-bottom:solid wind=
 owtext 1.0pt;
-  padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -21007,7 +21002,9 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;border:none;border-b=
 ottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -21015,28 +21012,32 @@ ottom:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.9pt;border:none;border=
 -bottom:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:50.95pt;mso-height-=
+rule:
+  exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>List Of
-  Tables</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font-s=
-ize:
-  24.0pt;line-height:140%;font-variant:normal !important;text-transform:upp=
-ercase'><o:p></o:p></span></p>
+=3DEN-US>List
+  Of Tables</span><span lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-fon=
+t-size:
+  24.0pt;line-height:140%'><o:p></o:p></span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;border:none;mso-border-=
 top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;border:none;mso-border-=
 top-alt:
-  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  solid windowtext 1.0pt;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-ru=
+le:
+  exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
@@ -21044,7 +21045,7 @@ top-alt:
   <td width=3D607 valign=3Dtop style=3D'width:454.9pt;border:none;mso-borde=
 r-top-alt:
   solid windowtext 1.0pt;background:black;mso-background-themecolor:text1;
-  padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -21062,11 +21063,15 @@ r-top-alt:
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;margin-left:-3.0cm;border-collapse:collapse;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'margin-left:-3.0cm;border-collapse:collapse;mso-table-l=
+ayout-alt:
+ fixed;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;padding:0cm 0cm 0cm 0cm;height:50.95=
-pt'>
+pt;
+  mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -21079,7 +21084,7 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;padding:0cm 0cm 0cm =
 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -21087,30 +21092,31 @@ t-family:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.95pt;padding:0cm 0cm 0=
 cm 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>Chapter=
- One<o:p></o:p></span></p>
+=3DEN-US>Chapter
+  One</span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;background:black;mso-ba=
 ckground-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
-  height:7.0pt'>
+  height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D607 valign=3Dtop style=3D'width:454.95pt;background:black;mso=
 -background-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -21244,11 +21250,15 @@ Version V05</span></p>
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;margin-left:-3.0cm;border-collapse:collapse;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'margin-left:-3.0cm;border-collapse:collapse;mso-table-l=
+ayout-alt:
+ fixed;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;padding:0cm 0cm 0cm 0cm;height:50.95=
-pt'>
+pt;
+  mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -21261,7 +21271,7 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;padding:0cm 0cm 0cm =
 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -21269,30 +21279,31 @@ t-family:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.95pt;padding:0cm 0cm 0=
 cm 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3Dae style=3D'margin-bottom:18.0pt;line-height:140%'><span lang=
-=3DEN-US
-  style=3D'font-variant:normal !important;text-transform:uppercase'>Chapter=
- Two<o:p></o:p></span></p>
+=3DEN-US>Chapter
+  Two</span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;background:black;mso-ba=
 ckground-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
-  height:7.0pt'>
+  height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D607 valign=3Dtop style=3D'width:454.95pt;background:black;mso=
 -background-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -21308,11 +21319,15 @@ ckground-themecolor:
 
 <table class=3DMsoNormalTable border=3D0 cellspacing=3D0 cellpadding=3D0 su=
 mmary=3Dí“Ê×±í¸ñ
- width=3D0 style=3D'width:0cm;margin-left:-3.0cm;border-collapse:collapse;
- mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
- <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt'>
+ width=3D0 style=3D'margin-left:-3.0cm;border-collapse:collapse;mso-table-l=
+ayout-alt:
+ fixed;mso-yfti-tbllook:1184;mso-padding-alt:0cm 0cm 0cm 0cm'>
+ <tr style=3D'mso-yfti-irow:0;mso-yfti-firstrow:yes;height:50.95pt;mso-heig=
+ht-rule:
+  exactly'>
   <td width=3D95 style=3D'width:70.9pt;padding:0cm 0cm 0cm 0cm;height:50.95=
-pt'>
+pt;
+  mso-height-rule:exactly'>
   <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><span lang=
 =3DEN-US
   style=3D'font-size:18.0pt;line-height:140%;font-family:"Impact",sans-seri=
@@ -21325,7 +21340,7 @@ t-family:
   </td>
   <td width=3D19 valign=3Dbottom style=3D'width:14.2pt;padding:0cm 0cm 0cm =
 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal style=3D'margin-bottom:18.0pt;mso-para-margin-bottom=
 :1.5gd'><span
   lang=3DEN-US style=3D'font-size:24.0pt;line-height:140%'><o:p>&nbsp;</o:p=
@@ -21333,7 +21348,7 @@ t-family:
   </td>
   <td width=3D607 valign=3Dbottom style=3D'width:454.95pt;padding:0cm 0cm 0=
 cm 0cm;
-  height:50.95pt'>
+  height:50.95pt;mso-height-rule:exactly'>
   <p class=3Dae style=3D'margin-top:0cm;margin-right:1.4pt;margin-bottom:18=
 .0pt;
   margin-left:1.4pt;mso-para-margin-top:0cm;mso-para-margin-right:.14gd;
@@ -21341,27 +21356,28 @@ cm 0cm;
 '><span
   lang=3DEN-US style=3D'font-size:18.0pt;mso-bidi-font-size:24.0pt;line-hei=
 ght:
-  140%;font-variant:normal !important;text-transform:uppercase'><o:p>&nbsp;=
-</o:p></span></p>
+  140%'><o:p>&nbsp;</o:p></span></p>
   </td>
  </tr>
- <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt'>
+ <tr style=3D'mso-yfti-irow:1;mso-yfti-lastrow:yes;height:7.0pt;mso-height-=
+rule:
+  exactly'>
   <td width=3D95 valign=3Dtop style=3D'width:70.9pt;background:black;mso-ba=
 ckground-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D19 valign=3Dtop style=3D'width:14.2pt;padding:0cm 0cm 0cm 0cm;
-  height:7.0pt'>
+  height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%'><o:p>&nbsp;</o:p></span></p>
   </td>
   <td width=3D607 valign=3Dtop style=3D'width:454.95pt;background:black;mso=
 -background-themecolor:
-  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt'>
+  text1;padding:0cm 0cm 0cm 0cm;height:7.0pt;mso-height-rule:exactly'>
   <p class=3DMsoNormal><span lang=3DEN-US style=3D'font-size:5.0pt;mso-bidi=
 -font-size:
   10.0pt;line-height:140%;color:white'><o:p>&nbsp;</o:p></span></p>
@@ -21377,7 +21393,7 @@ ckground-themecolor:
 
 </html>
 
-------=_NextPart_01D48BCF.9533D440
+------=_NextPart_01D48D8C.1D1C5180
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
@@ -21412,4 +21428,4 @@ Content-Type: text/xml; charset="utf-8"
  <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
 </xml>
-------=_NextPart_01D48BCF.9533D440--
+------=_NextPart_01D48D8C.1D1C5180--

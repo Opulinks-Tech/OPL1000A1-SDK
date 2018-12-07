@@ -14,7 +14,7 @@ Head Block of The File
 ***********************/
 // Sec 0: Comment block of the file
 
-#if defined(__AT_CMD_SUPPORT__)
+
 
 // Sec 1: Include File
 #include <stdio.h>
@@ -107,9 +107,11 @@ done:
 
     return true;
 }
-#if 0
-extern int _at_cmd_ble_init(char *buf, int len, int mode);
+
 extern int _at_cmd_ble_addr(char *buf, int len, int mode);
+extern int _at_cmd_letest(char *buf, int len, int mode);
+#if defined(__AT_CMD_SUPPORT__)
+extern int _at_cmd_ble_init(char *buf, int len, int mode);
 extern int _at_cmd_ble_scanparam(char *buf, int len, int mode);
 extern int _at_cmd_ble_scanrspdata(char *buf, int len, int mode);
 extern int _at_cmd_ble_advparam(char *buf, int len, int mode);
@@ -167,12 +169,12 @@ extern int _at_cmd_bt_rfcomm_stop(char *buf, int len, int mode);
 extern int _at_cmd_bt_rfcomm_send(char *buf, int len, int mode);
 extern int _at_cmd_bt_scan(char *buf, int len, int mode);
 extern int _at_cmd_btstatus(char *buf, int len, int mode);
-extern int _at_cmd_letest(char *buf, int len, int mode);
+#endif //#if defined(__AT_CMD_SUPPORT__)
 
 _at_command_t _gAtCmdTbl_Ble_patch[] =
 {
+    #if defined(__AT_CMD_SUPPORT__)
     { "at+bleinit",          _at_cmd_ble_init,           "Bluetooth Low Energy (BLE) initialization" },
-    { "at+bleaddr",          _at_cmd_ble_addr,           "Sets BLE device's address" },
     { "at+blescanparam",     _at_cmd_ble_scanparam,      "Sets parameters of BLE scanning" },
     { "at+blescanrspdata",   _at_cmd_ble_scanrspdata,    "Sets BLE scan response" },
     { "at+bleadvparam",      _at_cmd_ble_advparam,       "Sets parameters of BLE advertising" },
@@ -230,6 +232,8 @@ _at_command_t _gAtCmdTbl_Ble_patch[] =
     { "at+bt_rfcomm_send",   _at_cmd_bt_rfcomm_send,     "BT client sends RFCOMM data" },
     { "at+bt_scan",          _at_cmd_bt_scan,            "Do BT scan" },
     { "at+btstatus",         _at_cmd_btstatus,           "Show BT status" },
+    #endif //#if defined(__AT_CMD_SUPPORT__)
+    { "at+bleaddr",          _at_cmd_ble_addr,           "Sets BLE device's address" },
     { "at+letest",           _at_cmd_letest,             "LE Throughput test" },
     { NULL,                  NULL,                      NULL},
 };
@@ -245,7 +249,7 @@ void _at_cmd_ble_func_init_patch(void)
     /** Command Table (BLE) */
     _g_AtCmdTbl_Ble_Ptr = _gAtCmdTbl_Ble_patch;
 }
-#endif
 
-#endif //#if defined(__AT_CMD_SUPPORT__)
+
+
 

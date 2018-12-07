@@ -432,7 +432,7 @@ uint8_t MwOta_DataFinish_impl(void)
     else
         ulCheckSum = MwOta_ImageCheckSumAlloc();
     
-    // compare the 16 bits check sum
+    // compare the 32 bits check sum
     if (ulCheckSum != g_tMwOtaPrepareHeaderInfo.ulImageSum)
         return MW_OTA_FAIL;
     

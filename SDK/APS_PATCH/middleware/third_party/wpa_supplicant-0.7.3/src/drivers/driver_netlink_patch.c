@@ -18,6 +18,8 @@
 #include "controller_wifi_com_patch.h"
 #include "driver_netlink_patch.h"
 
+u8 g_wifi_certification = WIFI_CERTIFIED_NONE;
+
 extern u8 g_bssid[6];
 extern u8 g_fastconn;
 extern struct wpa_supplicant *wpa_s;
@@ -89,6 +91,19 @@ int target_ap_security_mode_chk(u8 *mac, char *ssid)
     return TRUE;
 }
 
+int get_wifi_certified_mode(void)
+{
+    return g_wifi_certification;
+}
+
+int set_wifi_certified_mode(u8 mode)
+{
+    if (mode > WIFI_CERTIFIED)
+        return -1;
+    g_wifi_certification = mode;
+    return TRUE;
+}
+
 Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
 {
     int ret = 0;
@@ -100,9 +115,11 @@ Boolean wpa_driver_netlink_connect_patch(struct wpa_config * conf)
     if (conf == NULL) return FALSE;
     if (conf->ssid == NULL) return FALSE;
 
-    if (!target_ap_security_mode_chk(conf->ssid->bssid, (char*)conf->ssid->ssid)) {
-        ret = -1;
-        goto done;
+    if (get_wifi_certified_mode() == WIFI_CERTIFIED) {
+        if (!target_ap_security_mode_chk(conf->ssid->bssid, (char*)conf->ssid->ssid)) {
+            ret = -1;
+            goto done;
+        }
     }
     
     if (wpa_driver_netlink_get_state() == WPA_ASSOCIATED ||

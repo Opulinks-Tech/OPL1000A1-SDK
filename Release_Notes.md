@@ -1,4 +1,32 @@
 ## Release Version:
+SDK Package: MP v1.3
+Patch_Lib : 2899
+ROM_CODE: 1655 
+
+## Release Date: 2018/12/6
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-AT-instruction-set-and-examples,  R05-v30, Add AT+RFTM (BeaconOnlyMode).
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;   
+ 2.3 MP download tool: v0.8, no change since MP1.2. 
+3. WiFi power-saving enhancement.
+4. Modified SDK image to support "at+cipstamac" and "at+bleaddr" command.   
+5. AT command support skipping any DATA traffic during connection.
+
+## Bug Fix List 
+1. Fix “PA setting would be abnormal" issue if BLE operation is terminated by Token Switch.
+2. Fix "V017 deep sleep fail" issue.
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT, power save are on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: MP v1.2
 Patch_Lib : 2882
 ROM_CODE: 1655 
@@ -51,9 +79,7 @@ ROM_CODE: 1655
 
 ## Release Version:
 SDK Package: MP v1.1
-
 Patch_Lib : 2726
-
 ROM_CODE: 1655 
 
 ## Release Date: 2018/10/30
