@@ -1,7 +1,8 @@
 # Function
 This example introduces how to define IO peripheral as PWM port.  
 
-In this demo IO19 and IO22 are configured as PWM port and ouput different frequency waveform. OPL1000 supports two configuration methods, one is simple mode, the other one is complex mode.  
+In this demo IO19 and IO18 are configured as PWM port and ouput different frequency waveform. 
+OPL1000 supports two configuration methods, one is simple mode, the other one is complex mode.  
 
 # Notes
 - All PWM ports shall use same clock source. 

@@ -134,3 +134,16 @@ int tcp_set_dhcp_interval_retry_times(uint8_t dhcp_mode,uint32_t dhcp_interval,u
         
     return 0;
 }
+
+int ble_set_config_bd_addr(uint8_t *bd_addr)
+{
+    set_ble_bd_addr(bd_addr);
+    return 0;
+}
+
+int ble_get_config_bd_addr(uint8_t *bd_addr)
+{
+    get_ble_bd_addr(bd_addr);
+    return 0;
+}
+

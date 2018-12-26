@@ -44,7 +44,8 @@ int get_dhcp_arp_check(void);
 int get_dhcp_arp_check_from_fim(void);
 int set_dhcp_arp_check(u8 mode);
 int set_dhcp_interval_retry_times(u8 dhcp_mode,u32 dhcp_interval,u8 dhcp_retry_times);
-
+int set_ble_bd_addr(uint8_t *addr);
+int get_ble_bd_addr(uint8_t *addr);
 
 #ifdef __cplusplus
 }

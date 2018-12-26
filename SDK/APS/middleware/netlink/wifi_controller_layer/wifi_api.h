@@ -372,6 +372,17 @@ int wifi_config_get_mac_address(wifi_mode_t interface, uint8_t *address);
 int wifi_config_set_mac_address(wifi_mode_t interface, uint8_t *address);
 
 /**
+  * @brief     Get mac address of station from flash
+  *
+  * @param[out]  address: Get the MAC address of station from flash,
+  *              The address is similar to this structure: xx:xx:xx:xx:xx:xx
+  *
+  * @return    0  : success
+  * @return    other : failed
+  */
+int wifi_config_get_sta_mac_address_from_flash(uint8_t *bssid);
+
+/**
   * @brief Get ssid value of AP
   *
   * @param[out]  ssid: Get ssid by pointer

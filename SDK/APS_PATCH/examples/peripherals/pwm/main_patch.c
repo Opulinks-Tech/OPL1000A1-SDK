@@ -225,7 +225,6 @@ void App_Pin_InitConfig(void)
 			{
 				pwm_idx = Hal_PinMux_Get_Index(OPL1000_periph.pwm[i].pin);
 				pwm_index_mask =  pwm_index_mask | pwm_idx;				
-				// pwm[0] corresponding to PWM4 - IO19, complex mode config   
 				Hal_Pinmux_Pwm_Config(&OPL1000_periph.pwm[i]);
 			}
 			

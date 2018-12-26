@@ -1,4 +1,43 @@
 ## Release Version:
+SDK Package: MP v1.4
+Patch_Lib : 2995
+ROM_CODE: 1655 
+
+## Release Date: 2018/12/26
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-AT-instruction-set-and-examples,  R05-v31, add description of OPL1000 acts as TCP server to send data.
+ 1.2 OPL1000-Power-Consumption-Measurement-Guide, R01-v03, Add board re-work introduction of how to make DEVKIT to “minimum system”
+ 1.3 OPL1000-multiple-dev-download-tool-user-guide, R01-v03, update document content according to v1.0 MP tool SW functions.
+ 1.4 OPL1000_peripheral_PWM_application_notes, v0.3, updated for A1 chip. 
+2. Tool version information and update:
+ 2.1 download tool: v0.23. No change since v1.1.1.5;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;
+ 2.3 MP download tool: v1.0, add UART CTS/RTS trigger mode.         
+3. Update gpio example, add D1 LED turn on/off function.
+4. tcp_client example is updated, add smart sleep feature.
+5. update pwm example, change ch2 from pin22 to pin 18.
+6. Add AT cmds for 32K XTAL setting and  MP MAC access.
+7. Change RF setting WIFI TX HP from CF to DF.   
+8. Optimize the power consumption of SMPS-RF.
+9. Token Switch priority optimization.
+10. Add API to add WIFI MAC address for MP use.
+11.Add BLE TX single tone function.
+12.Add AUXADC calibration function.
+
+
+## Bug Fix List 
+1. Fix "Sometimes can not get IP after WIFI connecting" issue .
+2. Fix "WiFi MAC PS mode is inconsistent" issue.
+
+## Notes List 
+1. Websocket feature is on-developing 
+2. More examples such as MQTT is on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: MP v1.3
 Patch_Lib : 2899
 ROM_CODE: 1655 

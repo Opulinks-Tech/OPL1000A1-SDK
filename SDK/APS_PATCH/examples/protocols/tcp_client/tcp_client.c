@@ -28,12 +28,14 @@
 #include "lwip/netif.h"
 #include "errno.h"
 
+#include "ps_public.h"
+
 osThreadId app_task_id;
 #define WIFI_READY_TIME 2000
 
 bool g_connection_flag = false;
 
-static char WRITE_STRING[] = "Hello from OPL1000";
+static uint32_t g_ulRcvCount = 0;
 
 static void tcp_client(void)
 {
@@ -47,7 +49,7 @@ static void tcp_client(void)
     struct sockaddr_in serverAdd;  
 		char server_ip[32];
 		int server_port = TCP_SERVER_PORT; 
-	  char recv_buf[128];
+    char recv_buf[256];
 	  int r;
 		
     serverAdd.sin_family = AF_INET; 
@@ -79,16 +81,8 @@ static void tcp_client(void)
 
         printf("... connected \r\n");
 
-        if (write(s, WRITE_STRING, strlen(WRITE_STRING)) < 0) {
-            printf("... socket send failed \r\n");
-            close(s);
-            osDelay(4000);
-            continue;
-        }
-        printf("... socket send [%s] success \r\n",WRITE_STRING);
-
         struct timeval receiving_timeout;
-        receiving_timeout.tv_sec = 5;
+        receiving_timeout.tv_sec = TCP_RECV_TIMEOUT;
         receiving_timeout.tv_usec = 0;
         if (setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &receiving_timeout,
                 sizeof(receiving_timeout)) < 0) {
@@ -101,8 +95,17 @@ static void tcp_client(void)
         do {
             memset(recv_buf, 0, sizeof(recv_buf));
             r = read(s, recv_buf, sizeof(recv_buf)-1);
-            for (int i = 0; i < r; i++) {
-                putchar(recv_buf[i]);
+            
+            if (r > 0) {
+                g_ulRcvCount++;
+                printf("Rcv %u\n", g_ulRcvCount);
+            
+                if (write(s, recv_buf, strlen(recv_buf)) < 0) {
+                    printf("... socket send failed \r\n");
+                    close(s);
+                    osDelay(4000);
+                    continue;
+                }
             }
         } while (r > 0);
         close(s);
@@ -114,6 +117,9 @@ static void tcp_client(void)
 void user_wifi_app_entry(void *args)
 {
     g_connection_flag = false;
+#if defined(__RF_LP_MODE__)
+  	unsigned char rf_level = 0x0F;
+#endif
 	
     /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
     lwip_network_init(WIFI_MODE_STA);
@@ -122,6 +128,15 @@ void user_wifi_app_entry(void *args)
     lwip_net_ready();
 
     osDelay(500);
+
+#if defined(__RF_LP_MODE__)
+	  //set to low power mode.
+	  set_rf_power_level(rf_level);
+#endif
+	
+    wifi_config_set_skip_dtim(DTIM_SKIP_COUNT, false);
+    
+    ps_smart_sleep(POWER_SAVE_EN);
 
     tcp_client();
 }

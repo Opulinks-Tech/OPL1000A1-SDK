@@ -13,6 +13,8 @@
 #define __AT_CMD_BLE_PATCH_H__
 
 int _at_cmd_letest(char *buf, int len, int mode);
+int _at_cmd_mp_ble_addr(char *buf, int len, int mode);
+
 void _at_cmd_ble_func_init_patch(void);
 
 #endif //__AT_CMD_BLE_PATCH_H__

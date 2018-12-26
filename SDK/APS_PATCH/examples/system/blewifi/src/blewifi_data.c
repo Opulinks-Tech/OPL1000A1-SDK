@@ -23,10 +23,13 @@
 #include "blewifi_ctrl.h"
 #include "blewifi_server_app.h"
 #include "blewifi_wifi_api.h"
+#include "blewifi_ble_api.h"
 #include "wifi_api.h"
 #include "lwip/netif.h"
 #include "mw_ota.h"
 #include "blewifi_ctrl_http_ota.h"
+#include "hal_auxadc_patch.h"
+#include "hal_system.h"
 
 #define HI_UINT16(a) (((a) >> 8) & 0xFF)
 #define LO_UINT16(a) ((a) & 0xFF)
@@ -357,6 +360,40 @@ void BleWifi_Wifi_OtaServerVersionRsp(uint16_t fid)
     BleWifi_Ble_DataSendEncap(BLEWIFI_RSP_HTTP_OTA_SERVER_VERSION, data, 2);
 }
 
+static void BleWifi_MP_CalVbat(uint8_t *data, int len)
+{
+    float fTargetVbat;
+
+    memcpy(&fTargetVbat, &data[0], 4);
+    Hal_Aux_VbatCalibration(fTargetVbat);
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_CAL_VBAT, 0);
+}
+
+static void BleWifi_MP_CalIoVoltage(uint8_t *data, int len)
+{
+    float fTargetIoVoltage;
+    uint8_t ubGpioIdx;
+
+    memcpy(&ubGpioIdx, &data[0], 1);
+    memcpy(&fTargetIoVoltage, &data[1], 4);
+    Hal_Aux_IoVoltageCalibration(ubGpioIdx, fTargetIoVoltage);
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_CAL_IO_VOLTAGE, 0);
+}
+
+static void BleWifi_MP_CalTmpr(uint8_t *data, int len)
+{
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_CAL_TMPR, 0);
+}
+
+static void BleWifi_Eng_SysReset(uint8_t *data, int len)
+{
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_ENG_SYS_RESET, 0);
+
+    // wait the BLE response, then reset the system
+    osDelay(3000);
+    Hal_Sys_SwResetAll();
+}
+
 // it is used in the ctrl task
 void BleWifi_Ble_ProtocolHandler(uint16_t type, uint8_t *data, int len)
 {
@@ -436,6 +473,46 @@ void BleWifi_Ble_ProtocolHandler(uint16_t type, uint8_t *data, int len)
         case BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION:
             BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION \r\n");
             BleWifi_Wifi_OtaServerVersionReq();
+            break;
+
+        case BLEWIFI_REQ_MP_CAL_VBAT:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_VBAT \r\n");
+            BleWifi_MP_CalVbat(data, len);
+            break;
+
+        case BLEWIFI_REQ_MP_CAL_IO_VOLTAGE:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_IO_VOLTAGE \r\n");
+            BleWifi_MP_CalIoVoltage(data, len);
+            break;
+
+        case BLEWIFI_REQ_MP_CAL_TMPR:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_TMPR \r\n");
+            BleWifi_MP_CalTmpr(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_SYS_RESET:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_SYS_RESET \r\n");
+            BleWifi_Eng_SysReset(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_WIFI_MAC_WRITE:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_WRITE \r\n");
+            BleWifi_Wifi_MacAddrWrite(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_WIFI_MAC_READ:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_READ \r\n");
+            BleWifi_Wifi_MacAddrRead(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_BLE_MAC_WRITE:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_WRITE \r\n");
+            BleWifi_Ble_MacAddrWrite(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_BLE_MAC_READ:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_READ \r\n");
+            BleWifi_Ble_MacAddrRead(data, len);
             break;
 
         default:

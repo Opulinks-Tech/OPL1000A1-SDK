@@ -739,6 +739,7 @@ void tracer_log_mode_set_patch(uint8_t bMode)
     return;
 }
 
+#ifdef __FULL_MSG_FUNCTION__
 void tracer_priority_set_patch(int iPriority)
 {
     if(g_tTracerThreadId != NULL)
@@ -783,7 +784,7 @@ void tracer_dump_patch(void)
     tracer_cli(LOG_HIGH_LEVEL, "\n%4s %20s: %s\n", "Index", "Name", "Level");
 
     tracer_cli(LOG_HIGH_LEVEL, "---------------------------------- Internal Tasks (Start from Index 0)\n");
-
+    
     for(i = 0; i < g_bTracerIntTaskNum; i++)
     {
         if(g_ptTracerIntTaskInfoExt[i].baName[0])
@@ -817,6 +818,7 @@ void tracer_dump_patch(void)
     
     return;
 }
+#endif
 
 int tracer_def_level_set_patch(uint8_t bType, uint8_t bLevel)
 {
@@ -857,8 +859,10 @@ void tracer_cmd_patch(char *sCmd)
     char *baParam[8] = {0};
     uint32_t dwNum = 8;
     uint32_t dwParamNum = 0;
+#ifdef __FULL_MSG_FUNCTION__
     uint8_t i = 0;
-
+#endif
+    
     dwParamNum = ParseParam(sCmd, baParam, dwNum);
 
     tracer_cli(LOG_HIGH_LEVEL, "\n");
@@ -867,9 +871,11 @@ void tracer_cmd_patch(char *sCmd)
     {
         if(dwParamNum != 4)
         {
+#ifdef __FULL_MSG_FUNCTION__
             tracer_cli(LOG_HIGH_LEVEL, "Usage: tracer level <task_index> <task_level:hex>\n");
             tracer_cli(LOG_HIGH_LEVEL, "\ttask_index: 0 ~ %d. Set %d to apply level to all tasks\n", TRACER_TASK_NUM_MAX - 1, TRACER_TASK_IDX_MAX);
             tracer_cli(LOG_HIGH_LEVEL, "\ttask_level: 0x00 ~ 0xFF\n");
+#endif
             goto done;
         }
         else
@@ -886,6 +892,7 @@ void tracer_cmd_patch(char *sCmd)
             tracer_cli(LOG_HIGH_LEVEL, "Set level of task[%d] to [%02x]\n", bIdx, bLevel);
         }
     }
+#ifdef __FULL_MSG_FUNCTION__
     else if(!strcmp(baParam[1], "disp_name"))
     {
         uint8_t bDisplay = 0;
@@ -914,6 +921,7 @@ void tracer_cmd_patch(char *sCmd)
             tracer_cli(LOG_HIGH_LEVEL, "disable task name display\n");
         }
     }
+#endif
     else if(!strcmp(baParam[1], "mode"))
     {
         uint8_t bMode = 0;
@@ -929,6 +937,7 @@ void tracer_cmd_patch(char *sCmd)
 
         tracer_cli(LOG_HIGH_LEVEL, "set mode to [%d]\n", bMode);
     }
+#ifdef __FULL_MSG_FUNCTION__
     else if(!strcmp(baParam[1], "def_level"))
     {
         uint8_t bLevel = 0;
@@ -1260,6 +1269,7 @@ void tracer_cmd_patch(char *sCmd)
         tracer_cli(LOG_HIGH_LEVEL, "tracer qsize <queue size>\n");
         tracer_cli(LOG_HIGH_LEVEL, "tracer disp_name <0:disable/1:enable>\n");
     }
+#endif
     #ifdef TRACER_SUT
     else if(!strcmp(baParam[1], "sut"))
     {
@@ -1274,15 +1284,18 @@ void tracer_cmd_patch(char *sCmd)
         tracer_sut_task_create(bEnableCliAt);
     }
     #endif //#ifdef TRACER_SUT
+#ifdef __FULL_MSG_FUNCTION__
     else
     {
         tracer_dump();
     }
-
+#endif
+    
 done:
     return;
 }
 
+#ifdef __FULL_MSG_FUNCTION__
 void tracer_name_display_patch(uint8_t bDisplay)
 {
     if(bDisplay != g_bTracerNameDisplay)
@@ -1323,6 +1336,7 @@ void tracer_ext_task_reset_patch(void)
     memset(g_ptTracerExtTaskInfoExt, 0, sizeof(T_TracerTaskInfoExt) * g_bTracerExtTaskNum);
     return;
 }
+#endif
 
 void Tracer_PatchInit(void)
 {
@@ -1367,18 +1381,25 @@ void Tracer_PatchInit(void)
     tracer_cfg_save = tracer_cfg_save_patch;
     tracer_int_task_info_save = tracer_int_task_info_save_patch;
     tracer_ext_task_info_save = tracer_ext_task_info_save_patch;
+#ifdef __FULL_MSG_FUNCTION__
     tracer_cfg_reset = tracer_cfg_reset_patch;
     tracer_int_task_reset = tracer_int_task_reset_patch;
     tracer_ext_task_reset = tracer_ext_task_reset_patch;
-    
+#endif
+
     // external
     tracer_init = tracer_init_patch;
     //tracer_log_level_set = tracer_log_level_set_impl;
     tracer_log_mode_set = tracer_log_mode_set_patch;
     //tracer_log_mode_get = tracer_log_mode_get_impl;
+#ifdef __FULL_MSG_FUNCTION__
     tracer_priority_set = tracer_priority_set_patch;
+    
     tracer_dump = tracer_dump_patch;
+
     tracer_name_display = tracer_name_display_patch;
+#endif
+
     //tracer_drct_printf = tracer_drct_printf_impl;
     tracer_msg = tracer_msg_patch;
     tracer_def_level_set = tracer_def_level_set_patch;
@@ -1387,10 +1408,12 @@ void Tracer_PatchInit(void)
     //msg_printII = msg_printII_impl;
 
     tracer_log_level_set_ext = tracer_log_level_set_ext_patch;
-
+    
+#ifdef __FULL_MSG_FUNCTION__
     tracer_cfg_reset();
     tracer_int_task_reset();
     tracer_ext_task_reset();
+#endif
     return;
 }
 

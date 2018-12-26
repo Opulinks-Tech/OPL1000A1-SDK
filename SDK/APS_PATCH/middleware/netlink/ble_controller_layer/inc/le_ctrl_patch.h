@@ -170,7 +170,7 @@ void send_number_of_completed_packets_event_patch(uint16_t handle, uint16_t num)
 // le_ctrl_fim 
 void le_read_cfg_from_flash_patch(le_cfg_patch_t *cfg);
 void le_write_cfg_to_flash_patch(le_cfg_patch_t *cfg);
-void le_write_bd_addr_to_flash_impl(uint8_t *addr);
+void le_write_bd_addr_to_flash(uint8_t *addr);
 void ParseLeCfgCommand_patch(char *pszData);
 
 // le_ctrl_cmd

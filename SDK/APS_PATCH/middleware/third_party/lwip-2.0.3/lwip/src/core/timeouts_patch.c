@@ -98,6 +98,7 @@ extern const struct lwip_cyclic_timer lwip_cyclic_timers[];
 extern struct sys_timeo *next_timeout;
 
 static u32_t current_timeout_due_time = 0;
+int wakeup_event_timeouts = 1000;
 
 #define OPL_SMART_SLEEP         1
 #define USE_LWIP_NEW_TIMER      1
@@ -379,8 +380,14 @@ again:
   if (ps_is_smart_sleep_enabled())
   {
       UNLOCK_TCPIP_CORE();
-      res = sys_arch_mbox_fetch(mbox, msg, 0);
+      res = sys_arch_mbox_fetch(mbox, msg, wakeup_event_timeouts);
+      //prvResetNextTaskUnblockTime();
       LOCK_TCPIP_CORE();
+      if (res == SYS_ARCH_TIMEOUT) {
+        sys_check_timeouts();
+        wakeup_event_timeouts = 100;
+        goto again;
+      }
   }
   else
 #endif

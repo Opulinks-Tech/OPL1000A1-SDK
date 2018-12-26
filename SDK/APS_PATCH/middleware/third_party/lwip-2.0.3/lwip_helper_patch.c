@@ -41,6 +41,7 @@ extern LWIP_RETDATA sys_sem_t ip_ready;
 /* NETIF data */
 extern LWIP_RETDATA struct netif netif;
 extern LWIP_RETDATA bool tcpip_inited;
+extern int wakeup_event_timeouts;
 
 /*****************************************************************************
  * Private functions declarations
@@ -49,8 +50,23 @@ extern LWIP_RETDATA bool tcpip_inited;
 /*****************************************************************************
  * Private functions
  ****************************************************************************/
+static int32_t wifi_station_connected_event_handler_patch(void *arg)
+{
+    LWIP_UNUSED_ARG(arg);
+    netif_set_link_up(&netif);
+    sys_sem_signal(&wifi_connected);
+
+    /* reset to initial timeout value (1000 ms) */
+    wakeup_event_timeouts = 1000;
+
+    printf("wifi connected\r\n");
+    return 0;
+}
+
 static void lwip_check_timeouts(PS_WAKEUP_TYPE wake_type)
 {
+    /* set wakeup timeout = BLE maximum adv interval (10s) + 500ms */
+    wakeup_event_timeouts = 10*1000 + 500;
     tcpip_check_timeouts();
     return;
 }
@@ -85,5 +101,6 @@ void lwip_load_interface_lwip_helper_patch(void)
     /* Cold boot initialization for "zero_init" retention data */
 
     lwip_network_init   = lwip_network_init_patch;
+    wifi_station_connected_event_handler    = wifi_station_connected_event_handler_patch;
 }
 

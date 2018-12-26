@@ -66,7 +66,7 @@ T_OPL1000_Periph OPL1000_periph = {
        SPI_DFS_08_bit,
        QMODE_DISABLE}},
   2,{
-      {OPL1000_IO22_PIN,
+      {OPL1000_IO18_PIN,
        CLK_22MHz,
        CFG_SIMPLE,
        20,

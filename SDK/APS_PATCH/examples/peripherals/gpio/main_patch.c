@@ -24,7 +24,7 @@
 *
 *  Author:
 *  -------
-*  Jeff Kuo
+*  SH SDK 
 *
 ******************************************************************************/
 /***********************
@@ -212,41 +212,6 @@ static void Main_FlashLayoutUpdate(void)
     // update here
 }
 
-
-/*************************************************************************
-* FUNCTION:
-*   App_Pin_InitConfig
-*
-* DESCRIPTION:
-*   init the pin assignment
-*
-* PARAMETERS
-*   none
-*
-* RETURNS
-*   none
-*
-*************************************************************************/
-void App_Pin_InitConfig(void)
-{
-	  E_GpioIdx_t gpioIdx;
-	  T_OPL1000_Gpio *gpioPtr;
-    // GPIO2  OUTPUT
-	  gpioPtr = &OPL1000_periph.gpio[0];
-    Hal_Pinmux_Gpio_Init(gpioPtr);
-	  gpioIdx = Hal_Pinmux_GetIO(gpioPtr->pin);
-	  printf("GPIO%d is set to OUTPUT and LOW_LEVEL.\n",gpioIdx);
-    // GPIO3  OUTPUT
-	  gpioPtr = &OPL1000_periph.gpio[1];
-    Hal_Pinmux_Gpio_Init(gpioPtr);
-	  gpioIdx = Hal_Pinmux_GetIO(gpioPtr->pin);		
-	  printf("GPIO%d is set to OUTPUT and LOW_HIGH.\n",gpioIdx);
-	  gpioPtr = &OPL1000_periph.gpio[2];	 
-		Hal_Pinmux_Gpio_Init(gpioPtr);
-	  gpioIdx = Hal_Pinmux_GetIO(gpioPtr->pin);		
-	  printf("GPIO%d is set to OUTPUT and HIGH_LEVEL.\n",gpioIdx);
-}
-
 /*************************************************************************
 * FUNCTION:
 *   Main_AppInit_patch
@@ -266,9 +231,6 @@ static void Main_AppInit_patch(void)
     osThreadDef_t tThreadDef;
     osMessageQDef_t tMessageDef;
     osPoolDef_t tMemPoolDef;
-    
-    // init the pin assignment
-    App_Pin_InitConfig();
     
     // do the gpio_int_test
     gpio_int_test();
@@ -376,34 +338,43 @@ static void Main_AppThread_2(void *argu)
 {
     uint32_t ulCount = 1;
     E_GpioLevel_t io_level;
-	  E_GpioIdx_t gpioIdx1,gpioIdx2,gpioIdx3;
-	  T_OPL1000_Gpio *gpioPtr;
+    E_GpioIdx_t gpioIdx1,gpioIdx2,gpioIdx3;
+    T_OPL1000_Gpio *gpioPtr;
 
-	  gpioPtr = &OPL1000_periph.gpio[0];
-	  gpioIdx1 = Hal_Pinmux_GetIO(gpioPtr->pin);
-	  gpioPtr = &OPL1000_periph.gpio[1];
-	  gpioIdx2 = Hal_Pinmux_GetIO(gpioPtr->pin);
-	  gpioPtr = &OPL1000_periph.gpio[2];
-	  gpioIdx3 = Hal_Pinmux_GetIO(gpioPtr->pin);
+    gpioPtr = &OPL1000_periph.gpio[0];
+    gpioIdx1 = Hal_Pinmux_GetIO(gpioPtr->pin);
+    gpioPtr = &OPL1000_periph.gpio[1];
+    gpioIdx2 = Hal_Pinmux_GetIO(gpioPtr->pin);
+    gpioPtr = &OPL1000_periph.gpio[4];
+    gpioIdx3 = Hal_Pinmux_GetIO(gpioPtr->pin);
+	
     while (1)
     {
         printf("Count = %d\n", ulCount);
-		    io_level = (E_GpioLevel_t)(ulCount % 2);
-			  if(io_level == GPIO_LEVEL_LOW)
-			      printf("GPIO2/GPIO3 are set to Low \n");
-				else
-					  printf("GPIO2/GPIO3 are set to High \n");
+        io_level = (E_GpioLevel_t)(ulCount % 2);
+        if(io_level == GPIO_LEVEL_LOW)
+            printf("GPIO2 is set to Low \n");
+        else
+            printf("GPIO2 is set to High \n");
         Hal_Vic_GpioOutput(gpioIdx1, io_level);
-        Hal_Vic_GpioOutput(gpioIdx2, io_level);
-				io_level = (E_GpioLevel_t)!io_level;
-				if(io_level == GPIO_LEVEL_LOW)
-			      printf("GPIO20 is set to Low \n");
-				else
-					  printf("GPIO20 is set to High \n");
-        Hal_Vic_GpioOutput(gpioIdx3, io_level);				
+        
+        io_level = (E_GpioLevel_t)!io_level;
+        if(io_level == GPIO_LEVEL_LOW)
+          printf("GPIO3 is set to Low \n");
+        else
+          printf("GPIO3 is set to High \n");
+        Hal_Vic_GpioOutput(gpioIdx2, io_level);        			
+
+        io_level = (E_GpioLevel_t)(ulCount % 2);
+        if(io_level == GPIO_LEVEL_LOW)
+          printf("D1 LED is turned off \n");
+        else
+          printf("D1 LED is light up \n");
+        Hal_Vic_GpioOutput(gpioIdx3, io_level);   
+				
         ulCount++;
         
-        osDelay(5000);      // delay 5000 ms
+        osDelay(1000);      // delay 1000 ms
     }
 }
 

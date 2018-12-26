@@ -30,6 +30,8 @@
 #include "wifi_types.h"
 #include "wifi_api.h"
 #include "data_flow_patch.h"
+#include "hal_system.h"
+#include "hal_tick.h"
 
 //#define AT_FLASH_CHECK_BEFORE_WRITE
 //#define AT_DEBUG
@@ -1068,6 +1070,35 @@ int at_cmd_at_switch_to_dbg(char *buf, int len, int mode)
     return true;
 }
 
+int at_cmd_sys_mp_rst(char *buf, int len, int mode)
+{
+    extern int _at_cmd_sys_rst(char *buf, int len, int mode);
+    return _at_cmd_sys_rst(buf, len, mode);
+}
+
+int at_cmd_at_slp_tmr(char *buf, int len, int mode)
+{
+    uint32_t u32TickStart = 0;
+    uint32_t u32TickDiff = 0;
+    uint64_t u64SlpTmrStart = 0;
+    uint64_t u64SlpTmrEnd = 0;
+
+    Hal_Tick_Init();
+    
+    u64SlpTmrStart = Hal_Sys_SleepTimerGet();
+    u32TickStart = Hal_Tick_Diff( 0 );
+    while( u32TickDiff < ( 1000* Hal_Tick_PerMilliSec() ) )
+    {
+        // busy wait here
+        u32TickDiff = Hal_Tick_Diff( u32TickStart );
+    }
+    u64SlpTmrEnd = Hal_Sys_SleepTimerGet();
+    
+    msg_print_uart1("\r\n32K XTAL Freq: %lld\n\r", u64SlpTmrEnd - u64SlpTmrStart);
+    tracer_drct_printf("\r\n32K XTAL Freq: %lld\n\r", u64SlpTmrEnd - u64SlpTmrStart);
+    return true;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
@@ -1094,5 +1125,7 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+rfhp",                at_cmd_sys_rf_hp,         "Set RF power"},
     { "at+rftm",                at_cmd_sys_rf_test_mode,  "Set RF test mode"},
     { "at+switchdbg",           at_cmd_at_switch_to_dbg,  "AT switch to Debug UART"},
+    { "at+mprst",               at_cmd_sys_mp_rst,        "Restart module (MP usage)"},
+    { "at+slptmr",              at_cmd_at_slp_tmr,        "Got measured 32K XTAL freq"},
     { NULL,                     NULL,                     NULL},
 };

@@ -85,7 +85,7 @@ T_OPL1000_Periph OPL1000_periph = {
       {OPL1000_IO5_PIN,
        IO_INPUT,
        PULL_UP},
-      {OPL1000_IO20_PIN,
+      {OPL1000_IO23_PIN,
        IO_OUTPUT,
        PULL_UP},
       {BLANK_PIN,IO_OUTPUT,PULL_UP},

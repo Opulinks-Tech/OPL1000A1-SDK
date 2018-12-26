@@ -22,6 +22,7 @@
 #include "mw_fim_default_group02_patch.h"
 #include "mw_fim_default_group03_patch.h"
 #include "wifi_nvm_patch.h"
+#include "le_ctrl_patch.h"
 
 extern int dhcp_does_arp_check_flag;
 extern uint8_t dhcp_retry_mode;
@@ -232,5 +233,19 @@ int set_dhcp_interval_retry_times(u8 dhcp_mode,u32 dhcp_interval,u8 dhcp_retry_t
     dhcp_retry_interval = dhcp_interval;
     lwip_dhcp_autoip_coop_tries = dhcp_retry_times;
         
+    return true;
+}
+
+int set_ble_bd_addr(uint8_t *addr)
+{
+    le_write_bd_addr_to_flash(addr);
+    return true;
+}
+
+int get_ble_bd_addr(uint8_t *addr)
+{
+    extern le_cfg_patch_t g_LeCfg;
+    memcpy(addr, &g_LeCfg.bd_addr, 6);
+    
     return true;
 }

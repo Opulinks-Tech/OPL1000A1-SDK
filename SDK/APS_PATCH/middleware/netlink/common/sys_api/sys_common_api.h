@@ -165,6 +165,32 @@ int tcp_set_config_dhcp_arp_check(uint8_t mode);
  */
 int tcp_set_dhcp_interval_retry_times(uint8_t dhcp_mode,uint32_t dhcp_interval,uint8_t dhcp_retry_times);
 
+/**
+  * @brief     Write BLE BD_ADDR to flash 
+  *
+  * @attention 1. API returns false if try to set Configuration which something error
+  *
+  * @param[in]   bd_addr:
+  *              - 6 bytes BLE BD_ADDR (new BD_ADDR only take effect after reboot)
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int ble_set_config_bd_addr(uint8_t *bd_addr);
+
+/**
+  * @brief     Read BLE BD_ADDR
+  *
+  * @attention 1. API returns false if try to set Configuration which something error
+  *
+  * @param[out]   bd_addr:
+  *               - 6 bytes BLE BD_ADDR
+  *
+  * @return    0  : success
+  * @return    other : failed
+ */
+int ble_get_config_bd_addr(uint8_t *bd_addr);
+
 #ifdef __cplusplus
 }
 #endif

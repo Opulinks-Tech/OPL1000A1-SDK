@@ -112,6 +112,8 @@ void BleWifi_Wifi_ReadDeviceInfo(void);
 void BleWifi_Wifi_WriteDeviceInfo(uint8_t *data, int len);
 void BleWifi_Wifi_SendStatusInfo(uint16_t uwType);
 void BleWifi_Wifi_ResetRecord(void);
+void BleWifi_Wifi_MacAddrWrite(uint8_t *data, int len);
+void BleWifi_Wifi_MacAddrRead(uint8_t *data, int len);
 
 int BleWifi_Wifi_SendScanReport(void);
 int BleWifi_Wifi_UpdateScanInfoToAutoConnList(void);

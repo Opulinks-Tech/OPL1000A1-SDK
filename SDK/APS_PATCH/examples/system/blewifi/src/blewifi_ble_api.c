@@ -11,6 +11,8 @@
 
 #include "blewifi_ble_api.h"
 #include "blewifi_server_app.h"
+#include "blewifi_data.h"
+#include "sys_common_api.h"
 
 /******************************************************
  *                      Macros
@@ -59,4 +61,36 @@ void BleWifi_Ble_StopAdvertising(void)
 {
     /* Call BLE Stack API to stop ble advertising */
     BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_EXIT_ADVERTISING, 0, NULL);
+}
+
+void BleWifi_Ble_MacAddrWrite(uint8_t *data, int len)
+{
+    uint8_t ubaMacAddr[6];
+
+    memcpy(&ubaMacAddr[5], &data[0], 1);
+    memcpy(&ubaMacAddr[4], &data[1], 1);
+    memcpy(&ubaMacAddr[3], &data[2], 1);
+    memcpy(&ubaMacAddr[2], &data[3], 1);
+    memcpy(&ubaMacAddr[1], &data[4], 1);
+    memcpy(&ubaMacAddr[0], &data[5], 1);
+
+    ble_set_config_bd_addr(ubaMacAddr);
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_ENG_BLE_MAC_WRITE, 0);
+}
+
+void BleWifi_Ble_MacAddrRead(uint8_t *data, int len)
+{
+    uint8_t ubaMacAddr[6];
+    uint8_t ubaMacAddrReOrder[6];
+
+    ble_get_config_bd_addr(ubaMacAddr);
+
+    ubaMacAddrReOrder[5] = ubaMacAddr[0];
+    ubaMacAddrReOrder[4] = ubaMacAddr[1];
+    ubaMacAddrReOrder[3] = ubaMacAddr[2];
+    ubaMacAddrReOrder[2] = ubaMacAddr[3];
+    ubaMacAddrReOrder[1] = ubaMacAddr[4];
+    ubaMacAddrReOrder[0] = ubaMacAddr[5];
+    
+    BleWifi_Ble_DataSendEncap(BLEWIFI_RSP_ENG_BLE_MAC_READ, ubaMacAddrReOrder, 6);
 }

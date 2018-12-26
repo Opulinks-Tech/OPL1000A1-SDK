@@ -85,9 +85,37 @@
 #define MBEDTLS_SHA1_ALT
 #define MBEDTLS_SHA256_ALT
 
+#define MBEDTLS_AES_ROM_TABLES
+
+
+/*
+ * Use less ROM/RAM for AES tables.
+ *
+ * Uncommenting this macro omits 75% of the AES tables from
+ * ROM / RAM (depending on the value of \c MBEDTLS_AES_ROM_TABLES)
+ * by computing their values on the fly during operations
+ * (the tables are entry-wise rotations of one another).
+ *
+ * Tradeoff: Uncommenting this reduces the RAM / ROM footprint
+ * by ~6kb but at the cost of more arithmetic operations during
+ * runtime. Specifically, one has to compare 4 accesses within
+ * different tables to 4 accesses with additional arithmetic
+ * operations within the same table. The performance gain/loss
+ * depends on the system and memory details.
+ *
+ * This option is independent of \c MBEDTLS_AES_ROM_TABLES.
+ *
+ */
+#define MBEDTLS_AES_FEWER_TABLES
+
+
+/*
+ * Save RAM at the expense of interoperability: do this only if you control
+ * both ends of the connection!  (See comments in "mbedtls/ssl.h".)
+ * The optimal size here depends on the typical size of records.
+ */
 #define MBEDTLS_SSL_MAX_CONTENT_LEN         (6*1024)   /**< Size of the input / output buffer */
 
-#define MBEDTLS_AES_ROM_TABLES
 
 #define OPL_DEBUG_LEVEL_NONE
 

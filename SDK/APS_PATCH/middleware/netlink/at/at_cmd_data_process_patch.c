@@ -102,6 +102,12 @@ int data_process_ble_patch(char *pbuf, int len, int mode)
         _at_cmd_letest(pbuf, len, mode);
         return true;
     }
+    else if (strncasecmp(pbuf, "at+mpbleaddr", strlen("at+mpbleaddr"))==0)
+    {
+        msg_print_uart1("\r\nOK\r\n");
+        _at_cmd_mp_ble_addr(pbuf, len, mode);
+        return true;
+    }
     //2. Find the specified command handler, do it
 
     //Be noticed, as to BLE case, the pbuf is transfered to BLE protocol stack, and the command will be handled at that time in BLE statck
