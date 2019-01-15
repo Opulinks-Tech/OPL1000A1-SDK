@@ -224,6 +224,7 @@ void Main_AppInit_patch(void)
 {
     Internal_Module_Log_Config("opl_wifi_mac",true);			
     Internal_Module_Log_Config("opl_controller_task",true);
-    Internal_Module_Log_Config("opl_event_loop",true);	
+    Internal_Module_Log_Config("opl_event_loop",true);
+    //MacAddrInit();	
     WifiAppInit();
 }
