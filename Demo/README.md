@@ -36,12 +36,12 @@ Note: AP ssid, password and TCP server IP, port etc. parameters need to be defin
 
 Please refer "OPL1000-Demo-tcp-client-guide.pdf" to know detailed information of how to build image file and execute demo. 
 
-# AP_Connection 
+# current_measure 
 
 This demo provides users with a quick method to measure power consumption of OPL1000 with different options. By this demonstration user can
 
 1. Configure and update the parameters of  wpa2_station project with special requirements 
-2. Download m3.bin file for measuring power consumption of OPL1000 with different configurations. 
+2. Download opl1000.bin file for measuring power consumption of OPL1000 with different configurations. 
 
-Please refer to readme.md file in ap_connection folder for more information of how to use it. 
+Please refer to "readme.md" and "OPL1000-Demo-low-power-current-measure-guide.pdf" files in current_measure folder for more information of how to use it. 
 
