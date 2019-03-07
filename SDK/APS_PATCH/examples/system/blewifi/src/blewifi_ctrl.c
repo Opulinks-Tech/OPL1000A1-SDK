@@ -33,6 +33,8 @@
 #include "mw_ota_def.h"
 #include "mw_ota.h"
 #include "hal_system.h"
+#include "mw_fim_default_group03.h"
+#include "mw_fim_default_group03_patch.h"
 
 #define BLEWIFI_CTRL_RESET_DELAY    (3000)  // ms
 
@@ -41,12 +43,24 @@ osPoolId     g_tAppCtrlMemPoolId;
 osMessageQId g_tAppCtrlQueueId;
 osTimerId    g_tAppCtrlAutoConnectTriggerTimer;
 
+uint8_t g_ulAppCtrlSysMode;
+
 uint8_t g_ubAppCtrlBleStatus;     //true:BLE is connected false:BLE is idle
 uint8_t g_ubAppCtrlWifiStatus;    //true:Wifi is connected false:Wifi is idle
 uint8_t g_ubAppCtrlOtaStatus;
 
 uint8_t g_ubAppCtrlRequestRetryTimes;
 uint32_t g_ulAppCtrlAutoConnectInterval;
+
+void BleWifi_Ctrl_SysModeSet(uint8_t mode)
+{
+    g_ulAppCtrlSysMode = mode;
+}
+
+uint8_t BleWifi_Ctrl_SysModeGet(void)
+{
+    return g_ulAppCtrlSysMode;
+}
 
 void BleWifi_Ctrl_BleStatusSet(uint8_t status)
 {
@@ -131,6 +145,10 @@ void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)
 
         case BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM:
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM \r\n");
+            break;
+
+        case BLEWIFI_CTRL_MSG_BLE_ADVERTISING_TIME_CHANGE_CFM:
+            BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_BLE_ADVERTISING_TIME_CHANGE_CFM \r\n");
             break;
 
         case BLEWIFI_CTRL_MSG_BLE_CONNECTION_COMPLETE:
@@ -415,6 +433,9 @@ void BleWifi_Ctrl_Init(void)
     {
         BLEWIFI_ERROR("BLEWIFI: ctrl task create auto-connection timer fail \r\n");
     }
+
+    /* the init state of system mode is init */
+    g_ulAppCtrlSysMode = MW_FIM_SYS_MODE_INIT;
 
     /* the init state of BLE is idle */
     g_ubAppCtrlBleStatus = false;

@@ -1,4 +1,134 @@
 ## Release Version:
+SDK Package: MP v1.5
+Patch_Lib : 3322
+ROM_CODE: 1655 
+
+## Release Date: 2019/3/6
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-Demo-ota-wifi-guide, R01-v02, http_server.exe support AP SSID and password input.
+ 1.2 OPL1000-Demo-low-power-current-measure-guide, R01-v01, New added.
+ 1.3 OPL1000-multiple-dev-download-tool-user-guide, R01-v03, Add UART as trigger signal,Add combo mode with interface description, Modify 'Arduino as trigger' with fixture instruction. 
+ 1.4 OPL1000-Iperf-Measurement-Guide，R01-V03,add new commands in ''help".
+ 1.5 OPL1000-SDK-Development-guide,R01-V12, Tool contents  description is updated.
+ 1.6 OPL1000-RF-Testing-Guide，R01-V03，add section 2.5 , add a new section "other precautions".
+ 1.7 Add four English version documents. They are placed under Doc\en folder.
+        OPL1000-RF-Testing-Guide_ENG
+        OPL1000-AT-instruction-set-and-examples_ENG
+        OPL1000-patch-download-tool-user-guide_ENG
+        OPL1000-Power-Saving-Introduction_ENG
+2. Tool version information and update:
+ 2.1 download tool: v0.24. Fixed a potiential bug;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;
+ 2.3 Add MP_Tool,  including Calibration_Tool,Download_Tool,RF_Test_Tool.      
+3. Add current_measure demo for low power current measure.
+4. Update http_server.exe to support AP SSID and password input. 
+5. Update wpa2-station example to support current_measure demo.  
+6. Update apk for blewifi demo, version 1.4.3.
+7. Add the MP and User mode for MP test and the user application.
+8. Add the new command for reg read/write.
+9. Show tracer command message for SDK image debug use.
+10. Add reset command for iperf example.
+11. show more detail information when watchdog is reset.
+12. Add ANCS - Apple Notification Center Service  example. Refer example\bluetooth\ancs.
+13. Enable M0 debug uart in iperf example.
+14. Enable TCP local ports random range functionality in LWIP.
+
+## Bug Fix List 
+1. Fix "M0 is die, M3 is still alive" issue.
+2. Fix "WiFi MAC stuck when received disconnect from AP" issue.
+3. Fix "Internal task table is not initialized" issue.
+4. Fix "mailbox status is not available during initialization" issue.
+5. Fix "critical system crash/hang issue" issue.
+6. Handle failed case which got timeout IP.
+7. Fix issue of "get 'Command Disallowed' error status when attempt to change advertising parameters after disable ADV" .
+
+## Notes List 
+1. Websocket feature is on-developing. 
+
+
+*****
+
+﻿## Release Version:
+SDK Package: MP v1.5
+Patch_Lib : 3234
+ROM_CODE: 1655 
+
+## Release Date: 2019/2/15
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-Demo-ota-wifi-guide, R01-v02, http_server.exe support AP SSID and password input.
+ 1.2 OPL1000-Demo-low-power-current-measure-guide, R01-v01, New added.
+ 1.3 OPL1000-multiple-dev-download-tool-user-guide, R01-v03, Add UART as trigger signal,Add combo mode with interface description, Modify 'Arduino as trigger' with fixture instruction. 
+ 1.4 OPL1000-Iperf-Measurement-Guide，R01-V03,add new commands in ''help".
+ 1.5 OPL1000-SDK-Development-guide,R01-V11,Update section 2 –Table 4 because ancs example has been added.
+2. Tool version information and update:
+ 2.1 download tool: v0.24. Fixed a potiential bug;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;
+ 2.3 MP download tool: v1.2, fixed several bugs.         
+3. Add current_measure demo for low power current measure.
+4. Update http_server.exe to support AP SSID and password input. 
+5. Update wpa2-station example to support current_measure demo.  
+6. Update apk for blewifi demo, version 1.4.3.
+7. Add the MP and User mode for MP test and the user application.
+8. Add the new command for reg read/write.
+9. Show tracer command message for SDK image debug use.
+10. Add reset command for iperf example.
+11. show more detail information when watchdog is reset.
+12. Add ANCS - Apple Notification Center Service  example. Refer example\bluetooth\ancs
+
+## Bug Fix List 
+1. Fix "M0 is die, M3 is still alive" issue.
+2. Fix "WiFi MAC stuck when received disconnect from AP" issue.
+3. Fix "Internal task table is not initialized" issue.
+4. Fix "mailbox status is not available during initialization" issue.
+5. Fix "critical system crash/hang issue" issue.
+
+## Notes List 
+1. Websocket feature is on-developing. 
+
+
+*****
+
+## Release Version:
+SDK Package: MP v1.5
+Patch_Lib : 3179
+ROM_CODE: 1655 
+
+## Release Date: 2019/1/24
+
+## Function & Feature Update 
+1. Documents updating:
+ 1.1 OPL1000-Demo-ota-wifi-guide, R01-v02, http_server.exe support AP SSID and password input.
+ 1.2 OPL1000-Demo-low-power-current-measure-guide, R01-v01, New added.
+ 1.3 OPL1000-multiple-dev-download-tool-user-guide, R01-v03, Add UART as trigger signal,Add combo mode with interface description, Modify 'Arduino as trigger' with fixture instruction. 
+2. Tool version information and update:
+ 2.1 download tool: v0.24. Fixed a potiential bug;        
+ 2.2 pin-mux tool: v0.8. No change since v1.1.1.7;
+ 2.3 MP download tool: v1.2, fixed several bugs.         
+3. Add current_measure demo for low power current measure.
+4. Update http_server.exe to support AP SSID and password input. 
+5. Update wpa2-station example to support current_measure demo.  
+6. Update apk for blewifi demo, version 1.4.3.
+7. Add the MP and User mode for MP test and the user application.
+8. Add the new command for reg read/write.
+9. Show tracer command message for SDK image debug use.
+
+## Bug Fix List 
+1. Fix "M0 is die, M3 is still alive" issue.
+2. Fix "WiFi MAC stuck when received disconnect from AP" issue.
+3. Fix "Internal task table is not initialized" issue.
+4. Fix "mailbox status is not available during initialization" issue.
+
+## Notes List 
+1. Websocket feature is on-developing. 
+2. More examples such as MQTT is on-developing.
+
+*****
+
+## Release Version:
 SDK Package: MP v1.4
 Patch_Lib : 2995
 ROM_CODE: 1655 

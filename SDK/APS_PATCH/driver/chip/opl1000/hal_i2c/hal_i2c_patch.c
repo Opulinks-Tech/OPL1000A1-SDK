@@ -98,6 +98,8 @@ Head Block of The File
 
 #define I2C_FIFO_SIZE            8
 
+#define IRQ_PRIORITY_I2C_PATCH   0x08
+
 /********************************************
 Declaration of data structure
 ********************************************/
@@ -282,7 +284,7 @@ uint32_t Hal_I2c_MasterInit_patch(E_I2cAddrMode_t eAddrMode, E_I2cSpeed_t eSpeed
     // NVIC 1) Clean NVIC
     NVIC_ClearPendingIRQ(I2C_IRQn);
     // NVIC 2) Set prority
-    NVIC_SetPriority(I2C_IRQn, IRQ_PRIORITY_I2C);
+    NVIC_SetPriority(I2C_IRQn, IRQ_PRIORITY_I2C_PATCH);
     // NVIC 3) Enable NVIC
     NVIC_EnableIRQ(I2C_IRQn);
     

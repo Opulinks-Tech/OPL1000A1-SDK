@@ -32,6 +32,8 @@
 #include "data_flow_patch.h"
 #include "hal_system.h"
 #include "hal_tick.h"
+#include "mw_fim_default_group03.h"
+#include "mw_fim_default_group03_patch.h"
 
 //#define AT_FLASH_CHECK_BEFORE_WRITE
 //#define AT_DEBUG
@@ -58,6 +60,10 @@ extern volatile uint8_t g_u8RfCmdRun;
 extern T_RfCmd g_tRfCmd;
 extern int rf_cmd_param_alloc(int iArgc, char *saArgv[]);
 extern void rf_cmd_param_free(void);
+
+#define CMD_TOKEN_SIZE  16
+extern void Cmd_TokenParse(char* pszData, uint8_t* pubCount, uint8_t* pubaToken[]);
+
 
 #if defined(__AT_CMD_SUPPORT__)
 
@@ -1099,6 +1105,49 @@ int at_cmd_at_slp_tmr(char *buf, int len, int mode)
     return true;
 }
 
+int at_cmd_sys_mode(char *buf, int len, int mode)
+{
+    T_MwFim_SysMode tSysMode;
+
+    uint8_t ubCount;
+    uint8_t* pubaToken[CMD_TOKEN_SIZE];
+
+    if (AT_CMD_MODE_READ == mode)
+    {
+        msg_print_uart1("\r\n");
+
+        // get the settings of system mode
+        if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_SYS_MODE, 0, MW_FIM_SYS_MODE_SIZE, (uint8_t*)&tSysMode))
+        {
+            // if fail, get the default value
+            memcpy(&tSysMode, &g_tMwFimDefaultSysMode, MW_FIM_SYS_MODE_SIZE);
+        }
+
+        msg_print_uart1("System Mode: %d \r\n", tSysMode.ubSysMode);
+
+        msg_print_uart1("\r\nOK\r\n");
+    }
+    else if (AT_CMD_MODE_SET == mode)
+    {
+        msg_print_uart1("\r\n");
+
+        // pre-parser the input string
+        Cmd_TokenParse(buf, &ubCount, pubaToken);
+
+        // set the settings of system mode
+        tSysMode.ubSysMode = strtoul((const char*)pubaToken[1], NULL, 0);
+        if (tSysMode.ubSysMode < MW_FIM_SYS_MODE_MAX)
+        {
+            if (MW_FIM_OK == MwFim_FileWrite(MW_FIM_IDX_GP03_PATCH_SYS_MODE, 0, MW_FIM_SYS_MODE_SIZE, (uint8_t*)&tSysMode))
+            {
+                msg_print_uart1("\r\nOK\r\n");
+            }
+        }
+    }
+
+    return true;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
@@ -1127,5 +1176,6 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+switchdbg",           at_cmd_at_switch_to_dbg,  "AT switch to Debug UART"},
     { "at+mprst",               at_cmd_sys_mp_rst,        "Restart module (MP usage)"},
     { "at+slptmr",              at_cmd_at_slp_tmr,        "Got measured 32K XTAL freq"},
+    { "at+sysmode",             at_cmd_sys_mode,          "Set the system mode"},
     { NULL,                     NULL,                     NULL},
 };

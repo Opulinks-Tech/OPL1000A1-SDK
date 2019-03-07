@@ -22,7 +22,7 @@ extern "C" {
 #define  WIFI_SSID    "Opulinks-TEST-AP" 
 #define  WIFI_PASSWORD    "1234abcd" 
 
-#define  DTIM_SKIP_COUNT    7
+#define  DTIM_SKIP_COUNT    9
 #define  POWER_SAVE_EN      1
 
 //Define following Macro to set LP mode; otherwise, OPL1000 would be in HP mode by default.
@@ -46,14 +46,6 @@ void WifiAppInit(void);
 #endif
 
 #endif /* __EVENT_LOOP_H__ */
-
-
-
-
-
-
-
-
 
 
 

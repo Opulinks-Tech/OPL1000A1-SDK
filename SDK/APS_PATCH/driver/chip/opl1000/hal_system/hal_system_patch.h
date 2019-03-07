@@ -69,6 +69,7 @@ C Functions
 ***********/
 // Sec 8: C Functions
 /* Power relative */
+uint32_t Hal_Sys_PowerDefaultSettings_patch(void);
 
 /* Sleep Mode relative */
 void Hal_Sys_SleepInit_patch(void);

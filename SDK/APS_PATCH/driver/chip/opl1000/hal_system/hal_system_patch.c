@@ -244,6 +244,33 @@ Declaration of static Global Variables &  Functions
 C Functions
 ***********/
 // Sec 8: C Functions
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_Sys_PowerDefaultSettings
+*
+* DESCRIPTION:
+*   the default settings of power part
+* CALLS
+*
+* PARAMETERS
+*
+* RETURNS
+*   0: setting complete
+*   1: error
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+uint32_t Hal_Sys_PowerDefaultSettings_patch(void)
+{
+    // Enable PowerManual
+    Hal_Sys_PowerManualEn(1);
+
+    // Remove CBC, RC and XTAL setting. It must exist.
+
+    return 0;
+}
+
 void Hal_Sys_SleepInit_patch(void)
 {
     // Set RetRAM voltage

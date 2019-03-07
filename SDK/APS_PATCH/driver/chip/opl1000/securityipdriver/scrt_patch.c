@@ -23,6 +23,7 @@
 #include "scrt_cmd.h"
 #include "scrt_patch.h"
 #include "scrt_cmd_patch.h"
+#include "hal_system.h"
 
 
 // idx: T_ScrtMbIdx
@@ -1557,6 +1558,41 @@ uint8_t scrt_res_alloc_patch(void)
     return u8Idx;
 }
 
+int scrt_mb_init_patch(void)
+{
+    int iRet = -1;
+    volatile uint32_t *u32Status = (uint32_t *)SCRT_STAT_CTRL_ADDR;
+    uint8_t u8AvailCnt = 0;
+    uint8_t i = 0;
+
+    for(i = SCRT_MB_IDX_0; i < SCRT_MB_IDX_MAX; i++)
+    {
+        uint32_t u32Mask = SCRT_STATUS_WRITE_MSK(i) | SCRT_STATUS_READ_MSK (i) | SCRT_STATUS_LINK_MSK(i) | SCRT_STATUS_AVAIL_MSK(i);
+
+        if((*u32Status & u32Mask) != SCRT_STATUS_AVAIL_MSK(i))
+        {
+            if(!Hal_Sys_ApsModuleRst(ASP_RST_SCRT))
+            {
+                iRet = 0;
+                break;
+            }
+
+            SCRT_LOGE("[%s %d] Hal_Sys_ApsModuleRst(ASP_RST_SCRT) fail\n", __func__, __LINE__);
+        }
+        else
+        {
+            ++u8AvailCnt;
+        }
+    }
+
+    if(u8AvailCnt == SCRT_MB_IDX_MAX)
+    {
+        iRet = 0;
+    }
+
+    return iRet;
+}
+
 /*
  * scrt_drv_func_init - Interface Initialization: SCRT
  *
@@ -1570,6 +1606,7 @@ void scrt_drv_func_init_patch(void)
     nl_scrt_Init = nl_scrt_init_patch;
     nl_scrt_otp_status_get = nl_scrt_otp_status_get_patch;
     scrt_res_alloc = scrt_res_alloc_patch;
+    scrt_mb_init = scrt_mb_init_patch;
 
     #ifdef SCRT_CMD_PATCH
     nl_scrt_cmd_func_init_patch();

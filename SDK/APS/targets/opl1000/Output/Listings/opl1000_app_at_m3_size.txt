@@ -5,14 +5,14 @@ Object file sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug
 
-     44584      14534       1449        159        906    7684868   Grand Totals
-     44584      14534       1449        159          0          0   ROM Totals
+     45598      14836       1449        159        921    7862819   Grand Totals
+     45598      14836       1449        159          0          0   ROM Totals
 
 ========================================================================
 
-    Total RO  Size (Code + RO Data)                46033 (  44.95kB)
-    Total RW  Size (RW Data + ZI Data)              1065 (   1.04kB)
-    Total ROM Size (Code + RO Data + RW Data)      46192 (  45.11kB)
+    Total RO  Size (Code + RO Data)                47047 (  45.94kB)
+    Total RW  Size (RW Data + ZI Data)              1080 (   1.05kB)
+    Total ROM Size (Code + RO Data + RW Data)      47206 (  46.10kB)
 
 ========================================================================
 
@@ -23,14 +23,14 @@ Object file sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug
 
-    118592      26940      29971       1447       2268   13685554   Grand Totals
-    118592      26940      29971       1447          0          0   ROM Totals
+    119236      27248      30043       1463       2268   13709384   Grand Totals
+    119236      27248      30043       1463          0          0   ROM Totals
 
 ========================================================================
 
-    Total RO  Size (Code + RO Data)               148563 ( 145.08kB)
-    Total RW  Size (RW Data + ZI Data)              3715 (   3.63kB)
-    Total ROM Size (Code + RO Data + RW Data)     150010 ( 146.49kB)
+    Total RO  Size (Code + RO Data)               149279 ( 145.78kB)
+    Total RW  Size (RW Data + ZI Data)              3731 (   3.64kB)
+    Total ROM Size (Code + RO Data + RW Data)     150742 ( 147.21kB)
 
 ========================================================================
 
@@ -41,14 +41,14 @@ Object file sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug
 
-    102862      33384       8154       1528       3132    1554089   Grand Totals
-    102862      33384       8154       1528          0          0   ROM Totals
+    104526      33994       8226       1544       3144    1611114   Grand Totals
+    104526      33994       8226       1544          0          0   ROM Totals
 
 ========================================================================
 
-    Total RO  Size (Code + RO Data)               111016 ( 108.41kB)
-    Total RW  Size (RW Data + ZI Data)              4660 (   4.55kB)
-    Total ROM Size (Code + RO Data + RW Data)     112544 ( 109.91kB)
+    Total RO  Size (Code + RO Data)               112752 ( 110.11kB)
+    Total RW  Size (RW Data + ZI Data)              4688 (   4.58kB)
+    Total ROM Size (Code + RO Data + RW Data)     114296 ( 111.62kB)
 
 ========================================================================
 

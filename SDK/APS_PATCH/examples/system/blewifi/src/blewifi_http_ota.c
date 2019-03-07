@@ -25,6 +25,7 @@
 #include "hal_system.h"
 #include "blewifi_configuration.h"
 #include "blewifi_http_ota.h"
+#include "lwip/etharp_patch.h"
 
 
 int test(void);
@@ -342,6 +343,8 @@ int ota_download_by_http_get_server_version(char *param, uint16_t *uwfid)
         
         return -1;
     }
+
+    lwip_auto_arp_enable(1, 0);
     
     // Connect to server
     do
@@ -420,6 +423,8 @@ int ota_download_by_http(char *param)
         LOG_E(TAG, "buf malloc failed.\r\n");
         return -1;
     }
+
+    lwip_auto_arp_enable(1, 0);
     
     // Connect to server
     do

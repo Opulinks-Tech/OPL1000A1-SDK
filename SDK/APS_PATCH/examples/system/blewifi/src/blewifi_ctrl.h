@@ -29,13 +29,14 @@
 typedef enum blewifi_ctrl_msg_type
 {
     /* BLE Trigger */
-    BLEWIFI_CTRL_MSG_BLE_INIT_COMPLETE = 0,     //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_ADVERTISING_CFM,       //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM,  //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_CONNECTION_COMPLETE,   //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_CONNECTION_FAIL,       //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_DISCONNECT,            //BLE report status
-    BLEWIFI_CTRL_MSG_BLE_DATA_IND,              //BLE receive the data from peer to device
+    BLEWIFI_CTRL_MSG_BLE_INIT_COMPLETE = 0,             //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_ADVERTISING_CFM,               //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM,          //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_ADVERTISING_TIME_CHANGE_CFM,   //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_CONNECTION_COMPLETE,           //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_CONNECTION_FAIL,               //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_DISCONNECT,                    //BLE report status
+    BLEWIFI_CTRL_MSG_BLE_DATA_IND,                      //BLE receive the data from peer to device
 
     BLEWIFI_CTRL_MSG_BLE_NUM,
 
@@ -72,7 +73,8 @@ typedef struct
 	uint8_t *pcMessage;
 } xBleWifiCtrlMessage_t;
 
-
+void    BleWifi_Ctrl_SysModeSet(uint8_t mode);
+uint8_t BleWifi_Ctrl_SysModeGet(void);
 void    BleWifi_Ctrl_BleStatusSet(uint8_t status);
 uint8_t BleWifi_Ctrl_BleStatusGet(void);
 void    BleWifi_Ctrl_WifiStatusSet(uint8_t status);

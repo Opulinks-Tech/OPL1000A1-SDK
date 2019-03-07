@@ -235,5 +235,6 @@ void Internal_Module_Log_Config(char* module_name, bool on_off_set)
 static void Main_AppInit_patch(void)
 {
     Internal_Module_Log_Config("opl_event_loop", true);
+    Internal_Module_Log_Config("opl_ping", true);
     AppInit();
 }

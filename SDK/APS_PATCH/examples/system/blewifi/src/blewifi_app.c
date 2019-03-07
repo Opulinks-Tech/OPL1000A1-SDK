@@ -23,22 +23,41 @@
 #include "blewifi_ctrl.h"
 #include "sys_common_api.h"
 #include "ps_public.h"
+#include "mw_fim_default_group03.h"
+#include "mw_fim_default_group03_patch.h"
 
 blewifi_ota_t *gTheOta = 0;
 
 void BleWifiAppInit(void)
 {
+    T_MwFim_SysMode tSysMode;
+    
 	gTheOta = 0;
 
-    /* Wi-Fi Initialization */
-    BleWifi_Wifi_Init();
+    // get the settings of system mode
+	if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_SYS_MODE, 0, MW_FIM_SYS_MODE_SIZE, (uint8_t*)&tSysMode))
+    {
+        // if fail, get the default value
+        memcpy(&tSysMode, &g_tMwFimDefaultSysMode, MW_FIM_SYS_MODE_SIZE);
+    }
 
-    /* BLE Stack Initialization */
-    BleWifi_Ble_Init();
+    // only for the user mode
+    if ((tSysMode.ubSysMode == MW_FIM_SYS_MODE_INIT) || (tSysMode.ubSysMode == MW_FIM_SYS_MODE_USER))
+    {
+        /* Wi-Fi Initialization */
+        BleWifi_Wifi_Init();
 
-    /* blewifi "control" task Initialization */
-    BleWifi_Ctrl_Init();
+        /* BLE Stack Initialization */
+        BleWifi_Ble_Init();
 
-    /* Power saving settings */
-    ps_smart_sleep(BLEWIFI_COM_POWER_SAVE_EN);
+        /* blewifi "control" task Initialization */
+        BleWifi_Ctrl_Init();
+
+        /* Power saving settings */
+        if (tSysMode.ubSysMode == MW_FIM_SYS_MODE_USER)
+            ps_smart_sleep(BLEWIFI_COM_POWER_SAVE_EN);
+    }
+
+    // update the system mode
+    BleWifi_Ctrl_SysModeSet(tSysMode.ubSysMode);
 }

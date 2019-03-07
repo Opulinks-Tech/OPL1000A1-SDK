@@ -63,6 +63,16 @@ void BleWifi_Ble_StopAdvertising(void)
     BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_EXIT_ADVERTISING, 0, NULL);
 }
 
+void BleWifi_Ble_AdvertisingTimeChange(uint16_t interval_min, uint16_t interval_max)
+{
+    BLE_ADV_TIME_T adv_time;
+    
+    /* Call BLE Stack API to change advertising time */
+    adv_time.interval_min = interval_min;
+    adv_time.interval_max = interval_max;
+    BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_CHANGE_ADVERTISING_TIME, sizeof(BLE_ADV_TIME_T), (uint8_t *)&adv_time);
+}
+
 void BleWifi_Ble_MacAddrWrite(uint8_t *data, int len)
 {
     uint8_t ubaMacAddr[6];

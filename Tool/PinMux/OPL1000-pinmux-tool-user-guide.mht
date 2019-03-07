@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01D49C75.D0252930"
+Content-Type: multipart/related; boundary="----=_NextPart_01D4D05B.7B13BF00"
 
 此文档为“单个文件网页”，也称为“Web 档案”文件。如果您看到此消息，但是您的浏览器或编辑器不支持“Web 档案”文件。请下载支持“Web 档案”的浏览器。
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -37,8 +37,8 @@ w\:* {behavior:url(#default#VML);}
   <o:Revision>2</o:Revision>
   <o:TotalTime>632</o:TotalTime>
   <o:LastPrinted>2018-09-14T09:55:00Z</o:LastPrinted>
-  <o:Created>2018-12-25T09:18:00Z</o:Created>
-  <o:LastSaved>2018-12-25T09:18:00Z</o:LastSaved>
+  <o:Created>2019-03-01T10:20:00Z</o:Created>
+  <o:LastSaved>2019-03-01T10:20:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
   <o:Words>1541</o:Words>
   <o:Characters>8790</o:Characters>
@@ -2380,7 +2380,7 @@ span.a0
 	mso-hansi-font-family:"Microsoft JhengHei UI";
 	mso-bidi-font-family:"Cordia New";
 	mso-bidi-theme-font:major-bidi;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-font-kerning:10.0pt;
 	font-weight:bold;}
 p.a1, li.a1, div.a1
@@ -2644,7 +2644,7 @@ span.ae
 	font-family:"Microsoft JhengHei UI",sans-serif;
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 p.11, li.11, div.11
 	{mso-style-name:清單1;
 	mso-style-unhide:no;
@@ -2754,7 +2754,7 @@ span.af
 	font-family:"Microsoft JhengHei UI",sans-serif;
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 p.31, li.31, div.31
 	{mso-style-name:"樣式 清單段落 + 套用前\:  3 點 行距\:  單行間距";
 	mso-style-update:auto;
@@ -2885,7 +2885,7 @@ span.af1
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.af2
 	{mso-style-name:"批注主题 字符";
 	mso-style-unhide:no;
@@ -2990,7 +2990,7 @@ span.MxLFigureCaptionChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:"Times New Roman";
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;}
 span.HTML
@@ -3007,7 +3007,7 @@ span.HTML
 	mso-fareast-font-family:宋体;
 	mso-hansi-font-family:宋体;
 	mso-bidi-font-family:宋体;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:ZH-CN;}
 span.trans
 	{mso-style-name:trans;
@@ -3022,7 +3022,7 @@ span.emailstyle18
 	mso-ascii-font-family:Calibri;
 	mso-hansi-font-family:Calibri;
 	mso-bidi-font-family:Calibri;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.Char
 	{mso-style-name:"表内容 Char";
 	mso-style-priority:99;
@@ -3229,7 +3229,7 @@ span.MxLMajorHeadingChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:Arial;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
@@ -4678,7 +4678,7 @@ div.WordSection11
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:"Courier New";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l4:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4757,7 +4757,7 @@ div.WordSection11
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l5:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4838,7 +4838,7 @@ div.WordSection11
 	text-indent:-24.0pt;
 	font-family:"Arial",sans-serif;
 	mso-fareast-font-family:Arial;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l6:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -5291,7 +5291,7 @@ div.WordSection11
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l13:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -6946,8 +6946,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6958,8 +6958,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6970,8 +6970,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
     </tr>
     <tr style=3D'mso-yfti-irow:4;mso-yfti-lastrow:yes;height:3.3pt;mso-heig=
@@ -6986,8 +6986,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6998,8 +6998,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -7010,8 +7010,8 @@ round:
 t JhengHei",sans-serif;
      mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareas=
 t;
-     mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><o:p>&nbs=
-p;</o:p></span></p>
+     mso-hansi-theme-font:major-fareast;color:windowtext'><o:p>&nbsp;</o:p>=
+</span></p>
      </td>
     </tr>
    </table>
@@ -7075,12 +7075,12 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
  140%;font-family:"Microsoft JhengHei",sans-serif;mso-ascii-theme-font:majo=
 r-fareast;
  mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:major-fareast;
- mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color=
--alt:
- windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lan=
-guage:
- AR-SA'><br clear=3Dall style=3D'page-break-before:always;mso-break-type:se=
-ction-break'>
+ mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:win=
+dowtext;
+ mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA=
+'><br
+ clear=3Dall style=3D'page-break-before:always;mso-break-type:section-break=
+'>
  </span>
  <div class=3DWordSection2>
  <p class=3DMsoNormal><b style=3D'mso-bidi-font-weight:normal'><u><span lan=
@@ -7587,12 +7587,12 @@ size:10.0pt;
 me-font:
  major-fareast;mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:ma=
 jor-fareast;
- mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color=
--alt:
- windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lan=
-guage:
- AR-SA'><br clear=3Dall style=3D'page-break-before:always;mso-break-type:se=
-ction-break'>
+ mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:win=
+dowtext;
+ mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA=
+'><br
+ clear=3Dall style=3D'page-break-before:always;mso-break-type:section-break=
+'>
  </span></b>
  <div class=3DWordSection3><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of =
 Contents"
@@ -7605,10 +7605,10 @@ pan
   lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Microsoft JhengHei",s=
 ans-serif;
   mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
-  mso-hansi-theme-font:major-fareast;font-variant:normal !important;mso-col=
-or-alt:
-  windowtext;mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sd=
-tPr></w:sdtPr></span></p>
+  mso-hansi-theme-font:major-fareast;font-variant:normal !important;color:w=
+indowtext;
+  mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sdtPr></w:sdt=
+Pr></span></p>
   <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'fon=
 t-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -7627,57 +7627,51 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:
-  normal;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
-ount:
-  1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZH-TW>介绍</span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
-pan
-  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
-span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'=
+>&nbsp;&nbsp;&nbsp; </span></span><span
+  lang=3DZH-TW>介绍</span><span style=3D'font-family:"Microsoft JhengHei UI=
+",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711002 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>2<=
-/span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>2</span><span style=3D'font-family:"Microsoft JhengH=
+ei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300032000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:=
-p></o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></=
+p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -7690,56 +7684,49 @@ font:
 e-font:
   minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
 ia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>文档应用范围</span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711003 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>2<=
-/span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>2</span><span style=3D'font-family:"Microsoft JhengH=
+ei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300033000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p>=
-</o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p></o:p></span></p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -7751,53 +7738,46 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DE=
 N-US><span
   lang=3DEN-US>缩略语</span></span><span style=3D'font-family:"Microsoft Jh=
 engHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711004 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>2</span><span style=3D'font-family:"Microsoft JhengH=
 ei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300034000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7819,53 +7799,46 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DE=
 N-US><span
   lang=3DEN-US>参考文献</span></span><span style=3D'font-family:"Microsoft =
 JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711005 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>2</span><span style=3D'font-family:"Microsoft JhengH=
 ei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300035000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7886,52 +7859,47 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;
-  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
-/span></span><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;text-under=
+line:
+  none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><s=
+pan
   lang=3DEN-US><span lang=3DEN-US>界面介绍</span></span><span style=3D'font=
 -family:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711006 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>3</span><span style=3D'font-family:"Microsoft JhengH=
 ei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300036000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7954,55 +7922,48 @@ font:
 e-font:
   minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
 ia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Pin <span
   lang=3DZH-TW>管脚配置结果列表</span><span style=3D'font-family:"Microsoft=
  JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711007 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>4<=
-/span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>4</span><span style=3D'font-family:"Microsoft JhengH=
+ei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300037000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p>=
-</o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p></o:p></span></p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -8014,55 +7975,48 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DE=
 N-US><span
   lang=3DEN-US>外设管脚和参数<span lang=3DEN-US>配置对话框</span></span></s=
 pan><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
 n><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711008 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>5</span><span style=3D'font-family:"Microsoft JhengH=
 ei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300038000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8084,55 +8038,50 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span><span
   lang=3DZH-TW>外设资源选择和参数配置</span><span style=3D'font-family:"Mic=
 rosoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711009 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>6<=
-/span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>6</span><span style=3D'font-family:"Microsoft JhengH=
+ei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000300039000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:=
-p></o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></=
+p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -8145,55 +8094,48 @@ font:
 e-font:
   minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
 ia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>UART<span
   lang=3DZH-TW>选择和参数配置</span><span style=3D'font-family:"Microsoft J=
 hengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711010 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>6<=
-/span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>6</span><span style=3D'font-family:"Microsoft JhengH=
+ei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310030000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p>=
-</o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;mso-no-proof:yes'><o:p></o:p></span></p>
   <p class=3DMsoToc2><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -8205,53 +8147,46 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>SPI<span lang=
 =3DEN-US><span
   lang=3DEN-US>选择和参数配置</span></span><span style=3D'font-family:"Micr=
 osoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711011 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>8</span><span style=3D'font-family:"Microsoft JhengH=
 ei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310031000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8273,53 +8208,46 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>I2C<span lang=
 =3DEN-US><span
   lang=3DEN-US>选择和参数配置</span></span><span style=3D'font-family:"Micr=
 osoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711012 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>10</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310032000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8341,53 +8269,46 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>PWM<span lang=
 =3DEN-US><span
   lang=3DEN-US>选择和参数配置</span></span><span style=3D'font-family:"Micr=
 osoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'font-fami=
-ly:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-begin'></span></span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711013 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>11</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310033000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8409,53 +8330,47 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>AUX/ADC<span
   lang=3DEN-US><span lang=3DEN-US>选择和参数配置</span></span><span style=
 =3D'font-family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supp=
-ortFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
 n><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711014 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>11</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310034000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8477,53 +8392,47 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;text-decoration:none;text-underline:non=
-e'><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>GPIO<span
   lang=3DEN-US><span lang=3DEN-US>选择和参数配置</span></span><span style=
 =3D'font-family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supp=
-ortFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
 n><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711015 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>12</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310035000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8545,55 +8454,50 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span>IO
   <span lang=3DZH-TW>管脚选择</span><span style=3D'font-family:"Microsoft J=
 hengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
 pan
   style=3D'mso-element:field-begin'></span></span><span style=3D'font-famil=
 y:"Microsoft JhengHei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:non=
-e;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
   text-underline:none'> PAGEREF _Toc524711016 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-separator'></span></span><![endif]--><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>14=
-</span><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-separator'></span></span><![endif]--><span style=3D'font-family:"Mi=
+crosoft JhengHei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'>14</span><span style=3D'font-family:"Microsoft Jheng=
+Hei UI",sans-serif;
+  color:windowtext;display:none;mso-hide:screen;text-decoration:none;
+  text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310036000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
-an><span
-  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
-ily:
-  "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
-ly:
-  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-theme=
--font:
-  minor-latin;mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-b=
-idi;
-  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:=
-p></o:p></span></p>
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-eleme=
+nt:
+  field-end'></span></span><![endif]--></a></span></span><span lang=3DEN-US
+  style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-family:"Arial",s=
+ans-serif;
+  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
+Hei";
+  mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-font=
+-kerning:
+  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal'><o:p></o:p></span></=
+p>
   <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US style=3D=
 'font-family:
   "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;
@@ -8604,53 +8508,49 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;
-  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
-/span></span><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;text-under=
+line:
+  none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><s=
+pan
   lang=3DEN-US><span lang=3DEN-US>生成管脚复用定义文件</span></span><span s=
 tyle=3D'font-family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supp=
-ortFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
 n><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711017 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>15</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310037000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8671,53 +8571,49 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;
-  text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
-/span></span><span
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;font-weight:normal;text-decoration:none;text-under=
+line:
+  none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><s=
+pan
   lang=3DEN-US><span lang=3DEN-US>版本号和使用手册</span></span><span style=
 =3D'font-family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supp=
-ortFields]><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
+span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
 n><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'> PAGEREF _Toc524711018 \h </span><span style=3D'font=
 -family:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
---><span
-  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:win=
-dowtext;
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'>19</span><span style=3D'font-family:"Microsoft Jheng=
 Hei UI",sans-serif;
-  mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
-e:
-  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+  color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+  text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320034003700310031003000310038000000</w:data>
   </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-famil=
 y:
-  "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
-  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
-rline:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+  screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:non=
+e'><span
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -8764,8 +8660,7 @@ mso-bidi-font-size:10.0pt;line-height:140%;font-family:"Microsoft JhengHei"=
 ,sans-serif;
 mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
 mso-hansi-theme-font:major-fareast;mso-bidi-font-family:"Cordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span></b>
@@ -8780,10 +8675,10 @@ t JhengHei",sans-serif;
  lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Microsoft JhengHei",sa=
 ns-serif;
  mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
- mso-hansi-theme-font:major-fareast;font-variant:normal !important;mso-colo=
-r-alt:
- windowtext;text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></=
-w:sdtPr></span></p>
+ mso-hansi-theme-font:major-fareast;font-variant:normal !important;color:wi=
+ndowtext;
+ text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
+pan></p>
  <p class=3DMsoTof><!--[if supportFields]><span lang=3DEN-US style=3D'font-=
 family:
  "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;mso-far=
@@ -8838,10 +8733,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711020">Figur=
@@ -8891,10 +8786,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711021">Figur=
@@ -8940,10 +8835,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711022">Figure
@@ -8988,10 +8883,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711023">Figure
@@ -9040,10 +8935,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711024">Figur=
@@ -9093,10 +8988,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711025">Figure
@@ -9145,10 +9040,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711026">Figure
@@ -9193,10 +9088,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711027">Figure
@@ -9241,10 +9136,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711028">Figure
@@ -9289,10 +9184,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711029">Figur=
@@ -9337,10 +9232,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711030">Figure
@@ -9385,10 +9280,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711031">Figure
@@ -9433,10 +9328,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711032">Figure
@@ -9481,10 +9376,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711033">Figure
@@ -9529,10 +9424,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711034">Figure
@@ -9577,10 +9472,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711035">Figure
@@ -9625,10 +9520,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711036">Figur=
@@ -9678,10 +9573,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711037">Figur=
@@ -9727,10 +9622,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'f=
 ont-family:
  "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;mso-far=
@@ -9788,10 +9683,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'f=
 ont-family:
  "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;mso-far=
@@ -9849,10 +9744,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoTof><span class=3DMsoHyperlink><span lang=3DEN-US style=3D'm=
 so-fareast-font-family:
  "Microsoft JhengHei UI";mso-no-proof:yes'><a href=3D"#_Toc524711040">Figur=
@@ -9903,10 +9798,10 @@ ont-family:
  "Microsoft JhengHei";mso-fareast-theme-font:minor-fareast;mso-hansi-font-f=
 amily:
  Arial;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;font-variant:normal !important;mso-color-al=
-t:
- windowtext;mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:=
-p></o:p></span></p>
+ mso-bidi-theme-font:minor-bidi;font-variant:normal !important;color:window=
+text;
+ mso-font-kerning:1.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></s=
+pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
 -family:
  "Microsoft JhengHei",sans-serif;mso-ascii-theme-font:major-fareast;mso-far=
@@ -9924,8 +9819,7 @@ size:9.0pt;
  mso-bidi-font-size:10.0pt;font-family:"Microsoft JhengHei",sans-serif;
  mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
  mso-hansi-theme-font:major-fareast;mso-bidi-font-family:"Cordia New";
- mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:1=
-0.0pt;
+ mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:10.0pt;
  mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA;
  mso-no-proof:yes'><br clear=3Dall style=3D'page-break-before:always;mso-br=
 eak-type:
@@ -9942,10 +9836,10 @@ t JhengHei",sans-serif;
  lang=3DEN-US style=3D'font-size:10.0pt;font-family:"Microsoft JhengHei",sa=
 ns-serif;
  mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
- mso-hansi-theme-font:major-fareast;font-variant:normal !important;mso-colo=
-r-alt:
- windowtext;text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></=
-w:sdtPr></span></p>
+ mso-hansi-theme-font:major-fareast;font-variant:normal !important;color:wi=
+ndowtext;
+ text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
+pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
 -size:
  9.0pt;mso-bidi-font-size:10.0pt;font-family:"Microsoft JhengHei",sans-seri=
@@ -9964,39 +9858,38 @@ pan
  style=3D'mso-fareast-language:ZH-CN'>OPL</span>1000 <span lang=3DEN-US
  style=3D'mso-bidi-font-family:宋体;mso-fareast-language:ZH-CN'><span lang=
 =3DEN-US>支持的外设资源数目</span></span><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-element:field-begin'></span></span><span style=3D'font-family=
 :"Microsoft JhengHei UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:none;
- text-underline:none'> PAGEREF _Toc524711041 \h </span><span style=3D'font-=
-family:
- "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
- mso-hide:screen;text-decoration:none;text-underline:none'><span
- style=3D'mso-element:field-separator'></span></span><![endif]--><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ color:windowtext;display:none;mso-hide:screen;text-decoration:none;text-un=
+derline:
+ none'> PAGEREF _Toc524711041 \h </span><span style=3D'font-family:"Microso=
+ft JhengHei UI",sans-serif;
+ color:windowtext;display:none;mso-hide:screen;text-decoration:none;text-un=
+derline:
+ none'><span style=3D'mso-element:field-separator'></span></span><![endif]-=
+-><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>6</=
 span><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
 -[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320034003700310031003000340031000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-family=
 :"Microsoft JhengHei UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;text-decoration:none;
- text-underline:none'><span style=3D'mso-element:field-end'></span></span><=
-![endif]--></a></span></span><span
+ color:windowtext;display:none;mso-hide:screen;text-decoration:none;text-un=
+derline:
+ none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
+</span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -10035,8 +9928,7 @@ mso-bidi-font-size:10.0pt;line-height:140%;font-family:"Microsoft JhengHei"=
 ,sans-serif;
 mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
 mso-hansi-theme-font:major-fareast;mso-bidi-font-family:"Cordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span></b>
@@ -10799,11 +10691,11 @@ line-height:140%;font-family:"Microsoft JhengHei",sans-serif;mso-ascii-them=
 e-font:
 major-fareast;mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:maj=
 or-fareast;
-mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color-=
-alt:
-windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-lang=
-uage:
-AR-SA'><br clear=3Dall style=3D'page-break-before:always'>
+mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wind=
+owtext;
+mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA'=
+><br
+clear=3Dall style=3D'page-break-before:always'>
 </span></b>
 
 <p class=3DMsoNormal align=3Dleft style=3D'margin-top:6.0pt;text-align:left;
@@ -12047,13 +11939,12 @@ line-height:140%;font-family:"Microsoft JhengHei",sans-serif;mso-ascii-them=
 e-font:
 major-fareast;mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:maj=
 or-fareast;
-mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color-=
-alt:
-windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-lang=
-uage:
-AR-SA'><br clear=3Dall style=3D'mso-special-character:line-break;page-break=
--before:
-always'>
+mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wind=
+owtext;
+mso-ansi-language:EN-US;mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA'=
+><br
+clear=3Dall style=3D'mso-special-character:line-break;page-break-before:alw=
+ays'>
 </span></b>
 
 <p class=3DMsoNormal align=3Dleft style=3D'margin-bottom:21.6pt;text-align:=
@@ -15971,9 +15862,9 @@ EN-US
 style=3D'font-size:12.0pt;line-height:140%;font-family:"Microsoft JhengHei"=
 ,sans-serif;
 mso-ascii-theme-font:major-fareast;mso-fareast-theme-font:major-fareast;
-mso-hansi-theme-font:major-fareast;mso-color-alt:windowtext'><a
-href=3D"mailto:sales@Opulinks.com"><span style=3D'mso-color-alt:windowtext'=
->sales@Opulinks.com</span></a></span></b></span><b
+mso-hansi-theme-font:major-fareast;color:windowtext'><a
+href=3D"mailto:sales@Opulinks.com"><span style=3D'color:windowtext'>sales@O=
+pulinks.com</span></a></span></b></span><b
 style=3D'mso-bidi-font-weight:normal'><span lang=3DEN-US style=3D'font-size=
 :12.0pt;
 line-height:140%;font-family:"Microsoft JhengHei",sans-serif;mso-ascii-them=
@@ -16029,7 +15920,7 @@ mso-fareast-theme-font:major-fareast;mso-hansi-theme-font:major-fareast'><o=
 
 </html>
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/item0001.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -16038,7 +15929,7 @@ Content-Type: text/xml
 erties xmlns=3D"http://schemas.microsoft.com/office/2006/coverPageProps"><P=
 ublishDate/><Abstract/><CompanyAddress/><CompanyPhone/><CompanyFax/><Compan=
 yEmail/></CoverPageProperties>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/props002.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -16048,7 +15939,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 06/coverPageProps"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/item0003.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17505,7 +17396,7 @@ s:element>
 <xs:element name=3D"TermId" type=3D"xs:string"></xs:element>
 </xs:schema>
 </ct:contentTypeSchema>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/props004.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17526,7 +17417,7 @@ ds:uri=3D"http://schemas.openxmlformats.org/package/2006/metadata/core-prop=
 erties"/><ds:schemaRef ds:uri=3D"http://purl.org/dc/elements/1.1/"/><ds:sch=
 emaRef ds:uri=3D"http://purl.org/dc/terms/"/><ds:schemaRef ds:uri=3D"http:/=
 /schemas.microsoft.com/internal/obd"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/item0005.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17534,7 +17425,7 @@ Content-Type: text/xml
 <?mso-contentType?><FormTemplates xmlns=3D"http://schemas.microsoft.com/sha=
 repoint/v3/contenttype/forms"><Display>DocumentLibraryForm</Display><Edit>A=
 ssetEditForm</Edit><New>DocumentLibraryForm</New></FormTemplates>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/props006.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17544,7 +17435,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/sharepoin=
 t/v3/contenttype/forms"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/item0007.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17683,7 +17574,7 @@ f9" xsi:nil=3D"true"/><IntlLocPriority xmlns=3D"c66daf58-3c46-4c48-8560-c48=
 c46-4c48-8560-c485e881f7f9" xsi:nil=3D"true"></Provider><TaxCatchAll xmlns=
 =3D"c66daf58-3c46-4c48-8560-c485e881f7f9"/></documentManagement></p:propert=
 ies>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/props008.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17696,7 +17587,7 @@ s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 om/office/infopath/2007/PartnerControls"/><ds:schemaRef ds:uri=3D"c66daf58-=
 3c46-4c48-8560-c485e881f7f9"/><ds:schemaRef ds:uri=3D"8e8ea6d1-e150-4704-b4=
 7c-0a92d6aed386"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/item0009.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17704,17 +17595,17 @@ Content-Type: text/xml
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"yes"?><b:Sources Sel=
 ectedStyle=3D"\APA.XSL" StyleName=3D"APA" xmlns:b=3D"http://schemas.openxml=
 formats.org/officeDocument/2006/bibliography"></b:Sources>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/props010.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{15C186A7-842C-4129-8882-AB63C859006B}" xmln=
+<ds:datastoreItem ds:itemID=3D"{46E89973-3179-4913-AEB4-E867252D264F}" xmln=
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.openxmlformats.org/offi=
 ceDocument/2006/bibliography"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
@@ -17777,7 +17668,7 @@ dGhlbWUvdGhlbWUxLnhtbFBLAQItABQABgAIAAAAIQAN0ZCftgAAABsBAAAnAAAAAAAAAAAAAAAA
 ABMKAAB0aGVtZS90aGVtZS9fcmVscy90aGVtZU1hbmFnZXIueG1sLnJlbHNQSwUGAAAAAAUABQBd
 AQAADgsAAAAA
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -17787,7 +17678,7 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image001.jpg
 Content-Transfer-Encoding: base64
 Content-Type: image/jpeg
@@ -18062,7 +17953,7 @@ PfHnJVizq1Y3KcJJaZuMOREBO8hlx5K09iXAPRQVpK8vePpdIi808RdZ6Fuz22lb/kpU6P7VBsLJ
 W21cKDpr+zQDpvNBc1AoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFA
 oFAoP//Z
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image002.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -20396,7 +20287,7 @@ RVEURVEURVEURVGUOI7kjaIoiqIoiqIoiqIoShxH8kZRFEVRFEVRFEVRFCWOI3mjKIqiKIqiKIqi
 KIoSx5G8URRFURRFURRFURRFieNI3iiKoiiKoiiKoiiKosRxJG8URVEURVEURVEURVHiOJI3iqIo
 iqIoiqIoiqIocRzJG0VRFEVRFEVRFEVRlLjNdvw/fbq6qR6dV+4AAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image003.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -21782,7 +21673,7 @@ hBBCCEkXSgMhhBBCCCEkXSgNhBBCCCGEkHShNBBCCCGEEELShdJACCGEEEIISRdKAyGEEEIIISRd
 KA2EEEIIIYSQdKE0EEIIIYQQQtKF0kAIIYQQQghJF0oDIYQQQgghJF0oDYQQQgghhJB0AP4Pfogr
 vQSoumQAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image004.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -21805,7 +21696,7 @@ mq9i7OUjfPJgjTBzkCK/kZ7xm/V55wnrrLW+jajwOTJGzcs9/W7Mv8F5DyvXgbnzG33LzNwHpOQ/
 b/msZdfzWs3p91aNdRG7+JbPWnY9r9Wcfm+3aKxCCLETj2+sCoVCsVuosSoUCkVxqLEqFApFcaix
 KhQKRXGosSoUCkVxqLEqFApFabzf/wDv0agwRU3pYQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image005.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -21987,7 +21878,7 @@ AFBEsQIAKKJYAQAUUawAAIooVgAARRQrAIAiihUAQBHFCgCgiGIFAFDkEMVKRERE5KXksTxJsQIA
 uAWKFQBAEcUKAKCIYgUAUESxAgAoolgBABRRrAAAiihWAABFFCsAgCKKFQBAidPp/wDJKW3jleA4
 pwAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image006.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -22150,7 +22041,7 @@ j4+vnP/e99RhI4CFhc1GHzb6sNGHjT5s9GGjDxt92PTqs7sR8Pf8cT1dPu+PXsdGAAsLm40+bPRh
 ow8bfdjow0YfNvqw6dWnSSPgxQ8BRNgIYGFhs9GHjT5s9GGjDxt92OjDRh82vfrsbAR8Xi+n2Z8F
 fJyvr/YEbASwsLDZ6MNGHzb6sNGHjT5s9GGjD5s+fa7X/wH3KHxwZwysyQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image007.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -22399,7 +22290,7 @@ Y7Oy0YeNPmz0YaMPG33Y6MNGHzYt+nw03KcNsCzLsizLsizLsixrX3nlXjLpYGgJfdjow0YfNvqw
 0YeNPmz0YaMPm+RjuJeMzcpGHzb6sNGHjT5s9GGjDxt92LTn88/L/wHEPKquJsBlogAAAABJRU5E
 rkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image008.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -25525,7 +25416,7 @@ Io2SErK0tM02XaN5upbhNMd8PR4/eZPM2s4ZgJjb+wvlf7PA8ro7v5+xXrdpS9gIbAQ2AhuBjcAR
 gTftY23oNwIbgY3ARmAj8CICm7FeBHA33whsBDYCG4E3IbAZ601AbzUbgY3ARmAj8CICm7FeBHA3
 3whsBDYCG4E3IbAZ601AbzUbgY3ARmAj8CIC/wC9u5NnQAKsTwAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image009.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -28938,7 +28829,7 @@ qwZWDVx4NbBS5oV37NeerxpYNbBqYNXACWlgpcwTUtdaeNXAqoFVA6sGLrwaWCnzwjv2a89XDawa
 WDWwauCENLBS5gmpay28amDVwKqBVQMXXg2slHnhHfu156sGVg2sGlg1cEIaWCnzhNS1Fl41sGpg
 1cCqgQuvBv5/FQd/R4Kr9CoAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image010.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29124,7 +29015,7 @@ cjzKJwAsijdNETmeW1M+AQDYRvkEAGAb5RMAgG2UTwAAtlE+AQDYRvkEAGAb5RMAgG2UTwAAtlE+
 AQDYRvkEAGAb5RMAgG2UTwAAtlE+AQDYRvkEAGAb5RMAgG2UTwAAtlE+AQDYRvkEAGAb5RMAgG0u
 Lp8iIiIiIkdSKcsnAADcgvIJAMA2yicAANsonwAAbHI6/T9fR3DumExGKQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image011.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29372,7 +29263,7 @@ bPRhow8bfdjow0YfNiX7GPQlYOOy0YeNPmz0YaMPG33Y6MNGHzYl+xj0JWDjstGHjT5s9GGjDxt9
 fdjow0YfNvqw0YeNPmxiH4O+BGxcNvqw0YeNPmz0YaMPG33Y6MOmXJ/b7f8BV42SbWyCvwgAAAAA
 SUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image012.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29444,7 +29335,7 @@ oCgBIFCUABAoSgAIFCUABIoSAAJFCQCBogSAQFECQKAoASBQlAAQKEoACBQlAASKEgACRQkAgaIE
 gEBRAkDw0KIUERH5jtlxWJQA8JMpSgAIFCUABIoSAAJFCQCBogSAQFECQKAoASBQlAAQKEoACBQl
 ACz9+vU/3u1lXleVJW8AAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image013.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29563,7 +29454,7 @@ TFht8NEGH23w0QYfbfDRBh9t8NGmVZ9DC3zTCEIIIYQQQgghhJSHb/DBYgZDS+CjDT7a4KMNPtrg
 ow0+2uCjDT7aOB8KfLAwYbXBRxt8tMFHG3y0wUcbfLTBR5s2fbru/9956GXlZEzPAAAAAElFTkSu
 QmCC
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image014.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29727,7 +29618,7 @@ Q9MJLGXRBZxK/gGnGuWGphNYyqILOJX8A041yg1NJ7CURRdwKvkHnGqUG5pOYCmLLuBU8g841Sg3
 hk2nYRjG7PgKWn+XYRjGaHwFrb/LMAxjNK5cNp0AAADwhKYTAACA12g6AQAAeI2mEwAAgNdoOgEA
 AHiNphMAAIDXaDoBAAB4jaYTAACAl/z55/8D83QJSlKrcioAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image015.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -29934,7 +29825,7 @@ stGHjT5s9GGjDxt92OjDRh82tfpY8CXigGWjDxt92OjDRh82+rDRh40+bGr1eWjBDzthjDHGGGOM
 McaY9fEOvkTCm6Em9GGjDxt92OjDRh82+rDRh40+bJKPBV8iDlg2+rDRh40+bPRhow8bfdjow6ZO
 n6b5f6kUTloX0XJ4AAAAAElFTkSuQmCC
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image016.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -30405,7 +30296,7 @@ SJ7rKzOVciYCiUAikAg0gkDyXCOo5TWJQCKQCCQCfQWB5Lm+MlMpZyKQCCQCiUAjCCTPNYJaXpMI
 JAKJQCLQVxBInusrM5VyJgKJQCKQCDSCQPJcI6jlNYlAIpAIJAJ9BYH/A3hEGYfhII72AAAAAElF
 TkSuQmCC
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image017.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -30631,7 +30522,7 @@ sNGHjT5sSvcxEEuEDcxGHzb6sNGHjT5sSvdBBOIwKMuyLMuyLMt6RTlDLBHhTVES+rDRh40+bPRh
 ow+b1MdALBE2MBt92OjDRh82+rAp3cdALBE2MBt92OjDRh82+rAp3cdALBE2MBt92OjDRh82+rAp
 3cdALBE2MBt92OjDRh82+rAp26dp/j9tR7NBOb8XWgAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image018.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -31641,7 +31532,7 @@ ASEgBISAEBACVYCArMYqaCQVUQgIASEgBISAEBACFUdAVmPFm0AFEAJCQAgIASEgBIRAFSAgq7EK
 GklFFAJCQAgIASEgBIRAxRGQ1VjxJlABhIAQEAJCQAgIASFQBQjIaqyCRlIRhYAQEAJCQAgIASFQ
 cQT+P0MwsjMXubvPAAAAAElFTkSuQmCC
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image019.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -31896,7 +31787,7 @@ IECAwC0FJJxbbrtFEyBAgAABAgQIELiogIRz0Y21LAIECBAgQIAAAQK3FJBwbrntFk2AAAECBAgQ
 IEDgogJ5Es6v/30FiBYbXJTXsggQIECAAAECBAgQ2FUgT8LZtWSTESBAgAABAgQIECBAYEbg/wPg
 snWGiBSGDQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image020.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -32218,7 +32109,7 @@ h40+bPRhow8bfdjow8ZQLBk2LRt92OjDRh82+rDRh40+bPRhYyiWDJuWjT5s9GGjDxt92OjDRh82
 ZVmWZVmW9cryTrFkpBNjT+jDRh82+rDRh40+bPRhow+bvfkYiiXDpmWjDxt92OjDRh82+rDRh40+
 ZJrm/wMhwNQOG77g7QAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image021.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -32341,7 +32232,7 @@ CIEQCIEQGDaBCJpht09KFwIhEAIhEAIh0INABE0PSDEJgRAIgRAIgRAYNoEImmG3T0oXAiEQAiEQ
 AiHQg0AETQ9IMQmBEAiBEAiBEBg2gQiaYbdPShcCIRACIRACIdCDQARND0gxCYEQCIEQCIEQGDaB
 CJpht09KFwIhEAIhEAIh0INABE0PSDEJgRAIgRAIgRAYNoF/APCsFeXGp7/oAAAAAElFTkSuQmCC
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/image022.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -35270,7 +35161,7 @@ fAI0T4AAAQIECBAgQKA7BFwZ1R3n0SgIECBAgAABAgQItFAg+70W5X6OzbsyqoWnQdUECBAgQIAA
 AQIE7ikB6eKeOt0GS4AAAQIECBAgQKCFAvZdtBBX1QQIECBAgAABAgTuHQH7Lu6dc22kBAgQIECA
 AAECBFoucHftouWNaIAAAQIECBAgQIAAgXtA4H/9B+AB9r0JbQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/header.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -36490,7 +36381,7 @@ ckground-themecolor:
 
 </html>
 
-------=_NextPart_01D49C75.D0252930
+------=_NextPart_01D4D05B.7B13BF00
 Content-Location: file:///C:/E0AC30E5/OPL1000-pinmux-tool-user-guide.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
@@ -36534,4 +36425,4 @@ Content-Type: text/xml; charset="utf-8"
  <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
 </xml>
-------=_NextPart_01D49C75.D0252930--
+------=_NextPart_01D4D05B.7B13BF00--

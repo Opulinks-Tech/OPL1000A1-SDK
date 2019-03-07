@@ -38,6 +38,7 @@ Head Block of The File
 *  gpio_int_test() is an example that generate the output pulses from one gpio
 *  to another, then the input side will be triggered the interrupt.
 *  - port: GPIO2(io2), GPIO3(io3), GPIO4(io4), GPIO5(io5)
+*--------------2019/1/9		GPIO6(io6), GPIO7(io7), GPIO16(io16), GPIO17(io17)
 *  - interrupt: on
 *  - connection:
 *    connect GPIO2 with GPIO4
@@ -353,16 +354,16 @@ static void Main_AppThread_2(void *argu)
         printf("Count = %d\n", ulCount);
         io_level = (E_GpioLevel_t)(ulCount % 2);
         if(io_level == GPIO_LEVEL_LOW)
-            printf("GPIO2 is set to Low \n");
+            printf("GPIO6 is set to Low \n");
         else
-            printf("GPIO2 is set to High \n");
+            printf("GPIO6 is set to High \n");
         Hal_Vic_GpioOutput(gpioIdx1, io_level);
         
         io_level = (E_GpioLevel_t)!io_level;
         if(io_level == GPIO_LEVEL_LOW)
-          printf("GPIO3 is set to Low \n");
+          printf("GPIO7 is set to Low \n");
         else
-          printf("GPIO3 is set to High \n");
+          printf("GPIO7 is set to High \n");
         Hal_Vic_GpioOutput(gpioIdx2, io_level);        			
 
         io_level = (E_GpioLevel_t)(ulCount % 2);
@@ -442,22 +443,31 @@ done:
 *************************************************************************/
 static void gpio_int_test(void)
 {
-
-    // GPIO4
-    Hal_Vic_GpioDirection(GPIO_IDX_04, GPIO_INPUT);
-    Hal_Vic_GpioCallBackFuncSet(GPIO_IDX_04, gpio_int_callback);
-    Hal_Vic_GpioIntTypeSel(GPIO_IDX_04, INT_TYPE_BOTH_EDGE);
-    Hal_Vic_GpioIntInv(GPIO_IDX_04, 0);
-    Hal_Vic_GpioIntMask(GPIO_IDX_04, 0);
-    Hal_Vic_GpioIntEn(GPIO_IDX_04, 1);
+    E_GpioIdx_t gpioIdx1,gpioIdx2;   
+    T_OPL1000_Gpio *gpioPtr;
+ 
+    // gpio[2] and gpio[3] are defined as input pin 
+    gpioPtr = &OPL1000_periph.gpio[2];
+    gpioIdx1 = Hal_Pinmux_GetIO(gpioPtr->pin);
+    
+    gpioPtr = &OPL1000_periph.gpio[3];
+    gpioIdx2 = Hal_Pinmux_GetIO(gpioPtr->pin);
+    
+    // correspond to OPL1000_periph.gpio[2]
+    Hal_Vic_GpioDirection(gpioIdx1, GPIO_INPUT);
+    Hal_Vic_GpioCallBackFuncSet(gpioIdx1, gpio_int_callback);
+    Hal_Vic_GpioIntTypeSel(gpioIdx1, INT_TYPE_FALLING_EDGE);
+    Hal_Vic_GpioIntInv(gpioIdx1, 0);
+    Hal_Vic_GpioIntMask(gpioIdx1, 0);
+    Hal_Vic_GpioIntEn(gpioIdx1, 1);
     
     // GPIO5
-    Hal_Vic_GpioDirection(GPIO_IDX_05, GPIO_INPUT);
-    Hal_Vic_GpioCallBackFuncSet(GPIO_IDX_05, gpio_int_callback);
-    Hal_Vic_GpioIntTypeSel(GPIO_IDX_05, INT_TYPE_RISING_EDGE);
-    Hal_Vic_GpioIntInv(GPIO_IDX_05, 0);
-    Hal_Vic_GpioIntMask(GPIO_IDX_05, 0);
-    Hal_Vic_GpioIntEn(GPIO_IDX_05, 1);
+    Hal_Vic_GpioDirection(gpioIdx2, GPIO_INPUT);
+    Hal_Vic_GpioCallBackFuncSet(gpioIdx2, gpio_int_callback);
+    Hal_Vic_GpioIntTypeSel(gpioIdx2, INT_TYPE_RISING_EDGE);
+    Hal_Vic_GpioIntInv(gpioIdx2, 0);
+    Hal_Vic_GpioIntMask(gpioIdx2, 0);
+    Hal_Vic_GpioIntEn(gpioIdx2, 1);
 }
 
 /*************************************************************************

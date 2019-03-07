@@ -22,6 +22,7 @@ extern "C" {
 void BleWifi_Ble_Init(void);
 void BleWifi_Ble_StartAdvertising(void);
 void BleWifi_Ble_StopAdvertising(void);
+void BleWifi_Ble_AdvertisingTimeChange(uint16_t interval_min, uint16_t interval_max);
 void BleWifi_Ble_MacAddrWrite(uint8_t *data, int len);
 void BleWifi_Ble_MacAddrRead(uint8_t *data, int len);
 

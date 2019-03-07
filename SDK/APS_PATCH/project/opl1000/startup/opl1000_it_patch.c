@@ -54,10 +54,32 @@ extern T_InterruptHandler DMA_IRQHandler_Entry;
 
 void WDT_IRQHandler_Entry_patch(void)
 {
-    printf("Watchdog expired!!\r\n");
+    uint32_t __regPsp;
+    uint32_t __regMsp;
+    
     // VIC 1) Clear interrupt
     Hal_Vic_IntClear(WDT_IRQn);
+
+    // reset the debug uart
+    //Hal_DbgUart_Init(115200);
+    
+    // get the information of PSP and MSP
+    __regPsp = __get_PSP();
+    __regMsp = __get_MSP();
+    tracer_drct_printf("PSP MSP\n");
+    tracer_drct_printf("00: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x0), *(uint32_t*)(__regMsp+0x0));
+    tracer_drct_printf("04: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x4), *(uint32_t*)(__regMsp+0x4));
+    tracer_drct_printf("08: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x8), *(uint32_t*)(__regMsp+0x8));
+    tracer_drct_printf("0C: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0xC), *(uint32_t*)(__regMsp+0xC));
+    tracer_drct_printf("10: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x10), *(uint32_t*)(__regMsp+0x10));
+    tracer_drct_printf("14: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x14), *(uint32_t*)(__regMsp+0x14));
+    tracer_drct_printf("18: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x18), *(uint32_t*)(__regMsp+0x18));
+    tracer_drct_printf("1C: 0x%08X 0x%08X\n", *(uint32_t*)(__regPsp+0x1C), *(uint32_t*)(__regMsp+0x1C));
+
+    // get the pending task    
+    tracer_drct_printf("WDT: %s\n", pcTaskGetName(osThreadGetId()));
 }
+
 void ISR_Pre_Init_patch(void)
 {
     WDT_IRQHandler_Entry     = WDT_IRQHandler_Entry_patch;

@@ -140,6 +140,8 @@ extern void lwip_task_create(void);
 
 #define WDT_TIMEOUT_SECS    10
 
+#define IRQ_PRIORITY_WDT_PATCH  0x02
+
 /********************************************
 Declaration of data structure
 ********************************************/
@@ -430,6 +432,9 @@ static void Sys_DriverInit_patch(void)
     // Init DBG_UART
     Hal_DbgUart_Init(115200);
     printf("\n");
+    
+    // Wait for M0 initialization to be completed
+    Main_WaitforMsqReady();
 
     // Init SPI 0/1/2
     Hal_Spi_Init(SPI_IDX_0, SystemCoreClockGet()/2,
@@ -458,9 +463,6 @@ static void Sys_DriverInit_patch(void)
 
     // Other modules' init
     Sys_MiscModulesInit();
-
-    // Wait for M0 initialization to be completed
-    Main_WaitforMsqReady();
 
     //-------------------------------------------------------------------------------------
     // Other driver config need by Task-level (sleep strategy)
@@ -508,6 +510,7 @@ static void Sys_DriverInit_patch(void)
         Hal_Vic_IntTypeSel(WDT_IRQn, INT_TYPE_FALLING_EDGE);
         Hal_Vic_IntInv(WDT_IRQn, 1);
         Hal_Wdt_Init(WDT_TIMEOUT_SECS * SystemCoreClockGet());
+        NVIC_SetPriority(WDT_IRQn, IRQ_PRIORITY_WDT_PATCH);
     }
 	#endif
 }

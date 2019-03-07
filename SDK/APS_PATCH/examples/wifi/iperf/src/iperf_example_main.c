@@ -11,8 +11,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "cmd_wifi.h"
 #include "console.h"
+#include "cmd_parser.h"
 #include "event_loop.h"
 #include "event_groups.h"
 #include "lwip_helper.h"
@@ -99,7 +99,7 @@ static int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t 
 
 static int console_init(void)
 {
-    console_cmd_register(&wifi_cmd_func);
+    console_cmd_register(&cmd_parser_func);
     return 0;
 }
 

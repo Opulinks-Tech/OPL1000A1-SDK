@@ -32,6 +32,7 @@ extern void LeHostTestCmdPatch_Init(void);
 #endif
 #ifdef __AT_CMD_SUPPORT__
 extern void LePtsAppCmdPatch_Init(void);
+extern void LePtsAppPatch_Init(void);
 extern void LeCmdAppPatch_Init(void);
 extern void LeCmdAppCmdPatch_Init(void);
 extern void LeCmdAppGattPatch_Init(void);
@@ -79,6 +80,7 @@ void LeHostPatchAssign(void)
 	// PTS APP
 #ifdef __AT_CMD_SUPPORT__
 	LePtsAppCmdPatch_Init();
+	LePtsAppPatch_Init();
 #endif
 
 	// CMD APP

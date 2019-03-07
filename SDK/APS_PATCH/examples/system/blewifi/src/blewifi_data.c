@@ -30,6 +30,9 @@
 #include "blewifi_ctrl_http_ota.h"
 #include "hal_auxadc_patch.h"
 #include "hal_system.h"
+#include "mw_fim_default_group03.h"
+#include "mw_fim_default_group03_patch.h"
+#include "at_cmd_common.h"
 
 #define HI_UINT16(a) (((a) >> 8) & 0xFF)
 #define LO_UINT16(a) ((a) & 0xFF)
@@ -385,6 +388,33 @@ static void BleWifi_MP_CalTmpr(uint8_t *data, int len)
     BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_CAL_TMPR, 0);
 }
 
+static void BleWifi_MP_SysModeWrite(uint8_t *data, int len)
+{
+    T_MwFim_SysMode tSysMode;
+    
+    // set the settings of system mode
+    tSysMode.ubSysMode = data[0];
+    if (tSysMode.ubSysMode < MW_FIM_SYS_MODE_MAX)
+    {
+        if (MW_FIM_OK == MwFim_FileWrite(MW_FIM_IDX_GP03_PATCH_SYS_MODE, 0, MW_FIM_SYS_MODE_SIZE, (uint8_t*)&tSysMode))
+        {
+            BleWifi_Ctrl_SysModeSet(tSysMode.ubSysMode);
+            BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_SYS_MODE_WRITE, 0);
+            return;
+        }
+    }
+
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_SYS_MODE_WRITE, 1);
+}
+
+static void BleWifi_MP_SysModeRead(uint8_t *data, int len)
+{
+    uint8_t ubSysMode;
+
+    ubSysMode = BleWifi_Ctrl_SysModeGet();
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_MP_SYS_MODE_READ, ubSysMode);
+}
+
 static void BleWifi_Eng_SysReset(uint8_t *data, int len)
 {
     BleWifi_Ble_SendResponse(BLEWIFI_RSP_ENG_SYS_RESET, 0);
@@ -392,6 +422,12 @@ static void BleWifi_Eng_SysReset(uint8_t *data, int len)
     // wait the BLE response, then reset the system
     osDelay(3000);
     Hal_Sys_SwResetAll();
+}
+
+static void BleWifi_Eng_BleCmd(uint8_t *data, int len)
+{
+    msg_print_uart1("+BLE:%s\r\n", data);
+    BleWifi_Ble_SendResponse(BLEWIFI_RSP_ENG_BLE_CMD, 0);
 }
 
 // it is used in the ctrl task
@@ -490,6 +526,16 @@ void BleWifi_Ble_ProtocolHandler(uint16_t type, uint8_t *data, int len)
             BleWifi_MP_CalTmpr(data, len);
             break;
 
+        case BLEWIFI_REQ_MP_SYS_MODE_WRITE:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_WRITE \r\n");
+            BleWifi_MP_SysModeWrite(data, len);
+            break;
+
+        case BLEWIFI_REQ_MP_SYS_MODE_READ:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_READ \r\n");
+            BleWifi_MP_SysModeRead(data, len);
+            break;
+
         case BLEWIFI_REQ_ENG_SYS_RESET:
             BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_SYS_RESET \r\n");
             BleWifi_Eng_SysReset(data, len);
@@ -513,6 +559,11 @@ void BleWifi_Ble_ProtocolHandler(uint16_t type, uint8_t *data, int len)
         case BLEWIFI_REQ_ENG_BLE_MAC_READ:
             BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_READ \r\n");
             BleWifi_Ble_MacAddrRead(data, len);
+            break;
+
+        case BLEWIFI_REQ_ENG_BLE_CMD:
+            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_CMD \r\n");
+            BleWifi_Eng_BleCmd(data, len);
             break;
 
         default:

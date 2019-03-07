@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/related; boundary="----=_NextPart_01D49C75.C25CB7F0"
+Content-Type: multipart/related; boundary="----=_NextPart_01D4D05B.6C7E12B0"
 
 此文档为“单个文件网页”，也称为“Web 档案”文件。如果您看到此消息，但是您的浏览器或编辑器不支持“Web 档案”文件。请下载支持“Web 档案”的浏览器。
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -37,8 +37,8 @@ w\:* {behavior:url(#default#VML);}
   <o:Revision>2</o:Revision>
   <o:TotalTime>494</o:TotalTime>
   <o:LastPrinted>2018-07-13T10:07:00Z</o:LastPrinted>
-  <o:Created>2018-12-25T09:17:00Z</o:Created>
-  <o:LastSaved>2018-12-25T09:17:00Z</o:LastSaved>
+  <o:Created>2019-03-01T10:20:00Z</o:Created>
+  <o:LastSaved>2019-03-01T10:20:00Z</o:LastSaved>
   <o:Pages>1</o:Pages>
   <o:Words>978</o:Words>
   <o:Characters>5581</o:Characters>
@@ -2392,7 +2392,7 @@ span.HTML
 	mso-fareast-font-family:宋体;
 	mso-hansi-font-family:宋体;
 	mso-bidi-font-family:宋体;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:ZH-CN;}
 p.msonormal0, li.msonormal0, div.msonormal0
 	{mso-style-name:msonormal;
@@ -2476,7 +2476,7 @@ span.a0
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.a1
 	{mso-style-name:"页眉 字符";
 	mso-style-priority:99;
@@ -2487,7 +2487,7 @@ span.a1
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.a2
 	{mso-style-name:"页脚 字符";
 	mso-style-priority:99;
@@ -2546,7 +2546,7 @@ span.a4
 	mso-ascii-font-family:"Microsoft JhengHei UI";
 	mso-fareast-font-family:"Microsoft JhengHei UI";
 	mso-hansi-font-family:"Microsoft JhengHei UI";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.a5
 	{mso-style-name:"标题 字符";
 	mso-style-unhide:no;
@@ -2605,7 +2605,7 @@ span.a8
 	mso-hansi-font-family:"Microsoft JhengHei UI";
 	mso-bidi-font-family:"Cordia New";
 	mso-bidi-theme-font:major-bidi;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-font-kerning:10.0pt;
 	font-weight:bold;}
 span.a9
@@ -3110,7 +3110,7 @@ span.MxLFigureCaptionChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:"Times New Roman";
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;}
 span.Char
@@ -3235,7 +3235,7 @@ span.MxLMajorHeadingChar
 	mso-fareast-font-family:"Times New Roman";
 	mso-hansi-font-family:Arial;
 	mso-bidi-font-family:Arial;
-	mso-color-alt:windowtext;
+	color:windowtext;
 	mso-fareast-language:EN-US;
 	font-weight:bold;
 	mso-bidi-font-weight:normal;}
@@ -4342,7 +4342,7 @@ span.emailstyle18
 	mso-ascii-font-family:Calibri;
 	mso-hansi-font-family:Calibri;
 	mso-bidi-font-family:Calibri;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 span.CharChar
 	{mso-style-name:"Char Char";
 	mso-style-unhide:no;
@@ -4747,7 +4747,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:"Courier New";
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l3:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4826,7 +4826,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l4:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -4907,7 +4907,7 @@ div.WordSection8
 	text-indent:-24.0pt;
 	font-family:"Arial",sans-serif;
 	mso-fareast-font-family:Arial;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l5:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -5283,7 +5283,7 @@ div.WordSection8
 	margin-left:24.0pt;
 	text-indent:-24.0pt;
 	font-family:Wingdings;
-	mso-color-alt:windowtext;}
+	color:windowtext;}
 @list l11:level2
 	{mso-level-number-format:bullet;
 	mso-level-text:\F06E;
@@ -6751,7 +6751,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6759,7 +6759,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
      <td width=3D"33%" valign=3Dtop style=3D'width:33.34%;border:none;backg=
 round:
@@ -6767,7 +6767,7 @@ round:
 .3pt;
      mso-height-rule:exactly'>
      <p class=3DMsoFooter style=3D'line-height:140%'><span lang=3DEN-US
-     style=3D'mso-color-alt:windowtext'><o:p>&nbsp;</o:p></span></p>
+     style=3D'color:windowtext'><o:p>&nbsp;</o:p></span></p>
      </td>
     </tr>
    </table>
@@ -6793,8 +6793,8 @@ b></p>
 -height:
  140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"=
 Cordia New";
- mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:
- EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
+ mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
+ mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
  style=3D'page-break-before:always;mso-break-type:section-break'>
  </span>
  <div class=3DWordSection2>
@@ -7038,21 +7038,21 @@ an></p>
  </div>
  <span lang=3DEN-US style=3D'font-size:10.0pt;line-height:140%;font-family:=
 "Microsoft JhengHei UI",sans-serif;
- mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color=
--alt:
- windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lan=
-guage:
- AR-SA'><br clear=3Dall style=3D'page-break-before:always;mso-break-type:se=
-ction-break'>
+ mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:win=
+dowtext;
+ mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA=
+'><br
+ clear=3Dall style=3D'page-break-before:always;mso-break-type:section-break=
+'>
  </span>
  <div class=3DWordSection3><w:Sdt SdtDocPart=3D"t" DocPartType=3D"Table of =
 Contents"
   DocPartUnique=3D"t" ID=3D"2002154435">
   <p class=3DMsoTocHeading><span lang=3DEN-US>Table Of Contents</span><span
-  lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;mso=
--color-alt:
-  windowtext;mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sd=
-tPr></w:sdtPr></span></p>
+  lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;col=
+or:windowtext;
+  mso-font-kerning:0pt;font-weight:normal;mso-no-proof:no'><w:sdtPr></w:sdt=
+Pr></span></p>
   <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US><span
   style=3D'mso-element:field-begin'></span><span
   style=3D'mso-spacerun:yes'>&nbsp;</span>TOC \o &quot;1-3&quot; \h \z \u <=
@@ -7064,40 +7064,40 @@ ans-serif;
   mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft Jheng=
 Hei";
   mso-fareast-theme-font:minor-fareast;mso-hansi-theme-font:minor-latin;
-  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-colo=
-r-alt:
-  windowtext;mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:
-  normal;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
-ount:
-  1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZH-TW>介绍</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
-></span><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349947 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900340037000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wi=
+ndowtext;
+  mso-font-kerning:1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'=
+>&nbsp;&nbsp;&nbsp; </span></span><span
+  lang=3DZH-TW>介绍</span><span style=3D'color:windowtext;display:none;mso-=
+hide:screen;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1 =
+lined'>__ </span></span><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349947 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900340037000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7116,39 +7116,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>文档应用范围</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
-></span><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349948 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900340038000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349948 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900340038000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7167,39 +7167,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>缩略语</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
-></span><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349949 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>1</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900340039000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349949 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>1</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900340039000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7217,39 +7217,38 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span><span
-  lang=3DZH-TW>工具包</span><span style=3D'mso-color-alt:windowtext;display=
-:none;
+  lang=3DZH-TW>工具包</span><span style=3D'color:windowtext;display:none;ms=
+o-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
+ount:
+  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
+dowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>
+  PAGEREF _Toc521349950 \h </span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
-span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349950 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>2</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>2</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350030000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7267,39 +7266,40 @@ ize:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;font-weight:normal;text-decoration:none;
   text-underline:none'><span style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; <=
 /span></span>Patch<span
-  lang=3DZH-TW>下载工具介绍</span><span style=3D'mso-color-alt:windowtext;d=
-isplay:none;
+  lang=3DZH-TW>下载工具介绍</span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349951 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>3</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900350031000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349951 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>3</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900350031000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7318,39 +7318,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Patch<span
-  lang=3DZH-TW>下载接线方法</span><span style=3D'mso-color-alt:windowtext;d=
-isplay:none;
+  lang=3DZH-TW>下载接线方法</span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349952 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900350032000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349952 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900350032000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7369,39 +7369,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DZ=
 H-TW>串口选择和端口更新</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
-></span><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349953 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900350033000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349953 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900350033000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7420,39 +7420,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Bin<span lang=
 =3DZH-TW>文件合并功能</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span=
-></span><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349954 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>5</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900350034000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349954 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>5</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900350034000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7472,41 +7472,41 @@ font:
 e-font:
   minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
 ia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span lang=3DEN-US><span
-  lang=3DEN-US>操作界面</span></span><span style=3D'mso-color-alt:windowtex=
-t;
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'=
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
+  lang=3DEN-US><span lang=3DEN-US>操作界面</span></span><span style=3D'colo=
+r:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
   text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
 an><!--[if supportFields]><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
   ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-elemen=
 t:
-  field-begin'></span></span><span style=3D'mso-color-alt:windowtext;displa=
-y:
-  none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;
-  text-underline:none'> PAGEREF _Toc521349955 \h </span><span style=3D'mso-=
-color-alt:
-  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
-  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
-d-separator'></span></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
+  field-begin'></span></span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
+rline:
+  none'> PAGEREF _Toc521349955 \h </span><span style=3D'color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-separator'></span><=
+/span><![endif]--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
   ZH-TW;text-decoration:none;text-underline:none'>5</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
   ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350035000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
-  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
-  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
-d-end'></span></span><![endif]--></a></span></span><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-end'></span></span>=
+<![endif]--></a></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7523,40 +7523,38 @@ nt-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><s=
 pan
-  lang=3DZH-TW>操作步骤</span><span style=3D'mso-color-alt:windowtext;displ=
-ay:none;
+  lang=3DZH-TW>操作步骤</span><span style=3D'color:windowtext;display:none;=
+mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
+ount:
+  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
+dowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>
+  PAGEREF _Toc521349956 \h </span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
-span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349956 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>6</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>6</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350036000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7574,39 +7572,39 @@ idi-font-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp; </span></span>Patch<span
-  lang=3DZH-TW>固件下载功能</span><span style=3D'mso-color-alt:windowtext;d=
-isplay:none;
+  lang=3DZH-TW>固件下载功能</span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
 span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349957 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
-   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
-006F0063003500320031003300340039003900350037000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'><span style=3D'mso-element:field-begin'></span></spa=
+n><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'> PAGEREF _Toc521349957 \h </span><span style=3D'colo=
+r:
   windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
 ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  none'><span style=3D'mso-element:field-separator'></span></span><![endif]=
+--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
+   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
+006F0063003500320031003300340039003900350037000000</w:data>
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7624,40 +7622,38 @@ nt-size:
   mso-fareast-font-family:"Microsoft JhengHei";mso-fareast-theme-font:minor=
 -fareast;
   mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cordia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none=
-'><span
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  mso-fareast-language:ZH-CN;text-decoration:none;text-underline:none'><span
   style=3D'mso-tab-count:1'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><s=
 pan
-  lang=3DZH-TW>操作界面</span><span style=3D'mso-color-alt:windowtext;displ=
-ay:none;
+  lang=3DZH-TW>操作界面</span><span style=3D'color:windowtext;display:none;=
+mso-hide:
+  screen;text-decoration:none;text-underline:none'><span style=3D'mso-tab-c=
+ount:
+  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:win=
+dowtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-begin'></span></span><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'>
+  PAGEREF _Toc521349958 \h </span><span style=3D'color:windowtext;display:n=
+one;
   mso-hide:screen;text-decoration:none;text-underline:none'><span
-  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><=
-span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-begin'></span>=
-</span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'> PAGEREF _Toc521349958 \h </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'><span style=3D'mso-element:field-separator'></s=
-pan></span><![endif]--><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decor=
-ation:
-  none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!=
---[if gte mso 9]><xml>
+  style=3D'mso-element:field-separator'></span></span><![endif]--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:no=
+ne;
+  text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso=
+ 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350038000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
-  windowtext;display:none;mso-hide:screen;text-decoration:none;text-underli=
-ne:
-  none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a=
-></span></span><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><s=
+pan
+  style=3D'mso-element:field-end'></span></span><![endif]--></a></span></sp=
+an><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7677,43 +7673,41 @@ t-size:
 e-font:
   minor-fareast;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:"Cord=
 ia New";
-  mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-font-kerning:
-  1.0pt;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1'>&nbsp;&nbsp;&nbsp; </span></span><span lang=3DEN-US><span lang=3DEN-US=
->版本读取及用户手册</span></span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
-  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-co=
-unt:
-  1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color=
--alt:
-  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
-  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
-d-begin'></span></span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
-  ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349959 \h=
- </span><span
-  style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareas=
-t-language:
+  mso-bidi-theme-font:minor-bidi;color:windowtext;mso-font-kerning:1.0pt;
+  text-decoration:none;text-underline:none'><span style=3D'mso-tab-count:1'=
+>&nbsp;&nbsp;&nbsp; </span></span><span
+  lang=3DEN-US><span lang=3DEN-US>版本读取及用户手册</span></span><span sty=
+le=3D'color:windowtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></sp=
+an><!--[if supportFields]><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
   ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-elemen=
 t:
-  field-separator'></span></span><![endif]--><span style=3D'mso-color-alt:w=
-indowtext;
+  field-begin'></span></span><span style=3D'color:windowtext;display:none;
+  mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-unde=
+rline:
+  none'> PAGEREF _Toc521349959 \h </span><span style=3D'color:windowtext;
   display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
 one;
-  text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
-  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
-one;
-  text-underline:none'><!--[if gte mso 9]><xml>
+  text-underline:none'><span style=3D'mso-element:field-separator'></span><=
+/span><![endif]--><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
+  ZH-TW;text-decoration:none;text-underline:none'>8</span><span
+  style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-langua=
+ge:
+  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
    <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F0054=
 006F0063003500320031003300340039003900350039000000</w:data>
-  </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
-  windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
-  text-decoration:none;text-underline:none'><span style=3D'mso-element:fiel=
-d-end'></span></span><![endif]--></a></span></span><span
+  </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:n=
+one;
+  text-underline:none'><span style=3D'mso-element:field-end'></span></span>=
+<![endif]--></a></span></span><span
   lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fam=
 ily:
   "Arial",sans-serif;mso-ascii-theme-font:minor-latin;mso-fareast-font-fami=
@@ -7741,8 +7735,7 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -7751,10 +7744,10 @@ style=3D'page-break-before:always;mso-break-type:section-break'>
 ontents"
  DocPartUnique=3D"t" ID=3D"-655690572">
  <p class=3DMsoTocHeading><span lang=3DEN-US>List Of Figures</span><span
- lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;mso-=
-color-alt:
- windowtext;text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></=
-w:sdtPr></span></p>
+ lang=3DEN-US style=3D'font-size:10.0pt;font-variant:normal !important;colo=
+r:windowtext;
+ text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
+pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
 -size:
  9.0pt;mso-bidi-font-size:10.0pt;font-weight:normal'><span style=3D'mso-ele=
@@ -7769,38 +7762,38 @@ N'><a
 >:</span>
  <span lang=3DEN-US style=3D'mso-bidi-font-family:宋体'><span lang=3DEN-US>=
 固件补丁下载工具包含的文件</span></span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
 nt:
- 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349960 \h =
 </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
 :field-separator'></span></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'>2</span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360030000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
-pan><![endif]--></a></span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-end'></span></span><=
+![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7812,36 +7805,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349961">Figure 2: Patch<span lang=3DEN-US style=3D'mso-far=
 east-language:
- ZH-CN'><span lang=3DEN-US>下载界面</span></span><span style=3D'mso-color-a=
-lt:windowtext;
+ ZH-CN'><span lang=3DEN-US>下载界面</span></span><span style=3D'color:windo=
+wtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349961 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>3</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349961 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>3</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360031000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7853,36 +7846,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349962">Figure 3: DevKit<span lang=3DEN-US style=3D'mso-fa=
 reast-language:
- ZH-CN'><span lang=3DEN-US>接线图</span></span><span style=3D'mso-color-alt=
-:windowtext;
+ ZH-CN'><span lang=3DEN-US>接线图</span></span><span style=3D'color:windowt=
+ext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349962 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>4</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349962 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>4</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360032000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7894,34 +7887,34 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349963">Figure 4: <span lang=3DZH-TW>串口选择界面</span><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span>=
-</span><!--[if supportFields]><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349963 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>5</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
+n><!--[if supportFields]><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349963 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>5</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360033000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -7943,44 +7936,39 @@ ily:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast'><span lang=3DEN-U=
 S>文件合并功能</span></span><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
 n><!--[if supportFields]><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
 ><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'> PAGEREF _Toc521349964 \h </span><span style=3D'font-=
 family:
- "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
- mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-under=
-line:
- none'><span style=3D'mso-element:field-separator'></span></span><![endif]-=
--><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+ screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:none=
+'><span
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'>6</span><span style=3D'font-family:"Microsoft JhengHe=
 i UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
- ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+ text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360034000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-family=
 :"Microsoft JhengHei UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
- ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
-:field-end'></span></span><![endif]--></a></span></span><span
+ color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+ text-decoration:none;text-underline:none'><span style=3D'mso-element:field=
+-end'></span></span><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8002,44 +7990,39 @@ ily:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast'><span lang=3DEN-U=
 S>操作结果</span></span><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'><span style=3D'mso-tab-count:1 lined'>__ </span></spa=
 n><!--[if supportFields]><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
 ><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'> PAGEREF _Toc521349965 \h </span><span style=3D'font-=
 family:
- "Microsoft JhengHei UI",sans-serif;mso-color-alt:windowtext;display:none;
- mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:none;text-under=
-line:
- none'><span style=3D'mso-element:field-separator'></span></span><![endif]-=
--><span
- style=3D'font-family:"Microsoft JhengHei UI",sans-serif;mso-color-alt:wind=
-owtext;
+ "Microsoft JhengHei UI",sans-serif;color:windowtext;display:none;mso-hide:
+ screen;mso-fareast-language:ZH-TW;text-decoration:none;text-underline:none=
+'><span
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'font-family:"Microsoft JhengHei UI",sans-serif;color:windowtext;
  display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
 ne;
  text-underline:none'>7</span><span style=3D'font-family:"Microsoft JhengHe=
 i UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
- ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
+ color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+ text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360035000000</w:data>
  </xml><![endif]--></span><!--[if supportFields]><span style=3D'font-family=
 :"Microsoft JhengHei UI",sans-serif;
- mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast-language:
- ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
-:field-end'></span></span><![endif]--></a></span></span><span
+ color:windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;
+ text-decoration:none;text-underline:none'><span style=3D'mso-element:field=
+-end'></span></span><![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8054,38 +8037,38 @@ mso-fareast-language:
 =3DEN-US>合成OTA
  Image bin </span></span><span lang=3DEN-US><span lang=3DEN-US>文件</span><=
 /span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
 nt:
- 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349966 \h =
 </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
 :field-separator'></span></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'>7</span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360036000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
-pan><![endif]--></a></span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-end'></span></span><=
+![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8101,36 +8084,36 @@ nt-family:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast;mso-fareast-langua=
 ge:
- ZH-CN'><span lang=3DEN-US>固件下载功能</span></span><span style=3D'mso-col=
-or-alt:windowtext;
+ ZH-CN'><span lang=3DEN-US>固件下载功能</span></span><span style=3D'color:w=
+indowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349967 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349967 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360037000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8146,36 +8129,36 @@ nt-family:
 ily:
  "Microsoft JhengHei";mso-hansi-theme-font:minor-fareast;mso-fareast-langua=
 ge:
- ZH-CN'><span lang=3DEN-US>固件下载示意图</span></span><span style=3D'mso-c=
-olor-alt:windowtext;
+ ZH-CN'><span lang=3DEN-US>固件下载示意图</span></span><span style=3D'color=
+:windowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349968 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>8</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349968 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>8</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360038000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8187,36 +8170,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349969">Figure 10: About <span lang=3DEN-US style=3D'mso-f=
 areast-language:
- ZH-CN'><span lang=3DEN-US>界面</span></span><span style=3D'mso-color-alt:w=
-indowtext;
+ ZH-CN'><span lang=3DEN-US>界面</span></span><span style=3D'color:windowtex=
+t;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349969 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>9</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349969 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>9</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900360039000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8230,36 +8213,36 @@ kerning:
 -language:
  ZH-CN'><span lang=3DEN-US>读取</span></span>ROM<span lang=3DEN-US style=3D=
 'mso-fareast-language:
- ZH-CN'><span lang=3DEN-US>版本</span></span><span style=3D'mso-color-alt:w=
-indowtext;
+ ZH-CN'><span lang=3DEN-US>版本</span></span><span style=3D'color:windowtex=
+t;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349970 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>9</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349970 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>9</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370030000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8271,36 +8254,36 @@ kerning:
  <p class=3DMsoToc1><span class=3DMsoHyperlink><span lang=3DEN-US><a
  href=3D"#_Toc521349971">Figure 12: <span lang=3DEN-US style=3D'mso-fareast=
 -language:
- ZH-CN'><span lang=3DEN-US>用户手册图例</span></span><span style=3D'mso-col=
-or-alt:windowtext;
+ ZH-CN'><span lang=3DEN-US>用户手册图例</span></span><span style=3D'color:w=
+indowtext;
  display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
 an
  style=3D'mso-tab-count:1 lined'>__ </span></span><!--[if supportFields]><s=
 pan
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'> PAGEREF _Toc521349971 \h </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'><span style=3D'mso-element:field-separator'></sp=
-an></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;text-decora=
-tion:
- none;text-underline:none'>10</span><span style=3D'mso-color-alt:windowtext;
- display:none;mso-hide:screen;text-decoration:none;text-underline:none'><!-=
--[if gte mso 9]><xml>
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'> PAGEREF _Toc521349971 \h </span><span style=3D'color=
+:windowtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-separator'></span></span><![endif]--><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;text-decoration:non=
+e;
+ text-underline:none'>10</span><span style=3D'color:windowtext;display:none;
+ mso-hide:screen;text-decoration:none;text-underline:none'><!--[if gte mso =
+9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370031000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;text-decoration:none;text-underlin=
-e:
- none'><span style=3D'mso-element:field-end'></span></span><![endif]--></a>=
-</span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;text-decoration:none;text-underline:none'><sp=
+an
+ style=3D'mso-element:field-end'></span></span><![endif]--></a></span></spa=
+n><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8327,8 +8310,7 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -8338,8 +8320,7 @@ ontents"
  DocPartUnique=3D"t" ID=3D"-972668488">
  <p class=3DMsoTocHeading><span lang=3DEN-US>List Of Tables</span><span lan=
 g=3DEN-US
- style=3D'font-size:10.0pt;font-variant:normal !important;mso-color-alt:win=
-dowtext;
+ style=3D'font-size:10.0pt;font-variant:normal !important;color:windowtext;
  text-transform:uppercase;mso-bidi-font-weight:bold'><w:sdtPr></w:sdtPr></s=
 pan></p>
  <p class=3DMsoToc1><!--[if supportFields]><span lang=3DEN-US style=3D'font=
@@ -8355,38 +8336,38 @@ N'><a
 :</span>
  <span lang=3DEN-US><span lang=3DEN-US>固件补丁下载工具包文件说明</span></s=
 pan><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-tab-cou=
 nt:
- 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'mso-color-=
-alt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-begin'></span><=
-/span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ 1 lined'>__ </span></span><!--[if supportFields]><span style=3D'color:wind=
+owtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-begin'></span></span=
+><span
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'> PAGEREF _Toc521349972 \h =
 </span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><span style=3D'mso-element=
 :field-separator'></span></span><![endif]--><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'>2</span><span
- style=3D'mso-color-alt:windowtext;display:none;mso-hide:screen;mso-fareast=
--language:
+ style=3D'color:windowtext;display:none;mso-hide:screen;mso-fareast-languag=
+e:
  ZH-TW;text-decoration:none;text-underline:none'><!--[if gte mso 9]><xml>
   <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F00540=
 06F0063003500320031003300340039003900370032000000</w:data>
- </xml><![endif]--></span><!--[if supportFields]><span style=3D'mso-color-a=
-lt:
- windowtext;display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-de=
-coration:
- none;text-underline:none'><span style=3D'mso-element:field-end'></span></s=
-pan><![endif]--></a></span></span><span
+ </xml><![endif]--></span><!--[if supportFields]><span style=3D'color:windo=
+wtext;
+ display:none;mso-hide:screen;mso-fareast-language:ZH-TW;text-decoration:no=
+ne;
+ text-underline:none'><span style=3D'mso-element:field-end'></span></span><=
+![endif]--></a></span></span><span
  lang=3DEN-US style=3D'font-size:10.5pt;mso-bidi-font-size:11.0pt;font-fami=
 ly:"Arial",sans-serif;
  mso-ascii-theme-font:minor-latin;mso-fareast-font-family:"Microsoft JhengH=
@@ -8412,8 +8393,7 @@ ont-size:
 height:
 140%;font-family:"Microsoft JhengHei UI",sans-serif;mso-bidi-font-family:"C=
 ordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'page-break-before:always;mso-break-type:section-break'>
 </span>
@@ -9754,8 +9734,7 @@ span></span></span></p>
 i",sans-serif;
 mso-ascii-theme-font:minor-fareast;mso-fareast-theme-font:minor-fareast;
 mso-hansi-theme-font:minor-fareast;mso-bidi-font-family:"Cordia New";
-mso-bidi-theme-font:minor-bidi;mso-color-alt:windowtext;mso-ansi-language:E=
-N-US;
+mso-bidi-theme-font:minor-bidi;color:windowtext;mso-ansi-language:EN-US;
 mso-fareast-language:ZH-CN;mso-bidi-language:AR-SA'><br clear=3Dall
 style=3D'mso-special-character:line-break;page-break-before:always'>
 </span>
@@ -9898,13 +9877,12 @@ t-font-family:
 
 <span lang=3DEN-US style=3D'font-size:10.0pt;line-height:140%;font-family:"=
 Microsoft JhengHei UI",sans-serif;
-mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;mso-color-=
-alt:
-windowtext;mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-lang=
-uage:
-AR-SA'><br clear=3Dall style=3D'mso-special-character:line-break;page-break=
--before:
-always'>
+mso-bidi-font-family:"Cordia New";mso-bidi-theme-font:minor-bidi;color:wind=
+owtext;
+mso-ansi-language:EN-US;mso-fareast-language:ZH-TW;mso-bidi-language:AR-SA'=
+><br
+clear=3Dall style=3D'mso-special-character:line-break;page-break-before:alw=
+ays'>
 </span>
 
 <p class=3DMsoNormal align=3Dleft style=3D'margin-bottom:21.6pt;text-align:=
@@ -10775,9 +10753,8 @@ S>Contact</span></p>
 <p class=3DMsoNormal align=3Dright style=3D'text-align:right'><span
 class=3DMsoHyperlink><span lang=3DEN-US style=3D'font-size:12.0pt;line-heig=
 ht:140%;
-mso-color-alt:windowtext'><a href=3D"mailto:sales@Opulinks.com"><span
-style=3D'mso-color-alt:windowtext'>sales@Opulinks.com</span></a></span></sp=
-an><span
+color:windowtext'><a href=3D"mailto:sales@Opulinks.com"><span style=3D'colo=
+r:windowtext'>sales@Opulinks.com</span></a></span></span><span
 lang=3DEN-US style=3D'font-size:12.0pt;line-height:140%'><o:p></o:p></span>=
 </p>
 
@@ -10791,7 +10768,7 @@ lang=3DEN-US style=3D'font-size:12.0pt;line-height:140%'><o:p></o:p></span>=
 
 </html>
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0001.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10800,7 +10777,7 @@ Content-Type: text/xml
 erties xmlns=3D"http://schemas.microsoft.com/office/2006/coverPageProps"><P=
 ublishDate/><Abstract/><CompanyAddress/><CompanyPhone/><CompanyFax/><Compan=
 yEmail/></CoverPageProperties>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props002.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -10810,7 +10787,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 06/coverPageProps"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0003.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12267,7 +12244,7 @@ s:element>
 <xs:element name=3D"TermId" type=3D"xs:string"></xs:element>
 </xs:schema>
 </ct:contentTypeSchema>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props004.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12288,7 +12265,7 @@ ds:uri=3D"http://schemas.openxmlformats.org/package/2006/metadata/core-prop=
 erties"/><ds:schemaRef ds:uri=3D"http://purl.org/dc/elements/1.1/"/><ds:sch=
 emaRef ds:uri=3D"http://purl.org/dc/terms/"/><ds:schemaRef ds:uri=3D"http:/=
 /schemas.microsoft.com/internal/obd"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0005.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12296,7 +12273,7 @@ Content-Type: text/xml
 <?mso-contentType?><FormTemplates xmlns=3D"http://schemas.microsoft.com/sha=
 repoint/v3/contenttype/forms"><Display>DocumentLibraryForm</Display><Edit>A=
 ssetEditForm</Edit><New>DocumentLibraryForm</New></FormTemplates>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props006.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12306,7 +12283,7 @@ Content-Type: text/xml
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/sharepoin=
 t/v3/contenttype/forms"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0007.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12441,7 +12418,7 @@ thor><IntlLocPriority xmlns=3D"c66daf58-3c46-4c48-8560-c485e881f7f9" xsi:ni=
 l=3D"true"></IntlLocPriority><Provider xmlns=3D"c66daf58-3c46-4c48-8560-c48=
 5e881f7f9" xsi:nil=3D"true"></Provider><TaxCatchAll xmlns=3D"c66daf58-3c46-=
 4c48-8560-c485e881f7f9"/></documentManagement></p:properties>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props008.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12454,7 +12431,7 @@ s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.microsoft.com/office/20=
 om/office/infopath/2007/PartnerControls"/><ds:schemaRef ds:uri=3D"c66daf58-=
 3c46-4c48-8560-c485e881f7f9"/><ds:schemaRef ds:uri=3D"8e8ea6d1-e150-4704-b4=
 7c-0a92d6aed386"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/item0009.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12462,17 +12439,17 @@ Content-Type: text/xml
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"yes"?><b:Sources Sel=
 ectedStyle=3D"\APA.XSL" StyleName=3D"APA" xmlns:b=3D"http://schemas.openxml=
 formats.org/officeDocument/2006/bibliography"></b:Sources>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/props010.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
 
 <?xml version=3D"1.0" encoding=3D"UTF-8" standalone=3D"no"?>
-<ds:datastoreItem ds:itemID=3D"{5EE69D3C-1340-4127-83F2-E0CE1572C24A}" xmln=
+<ds:datastoreItem ds:itemID=3D"{CE9364F1-8B17-462B-87C8-FD1737D6FF07}" xmln=
 s:ds=3D"http://schemas.openxmlformats.org/officeDocument/2006/customXml"><d=
 s:schemaRefs><ds:schemaRef ds:uri=3D"http://schemas.openxmlformats.org/offi=
 ceDocument/2006/bibliography"/></ds:schemaRefs></ds:datastoreItem>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/themedata.thmx
 Content-Transfer-Encoding: base64
 Content-Type: application/vnd.ms-officetheme
@@ -12535,7 +12512,7 @@ AAAAAAAAANYCAAB0aGVtZS90aGVtZS90aGVtZTEueG1sUEsBAi0AFAAGAAgAAAAhAA3RkJ+2AAAA
 GwEAACcAAAAAAAAAAAAAAAAAJAoAAHRoZW1lL3RoZW1lL19yZWxzL3RoZW1lTWFuYWdlci54bWwu
 cmVsc1BLBQYAAAAABQAFAF0BAAAfCwAAAAA=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/colorschememapping.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml
@@ -12545,7 +12522,7 @@ Content-Type: text/xml
  bg1=3D"lt1" tx1=3D"dk1" bg2=3D"lt2" tx2=3D"dk2" accent1=3D"accent1" accent=
 2=3D"accent2" accent3=3D"accent3" accent4=3D"accent4" accent5=3D"accent5" a=
 ccent6=3D"accent6" hlink=3D"hlink" folHlink=3D"folHlink"/>
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image001.jpg
 Content-Transfer-Encoding: base64
 Content-Type: image/jpeg
@@ -12820,7 +12797,7 @@ PfHnJVizq1Y3KcJJaZuMOREBO8hlx5K09iXAPRQVpK8vePpdIi808RdZ6Fuz22lb/kpU6P7VBsLJ
 W21cKDpr+zQDpvNBc1AoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFAoFA
 oFAoP//Z
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image002.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -12885,7 +12862,7 @@ fhYXt1rzaILGG5gPxA0AHf+RXP6xm/4dPVgni4obuHogbgDUoesjfr9EDbdsDw0QNwAAAKsD4gYA
 AGB1QNwAAACsDogbAACA1QFxAwAAsDogbgAAAFYHxA0AAMDKGIb/AyJNFL6hsbJnAAAAAElFTkSu
 QmCC
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image003.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -13530,7 +13507,7 @@ ACCU6r6+bhwSijkAAAAAAKFU9/V145AUU8z7UswBAAAAAB1MdV9fNw5JsUfMX3kp3mIAAAAAADrE
 ijkAAAAAAHWgmAMAAAAA0IMo5gAAAAAA9CCKOQAAAAAAPYhiDgAAAABAD6KYAwAAAADQg5pTzN8z
 /x96cR0ErtRdTQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image004.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17006,7 +16983,7 @@ sBGwEbARsBH4J0XAain+SeGzO9sI2AjYCNgI2AjYCGgELKSwvwk2AjYCNgI2AjYCNgK/gwhYSPE7
 CKI9hI2AjYCNgI2AjYCNgIUU9nfARsBGwEbARsBGwEbgdxABCyl+B0G0h7ARsBGwEbARsBGwEbCQ
 wv4O2AjYCNgI2AjYCNgI/A4i8H8BmSxGVS3J9owAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image005.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17062,7 +17039,7 @@ FtOjzxSCdGjM/Px8+dX4NGc/TtnXkHMJDcIIDZBAaOoRGiCB0NQjNEACoalHaIAEQlOP0AAJhKYe
 oQESCE09QgMkEJp6hAZIIDT1CA2QQGjqfdjQAFsK/ZxhvQ8ZGgD/FkIDoDlCA6A5QgOgOUIDoDlC
 A6A5QgOgOUIDoDlCA6A5JzQA0IoOjV0fANjeb/V/1CEepdtbMnoAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image006.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17200,7 +17177,7 @@ KAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFCN
 MgoAQDXKKAAA1SijAABUo4wCAFCNMgoAQDXKKAAA1SijAABUo4wCAFDNj2VURERERGTNxP45KaMi
 IiIiIn8zyqiIiIiIVIsyKiIiIiKV8p/m/wOMPvpGU7skngAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image007.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17766,7 +17743,7 @@ ACgYZRsAAAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsA
 AAAAgIJRtgEAAAAAKBhlGwAAAACAglG2AQAAAAAoGGUbAAAAAICCUbYBAAAAACgYZRsAAAAAgIJR
 tgEAAAAAKBhlGwAAAACAglG2AQAAAAAoWO2y/Z76/+ntYtxr6+RrAAAAAElFTkSuQmCC
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image008.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -17975,7 +17952,7 @@ CKMAAAAAsBtPh1FERERExGeMKAqjAAAAAABrQBgFAAAAgN0gjAIAAADAbhBGAQAAAGA3CKMAAAAA
 sBuEUQAAAADYDcIoAAAAAOwGYRQAAAAAdmM2jCIiIiIirqnNn5MwioiIiIi4pYRRRERERNxNwigi
 IiIi7iZhFBERERF3kzCKiIiIiLtJGEVERETEnfz37f8Dhy/JN4qk+yMAAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image009.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18066,7 +18043,7 @@ AEAqBRQAgFQKKAAAqRRQAABSKaAAAKRSQAEASKWAAgCQSgEFACCVAgoAQCoFFACAVAooAACpFFAA
 AFIpoAAApFJAAQBIpYACAJBKAQUAIJUCCgBAKgUUAIBUCigAAKm6BfS/w/8BmpZe3jrpC/gAAAAA
 SUVORK5CYIJ=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image010.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18104,7 +18081,7 @@ NJ5vebjxvy0FdNLbUMMRCIDAawmsvOP0WhhIDARAAASWCKCTLmHDJBAAARAQBNBJIQcQAAEQ6BJA
 J+0SxHwQAAEQQCeFBkAABECgSwCdtEsQ80EABEAAnRQaAAEQAIEuAXTSLkHMBwEQAAF0UmgABEAA
 BLoE/gDXkWO3aPdDuQAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image011.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -18191,7 +18168,7 @@ AJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQ
 gNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDSBwCQgNIHAJCA0gcAkIDS
 BwDw8F5e/g8OjPHxNkM3ewAAAABJRU5ErkJggk==
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image012.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -19278,7 +19255,7 @@ ef365fn5hw8frj/34uLi7du39+7du/4fcU0CBAgQIECAAIErBF69evXo0aO7d+9eU+nWrVs/knHv
 gACBEwnIuBPBGkuAAAECBAgQOK3A5Rcc+eevvz5+/HjaPaYTIECAAAECBAj0BM7Ozv4Fsdl68+rY
 Om8AAAAASUVORK5CYIJ=
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/image013.png
 Content-Transfer-Encoding: base64
 Content-Type: image/png
@@ -20288,7 +20265,7 @@ rc3Rv7U8732eN9/Xe59/lPeZmx+hPndGfS7dNqKsWv/Iq+u0zVHX+K95R3jrpKbD8+r1cK8s3mv1
 Ot60m3f0NZZ39O8s/5j/9eqhnf+aJ715es335uUdc23d/qIetQ29Hvv7wPBnmj4mU62T8mhv3Sq9
 Mh3l9Mp9lHcsR/7WDv3ZEbbPfvtVue/++9v/B25+/miqbi0nAAAAAElFTkSuQmCC
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/header.htm
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/html; charset="gb2312"
@@ -21396,7 +21373,7 @@ ckground-themecolor:
 
 </html>
 
-------=_NextPart_01D49C75.C25CB7F0
+------=_NextPart_01D4D05B.6C7E12B0
 Content-Location: file:///C:/E0AC30E5/OPL1000-patch-download-tool-user-guide.files/filelist.xml
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/xml; charset="utf-8"
@@ -21431,4 +21408,4 @@ Content-Type: text/xml; charset="utf-8"
  <o:File HRef=3D"header.htm"/>
  <o:File HRef=3D"filelist.xml"/>
 </xml>
-------=_NextPart_01D49C75.C25CB7F0--
+------=_NextPart_01D4D05B.6C7E12B0--

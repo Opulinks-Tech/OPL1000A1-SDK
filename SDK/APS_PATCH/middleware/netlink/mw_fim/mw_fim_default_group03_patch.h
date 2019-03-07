@@ -80,9 +80,31 @@ typedef enum
     MW_FIM_IDX_GP03_PATCH_STA_MAC_ADDR,
 
     MW_FIM_IDX_GP03_PATCH_LE_CFG,
+
+    MW_FIM_IDX_GP03_PATCH_SYS_MODE,
     
     MW_FIM_IDX_GP03_PATCH_MAX
 } E_MwFimIdxGroup03_Patch;
+
+
+// the settings of system mode
+typedef struct
+{
+    uint8_t ubSysMode;
+    uint8_t ubaReserved[3];
+} T_MwFim_SysMode;
+
+#define MW_FIM_SYS_MODE_SIZE    sizeof(T_MwFim_SysMode)
+#define MW_FIM_SYS_MODE_NUM     1
+
+typedef enum
+{
+    MW_FIM_SYS_MODE_INIT = 0,
+    MW_FIM_SYS_MODE_MP,
+    MW_FIM_SYS_MODE_USER,
+
+    MW_FIM_SYS_MODE_MAX = 0x80
+} E_MwFim_SysMode;
 
 
 /********************************************
@@ -95,6 +117,8 @@ extern const T_HalAuxCalData_patch g_tMwFimDefaultCalAuxadc_patch;
 extern const T_HalTmprCalData g_tMwFimDefaultCalTmpr_patch;
 extern const uint8_t gMwFimDefaultManufName[STA_INFO_MAX_MANUF_NAME_SIZE];
 extern const uint8_t gMwFimDefaultWifiStaMacAddr[MAC_ADDR_LEN];
+
+extern const T_MwFim_SysMode g_tMwFimDefaultSysMode;
 
 
 // Sec 5: declaration of global function prototype

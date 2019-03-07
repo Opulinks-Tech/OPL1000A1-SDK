@@ -94,6 +94,16 @@ const le_cfg_patch_t g_tMwFimDefaultLeCfg_patch =
 // the address buffer of LE config
 extern uint32_t g_u32aMwFimAddrLeCfg[MW_FIM_LE_CFG_NUM];
 
+// the settings of system mode
+const T_MwFim_SysMode g_tMwFimDefaultSysMode =
+{
+    MW_FIM_SYS_MODE_INIT,   // uint8_t ubSysMode;
+    0xFF, 0xFF, 0xFF        // uint8_t ubaReserved[3];
+};
+
+// the address buffer of system mode
+uint32_t g_ulaMwFimAddrBufferSysMode[MW_FIM_SYS_MODE_NUM];
+
 
 // the information table of group 03
 const T_MwFimFileInfo g_taMwFimGroupTable03_patch[] =
@@ -110,6 +120,8 @@ const T_MwFimFileInfo g_taMwFimGroupTable03_patch[] =
 
     {MW_FIM_IDX_GP03_PATCH_LE_CFG,                   MW_FIM_LE_CFG_NUM,                   MW_FIM_IDX_LE_CFG_SIZE_PATCH,          (uint8_t*)&g_tMwFimDefaultLeCfg_patch,          g_u32aMwFimAddrLeCfg},
 
+    {MW_FIM_IDX_GP03_PATCH_SYS_MODE,                 MW_FIM_SYS_MODE_NUM,                 MW_FIM_SYS_MODE_SIZE,                  (uint8_t*)&g_tMwFimDefaultSysMode,              g_ulaMwFimAddrBufferSysMode},
+    
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}
 };

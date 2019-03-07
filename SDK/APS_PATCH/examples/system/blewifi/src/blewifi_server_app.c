@@ -24,13 +24,14 @@
 extern LE_ERR_STATE LeGapGetBdAddr(BD_ADDR addr);
 
 static BLE_APP_DATA_T gTheBle;
+static BLE_ADV_TIME_T gTheBleAdvTime;
 
-static void BleWifi_Ble_SetAdvtisingPara(UINT8 type, UINT8 own_addr_type, LE_BT_ADDR_T *peer_addr, UINT8 filter)
+static void BleWifi_Ble_SetAdvtisingPara(UINT8 type, UINT8 own_addr_type, LE_BT_ADDR_T *peer_addr, UINT8 filter, UINT16 interval_min, UINT16 interval_max)
 {
 	LE_GAP_ADVERTISING_PARAM_T para;
 
-	para.interval_min = BLEWIFI_BLE_ADVERTISEMENT_INTERVAL_MIN;
-	para.interval_max = BLEWIFI_BLE_ADVERTISEMENT_INTERVAL_MAX;
+	para.interval_min = interval_min;
+	para.interval_max = interval_max;
 	para.type = type;
 	para.own_addr_type = own_addr_type;
 
@@ -232,7 +233,12 @@ static void BleWifi_Ble_CmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
             
             BleWifi_Ble_SetAdvData();
             BleWifi_Ble_SetScanData();
-            BleWifi_Ble_SetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_IND, LE_HCI_OWN_ADDR_PUBLIC, 0, LE_HCI_ADV_FILT_NONE);
+            BleWifi_Ble_SetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_IND,
+                                         LE_HCI_OWN_ADDR_PUBLIC,
+                                         0,
+                                         LE_HCI_ADV_FILT_NONE,
+                                         BLEWIFI_BLE_ADVERTISEMENT_INTERVAL_MIN,
+                                         BLEWIFI_BLE_ADVERTISEMENT_INTERVAL_MAX);
         }
 		break;
 
@@ -253,9 +259,17 @@ static void BleWifi_Ble_CmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 			BLEWIFI_INFO("APP-LE_CM_MSG_SET_ADVERTISING_PARAMS_CFM - Status = %x\r\n", ((LE_CM_MSG_SET_ADVERTISING_PARAMS_CFM_T *)message)->status);
 
             // !!! Init complete
-            // send the message to the application task (ctrl task)
-            gTheBle.state = APP_STATE_IDLE;
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_INIT_COMPLETE, NULL, 0);
+            if (gTheBle.state == APP_STATE_INIT)
+            {
+                // send the message to the application task (ctrl task)
+                gTheBle.state = APP_STATE_IDLE;
+                BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_INIT_COMPLETE, NULL, 0);
+            }
+            // !!! Change the time of advertising
+            else if (gTheBle.state == APP_STATE_ADVERTISING_TIME_CHANGE)
+            {
+                BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_ENTER_ADVERTISING, 0, NULL);
+            }
         }
         break;
 
@@ -266,8 +280,17 @@ static void BleWifi_Ble_CmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 
 			if (cfm->status == SYS_ERR_SUCCESS)
 			{
-				gTheBle.state = APP_STATE_ADVERTISING;
-				BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_ADVERTISING_CFM, NULL, 0);
+				// !!! Change the time of advertising
+                if (gTheBle.state == APP_STATE_ADVERTISING_TIME_CHANGE)
+                {
+                    gTheBle.state = APP_STATE_ADVERTISING;
+                    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_ADVERTISING_TIME_CHANGE_CFM, NULL, 0);
+                }
+                else
+                {
+                    gTheBle.state = APP_STATE_ADVERTISING;
+    				BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_ADVERTISING_CFM, NULL, 0);
+				}
             }
         }
 		break;
@@ -279,8 +302,21 @@ static void BleWifi_Ble_CmMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
 
 			if (cfm->status == SYS_ERR_SUCCESS)
 			{
-				gTheBle.state = APP_STATE_IDLE;
-				BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM, NULL, 0);
+				// !!! Change the time of advertising
+                if (gTheBle.state == APP_STATE_ADVERTISING_TIME_CHANGE)
+                {
+                    BleWifi_Ble_SetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_IND,
+                                                 LE_HCI_OWN_ADDR_PUBLIC,
+                                                 0,
+                                                 LE_HCI_ADV_FILT_NONE,
+                                                 gTheBleAdvTime.interval_min,
+                                                 gTheBleAdvTime.interval_max);
+                }
+                else
+                {
+                    gTheBle.state = APP_STATE_IDLE;
+    				BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_BLE_ADVERTISING_EXIT_CFM, NULL, 0);
+				}
             }
         }
 		break;
@@ -488,6 +524,29 @@ static void BleWifi_Ble_MsgHandler(TASK task, MESSAGEID id, MESSAGE message)
         }
 		break;
 
+		case BLEWIFI_APP_MSG_CHANGE_ADVERTISING_TIME:
+		{
+		    BLEWIFI_MESSAGE_T *adv_time = (BLEWIFI_MESSAGE_T *)message;
+
+            memcpy(&gTheBleAdvTime, adv_time->data, sizeof(BLE_ADV_TIME_T));
+
+            if (gTheBle.state == APP_STATE_ADVERTISING)
+            {
+                gTheBle.state = APP_STATE_ADVERTISING_TIME_CHANGE;
+                BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_EXIT_ADVERTISING, 0, NULL);
+            }
+            else
+            {
+                BleWifi_Ble_SetAdvtisingPara(LE_HCI_ADV_TYPE_ADV_IND,
+                                             LE_HCI_OWN_ADDR_PUBLIC,
+                                             0,
+                                             LE_HCI_ADV_FILT_NONE,
+                                             gTheBleAdvTime.interval_min,
+                                             gTheBleAdvTime.interval_max);
+            }
+        }
+		break;
+
 		case BLEWIFI_APP_MSG_SEND_DATA:
         {
             if (gTheBle.state == APP_STATE_CONNECTED)
@@ -597,6 +656,7 @@ void BleWifi_Ble_ServerAppInit(void)
     BLEWIFI_INFO("APP-BleWifi_Ble_ServerAppInit\r\n");
     
 	MemSet(&gTheBle, 0, sizeof(gTheBle));
+	MemSet(&gTheBleAdvTime, 0, sizeof(gTheBleAdvTime));
 
 	gTheBle.state = APP_STATE_INIT;
 	gTheBle.curr_mtu = 23;

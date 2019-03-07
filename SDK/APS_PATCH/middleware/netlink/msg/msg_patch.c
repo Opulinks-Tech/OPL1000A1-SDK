@@ -257,11 +257,12 @@ void tracer_load_patch(void)
     if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileRead fail\n", __func__, __LINE__);
-
+        /*
         if(tracer_cfg_save())
         {
             TRACER_DBG("[%s %d] tracer_cfg_save fail\n", __func__, __LINE__);
         }
+        */
     }
     else
     {
@@ -280,7 +281,7 @@ void tracer_load_patch(void)
         if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, i, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
         {
             TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
-
+            /*
             if(tracer_int_task_info_save(i))
             {
                 TRACER_DBG("[%s %d] tracer_int_task_info_save[%d] fail\n", __func__, __LINE__, i);
@@ -289,6 +290,7 @@ void tracer_load_patch(void)
             {
                 g_ptTracerIntTaskInfoExt[i].bStatus = 1;
             }
+            */
         }
         else
         {
@@ -303,7 +305,7 @@ void tracer_load_patch(void)
         if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, i, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
         {
             TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
-
+            /*
             if(tracer_ext_task_info_save(i))
             {
                 TRACER_DBG("[%s %d] tracer_ext_task_info_save[%d] fail\n", __func__, __LINE__, i);
@@ -312,6 +314,7 @@ void tracer_load_patch(void)
             {
                 g_ptTracerExtTaskInfoExt[i].bStatus = 1;
             }
+            */
         }
         else
         {
@@ -766,6 +769,7 @@ void tracer_priority_set_patch(int iPriority)
 
     return;
 }
+#endif
 
 void tracer_dump_patch(void)
 {
@@ -773,6 +777,7 @@ void tracer_dump_patch(void)
     uint8_t j = 0;
 
     tracer_cli(LOG_HIGH_LEVEL, "\nTracer Mode       [%d]\t0:disable/1:normal/2:print directly\n", g_bTracerLogMode);
+#ifdef __FULL_MSG_FUNCTION__
     tracer_cli(LOG_HIGH_LEVEL, "Display Task Name [%d]\t0:disable/1:enable\n", g_bTracerNameDisplay);
     tracer_cli(LOG_HIGH_LEVEL, "Priority          [%d]\tosPriorityIdle(%d) ~ osPriorityRealtime(%d)\n", g_iTracerPriority, osPriorityIdle, osPriorityRealtime);
     tracer_cli(LOG_HIGH_LEVEL, "StackSize         [%u]\tnumber of uint_32\n", g_dwTracerStackSize);
@@ -780,7 +785,7 @@ void tracer_dump_patch(void)
     tracer_cli(LOG_HIGH_LEVEL, "Queue Size        [%u]\tmax length of log\n", g_dwTracerQueueSize);
     tracer_cli(LOG_HIGH_LEVEL, "Log Level         [0x00:None/0x01:Low/0x02:Med/0x04:High/0x07:All]\n", g_bTracerExtTaskDefLevel);
     tracer_cli(LOG_HIGH_LEVEL, "\nDefault Level for App Tasks\t[0x%02X]\n", g_bTracerExtTaskDefLevel);
-
+#endif
     tracer_cli(LOG_HIGH_LEVEL, "\n%4s %20s: %s\n", "Index", "Name", "Level");
 
     tracer_cli(LOG_HIGH_LEVEL, "---------------------------------- Internal Tasks (Start from Index 0)\n");
@@ -818,7 +823,6 @@ void tracer_dump_patch(void)
     
     return;
 }
-#endif
 
 int tracer_def_level_set_patch(uint8_t bType, uint8_t bLevel)
 {
@@ -1269,7 +1273,7 @@ void tracer_cmd_patch(char *sCmd)
         tracer_cli(LOG_HIGH_LEVEL, "tracer qsize <queue size>\n");
         tracer_cli(LOG_HIGH_LEVEL, "tracer disp_name <0:disable/1:enable>\n");
     }
-#endif
+#endif /* #ifdef __FULL_MSG_FUNCTION__ */
     #ifdef TRACER_SUT
     else if(!strcmp(baParam[1], "sut"))
     {
@@ -1284,12 +1288,10 @@ void tracer_cmd_patch(char *sCmd)
         tracer_sut_task_create(bEnableCliAt);
     }
     #endif //#ifdef TRACER_SUT
-#ifdef __FULL_MSG_FUNCTION__
     else
     {
         tracer_dump();
     }
-#endif
     
 done:
     return;
@@ -1310,6 +1312,7 @@ void tracer_name_display_patch(uint8_t bDisplay)
 
     return;
 }
+#endif /* #ifdef __FULL_MSG_FUNCTION__ */
 
 void tracer_cfg_reset_patch(void)
 {
@@ -1336,7 +1339,6 @@ void tracer_ext_task_reset_patch(void)
     memset(g_ptTracerExtTaskInfoExt, 0, sizeof(T_TracerTaskInfoExt) * g_bTracerExtTaskNum);
     return;
 }
-#endif
 
 void Tracer_PatchInit(void)
 {
@@ -1381,25 +1383,23 @@ void Tracer_PatchInit(void)
     tracer_cfg_save = tracer_cfg_save_patch;
     tracer_int_task_info_save = tracer_int_task_info_save_patch;
     tracer_ext_task_info_save = tracer_ext_task_info_save_patch;
-#ifdef __FULL_MSG_FUNCTION__
     tracer_cfg_reset = tracer_cfg_reset_patch;
     tracer_int_task_reset = tracer_int_task_reset_patch;
     tracer_ext_task_reset = tracer_ext_task_reset_patch;
-#endif
 
     // external
     tracer_init = tracer_init_patch;
     //tracer_log_level_set = tracer_log_level_set_impl;
     tracer_log_mode_set = tracer_log_mode_set_patch;
     //tracer_log_mode_get = tracer_log_mode_get_impl;
+    
 #ifdef __FULL_MSG_FUNCTION__
     tracer_priority_set = tracer_priority_set_patch;
-    
-    tracer_dump = tracer_dump_patch;
-
     tracer_name_display = tracer_name_display_patch;
 #endif
 
+    tracer_dump = tracer_dump_patch;
+    
     //tracer_drct_printf = tracer_drct_printf_impl;
     tracer_msg = tracer_msg_patch;
     tracer_def_level_set = tracer_def_level_set_patch;
@@ -1408,12 +1408,11 @@ void Tracer_PatchInit(void)
     //msg_printII = msg_printII_impl;
 
     tracer_log_level_set_ext = tracer_log_level_set_ext_patch;
-    
-#ifdef __FULL_MSG_FUNCTION__
+
     tracer_cfg_reset();
     tracer_int_task_reset();
     tracer_ext_task_reset();
-#endif
+
     return;
 }
 

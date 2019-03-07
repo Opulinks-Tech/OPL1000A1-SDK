@@ -239,7 +239,7 @@ static int ssl_client_start( void )
     LOG_I(TAG, "Writing HTTP request...");
 
     /*
-     * 6. Write the GET request
+     * 3. Write the GET request
      */
     memset(buf, 0, sizeof(buf));
     len = sprintf( (char *) buf, GET_REQUEST );
@@ -328,7 +328,6 @@ int wifi_do_scan(int mode)
     return 0;
 }
 
-
 int wifi_connection(void)
 {
     int iRet = -1;
@@ -336,7 +335,7 @@ int wifi_connection(void)
     wifi_scan_list_t *p_scan_list = NULL;
     int i = 0;
     int isMatched = 0;
-		
+
     p_scan_list = (wifi_scan_list_t *)malloc(sizeof(wifi_scan_list_t));
 
     if(p_scan_list == NULL)
@@ -370,10 +369,9 @@ int wifi_connection(void)
     if(isMatched == 1) {
         /* Wi-Fi Connection */
         wifi_connection_connect(&wifi_config);
-
     } else {
         /* Scan Again */
-        wifi_do_scan(WIFI_SCAN_TYPE_MIX);
+        wifi_do_scan(WIFI_SCAN_TYPE_ACTIVE);
     }
 
     iRet = 0;
@@ -386,7 +384,6 @@ done:
 
     return iRet;
 }
-
 
 int wifi_event_handler_cb(wifi_event_id_t event_id, void *data, uint16_t length)
 {
@@ -432,13 +429,9 @@ void app_entry(void *args)
     /* Waiting for connection & got IP from DHCP server */
     lwip_net_ready();
 
+    ssl_client_start();
+
     while (1) {
-			  ssl_client_start();
-				for (int countdown = 10; countdown >= 0; countdown--) {
-            printf("%d...  \r\n", countdown);
-            osDelay(1000);
-        }
-        printf("Starting again! \r\n");			
         osDelay(2000);
     }
 }

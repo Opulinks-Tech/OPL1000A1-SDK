@@ -36,6 +36,7 @@ enum
 	APP_STATE_INIT = 0,
 	APP_STATE_IDLE,
 	APP_STATE_ADVERTISING,
+	APP_STATE_ADVERTISING_TIME_CHANGE,
 	APP_STATE_CONNECTED,
 
     APP_STATE_TOP
@@ -49,6 +50,7 @@ enum
     BLEWIFI_APP_MSG_INITIALIZING,
     BLEWIFI_APP_MSG_ENTER_ADVERTISING,
     BLEWIFI_APP_MSG_EXIT_ADVERTISING,
+    BLEWIFI_APP_MSG_CHANGE_ADVERTISING_TIME,
 
     BLEWIFI_APP_MSG_SEND_DATA,          // copy data to buffer
     BLEWIFI_APP_MSG_SEND_TO_PEER,       // send data from buffer to peer
@@ -80,6 +82,12 @@ typedef struct
 	UINT16			len;
 	UINT8			buf[BLE_ADV_SCAN_BUF_SIZE];
 } BLE_ADV_SCAN_T;
+
+typedef struct
+{
+	UINT16			interval_min;
+	UINT16			interval_max;
+} BLE_ADV_TIME_T;
 
 typedef struct
 {

@@ -23,6 +23,7 @@
 #include "mw_ota_def.h"
 #include "mw_ota.h"
 #include "hal_system.h"
+#include "lwip/etharp_patch.h"
 
 osThreadId app_task_id;
 #define WIFI_READY_TIME 2000
@@ -336,6 +337,8 @@ int ota_download_by_http(char *param)
         LOG_E(TAG, "buf malloc failed.\r\n");
         return -1;
     }
+
+    lwip_auto_arp_enable(1, 0);
 
     // Connect to server
     do {
