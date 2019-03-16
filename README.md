@@ -1,9 +1,9 @@
 # OPL1000-SDK
 - OPL1000-SDK is Opulinks official software development kit for OPL1000 chip.
-- Provide 18 documents under "Doc" folder, includes DEVKIT use, SDK getting start and development, Chip boot mode, Flash use, Adaptive DTIM solution, API use introduction etc. 
+- Provide 18 documents under "Doc" folder, includes Chinese and English version. Content covers DEVKIT use, SDK getting start and development, Chip boot mode, Flash use, Adaptive DTIM solution, API use introduction etc. 
 - Provide two tools for Pin multiplexing Settings and firmware download. 
-- Provide 26 examples include WIFI, BLE, Peripheral, protocols and OTA examples. 
-- Provide 5 dedicate Demo to show how to use BLE configure WIFI AP, establish TCP client connection.     
+- Provide 27 examples include WIFI, BLE, Peripheral, protocols and OTA examples. 
+- Provide 5 dedicate Demo to show how to use BLE configure WIFI AP, establish TCP client connection, iperf evaluate wifi bandwidth etc.     
 
 # Developing With the OPL1000-SDK
 OPL1000-SDK provides complete guide documents, download and pin-mux tool, driver, SDK source code and example projects.

@@ -30,6 +30,7 @@
 #include "at_cmd_task.h"
 //#include "le_cmd_app_cmd.h"
 #include "at_cmd_ble_patch.h"
+#include "at_cmd_func_patch.h"
 
 typedef bool (*T_LeHostProcessHostTestCmdFp)(char* pszData, int dataLen);
 
@@ -40,7 +41,11 @@ extern T_LeHostProcessHostTestCmdFp LeHostProcessHostTestCmd;
  * @brief Global variable gp_at_cmd_ext_table retention attribute segment
  *
  */
+#ifdef AT_CMD_EXT_TBL_LST
+T_CmdTblLst g_tAtCmdExtTblLst = {0};
+#else
 RET_DATA _at_command_t *gp_at_cmd_ext_table;
+#endif
 
 extern int g_at_lock;
 extern int g_at_ble_data_len;
@@ -199,6 +204,37 @@ int data_process_others_patch(char *pbuf, int len, int mode)
     return false;
 }
 #endif
+
+#ifdef AT_CMD_EXT_TBL_LST
+int data_process_extend_func(char *pbuf, int len, int mode)
+{
+    int iRet = 0;
+    T_CmdTblLst *ptLst = NULL;
+    const _at_command_t *cmd_ptr = NULL;
+
+    if(pbuf == 0)
+    {
+        goto done;
+    }
+
+    for(ptLst = &g_tAtCmdExtTblLst; ptLst != NULL; ptLst = ptLst->ptNext)
+    {
+        for(cmd_ptr = ptLst->taCmdTbl; cmd_ptr->cmd; cmd_ptr++)
+        {
+            if(strcasecmp((char*)at_cmd_info.cmd, cmd_ptr->cmd) == 0)
+            {
+                msg_print_uart1("\r\n");
+                cmd_ptr->cmd_handle(pbuf, len, mode);
+                iRet = 1;
+                goto done;
+            }
+        }
+    }
+    
+done:
+    return iRet;
+}
+#else
 int data_process_extend_func(char *pbuf, int len, int mode)
 {
     const _at_command_t *cmd_ptr = NULL;
@@ -217,6 +253,7 @@ int data_process_extend_func(char *pbuf, int len, int mode)
 
     return false;
 }
+#endif
 
 bool at_cmd_info_parsing(uint8_t *pStr, at_cmd_information_t *at_info_ptr)
 {

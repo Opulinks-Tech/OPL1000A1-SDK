@@ -29,8 +29,8 @@ BLE Service UUID
 
 /* Device Name
 method 1: use prefix + mac address
-    The max length of prefix is 18 bytes.
-    The length of mac address is 11 bytes.
+    The max length of prefix is 17 bytes.
+    The length of mac address is 12 bytes.
     
     Ex: OPL_33:44:55:66
     

@@ -119,20 +119,28 @@ static void BleWifi_Ble_SetScanData(void)
 		*p++ = 0x10;
 		*p++ = GAP_ADTYPE_LOCAL_NAME_COMPLETE;
         // error handle
-        // !!! if i = 4, the other char are 11 bytes (i*3 - 1)
+        // !!! if i = 4, the other char are 12 bytes (i*3)
         ubLen = strlen(BLEWIFI_BLE_DEVICE_NAME_PREFIX);
-		if (ubLen > (BLE_ADV_SCAN_BUF_SIZE - 2 - (i*3 - 1)))
-	        ubLen = BLE_ADV_SCAN_BUF_SIZE - 2 - (i*3 - 1);
+		if (ubLen > (BLE_ADV_SCAN_BUF_SIZE - 2 - (i*3)))
+	        ubLen = BLE_ADV_SCAN_BUF_SIZE - 2 - (i*3);
 		MemCopy(p, BLEWIFI_BLE_DEVICE_NAME_PREFIX, ubLen);
 		p += ubLen;
 
-		while (i--)
-		{
-            BleWifi_UtilHexToStr(&addr[i], 1, &p);
-			*p++ = ':';
+        if (i > 0)
+        {
+            while (i--)
+            {
+                BleWifi_UtilHexToStr(&addr[i], 1, &p);
+                *p++ = ':';
+            }
+
+            gTheBle.scn_data.len = p - gTheBle.scn_data.buf - 1;    // remove the last char ":"
+        }
+        else
+        {
+            gTheBle.scn_data.len = p - gTheBle.scn_data.buf;
         }
 
-        gTheBle.scn_data.len = p - gTheBle.scn_data.buf - 1;    // remove the last char ":"
         gTheBle.scn_data.buf[0] = gTheBle.scn_data.len - 1;     // update the total length
 
         isOk = TRUE;

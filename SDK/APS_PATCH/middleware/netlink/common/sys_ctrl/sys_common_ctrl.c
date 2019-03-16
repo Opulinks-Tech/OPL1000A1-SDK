@@ -15,7 +15,7 @@
 #include <stdint.h>
 
 #include "common.h"
-#include "rf_cfg.h"
+#include "sys_cfg.h"
 #include "sys_common_ctrl.h"
 #include "sys_common_log.h"
 #include "mw_fim_default_group01_patch.h"
@@ -154,7 +154,7 @@ int get_rf_power_level(u8 *level)
         return -1;
     }
     
-    ret = rf_cfg_get(&rf_cfg);
+    ret = sys_cfg_rf_get(&rf_cfg);
     if (ret) {
         SYS_COMMON_LOGE("Get config of rf power failed.");
         return -1;
@@ -170,7 +170,7 @@ int set_rf_power_level(u8 level)
     int ret;
     T_RfCfg rf_cfg = {0};
     
-    ret = rf_cfg_get(&rf_cfg);
+    ret = sys_cfg_rf_get(&rf_cfg);
     if (ret) {
         SYS_COMMON_LOGE("Get config of rf power failed.");
         return -1;
@@ -178,7 +178,7 @@ int set_rf_power_level(u8 level)
 
     rf_cfg.u8HighPwrStatus = level;
     
-    ret = rf_cfg_set(&rf_cfg, 1);
+    ret = sys_cfg_rf_set(&rf_cfg, 1);
     if (ret) {
         SYS_COMMON_LOGE("Set config of rf power failed.");
         return -1;

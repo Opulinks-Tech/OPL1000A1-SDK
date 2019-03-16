@@ -432,6 +432,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\blewifi_wifi_api.c</FilePath>
             </File>
+            <File>
+              <FileName>app_at_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_at_cmd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

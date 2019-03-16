@@ -1,4 +1,33 @@
 ## Release Version:
+SDK Package: MP v1.5.1
+Patch_Lib : 3352
+ROM_CODE: 1655 
+
+## Release Date: 2019/3/15
+
+## Function & Feature Update 
+1. Documents updating:
+    1.1 OPL1000-AT-instruction-set-and-examples, R05v32, remove SSL support in document.
+    1.2 OPL1000-SDK-Development-guide.pdf, R01-v13, SDK package content is updated.
+2. Tool version information and update:
+   2.1 download tool: v0.25. Add "download to RAM" option in download tab;        
+    2.2 pin-mux tool: v0.8. No change since v1.1.1.7;
+    2.3 MP_Tool integrated multiples tools, such as Calibration_Tool,Download_Tool,RF_Test_Tool.      
+3. Provide opl1000_m0_ldo.bin to support external LDO power supply scheme.
+4. Increase clock frequency to 88MHz.
+5. User can add own AT commands dynamically.
+6. Refine OTP clock control.
+7. Support WIFI-Only mode.
+
+## Bug Fix List 
+1. Solve "AT UART no reponse and BLE scanning is abnormal" issue.
+
+## Notes List 
+1. Websocket feature is on-developing. 
+
+*****
+
+## Release Version:
 SDK Package: MP v1.5
 Patch_Lib : 3322
 ROM_CODE: 1655 
@@ -47,11 +76,10 @@ ROM_CODE: 1655
 ## Notes List 
 1. Websocket feature is on-developing. 
 
-
 *****
 
 ﻿## Release Version:
-SDK Package: MP v1.5
+SDK Package: MP v1.5RC2
 Patch_Lib : 3234
 ROM_CODE: 1655 
 
@@ -89,11 +117,10 @@ ROM_CODE: 1655
 ## Notes List 
 1. Websocket feature is on-developing. 
 
-
 *****
 
 ## Release Version:
-SDK Package: MP v1.5
+SDK Package: MP v1.5RC1
 Patch_Lib : 3179
 ROM_CODE: 1655 
 

@@ -127,7 +127,7 @@ extern void lwip_task_create(void);
 #include "mw_ota.h"
 #include "scrt_patch.h"
 #include "controller_task_patch.h"
-#include "rf_cfg.h"
+#include "sys_cfg.h"
 #include "wifi_mac_task_patch.h"
 #include "mw_fim_patch.h"
 #include "network_config_patch.h"
@@ -269,8 +269,8 @@ void SysInit_EntryPoint(void)
     // controller task
     controller_task_func_init_patch();
 
-    // RF config
-    rf_cfg_pre_init_patch();
+    // SYS config
+    sys_cfg_pre_init_patch();
 
 	// CMSIS-RTOS
 	freertos_patch_init();
@@ -503,7 +503,6 @@ static void Sys_DriverInit_patch(void)
         Hal_Vic_GpioInit();
 	}
 
-	#if defined(__WATCHDOG__) //close watch dog here.
     //Watch Dog
     if (Hal_Sys_StrapModeRead() == BOOT_MODE_NORMAL)
     {
@@ -512,7 +511,6 @@ static void Sys_DriverInit_patch(void)
         Hal_Wdt_Init(WDT_TIMEOUT_SECS * SystemCoreClockGet());
         NVIC_SetPriority(WDT_IRQn, IRQ_PRIORITY_WDT_PATCH);
     }
-	#endif
 }
 
 /*************************************************************************

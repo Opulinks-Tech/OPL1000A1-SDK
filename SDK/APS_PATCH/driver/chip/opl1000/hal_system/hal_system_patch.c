@@ -303,11 +303,19 @@ void Hal_Sys_SleepInit_patch(void)
 
 uint32_t Hal_Sys_ApsClkTreeSetup_patch(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn, uint8_t u8PclkDivEn )
 {
-    if(eClkTreeSrc == ASP_CLKTREE_SRC_RC_BB)
+    // Due to RC source need
+    if( (eClkTreeSrc == ASP_CLKTREE_SRC_RC_BB) || (eClkTreeSrc == ASP_CLKTREE_SRC_DECI) || (eClkTreeSrc == ASP_CLKTREE_SRC_1P2G_DIV) || (eClkTreeSrc == ASP_CLKTREE_SRC_EXTERNAL) )
     {
         // make sure RC clock enable, due to RF turn off RC
-        *(volatile uint32_t *)0x40009048 |= (1 << 11) | (1 << 14);
-        *(volatile uint32_t *)0x40009090 |= (1 << 13);
+        *(volatile uint32_t *)0x40009048 |= (0x1 << 11) | (0x1 << 14);
+        *(volatile uint32_t *)0x40009090 |= (0x1 << 13);
+    }
+    
+    // Due to RF VCO need
+    if( (eClkTreeSrc == ASP_CLKTREE_SRC_DECI) || (eClkTreeSrc == ASP_CLKTREE_SRC_1P2G_DIV) )
+    {
+        // make sure VCO enable
+        *(volatile uint32_t *)0x40009090 |= (0x1 << 5) | (0x1 << 9) | (0x1 << 30);
     }
 
     // Orignal code

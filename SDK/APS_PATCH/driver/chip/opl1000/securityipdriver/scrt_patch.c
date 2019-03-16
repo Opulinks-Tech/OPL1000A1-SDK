@@ -91,9 +91,8 @@
     #define SCRT_ASSERT(...)
 #endif
 
-#define SCRT_SYS_CLK_REG    0x40001134
-#define SCRT_OTP_CLK_MSK    (1 << 16)
-#define SCRT_IP_CLK_MSK     (1 << 24)
+#define SCRT_IP_CLK_MSK     (0x00000001)
+#define SCRT_OTP_CLK_MSK    (0x00000002)
 
 
 typedef enum
@@ -1440,15 +1439,14 @@ done:
 
 void scrt_clk_enable(uint8_t u8Enable, uint32_t u32Msk)
 {
-    volatile uint32_t *pu32Reg = (uint32_t *)SCRT_SYS_CLK_REG;
-    
-    if(u8Enable)
+    if(u32Msk & SCRT_IP_CLK_MSK)
     {
-        *pu32Reg = *pu32Reg | u32Msk;
+        Hal_Sys_ApsClkEn(u8Enable, APS_CLK_SCRT);
     }
-    else
+
+    if(u32Msk & SCRT_OTP_CLK_MSK)
     {
-        *pu32Reg = *pu32Reg & ~(u32Msk);
+        Hal_Sys_ApsClkEn(u8Enable, APS_CLK_OTP);
     }
 
     return;

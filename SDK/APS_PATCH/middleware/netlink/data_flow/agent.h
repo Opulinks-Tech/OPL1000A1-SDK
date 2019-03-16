@@ -32,7 +32,8 @@ typedef struct
 typedef enum
 {
     M3_MSG_RSP = 0,
-    M3_MSG_CFG_SET,
+    M3_MSG_RF_CFG_SET,
+    M3_MSG_WIFI_CFG_SET,
 
     M3_MSG_MAX
 } T_M3MsgType;

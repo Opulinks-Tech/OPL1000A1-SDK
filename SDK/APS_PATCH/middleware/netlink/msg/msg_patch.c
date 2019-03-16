@@ -254,7 +254,7 @@ void tracer_load_patch(void)
     T_TracerCfg tCfg = {0};
     T_TracerTaskInfoExt tInfo = {0};
 
-    if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
+    if(MwFim_FileRead(MW_FIM_IDX_GP01_PATCH_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileRead fail\n", __func__, __LINE__);
         /*
@@ -278,7 +278,7 @@ void tracer_load_patch(void)
 
     for(i = 0; i < g_bTracerIntTaskNum; i++)
     {
-        if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, i, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
+        if(MwFim_FileRead(MW_FIM_IDX_GP01_PATCH_TRACER_INT_TASK_INFO, i, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
         {
             TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
             /*
@@ -302,7 +302,7 @@ void tracer_load_patch(void)
 
     for(i = 0; i < g_bTracerExtTaskNum; i++)
     {
-        if(MwFim_FileRead(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, i, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
+        if(MwFim_FileRead(MW_FIM_IDX_GP01_PATCH_TRACER_EXT_TASK_INFO, i, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&tInfo) != MW_FIM_OK)
         {
             TRACER_DBG("[%s %d] MwFim_FileRead[%d] fail\n", __func__, __LINE__, i);
             /*
@@ -669,7 +669,7 @@ int tracer_cfg_save_patch(void)
 
     tCfg.bNameDisplay = g_bTracerNameDisplay;
 
-    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_PATCH_TRACER_CFG, 0, MW_FIM_TRACER_CFG_SIZE, (uint8_t *)&tCfg) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileWrite fail\n", __func__, __LINE__);
         goto done;
@@ -685,7 +685,7 @@ int tracer_int_task_info_save_patch(uint8_t bIdx)
 {
     int iRet = -1;
 
-    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO, bIdx, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerIntTaskInfoExt[bIdx])) != MW_FIM_OK)
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_PATCH_TRACER_INT_TASK_INFO, bIdx, MW_FIM_TRACER_INT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerIntTaskInfoExt[bIdx])) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
         goto done;
@@ -703,7 +703,7 @@ int tracer_ext_task_info_save_patch(uint8_t bIdx)
 {
     int iRet = -1;
 
-    if(MwFim_FileWrite(MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO, bIdx, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerExtTaskInfoExt[bIdx])) != MW_FIM_OK)
+    if(MwFim_FileWrite(MW_FIM_IDX_GP01_PATCH_TRACER_EXT_TASK_INFO, bIdx, MW_FIM_TRACER_EXT_TASK_INFO_SIZE, (uint8_t *)&(g_ptTracerExtTaskInfoExt[bIdx])) != MW_FIM_OK)
     {
         TRACER_DBG("[%s %d] MwFim_FileWrite[%d] fail\n", __func__, __LINE__, bIdx);
         goto done;

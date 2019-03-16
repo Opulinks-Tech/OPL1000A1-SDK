@@ -27,7 +27,7 @@ extern "C" {
 #include "mw_fim_default_group01.h"
 #include "msg_patch.h"
 #include "sys_common_ctrl.h"
-#include "rf_cfg.h"
+#include "sys_cfg.h"
 
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
@@ -41,11 +41,12 @@ typedef enum
     MW_FIM_IDX_GP01_PATCH_START = 0x00010000,             // the start IDX of group 01
     MW_FIM_IDX_GP01_PATCH_UART_CFG,
     
-    MW_FIM_IDX_GP01_TRACER_CFG,
-    MW_FIM_IDX_GP01_TRACER_INT_TASK_INFO,
-    MW_FIM_IDX_GP01_TRACER_EXT_TASK_INFO,
+    MW_FIM_IDX_GP01_PATCH_TRACER_CFG,
+    MW_FIM_IDX_GP01_PATCH_TRACER_INT_TASK_INFO,
+    MW_FIM_IDX_GP01_PATCH_TRACER_EXT_TASK_INFO,
 
-    MW_FIM_IDX_GP01_RF_CFG,
+    MW_FIM_IDX_GP01_PATCH_RF_CFG,
+    MW_FIM_IDX_GP01_PATCH_WIFI_CFG,
     
     MW_FIM_IDX_GP01_PATCH_MAX
 } E_MwFimIdxGroup01_Patch;
@@ -66,6 +67,9 @@ Declaration of data structure
 
 #define MW_FIM_RF_CFG_SIZE                  sizeof(T_RfCfg)
 #define MW_FIM_RF_CFG_NUM                   1
+
+#define MW_FIM_WIFI_CFG_SIZE                sizeof(T_WifiCfg)
+#define MW_FIM_WIFI_CFG_NUM                 1
 
 /********************************************
 Declaration of Global Variables & Functions

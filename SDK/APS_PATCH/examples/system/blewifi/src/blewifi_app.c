@@ -25,6 +25,7 @@
 #include "ps_public.h"
 #include "mw_fim_default_group03.h"
 #include "mw_fim_default_group03_patch.h"
+#include "app_at_cmd.h"
 
 blewifi_ota_t *gTheOta = 0;
 
@@ -60,4 +61,7 @@ void BleWifiAppInit(void)
 
     // update the system mode
     BleWifi_Ctrl_SysModeSet(tSysMode.ubSysMode);
+
+    // add app cmd
+    app_at_cmd_add();
 }

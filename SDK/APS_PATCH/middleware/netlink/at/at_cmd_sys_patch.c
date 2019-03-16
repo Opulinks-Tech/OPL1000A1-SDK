@@ -391,7 +391,7 @@ int _at_cmd_sys_restore_patch(char *buf, int len, int mode)
         MwFim_FileWriteDefault(MW_FIM_IDX_GP03_PATCH_MAC_ADDR_BLE_SRC, 0);
         
         // RF power
-        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_RF_CFG, 0);
+        MwFim_FileWriteDefault(MW_FIM_IDX_GP01_PATCH_RF_CFG, 0);
         
         // DHCP ARP
         MwFim_FileWriteDefault(MW_FIM_IDX_DHCP_ARP_CHK, 0);
