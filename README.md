@@ -3,7 +3,12 @@
 - Provide 18 documents under "Doc" folder, includes Chinese and English version. Content covers DEVKIT use, SDK getting start and development, Chip boot mode, Flash use, Adaptive DTIM solution, API use introduction etc. 
 - Provide two tools for Pin multiplexing Settings and firmware download. 
 - Provide 27 examples include WIFI, BLE, Peripheral, protocols and OTA examples. 
-- Provide 5 dedicate Demo to show how to use BLE configure WIFI AP, establish TCP client connection, iperf evaluate wifi bandwidth etc.     
+- Provide 5 dedicate Demo for user to evaluate OPL1000 functions/features. Include: 
+  - BLE_Config_AP:  Demonstrate how to use (Android) mobile APP to control OPL1000 complete WIFI AP connection via BLE path.  Please refer to [BLE_Config_AP readme](https://github.com/Opulinks-Tech/OPL1000-SDK/blob/master/Demo/BLE_Config_AP/README.md)
+  - Iperf: Demonstrate how to use opl100 internal iperf  function to evaluate WIFI communication bandwidth. Please refer to [Iperf readme](https://github.com/Opulinks-Tech/OPL1000-SDK/blob/master/Demo/iperf/README.md)
+  - OTA_WIFI: Demonstrate how to setup a TCP server on PC and complete OTA through WIFI path. Please refer to [OTA_WIFI readme](https://github.com/Opulinks-Tech/OPL1000-SDK/blob/master/Demo/OTA_WIFI/README.md)
+  - TCP_Client: Demonstrate TCP data communication between OPL1000 (TCP client) and TCP server while enable OPL1000 smart sleep work mode. Please refer to [TCP_Client readme](https://github.com/Opulinks-Tech/OPL1000-SDK/blob/master/Demo/TCP_Client/README.md)
+  - current_measure: Provide a tool for user to measure OPL1000 power consumption while keep connection with an AP. Please refer to [current_measure readme](https://github.com/Opulinks-Tech/OPL1000-SDK/blob/master/Demo/current_measure/readme.md)     
 
 # Developing With the OPL1000-SDK
 OPL1000-SDK provides complete guide documents, download and pin-mux tool, driver, SDK source code and example projects.

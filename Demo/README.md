@@ -1,4 +1,13 @@
-# BLE_Config_AP
+## Demo includes:
+
+1. BLE_Config_AP:  Demonstrate how to use (Android) mobile APP to control OPL1000 complete WIFI AP connection via BLE path. 
+2. Iperf: Demonstrate how to use opl100 internal iperf  function to evaluate WIFI communication bandwidth.
+3. OTA_WIFI: Demonstrate how to setup a TCP server on PC and complete OTA through WIFI path.
+4. TCP_Client: Demonstrate TCP data communication between OPL1000 (TCP client) and TCP server while enable OPL1000 smart sleep work mode. 
+5. current_measure: Provide a tool for user to measure OPL1000 power consumption while keep connection with an AP.  
+
+## BLE_Config_AP
+
 This demo shows how to use (Android) mobile APP to control OPL1000 completes below functions 
 
 1. Use BLE to configure wireless AP. 
@@ -11,14 +20,16 @@ Note:
 
 (2) To evaluate BLE OTA function mobile app needs to store an OTA image file in advance     
 
-# Iperf
-This demo shows how to use opl100 internal iperf  function to evaluate WIFI communication bandwidth.
+## Iperf
+
+This demo shows how to use opl1000 internal iperf  function to evaluate WIFI communication bandwidth.
 
 This demo supports TCP/UDP transfer while OPL1000 acting as server or client.    
 
 Please refer OPL1000-Iperf-Measurement-Guide.pdf to know how to setup evaluation environment and execute demo. 
 
-# OTA_WIFI 
+## OTA_WIFI 
+
 This demo shows how to setup a TCP server on PC and complete OTA through WIFI path.  Notes:
 
 1. AP ssid, password and TCP server IP, port etc. parameters need to be defined in "ota_wifi" example source code
@@ -26,7 +37,8 @@ This demo shows how to setup a TCP server on PC and complete OTA through WIFI pa
 
  Please refer "OPL1000-Demo-ota-wifi-guide.pdf" to know detailed information of how to build image file and execute demo. 
 
-# TCP_Client 
+## TCP_Client 
+
 This demo shows OPL1000 establish data communication with a TCP server while enable smart sleep work mode. By this demonstration user can
 
 1. Evaluate OPL1000 power consumption while keep TCP data exchanging 
@@ -36,7 +48,7 @@ Note: AP ssid, password and TCP server IP, port etc. parameters need to be defin
 
 Please refer "OPL1000-Demo-tcp-client-guide.pdf" to know detailed information of how to build image file and execute demo. 
 
-# current_measure 
+## current_measure 
 
 This demo provides users with a quick method to measure power consumption of OPL1000 with different options. By this demonstration user can
 
