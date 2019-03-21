@@ -15,7 +15,7 @@
 
 uint8_t Hal_PinMux_Get_Index(uint8_t pin)
 {
-    uint8_t pwm_index =0;
+    uint8_t pwm_index = 0;
 
     switch(pin)
     {
@@ -79,11 +79,10 @@ ERR_CODE Hal_Pinmux_Pwm_Config(T_OPL1000_Pwm *pwm)
     uint8_t pwm_index = 0;
     S_Hal_Pwm_Config_t sConfig;
 
-    if(pwm->pin > OPL1000_IO18_PIN && pwm->pin < OPL1000_IO23_PIN)
+	  pwm_index = Hal_PinMux_Get_Index(pwm->pin);	
+    if(pwm_index != 0)
     {
-        //Hal_Pwm_Init();			  
-
-        pwm_index = Hal_PinMux_Get_Index(pwm->pin);			
+        		
         printf("pwm_index = %d , clock source = %d \r\n",pwm_index,pwm->clkSrc);
         Hal_Pwm_ClockSourceSet(pwm->clkSrc);
         if(pwm->cfgType == CFG_SIMPLE)
@@ -105,11 +104,10 @@ ERR_CODE Hal_Pinmux_Pwm_Config(T_OPL1000_Pwm *pwm)
         }
 
         Hal_PinMux_OutPutConfig(Hal_Get_Point(pwm->pin,PWM_E));
-
     }
     else
     {
-        printf("pwm init failed\r\n");
+        printf("pwm pin define (%d) error \r\n",pwm->pin);
 			  return RET_FAIL;
     }
 

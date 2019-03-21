@@ -3,6 +3,19 @@ SDK Package: MP v1.5.1
 Patch_Lib : 3352
 ROM_CODE: 1655 
 
+## Release Date: 2019/3/21
+
+## Bug Fix List 
+1. Update opl1000_sdk_m3.lib under SDK\APS\targets\opl1000\Output\Objects, previous release is old version.
+2. Fix a bug in PWM port pin-mux configuration.  
+
+*****
+
+## Release Version:
+SDK Package: MP v1.5.1
+Patch_Lib : 3352
+ROM_CODE: 1655 
+
 ## Release Date: 2019/3/15
 
 ## Function & Feature Update 
