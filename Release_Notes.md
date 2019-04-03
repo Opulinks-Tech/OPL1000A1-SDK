@@ -1,5 +1,24 @@
 ## Release Version:
-SDK Package: MP v1.5.1
+
+SDK Package: MP v1.5.3
+Patch_Lib : 3352
+ROM_CODE: 1655 
+
+## Release Date: 2019/4/3
+
+## Function & Feature Update 
+
+MP tool under Tool\MP_Tool is updated from v1.6 to v1.9. Change list: 
+
+- Add SEM criteria parser
+- Modify Rx test flow in Rx failed
+- Add a flag to change user mode or not after finishing RF Test
+
+*****
+
+## Release Version:
+
+SDK Package: MP v1.5.2
 Patch_Lib : 3352
 ROM_CODE: 1655 
 
