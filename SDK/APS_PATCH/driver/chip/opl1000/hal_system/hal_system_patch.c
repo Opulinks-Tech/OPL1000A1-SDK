@@ -33,6 +33,7 @@ Head Block of The File
 // Sec 0: Comment block of the file
 
 // Sec 1: Include File
+#include <string.h>
 #include "hal_system.h"
 #include "hal_system_patch.h"
 #include "hal_wdt.h"
@@ -46,11 +47,21 @@ Head Block of The File
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define AOS             ((S_Aos_Reg_t *) AOS_BASE)
 #define SYS_REG         ((S_Sys_Reg_t *) SYS_BASE)
+#define OTP             ((S_Otp_Reg_t *) OTP_BASE)
 
-// 0x004
+#define MHZ                          1000000
+#define CLK_RC                       XTAL
+#define CLK_XTAL                     XTAL
+#define CLK_RF                       (176*MHZ)
+
+// SYS 0x00C
+#define SYS_APS_RAM_WAIT_STATE_BYPASS    (0x1 << 2)
+#define SYS_SHM_RAM_WAIT_STATE_BYPASS    (0x1 << 3)
+
+// AOS 0x004
 #define AOS_SLP_MODE_EN              (1<<0)
 
-//0x020
+// AOS 0x020
 #define AOS_RET_SF_VOL_POS           0
 #define AOS_RET_SF_VOL_MSK           (0xF << AOS_RET_SF_VOL_POS)
 #define AOS_RET_SF_VOL_0P55          (0x0 << AOS_RET_SF_VOL_POS)
@@ -59,8 +70,17 @@ Head Block of The File
 #define AOS_RET_SF_VOL_1P20          (0xF << AOS_RET_SF_VOL_POS)
 
 
-//0x134
-
+// AOS 0x134
+#define AOS_APS_CLK_SRC_RC           0
+#define AOS_APS_CLK_SRC_XTAL         1
+#define AOS_APS_CLK_SRC_XTAL_X2      2
+#define AOS_APS_CLK_SRC_176M_SWITCH  3
+#define AOS_APS_CLK_SRC_MASK         0x3
+#define AOS_APS_CLK_176M_SRC_XTAL_X4 ( ((uint32_t)0<<31) | (0<<29) )
+#define AOS_APS_CLK_176M_SRC_DECI    ( ((uint32_t)0<<31) | (1<<29) )
+#define AOS_APS_CLK_176M_SRC_1P2G    ( ((uint32_t)1<<31) | (0<<29) )
+#define AOS_APS_CLK_176M_SRC_EXT     ( ((uint32_t)1<<31) | (1<<29) )
+#define AOS_APS_CLK_176M_SRC_MASK    ( ((uint32_t)0x1<<31) | (0x1<<29) )
 #define AOS_APS_CLK_EN_I2C_PCLK      (1<<5)
 #define AOS_APS_CLK_EN_TMR_0_PCLK    (1<<6)
 #define AOS_APS_CLK_EN_TMR_1_PCLK    (1<<7)
@@ -77,7 +97,39 @@ Head Block of The File
 #define AOS_APS_CLK_EN_PWM_CLK       (1<<26)
 #define AOS_APS_CLK_EN_JTAG_HCLK     (1<<28)
 #define AOS_APS_CLK_EN_WDT_INTERNAL  (1<<30)
+#define AOS_APS_CLK_DIV2             (1<<2)
+#define AOS_APS_PCLK_DIV2            (1<<3)
 
+// AOS 0x138
+#define AOS_MSQ_SRC_RC               0
+#define AOS_MSQ_SRC_XTAL             1
+#define AOS_MSQ_SRC_XTAL_X2          2
+#define AOS_MSQ_SRC_EXT              3
+#define AOS_MSQ_CLK_SRC_MASK         0x3
+#define AOS_MSQ_CLK_EN_GLOBAL        (1<<2)
+#define AOS_MSQ_CLK_EN_ROM_HCLK      (1<<4)
+#define AOS_MSQ_CLK_EN_RAM_HCLK      (1<<5)
+#define AOS_MSQ_CLK_EN_MSQ_HCLK      (1<<7)
+#define AOS_MSQ_CLK_EN_APS_HCLK      (1<<8)
+#define AOS_MSQ_CLK_EN_MAC_HCLK      (1<<9)
+#define AOS_MSQ_CLK_EN_PHY_HCLK      (1<<10)
+#define AOS_MSQ_CLK_EN_PHY_REG_HCLK  (1<<11)
+#define AOS_MSQ_CLK_EN_AOS_HCLK      (1<<12)
+#define AOS_MSQ_CLK_EN_WDT_HCLK      (1<<13)
+#define AOS_MSQ_CLK_EN_VIC_HCLK      (1<<14)
+#define AOS_MSQ_CLK_EN_FCLK          (1<<15)
+#define AOS_MSQ_CLK_EN_DCLK          (1<<16)
+#define AOS_MSQ_CLK_EN_SCLK          (1<<17)
+#define AOS_MSQ_CLK_EN_PU_HCLK       (1<<18)
+#define AOS_MSQ_CLK_EN_CM0_HCLK      (1<<19)
+#define AOS_MSQ_CLK_EN_WDT           (1<<20)
+#define AOS_MSQ_CLK_EN_SPI           (1<<21)
+#define AOS_MSQ_CLK_EN_UART          (1<<22)
+#define AOS_MSQ_CLK_DIV2             (1<<3)
+
+#define AOS_APS_CLK_DIV2_UNGATED     (1<<23)
+#define AOS_APS_PCLK_DIV2_UNGATED    (1<<24)
+#define AOS_MSQ_CLK_DIV2_UNGATED     (1<<25)
 
 
 #define WDT_TIMEOUT_SECS            10
@@ -85,6 +137,9 @@ Head Block of The File
 
 
 #define STRAP_NORMAL_MODE       0xA
+
+// For patch only (internal use)
+typedef void (*T_Hal_Sys_SystemCoreClockUpdate)(uint32_t u32CoreClk);
 
 /********************************************
 Declaration of data structure
@@ -204,12 +259,26 @@ typedef struct
     volatile uint32_t R_CM0_RMP_MASK[3];     // 0x4FC ~ 0x504
 } S_Sys_Reg_t;
 
+typedef struct
+{
+    volatile uint32_t DATA[128]; // Offset: 0x000 ~ 0x1FC (R/ ) OTP data                                                                 */
+} S_Otp_Reg_t;
+
 /********************************************
 Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global  variable
-T_Hal_Sys_DisableClock Hal_Sys_DisableClock;
+/* For store current clock */
+E_ApsClkTreeSrc_t g_eClkTreeSrc_Curr = ASP_CLKTREE_SRC_RC_BB;
+uint8_t g_u8ClkDivEn_Curr = 0;
+uint8_t g_u8PclkDivEn_Curr = 0;
 
+/* For store the clock be resumed */
+E_ApsClkTreeSrc_t g_eClkTreeSrc_Resume = ASP_CLKTREE_SRC_RC_BB;
+uint8_t g_u8ClkDivEn_Resume = 0;
+uint8_t g_u8PclkDivEn_Resume = 0;
+
+T_Hal_Sys_DisableClock Hal_Sys_DisableClock;
 
 // Sec 5: declaration of global function prototype
 /* Power relative */
@@ -226,12 +295,15 @@ RET_DATA T_Hal_SysPinMuxM3UartSwitch Hal_SysPinMuxM3UartSwitch;
 /* SW reset relative */
 
 /* Clock relative */
-extern uint32_t Hal_Sys_ApsClkTreeSetup_impl(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn, uint8_t u8PclkDivEn );
 extern uint32_t Hal_Sys_MsqClkTreeSetup_impl(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn );
-extern void Hal_Sys_ApsClkChangeApply_impl(void);
+
 /* Remap relative */
 
 /* Miscellaneous */
+T_Hal_Sys_OtpRead  Hal_Sys_OtpRead;
+
+/* For patch only (internal use)*/
+extern T_Hal_Sys_SystemCoreClockUpdate  _Hal_Sys_ApsSystemCoreClockUpdate;
 
 /***************************************************
 Declaration of static Global Variables &  Functions
@@ -303,23 +375,219 @@ void Hal_Sys_SleepInit_patch(void)
 
 uint32_t Hal_Sys_ApsClkTreeSetup_patch(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn, uint8_t u8PclkDivEn )
 {
+/* Two level switch: 176M-switch and src-switch. 176M-switch output to src-switch
+ *  @176M-switch: [31][29]
+ *      0b'00:CLK_XTAL_X4, 0b'01:CLK_DECI, 0b'10:CLK_1P2G, 0b'11: CLK_EXT
+ *  @src-switch: [1:0]
+ *        0b'00:CLK_RC, 0b'01:CLK_XTAL, 0b'10:CLK_XTAL_X2, 0b'11: CLK_FROM_176M_SWTICH
+ */
+    uint32_t u32Temp = 0;
+    uint32_t u32CoreClk = 0;
+    uint32_t u32Div_Idx = 0;
+
+    // Assigned the default 1P2G clock    
+    if(eClkTreeSrc == ASP_CLKTREE_SRC_1P2G_DIV)
+            eClkTreeSrc = (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_152MHZ;
+        
     // Due to RC source need
-    if( (eClkTreeSrc == ASP_CLKTREE_SRC_RC_BB) || (eClkTreeSrc == ASP_CLKTREE_SRC_DECI) || (eClkTreeSrc == ASP_CLKTREE_SRC_1P2G_DIV) || (eClkTreeSrc == ASP_CLKTREE_SRC_EXTERNAL) )
+    if(eClkTreeSrc == ASP_CLKTREE_SRC_RC_BB)
     {
         // make sure RC clock enable, due to RF turn off RC
-        *(volatile uint32_t *)0x40009048 |= (0x1 << 11) | (0x1 << 14);
         *(volatile uint32_t *)0x40009090 |= (0x1 << 13);
+        *(volatile uint32_t *)0x40009048 |= (0x1 << 11) | (0x1 << 14);
     }
-    
-    // Due to RF VCO need
-    if( (eClkTreeSrc == ASP_CLKTREE_SRC_DECI) || (eClkTreeSrc == ASP_CLKTREE_SRC_1P2G_DIV) )
+
+    // Due to VCO relative clocks
+    if( ( eClkTreeSrc == ASP_CLKTREE_SRC_DECI ) || 
+        ( ( eClkTreeSrc >= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MIN ) &&  ( eClkTreeSrc <= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MAX ) )
+    )
     {
         // make sure VCO enable
         *(volatile uint32_t *)0x40009090 |= (0x1 << 5) | (0x1 << 9) | (0x1 << 30);
     }
 
-    // Orignal code
-    return Hal_Sys_ApsClkTreeSetup_impl(eClkTreeSrc, u8ClkDivEn, u8PclkDivEn);
+    // Due to DECI gating
+    if( eClkTreeSrc == ASP_CLKTREE_SRC_DECI )
+    {
+        // make sure DECI ungated
+        *(volatile uint32_t *)0x40009048 |= (0x1 << 5);
+    }
+    
+    // Due to 1P2G gating
+    if( ( eClkTreeSrc >= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MIN ) &&  ( eClkTreeSrc <= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MAX ) )
+    {
+        // make sure 1P2G ungated
+        *(volatile uint32_t *)0x40009008 |= (0x1 << 30);
+    }
+
+    // Setup clock
+    u32Temp = AOS->R_M3CLK_SEL;
+    switch(eClkTreeSrc)
+    {
+        // From RC/ XTAL
+        // Note: don't change AOS_APS_CLK_176M_SRC_MASK part in the same time
+        case ASP_CLKTREE_SRC_RC_BB:
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_RC;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = CLK_RC;
+            break;
+        case ASP_CLKTREE_SRC_XTAL:
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_XTAL;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = CLK_XTAL;
+            break;
+        case ASP_CLKTREE_SRC_XTAL_X2:
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_XTAL_X2;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = CLK_XTAL*2;
+            break;
+        //-------------------------------------------------------------
+        // From VCO
+        case ASP_CLKTREE_SRC_DECI:
+            // Switch source to XTAL
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_XTAL;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // set 176M-switch to DECI
+            u32Temp &= ~AOS_APS_CLK_176M_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_176M_SRC_DECI;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // switch source to 176M-switch
+            u32Temp |= AOS_APS_CLK_SRC_176M_SWITCH;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = CLK_RF;
+            break;
+        case ASP_CLKTREE_SRC_1P2G_078MHZ:
+        case ASP_CLKTREE_SRC_1P2G_081MHZ:
+        case ASP_CLKTREE_SRC_1P2G_084MHZ:
+        case ASP_CLKTREE_SRC_1P2G_087MHZ:
+        case ASP_CLKTREE_SRC_1P2G_090MHZ:
+        case ASP_CLKTREE_SRC_1P2G_093MHZ:
+        case ASP_CLKTREE_SRC_1P2G_097MHZ:
+        case ASP_CLKTREE_SRC_1P2G_101MHZ:
+        case ASP_CLKTREE_SRC_1P2G_106MHZ:
+        case ASP_CLKTREE_SRC_1P2G_110MHZ:
+        case ASP_CLKTREE_SRC_1P2G_116MHZ:
+        case ASP_CLKTREE_SRC_1P2G_122MHZ:
+        case ASP_CLKTREE_SRC_1P2G_128MHZ:
+        case ASP_CLKTREE_SRC_1P2G_135MHZ:
+        case ASP_CLKTREE_SRC_1P2G_143MHZ:
+        case ASP_CLKTREE_SRC_1P2G_152MHZ:
+            // Switch source to XTAL
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_XTAL;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // set 176M-switch to 1P2G
+            u32Temp &= ~AOS_APS_CLK_176M_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_176M_SRC_1P2G;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // Set DIV
+            u32Div_Idx = 15 - ( eClkTreeSrc - ASP_CLKTREE_SRC_1P2G_MIN);
+            *(volatile uint32_t *)0x40009008 &= ~ 0xF000;
+            *(volatile uint32_t *)0x40009008 |= u32Div_Idx << 12;
+            // switch source to 176M-switch
+            u32Temp |= AOS_APS_CLK_SRC_176M_SWITCH;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = 2440/(u32Div_Idx + 16)*MHZ;
+            break;
+        case ASP_CLKTREE_SRC_EXTERNAL:
+            // Switch source to XTAL
+            u32Temp &= ~AOS_APS_CLK_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_SRC_XTAL;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // set 176M-switch to EXT_SRC
+            u32Temp &= ~AOS_APS_CLK_176M_SRC_MASK;
+            u32Temp |= AOS_APS_CLK_176M_SRC_EXT;
+            AOS->R_M3CLK_SEL = u32Temp;
+            // switch source to 176M-switch
+            u32Temp |= AOS_APS_CLK_SRC_176M_SWITCH;
+            AOS->R_M3CLK_SEL = u32Temp;
+            u32CoreClk = CLK_RF;
+            break;
+        //-------------------------------------------------------------
+        case ASP_CLKTREE_SRC_XTAL_X4:
+            // Not surpported
+        default:
+            return 1;
+    }
+
+    // Due to RC source need
+    if(eClkTreeSrc == ASP_CLKTREE_SRC_RC_BB){}
+    else
+    {
+         // Check the other CPU cloock
+        if( (AOS->R_M0CLK_SEL & AOS_MSQ_CLK_SRC_MASK) != AOS_MSQ_SRC_RC)
+        {
+            // *(volatile uint32_t *)0x40009048 &= ~( (0x1 << 11) | (0x1 << 14) );
+            // *(volatile uint32_t *)0x40009090 &= ~(0x1 << 13);
+        }
+    }
+    if( ( eClkTreeSrc == ASP_CLKTREE_SRC_DECI ) || 
+        ( ( eClkTreeSrc >= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MIN ) &&  ( eClkTreeSrc <= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MAX ) )
+    ){}
+    else
+    {
+        *(volatile uint32_t *)0x40009090 &= ~( (0x1 << 5) | (0x1 << 9) | (0x1 << 30) );
+    }
+    if( eClkTreeSrc == ASP_CLKTREE_SRC_DECI ){}
+    else
+    {
+        *(volatile uint32_t *)0x40009048 &= ~(0x1 << 5);
+    }
+    if( ( eClkTreeSrc >= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MIN ) &&  ( eClkTreeSrc <= (E_ApsClkTreeSrc_t)ASP_CLKTREE_SRC_1P2G_MAX ) ){}
+    else
+    {
+        *(volatile uint32_t *)0x40009008 &= ~(0x1 << 30);
+    }
+
+    if(u8ClkDivEn)
+    {
+        AOS->R_M0CLK_SEL |= AOS_APS_CLK_DIV2_UNGATED;
+        AOS->R_M3CLK_SEL |= AOS_APS_CLK_DIV2;
+
+        u32CoreClk = u32CoreClk/2;
+    }else{
+        AOS->R_M3CLK_SEL &= ~AOS_APS_CLK_DIV2;
+        AOS->R_M0CLK_SEL &= ~AOS_APS_CLK_DIV2_UNGATED;
+    }
+
+    // This only effect pclk
+    if(u8PclkDivEn)
+    {
+        AOS->R_M0CLK_SEL |= AOS_APS_PCLK_DIV2_UNGATED;
+        AOS->R_M3CLK_SEL |= AOS_APS_PCLK_DIV2;
+    }else{
+        AOS->R_M3CLK_SEL &= ~AOS_APS_PCLK_DIV2;
+        AOS->R_M0CLK_SEL &= ~AOS_APS_PCLK_DIV2_UNGATED;
+    }
+
+    // Update system clock.
+    _Hal_Sys_ApsSystemCoreClockUpdate(u32CoreClk);
+
+    // Apply to all relative modules
+    Hal_Sys_ApsClkChangeApply();
+
+    // Backup clock setting for sleep-wakeup
+    g_eClkTreeSrc_Curr = eClkTreeSrc;
+    g_u8ClkDivEn_Curr  = u8ClkDivEn;
+    g_u8PclkDivEn_Curr = u8PclkDivEn;
+
+    return 0;
+}
+
+void Hal_Sys_ApsClkStore( void )
+{
+    g_eClkTreeSrc_Resume = g_eClkTreeSrc_Curr;
+    g_u8ClkDivEn_Resume  = g_u8ClkDivEn_Curr;
+    g_u8PclkDivEn_Resume = g_u8PclkDivEn_Curr;
+}
+
+void Hal_Sys_ApsClkResume( void )
+{
+    Hal_Sys_ApsClkTreeSetup(g_eClkTreeSrc_Resume, g_u8ClkDivEn_Resume, g_u8PclkDivEn_Resume);
 }
 
 uint32_t Hal_Sys_MsqClkTreeSetup_patch(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn )
@@ -327,8 +595,8 @@ uint32_t Hal_Sys_MsqClkTreeSetup_patch(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8
     if(eClkTreeSrc == MSQ_CLKTREE_SRC_RC)
     {
         // make sure RC clock enable, due to RF turn off RC
-        *(volatile uint32_t *)0x40009048 |= (1 << 11) | (1 << 14);
-        *(volatile uint32_t *)0x40009090 |= (1 << 13);
+        *(volatile uint32_t *)0x40009090 |= (0x1 << 13);
+        *(volatile uint32_t *)0x40009048 |= (0x1 << 11) | (0x1 << 14);
     }
 
     // Orignal code
@@ -543,5 +811,53 @@ void Hal_Sys_DisableClock_impl(void)
     
     AOS->R_M3CLK_SEL = AOS->R_M3CLK_SEL & ~u32DisClk;    
     
+}
+
+/*************************************************************************
+* FUNCTION:
+*  Hal_Sys_OtpRead
+*
+* DESCRIPTION:
+*   1. Get OTP data address and copy data to buffer
+*
+* PARAMETERS
+*   u16Offset : offset of OTP data
+*   u8aBuf    : buffer to read data
+*   u16BufSize: size of buffer
+* RETURNS
+*   Non-NULL: setting complete
+*   NULL: errror
+* GLOBALS AFFECTED
+*
+*************************************************************************/
+uint8_t *Hal_Sys_OtpRead_impl(uint16_t u16Offset, uint8_t *u8aBuf, uint16_t u16BufSize)
+{
+    uint8_t *pu8Data = NULL;
+    uint16_t u16Total = sizeof(OTP->DATA);
+
+    if(u16Offset >= u16Total)
+    {
+        goto done;
+    }
+
+    Hal_Sys_ApsClkEn(1, APS_CLK_OTP);
+
+    pu8Data = (uint8_t *)(OTP->DATA);
+    pu8Data += u16Offset;
+
+    if(u8aBuf && u16BufSize)
+    {
+        uint16_t u16DataSize = u16BufSize;
+
+        if(u16Offset + u16BufSize > u16Total)
+        {
+            u16DataSize = u16Total - u16Offset;
+        }
+
+        memcpy(u8aBuf, pu8Data, u16DataSize);
+    }
+
+done:
+    return pu8Data;
 }
 

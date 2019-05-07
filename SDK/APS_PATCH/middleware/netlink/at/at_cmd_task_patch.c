@@ -22,12 +22,19 @@
 #include "at_cmd_common.h"
 #include "at_cmd_app.h"
 #include "at_cmd_tcpip.h"
+#include "at_cmd_nvm.h"
 #include "sys_os_config.h"
 
 #include "at_cmd_task_patch.h"
+#include "at_cmd_app_patch.h"
 #include "sys_os_config_patch.h"
 
 #define CONFIG_MAX_SOCKETS_NUM      5
+
+#if defined(__AT_CMD_SUPPORT__)
+RET_DATA at_nvm_trans_config_t gTransCfg;
+extern volatile bool at_ip_mode; // 0: normal transmission mode. 1:transparent transmission
+#endif
 
 /*
  * @brief Global variable xAtQueue retention attribute segment
@@ -67,12 +74,49 @@ extern const osSemaphoreDef_t os_semaphore_def_at_sema;
 extern unsigned int g_uart1_mode;
 
 extern osThreadId at_app_task_id;
+extern uint8_t g_wifi_init_mode;
+
+volatile uint8_t g_u8AtCrLfTerm = 0;
+char *g_sAtPendBuf = NULL;
+
+#if defined(__AT_CMD_SUPPORT__)
+void at_blewifi_auto_trans_init(void)
+{
+    uint8_t at_blewifi_mode = 0;
+    
+    at_cmd_nvm_trans_config_get(&gTransCfg);
+    at_cmd_nvm_cw_ble_wifi_mode_get(&at_blewifi_mode);
+    
+    if (at_blewifi_mode == true) {
+        g_wifi_init_mode = 4;
+        
+        // 1. AT BleWifi init function
+        if (at_blewifi_init()) {
+            tracer_log(LOG_HIGH_LEVEL, "at_blewifi_init not yet\n");
+            return;
+        }
+        
+        // 2. Create a task for transparent if link was saved.
+        if (gTransCfg.enable == true) {
+            at_ip_mode = true;
+            at_trans_save_link_task_create();
+        }
+    } else {
+        /* Initial AT transparent if link was saved. */
+        if (gTransCfg.enable == true) {
+            at_ip_mode = true;
+            at_wifi_net_task_init();
+        }
+    }
+}
+#endif
 
 void at_module_init_patch(uint32_t netconn_max, const char *custom_version)
 {
     osMessageQDef_t at_queue_def;
     osThreadDef_t at_task_def;
     osSemaphoreDef_t tSemDef = {0};
+    
     
     /** create task */
     at_task_def.name = OS_TASK_NAME_AT;
@@ -123,13 +167,14 @@ void at_module_init_patch(uint32_t netconn_max, const char *custom_version)
     uart1_mode_set_default();
 
     uart1_mode_set_at();
+    
+    //at tcpip structure initial
+    at_link_init(AT_LINK_MAX_NUM);
 }
 
 int at_wifi_net_task_init(void)
 {
     if (at_app_task_id == NULL) {
-        at_link_init(AT_LINK_MAX_NUM);
-        at_create_tcpip_data_task();
         at_cmd_wifi_hook();
         return 0;
     }
@@ -203,6 +248,47 @@ done:
     return ret;
 }
 
+void at_cmd_crlf_term_set(uint8_t u8Enable)
+{
+    if(u8Enable != g_u8AtCrLfTerm)
+    {
+        g_u8AtCrLfTerm = u8Enable;
+    }
+    
+    return;
+}
+
+uint8_t at_cmd_crlf_term_get(void)
+{
+    return g_u8AtCrLfTerm;
+}
+
+void at_term_char_remove(char *sBuf)
+{
+    int iLen = strlen(sBuf);
+    int i = 0;
+
+    if(!iLen)
+    {
+        goto done;
+    }
+
+    for(i = iLen - 1; i >= 0; i--)
+    {
+        if((sBuf[i] == 0x0D) || (sBuf[i] == 0x0A))
+        {
+            sBuf[i] = 0x00;
+        }
+        else
+        {
+            break;
+        }
+    }
+
+done:
+    return;
+}
+
 /*
  * @brief AT CMD task body
  *
@@ -218,6 +304,10 @@ void at_task_patch(void *pvParameters)
     tracer_log(LOG_HIGH_LEVEL, "AT task is created successfully! \r\n");
     msg_print_uart1("\r\n>");
 
+#if defined(__AT_CMD_SUPPORT__)
+    at_blewifi_auto_trans_init();
+#endif
+    
     for(;;)
     {
         /** wait event */
@@ -225,13 +315,79 @@ void at_task_patch(void *pvParameters)
         if(rxEvent.status != osEventMessage) continue;
 
         rxMsg = (xATMessage *) rxEvent.value.p;
+
+#if 1
+        if(rxMsg->event == AT_UART1_EVENT)
+        {
+            pData = (at_uart_buffer_t *)rxMsg->pcMessage;
+
+            if(g_sAtPendBuf)
+            {
+                if(pData->buf[0] == 0x0A)
+                {
+                    at_term_char_remove(g_sAtPendBuf);
+                    at_task_cmd_process(g_sAtPendBuf, strlen(g_sAtPendBuf));
+                }
+                else if(pData->buf[pData->in - 1] == 0x0D)
+                {
+                    msg_print_uart1("\r\nLF not found. Discard pending command.\r\n");
+                    msg_print_uart1("ERROR\r\n");
+
+                    if(strlen(g_sAtPendBuf) < pData->in)
+                    {
+                        free(g_sAtPendBuf);
+
+                        g_sAtPendBuf = (char *)malloc(pData->in + 1);
+
+                        if(!g_sAtPendBuf)
+                        {
+                            goto done;
+                        }
+                    }
+                        
+                    memcpy(g_sAtPendBuf, pData->buf, pData->in + 1);
+                    goto done;
+                }
+                else
+                {
+                    msg_print_uart1("\r\nUnexpected begining[%02X]. Discard pending and current commands.\r\n", pData->buf[0]);
+                    msg_print_uart1("ERROR\r\n");
+                }
+
+                free(g_sAtPendBuf);
+                g_sAtPendBuf = NULL;
+            }
+            else
+            {
+                if(at_cmd_crlf_term_get())
+                {
+                    if(pData->buf[pData->in - 1] == 0x0D)
+                    {
+                        g_sAtPendBuf = (char *)malloc(pData->in + 1);
+                        
+                        if(g_sAtPendBuf)
+                        {
+                            memcpy(g_sAtPendBuf, pData->buf, pData->in + 1);
+                        }
+                    }
+
+                    goto done;
+                }
+                
+                at_term_char_remove(pData->buf);
+                at_task_cmd_process(pData->buf, strlen(pData->buf));
+            }
+        }
+
+    done:
+#else
         if(rxMsg->event == AT_UART1_EVENT)
         {
             pData = (at_uart_buffer_t *)rxMsg->pcMessage;
 			at_task_cmd_process(pData->buf, strlen(pData->buf));
             //at_clear_uart_buffer();
         }
-
+#endif
         if(rxMsg->pcMessage != NULL) free(rxMsg->pcMessage);
         osPoolFree (AtMemPoolId, rxMsg);
     }
@@ -288,6 +444,9 @@ extern RET_DATA at_module_init_fp_t at_module_init;
  */
 void at_task_func_init_patch(void)
 {
+#if defined(__AT_CMD_SUPPORT__)
+    memset(&gTransCfg, 0, sizeof(at_nvm_trans_config_t));
+#endif   
     at_task_send = at_task_send_patch;
     at_task = at_task_patch;
     at_module_init = at_module_init_patch;

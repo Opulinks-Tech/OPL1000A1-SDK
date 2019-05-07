@@ -48,6 +48,10 @@ Head Block of The File
 #include "hal_pin_def.h"
 #include "hal_pin_config_project.h"
 
+#define AUX_GPIO_IDX    3
+#define WAIT_TIME_MS    500 
+
+//#include "hal_wdt.h"
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
 #define APP_MESSAGE_Q_SIZE  16
@@ -87,7 +91,7 @@ static void Main_PinMuxUpdate(void);
 static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 
-
+static void Main_MiscModulesInit(void);
 /***********
 C Functions
 ***********/
@@ -117,6 +121,10 @@ static void __Patch_EntryPoint(void)
     
     // update the flash layout
     MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+
+    // the initial of driver part for cold and warm boot
+    Sys_MiscModulesInit = Main_MiscModulesInit;
+
     
     // application init
     Sys_AppInit = Main_AppInit_patch;
@@ -181,6 +189,24 @@ static void Main_FlashLayoutUpdate(void)
 {
     // update here
 }
+/*************************************************************************
+* FUNCTION:
+*   Main_MiscModulesInit
+*
+* DESCRIPTION:
+*   the initial of driver part for cold and warm boot
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_MiscModulesInit(void)
+{
+	  //Hal_Wdt_Stop();   //disable watchdog here.
+}
 
 /*************************************************************************
 * FUNCTION:
@@ -216,32 +242,35 @@ static void Main_AppInit_patch(void)
 
 }
 
-#define AUX_GPIO_IDX 2
+
 
 static void Main_AppThread_1(void *argu)
 {
     float fVbat;
     float fIoVoltage;
-    
+    uint32_t temp;
+	
     Hal_Aux_Init();
     
     while (1) {
         
         uint8_t ret = Hal_Aux_VbatGet(&fVbat);
         if (ret == HAL_AUX_OK) {
-            printf("Get bat voltage : %f \r\n", fVbat);
+            temp = (uint32_t)(fVbat*1000);
+            printf("Get bat voltage : %d.%03d \r\n", temp/1000,temp%1000);
         } else {
             printf("error bat ...\r\n");
         }
-        osDelay(2000);
+        osDelay(WAIT_TIME_MS);
         
         ret = Hal_Aux_IoVoltageGet(AUX_GPIO_IDX, &fIoVoltage);
         if (ret == HAL_AUX_OK) {
-            printf("Get io %d voltage : %f \r\n", AUX_GPIO_IDX, fIoVoltage);
+            temp = (uint32_t)(fIoVoltage*1000);
+            printf("Get io %d voltage : %d.%03d \r\n", AUX_GPIO_IDX, temp/1000,temp%1000);
         } else {
             printf("error io ...\r\n");
         }
-        osDelay(2000);
+        osDelay(WAIT_TIME_MS);
         
         printf("\r\n");
     }

@@ -153,7 +153,12 @@ int wifi_cmd_sta_mac_addr(int argc, char **argv)
                   mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
     }
     else if (argc > 1) {
-        hwaddr_aton2(argv[1], mac);
+        if (memcmp(argv[1], "set", 3)) {
+            LOGE_DRCT(TAG, "Invalid parameter.");
+            return -1;
+        }
+        
+        hwaddr_aton2(argv[2], mac);
         
         if (mac_addr_set_config_source(MAC_IFACE_WIFI_STA, MAC_SOURCE_FROM_FLASH)) {
             LOGE_DRCT(TAG, "Set Wifi mac cource failed.");

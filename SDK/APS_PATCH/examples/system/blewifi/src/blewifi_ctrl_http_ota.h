@@ -42,7 +42,7 @@ typedef struct
 {
     uint32_t event;
     uint32_t length;
-    uint8_t *pcMessage;
+    uint8_t ucaMessage[];
 } xBleWifiCtrlHttpOtaMessage_t;
 
 

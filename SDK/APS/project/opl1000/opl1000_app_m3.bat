@@ -12,7 +12,7 @@ REM #Remove file
 IF EXIST %OBJ_PATH%%OUTPUT_NAME%.s19 DEL %OBJ_PATH%%OUTPUT_NAME%.s19 /Q
 IF EXIST %OBJ_PATH%%OUTPUT_NAME%.bin DEL %OBJ_PATH%%OUTPUT_NAME%.bin /Q
 
-SET FROM_ELF="c:\Keil_v5\ARM\ARMCC\bin\fromelf.exe"
+SET FROM_ELF="C:\Keil_v5\ARM\ARMCC\bin\fromelf.exe"
 
 %FROM_ELF% %AXF_FULL_PATH% --m32combined --output %OBJ_PATH%%OUTPUT_NAME%.s19
 %FROM_ELF% %AXF_FULL_PATH% --bin --output %OBJ_PATH%%OUTPUT_NAME%.bin

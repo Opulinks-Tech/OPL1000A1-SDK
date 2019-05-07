@@ -55,6 +55,7 @@ Head Block of The File
 #include "hal_pwm_patch.h"
 #include "hal_vic_patch.h"
 #include "hal_pin.h"
+#include "hal_spi_patch.h"
 #include <string.h>
 #include "mw_fim_default_group03.h"
 #include "mw_fim_default_group03_patch.h"
@@ -124,11 +125,13 @@ void peripheral_patch_init(void)
     Hal_SysPinMuxSpiFlashInit    = Hal_SysPinMuxSpiFlashInit_patch;
     Hal_SysPinMuxM3UartSwitch    = Hal_SysPinMuxM3UartSwitch_impl;
     Hal_Sys_DisableClock         = Hal_Sys_DisableClock_impl;
+    Hal_Sys_OtpRead              = Hal_Sys_OtpRead_impl;
     // dbg_uart
 
     // uart
 
     // spi
+    Hal_Spi_BaudRateSet = Hal_Spi_BaudRateSet_patch;
 
     // flash
     Hal_Flash_AddrProgram_Internal = Hal_Flash_AddrProgram_Internal_patch;

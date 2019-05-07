@@ -59,6 +59,12 @@ enum
 // BLE GAP Device Name (default)
 #define BLEWIFI_BLE_GAP_DEVICE_NAME     "BLEWIFI APP"
 
+typedef void (*T_BleWifi_Ble_MsgHandler_Fp)(TASK task, MESSAGEID id, MESSAGE message);
+typedef struct
+{
+    uint32_t ulEventId;
+    T_BleWifi_Ble_MsgHandler_Fp fpFunc;
+} T_BleWifi_Ble_MsgHandlerTbl;
 
 void BleWifi_Ble_ServerAppGattMsgHandler(TASK task, MESSAGEID id, MESSAGE message);
 

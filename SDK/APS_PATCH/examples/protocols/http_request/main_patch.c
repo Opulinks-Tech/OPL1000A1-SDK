@@ -48,6 +48,8 @@ Head Block of The File
 #include "hal_pin_def.h"
 #include "hal_pin_config_project.h"
 
+//#include "hal_wdt.h"
+
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
 
@@ -83,6 +85,8 @@ static void Main_PinMuxUpdate(void);
 void Main_AppInit_patch(void);
 static void Main_FlashLayoutUpdate(void);
 
+
+static void Main_MiscModulesInit(void);
 /***********
 C Functions
 ***********/
@@ -112,6 +116,10 @@ static void __Patch_EntryPoint(void)
     
     // update the flash layout
     MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+
+    // the initial of driver part for cold and warm boot
+    Sys_MiscModulesInit = Main_MiscModulesInit;
+
     
     // application init
     Sys_AppInit = Main_AppInit_patch;
@@ -177,6 +185,25 @@ static void Main_PinMuxUpdate(void)
 static void Main_FlashLayoutUpdate(void)
 {
     // update here
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_MiscModulesInit
+*
+* DESCRIPTION:
+*   the initial of driver part for cold and warm boot
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_MiscModulesInit(void)
+{
+	  //Hal_Wdt_Stop();   //disable watchdog here.
 }
 
 /*************************************************************************

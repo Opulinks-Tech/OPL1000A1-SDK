@@ -26,5 +26,6 @@ typedef enum {
 } wifi_nvm_sta_info_cfg_id_ext_e;
 
 void wifi_nvm_func_patch(void);
+int wifi_nvm_sta_def_mac_get(uint8_t *mac);
 
 #endif /* __WIFI_NVM_PATCH_H__ */

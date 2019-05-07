@@ -1,5 +1,5 @@
 # Function
-This example introduces how to set OPL1000 IO peripheral to UART port.  In thie demo two UART ports are defined. One is UART0 which works at simple mode (2 signals). The other one is UART1 works at flow control mode (4 signals).  
+This example introduces how to set OPL1000 IO peripheral to UART port.  In the demo only one UART port is defined. UART0 works at simple mode (2 signals, IO10, IO11 pins). 
 
 In order to run this demo external UART device connection is required. 
 

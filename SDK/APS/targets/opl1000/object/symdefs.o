@@ -6917,6 +6917,7 @@
 0x0040a360 D g_bScrtSutTaskRun
 0x0040a362 D g_tScrtSutTaskPri
 0x0040a36c D g_saScrtSutTaskName
+0x0040a38c D u32SpiSpeed
 0x0040a398 D g_u32aHwPubKey
 0x0040a3d8 D g_u32aSwPrivKey
 0x0040a3f8 D g_u32aSwPubKey

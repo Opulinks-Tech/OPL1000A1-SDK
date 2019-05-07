@@ -47,8 +47,39 @@ Head Block of The File
 Declaration of data structure
 ********************************************/
 // Sec 3: structure, union, enum, linked list...
+typedef enum 
+{
+    // ASP_CLKTREE_SRC_RC_BB, 
+    // ASP_CLKTREE_SRC_XTAL, 
+    // ASP_CLKTREE_SRC_XTAL_X2, 
+    // ASP_CLKTREE_SRC_XTAL_X4,
+    // ASP_CLKTREE_SRC_DECI,
+    // ASP_CLKTREE_SRC_1P2G_DIV,
+    // ASP_CLKTREE_SRC_EXTERNAL
+    
+    ASP_CLKTREE_SRC_1P2G_MIN = 7,
+    ASP_CLKTREE_SRC_1P2G_078MHZ = ASP_CLKTREE_SRC_1P2G_MIN,
+    ASP_CLKTREE_SRC_1P2G_081MHZ,
+    ASP_CLKTREE_SRC_1P2G_084MHZ,
+    ASP_CLKTREE_SRC_1P2G_087MHZ,
+    ASP_CLKTREE_SRC_1P2G_090MHZ,
+    ASP_CLKTREE_SRC_1P2G_093MHZ,
+    ASP_CLKTREE_SRC_1P2G_097MHZ,
+    ASP_CLKTREE_SRC_1P2G_101MHZ,
+    ASP_CLKTREE_SRC_1P2G_106MHZ,
+    ASP_CLKTREE_SRC_1P2G_110MHZ,
+    ASP_CLKTREE_SRC_1P2G_116MHZ,
+    ASP_CLKTREE_SRC_1P2G_122MHZ,
+    ASP_CLKTREE_SRC_1P2G_128MHZ,
+    ASP_CLKTREE_SRC_1P2G_135MHZ,
+    ASP_CLKTREE_SRC_1P2G_143MHZ,
+    ASP_CLKTREE_SRC_1P2G_152MHZ,
+    ASP_CLKTREE_SRC_1P2G_MAX = ASP_CLKTREE_SRC_1P2G_152MHZ
+} E_ApsClkTreeSrc_Ext_t;
+
 typedef void (*T_Hal_SysPinMuxM3UartSwitch)(void);
 typedef void (*T_Hal_Sys_DisableClock)(void);
+typedef uint8_t *(*T_Hal_Sys_OtpRead)(uint16_t u16Offset, uint8_t *u8aBuf, uint16_t u16BufSize);
 
 /********************************************
 Declaration of Global Variables & Functions
@@ -94,8 +125,13 @@ void Hal_Sys_ApsClkChangeApply_patch(void);
 void Hal_Sys_DisableClock_impl(void);
 extern T_Hal_Sys_DisableClock Hal_Sys_DisableClock;
 
+void Hal_Sys_ApsClkStore( void );
+void Hal_Sys_ApsClkResume( void );
+
 /* Remap relative */
 
 /* Miscellaneous */
+uint8_t *Hal_Sys_OtpRead_impl(uint16_t u16Offset, uint8_t *u8aBuf, uint16_t u16BufSize);
+extern T_Hal_Sys_OtpRead Hal_Sys_OtpRead;
 
 #endif

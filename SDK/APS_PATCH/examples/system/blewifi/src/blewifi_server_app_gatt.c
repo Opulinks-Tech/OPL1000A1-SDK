@@ -11,12 +11,16 @@
 
 #include "ble_gatt_if.h"
 #include "ble_uuid.h"
+#include "ble_gap_if.h"
 
 #include "blewifi_common.h"
 #include "blewifi_configuration.h"
 #include "blewifi_server_app.h"
 #include "blewifi_server_app_gatt.h"
 #include "blewifi_ctrl.h"
+
+#include "mw_fim_default_group08.h"
+#include "mw_fim_default_group08_project.h"
 
 // This is used for GATT service
 static UINT16 gGattSvcUuid = ATT_SVC_GENERIC_ATTRIBUTE;
@@ -70,7 +74,7 @@ static LE_GATT_ATTR_T gGapSvcDb[GAP_IDX_TOP] =
     [GAP_IDX_SVC]                  = PRIMARY_SERVICE_DECL_UUID16(&gGapSvcUuid),
     // GAP Device Name Characteristic
     [GAP_IDX_DEVICE_NAME_CHAR]     = CHARACTERISTIC_DECL_UUID16(gGapDeviceNameCharVal),
-    [GAP_IDX_DEVICE_NAME_VAL]      = CHARACTERISTIC_UUID16(&gGapDeviceNameUuid, LE_GATT_PERMIT_READ, sizeof(gGapDeviceNameVal), sizeof(BLEWIFI_BLE_GAP_DEVICE_NAME) - 1, gGapDeviceNameVal),
+    [GAP_IDX_DEVICE_NAME_VAL]      = CHARACTERISTIC_UUID16(&gGapDeviceNameUuid, LE_GATT_PERMIT_READ | LE_GATT_PERMIT_AUTHOR_WRITE, sizeof(gGapDeviceNameVal), sizeof(BLEWIFI_BLE_GAP_DEVICE_NAME) - 1, gGapDeviceNameVal),
     // GAP Appearance Characteristic
     [GAP_IDX_APPEARANCE_CHAR]      = CHARACTERISTIC_DECL_UUID16(gGapAppearanceCharVal),
     [GAP_IDX_APPEARANCE_VAL]       = CHARACTERISTIC_UUID16(&gGapAppearanceUuid, LE_GATT_PERMIT_READ, 0, sizeof(gGapAppearanceVal), gGapAppearanceVal),
@@ -97,6 +101,27 @@ static LE_GATT_SERVICE_T *gGattSvc = 0;
 static LE_GATT_SERVICE_T *gGapSvc = 0;
 static LE_GATT_SERVICE_T *gBwpSvc = 0;
 
+static void BleWifi_Ble_ServerAppGattMsgHandler_NotifyCfm(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_InitCfm(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_AccessReadInd(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_AccessWriteInd(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuInd(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuCfm(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_ConfirmationCfm(TASK task, MESSAGEID id, MESSAGE message);
+static void BleWifi_Ble_ServerAppGattMsgHandler_OperationTimeout(TASK task, MESSAGEID id, MESSAGE message);
+T_BleWifi_Ble_MsgHandlerTbl gBleGattMsgHandlerTbl[] =
+{
+    {LE_GATT_MSG_NOTIFY_CFM,        BleWifi_Ble_ServerAppGattMsgHandler_NotifyCfm},
+    {LE_GATT_MSG_INIT_CFM,          BleWifi_Ble_ServerAppGattMsgHandler_InitCfm},
+    {LE_GATT_MSG_ACCESS_READ_IND,   BleWifi_Ble_ServerAppGattMsgHandler_AccessReadInd},
+    {LE_GATT_MSG_ACCESS_WRITE_IND,  BleWifi_Ble_ServerAppGattMsgHandler_AccessWriteInd},
+    {LE_GATT_MSG_EXCHANGE_MTU_IND,  BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuInd},
+    {LE_GATT_MSG_EXCHANGE_MTU_CFM,  BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuCfm},
+    {LE_GATT_MSG_CONFIRMATION_CFM,  BleWifi_Ble_ServerAppGattMsgHandler_ConfirmationCfm},
+    {LE_GATT_MSG_OPERATION_TIMEOUT, BleWifi_Ble_ServerAppGattMsgHandler_OperationTimeout},
+    
+    {0xFFFFFFFF,                    NULL}
+};
 
 static void BleWifi_Ble_AppHandleGattServiceRead(LE_GATT_MSG_ACCESS_READ_IND_T *ind)
 {
@@ -152,6 +177,11 @@ static void BleWifi_Ble_AppHandleGapServiceRead(LE_GATT_MSG_ACCESS_READ_IND_T *i
 
 	switch (attrid)
     {
+		case GAP_IDX_DEVICE_NAME_VAL:
+		case GAP_IDX_APPEARANCE_VAL:
+		case GAP_IDX_CONN_PARAM_VAL:
+        break;
+        
 		default:
             attErr = LE_ATT_ERR_READ_NOT_PERMITTED;
         break;
@@ -169,6 +199,39 @@ static void BleWifi_Ble_AppHandleGapServiceWrite(LE_GATT_MSG_ACCESS_WRITE_IND_T 
     
 	switch (attrid)
     {
+		case GAP_IDX_DEVICE_NAME_VAL:
+		{
+			BLE_APP_DATA_T *app = BleWifi_Ble_GetEntity();
+			UINT8 *p = app->scn_data.buf;
+			UINT16 wrLen = ind->len;
+
+			if (!wrLen || (wrLen > 31))
+            {
+            	attErr = LE_ATT_ERR_INVALID_ATTR_VALUE_LEN;
+                
+				break;
+            }
+
+			LeGattChangeAttrVal(gGapSvc, GAP_IDX_DEVICE_NAME_VAL, wrLen, ind->pVal);
+
+			if (wrLen > 29) 
+			{
+				wrLen = 29;
+				*p++ = wrLen + 1;
+				*p++ = GAP_ADTYPE_LOCAL_NAME_SHORT;
+            }
+            else
+			{
+				*p++ = wrLen + 1;
+				*p++ = GAP_ADTYPE_LOCAL_NAME_COMPLETE;
+            }
+            
+            MemCopy(p, ind->pVal, wrLen);
+
+			LeSetScanRspData(wrLen + 2, app->scn_data.buf);
+        }
+		break;
+
 		default:
             attErr = LE_ATT_ERR_WRITE_NOT_PERMITTED;
         break;
@@ -282,100 +345,99 @@ static void BleWifi_Ble_GattHandleAccessWrite(LE_GATT_MSG_ACCESS_WRITE_IND_T *in
     }
 }
 
-void BleWifi_Ble_ServerAppGattMsgHandler(TASK task, MESSAGEID id, MESSAGE message)
+static void BleWifi_Ble_ServerAppGattMsgHandler_NotifyCfm(TASK task, MESSAGEID id, MESSAGE message)
 {
-	switch (id)
-	{
-		case LE_GATT_MSG_NOTIFY_CFM:
-        {
-            // !!! after BLE data out (after LeGattCharValNotify)
-            // trigger the next "send data from buffer to peer"
-            BLEWIFI_INFO("APP-LE_GATT_MSG_NOTIFY_CFM\r\n");
-            BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_SEND_TO_PEER_CFM, 0, NULL);
-        }
-        break;
+    // !!! after BLE data out (after LeGattCharValNotify)
+    // trigger the next "send data from buffer to peer"
+    BLEWIFI_INFO("APP-LE_GATT_MSG_NOTIFY_CFM\r\n");
+    BleWifi_Ble_SendAppMsgToBle(BLEWIFI_APP_MSG_SEND_TO_PEER_CFM, 0, NULL);
+}
 
-		case LE_GATT_MSG_INIT_CFM:
-		{
-		    // !!! after LeGattInit
-			BLEWIFI_INFO("APP-LE_GATT_MSG_INIT_CFM\r\n");
+static void BleWifi_Ble_ServerAppGattMsgHandler_InitCfm(TASK task, MESSAGEID id, MESSAGE message)
+{
+    T_MwFim_GP08_BleServiceUUID tBleServiceUUID;
+    
+    // !!! after LeGattInit
+    BLEWIFI_INFO("APP-LE_GATT_MSG_INIT_CFM\r\n");
 
-			gGattSvc = LeGattRegisterService(gGattSvcDb, sizeof(gGattSvcDb) / sizeof(LE_GATT_ATTR_T));
-
-			if (gGattSvc)
-			{
-				BLEWIFI_INFO("APP-LeGattRegisterService gGattSvc success\r\n");
-            }
-
-			gGapSvc = LeGattRegisterService(gGapSvcDb, sizeof(gGapSvcDb) / sizeof(LE_GATT_ATTR_T));
-
-			if (gGapSvc)
-			{
-				BLEWIFI_INFO("APP-LeGattRegisterService gGapSvc success\r\n");
-            }
-
-			gBwpSvc = LeGattRegisterService(gBwpSvcDb, sizeof(gBwpSvcDb) / sizeof(LE_GATT_ATTR_T));
-
-			if (gBwpSvc)
-			{
-				BLEWIFI_INFO("APP-LeGattRegisterService gBwpSvc success\r\n");
-            }
-
-            BleWifi_Ble_GetEntity()->store.send_hdl = gBwpSvcDb[BWP_IDX_DATA_OUT_VAL].handle;
-        }
-		break;
-
-		case LE_GATT_MSG_ACCESS_READ_IND:
-		{
-            BLEWIFI_INFO("APP-LE_GATT_MSG_ACCESS_READ_IND\r\n");
-			BleWifi_Ble_GattHandleAccessRead((LE_GATT_MSG_ACCESS_READ_IND_T *)message);
-        }
-		break;
-
-		case LE_GATT_MSG_ACCESS_WRITE_IND:
-		{
-            BLEWIFI_INFO("APP-LE_GATT_MSG_ACCESS_WRITE_IND\r\n");
-			BleWifi_Ble_GattHandleAccessWrite((LE_GATT_MSG_ACCESS_WRITE_IND_T *)message);
-        }
-        break;
-
-		case LE_GATT_MSG_EXCHANGE_MTU_IND:
-		{
-            LE_GATT_MSG_EXCHANGE_MTU_IND_T *ind = (LE_GATT_MSG_EXCHANGE_MTU_IND_T *)message;
-            BLEWIFI_INFO("APP-LE_GATT_MSG_EXCHANGE_MTU_IND client mtu = %d\r\n", ind->client_rx_mtu);
-            LeGattExchangeMtuRsp(ind->conn_hdl, LE_ATT_MAX_MTU);
-		}
-        break;
-
-        case LE_GATT_MSG_EXCHANGE_MTU_CFM:
-		{
-			LE_GATT_MSG_EXCHANGE_MTU_CFM_T *cfm = (LE_GATT_MSG_EXCHANGE_MTU_CFM_T *)message;
-            BLEWIFI_INFO("APP-LE_GATT_MSG_EXCHANGE_MTU_CFM curr mtu = %d\r\n", cfm->current_rx_mtu);
-            BleWifi_Ble_GetEntity()->curr_mtu = cfm->current_rx_mtu;
-        }
-        break;
-
-		case LE_GATT_MSG_CONFIRMATION_CFM:
-		{
-#ifdef BLEWIFI_SHOW_INFO
-			LE_GATT_MSG_CONFIRMATION_CFM_T *cfm = (LE_GATT_MSG_CONFIRMATION_CFM_T *)message;
-            BLEWIFI_INFO("APP-LE_GATT_MSG_CONFIRMATION_CFM curr handle = %d\r\n", cfm->handle);
-#endif
-        }
-        break;
-
-        case LE_GATT_MSG_OPERATION_TIMEOUT:
-		{
-#ifdef BLEWIFI_SHOW_INFO
-			LE_GATT_MSG_OPERATION_TIMEOUT_T *ind = (LE_GATT_MSG_OPERATION_TIMEOUT_T *)message;
-			BLEWIFI_INFO("APP-LE_GATT_MSG_OPERATION_TIMEOUT op = %x\r\n", ind->att_op);
-#endif
-        }
-        break;
-
-		default:
-        break;
+    // get the settings of BLE service UUID
+	if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP08_PROJECT_BLE_SERVICE_UUID, 0, MW_FIM_GP08_BLE_SERVICE_UUID_SIZE, (uint8_t*)&tBleServiceUUID))
+    {
+        // if fail, get the default value
+        memcpy(&tBleServiceUUID, &g_tMwFimDefaultGp08BleServiceUUID, MW_FIM_GP08_BLE_SERVICE_UUID_SIZE);
     }
+    gBleWifiSvcUuid = tBleServiceUUID.uwServiceUUID;
+    gBleWifiDataInUuid = tBleServiceUUID.uwDataInUUID;
+    gBleWifiDataInCharVal[3] = UINT16_LO(gBleWifiDataInUuid);
+    gBleWifiDataInCharVal[4] = UINT16_HI(gBleWifiDataInUuid);
+    gBleWifiDataOutUuid = tBleServiceUUID.uwDataOutUUID;
+    gBleWifiDataOutCharVal[3] = UINT16_LO(gBleWifiDataOutUuid);
+    gBleWifiDataOutCharVal[4] = UINT16_HI(gBleWifiDataOutUuid);
+    
+    gGattSvc = LeGattRegisterService(gGattSvcDb, sizeof(gGattSvcDb) / sizeof(LE_GATT_ATTR_T));
+    
+    if (gGattSvc)
+    {
+        BLEWIFI_INFO("APP-LeGattRegisterService gGattSvc success\r\n");
+    }
+    
+    gGapSvc = LeGattRegisterService(gGapSvcDb, sizeof(gGapSvcDb) / sizeof(LE_GATT_ATTR_T));
+    
+    if (gGapSvc)
+    {
+        BLEWIFI_INFO("APP-LeGattRegisterService gGapSvc success\r\n");
+    }
+    
+    gBwpSvc = LeGattRegisterService(gBwpSvcDb, sizeof(gBwpSvcDb) / sizeof(LE_GATT_ATTR_T));
+    
+    if (gBwpSvc)
+    {
+        BLEWIFI_INFO("APP-LeGattRegisterService gBwpSvc success\r\n");
+    }
+    
+    BleWifi_Ble_GetEntity()->store.send_hdl = gBwpSvcDb[BWP_IDX_DATA_OUT_VAL].handle;
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_AccessReadInd(TASK task, MESSAGEID id, MESSAGE message)
+{
+    BLEWIFI_INFO("APP-LE_GATT_MSG_ACCESS_READ_IND\r\n");
+    BleWifi_Ble_GattHandleAccessRead((LE_GATT_MSG_ACCESS_READ_IND_T *)message);
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_AccessWriteInd(TASK task, MESSAGEID id, MESSAGE message)
+{
+    BLEWIFI_INFO("APP-LE_GATT_MSG_ACCESS_WRITE_IND\r\n");
+    BleWifi_Ble_GattHandleAccessWrite((LE_GATT_MSG_ACCESS_WRITE_IND_T *)message);
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuInd(TASK task, MESSAGEID id, MESSAGE message)
+{
+    LE_GATT_MSG_EXCHANGE_MTU_IND_T *ind = (LE_GATT_MSG_EXCHANGE_MTU_IND_T *)message;
+    BLEWIFI_INFO("APP-LE_GATT_MSG_EXCHANGE_MTU_IND client mtu = %d\r\n", ind->client_rx_mtu);
+    LeGattExchangeMtuRsp(ind->conn_hdl, LE_ATT_MAX_MTU);
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_ExchangeMtuCfm(TASK task, MESSAGEID id, MESSAGE message)
+{
+    LE_GATT_MSG_EXCHANGE_MTU_CFM_T *cfm = (LE_GATT_MSG_EXCHANGE_MTU_CFM_T *)message;
+    BLEWIFI_INFO("APP-LE_GATT_MSG_EXCHANGE_MTU_CFM curr mtu = %d\r\n", cfm->current_rx_mtu);
+    BleWifi_Ble_GetEntity()->curr_mtu = cfm->current_rx_mtu;
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_ConfirmationCfm(TASK task, MESSAGEID id, MESSAGE message)
+{
+#ifdef BLEWIFI_SHOW_INFO
+    LE_GATT_MSG_CONFIRMATION_CFM_T *cfm = (LE_GATT_MSG_CONFIRMATION_CFM_T *)message;
+    BLEWIFI_INFO("APP-LE_GATT_MSG_CONFIRMATION_CFM curr handle = %d\r\n", cfm->handle);
+#endif
+}
+
+static void BleWifi_Ble_ServerAppGattMsgHandler_OperationTimeout(TASK task, MESSAGEID id, MESSAGE message)
+{
+#ifdef BLEWIFI_SHOW_INFO
+    LE_GATT_MSG_OPERATION_TIMEOUT_T *ind = (LE_GATT_MSG_OPERATION_TIMEOUT_T *)message;
+    BLEWIFI_INFO("APP-LE_GATT_MSG_OPERATION_TIMEOUT op = %x\r\n", ind->att_op);
+#endif
 }
 
 void BleWifi_Ble_GattIndicateServiceChange(UINT16 conn_hdl)

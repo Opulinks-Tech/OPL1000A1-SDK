@@ -97,21 +97,21 @@ void iperf_report_task(void* arg)
         if (IS_DUAL_TEST) {
             printf("%4d-%4d sec     %s MBytes    %s Mbits/sec    %s\n", cur, cur+interval,
                     ftoa((double)((iperf_client_ctrl.total_len - iperf_client_ctrl.last_len))/1048576, tran_string, 3),
-                    ftoa((double)((iperf_client_ctrl.total_len - iperf_client_ctrl.last_len)*8)/interval/1000000, bw_string, 3),
+                    ftoa((double)((iperf_client_ctrl.total_len - iperf_client_ctrl.last_len))/1000000/interval*8, bw_string, 3),
                     "Sender");
             
             iperf_client_ctrl.last_len = iperf_client_ctrl.total_len;
 
             printf("%4d-%4d sec     %s MBytes    %s Mbits/sec    %s\n", cur, cur+interval, 
                     ftoa((double)((iperf_server_ctrl.total_len - iperf_server_ctrl.last_len))/1048576, tran_string, 3),
-                    ftoa((double)((iperf_server_ctrl.total_len - iperf_server_ctrl.last_len)*8)/interval/1000000, bw_string, 3),
+                    ftoa((double)((iperf_server_ctrl.total_len - iperf_server_ctrl.last_len))/1000000/interval*8, bw_string, 3),
                     "Receiver");
             iperf_server_ctrl.last_len = iperf_server_ctrl.total_len;
 
         } else {
             printf("%4d-%4d sec     %s MBytes    %s Mbits/sec\n", cur, cur+interval,
                     ftoa((double)((p_ctrl->total_len - p_ctrl->last_len))/1048576, tran_string, 3),
-                    ftoa((double)((p_ctrl->total_len - p_ctrl->last_len)*8)/interval/1000000, bw_string, 3));
+                    ftoa((double)((p_ctrl->total_len - p_ctrl->last_len))/1000000/interval*8, bw_string, 3));
            p_ctrl->last_len = p_ctrl->total_len;
         }
         
@@ -147,17 +147,17 @@ void iperf_report_task(void* arg)
     if (IS_DUAL_TEST) {
         printf("%4d-%4d sec     %s MBytes    %s Mbits/sec    %s\n", 0, cur,
                 ftoa((double)(iperf_client_ctrl.total_len)/1048576, tran_string, 3),
-                ftoa((double)(iperf_client_ctrl.total_len*8)/cur/1000000, bw_string, 3),
+                ftoa((double)(iperf_client_ctrl.total_len)/1000000/cur*8, bw_string, 3),
                 "Sender total");
 
         printf("%4d-%4d sec     %s MBytes    %s Mbits/sec    %s\n", 0, cur,
                 ftoa((double)(iperf_server_ctrl.total_len)/1048576, tran_string, 3),
-                ftoa((double)(iperf_server_ctrl.total_len*8)/cur/1000000, bw_string, 3),
+                ftoa((double)(iperf_server_ctrl.total_len)/1000000/cur*8, bw_string, 3),
                 "Recever total");
     } else {
         printf("%4d-%4d sec     %s MBytes    %s Mbits/sec\n", 0, cur, 
                 ftoa((double)(p_ctrl->total_len)/1048576, tran_string, 3),
-                ftoa((double)(p_ctrl->total_len*8)/cur/1000000, bw_string, 3));
+                ftoa((double)(p_ctrl->total_len)/1000000/cur*8, bw_string, 3));
     }
 
     LOGI(TAG, "iperf report exit");

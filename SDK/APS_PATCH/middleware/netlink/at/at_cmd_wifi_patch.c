@@ -26,10 +26,12 @@
 #include "wlannetif.h"
 
 #include "controller_wifi_com_patch.h"
+#include "at_cmd_app_patch.h"
 #include "at_cmd_msg_ext.h"
 #include "at_cmd_wifi_patch.h"
 #include "at_cmd_task_patch.h"
-
+#include "at_cmd_common_patch.h"
+#include "at_cmd_nvm.h"
 
 #ifdef AT_CMD_WIFI_DBG
     #define AT_LOG                  printf
@@ -37,6 +39,8 @@
 
     #define AT_LOG(...)
 #endif
+
+#define AT_BLE_WIFI_MODE 4
 
 extern _at_command_t *_g_AtCmdTbl_Wifi_Ptr;
 extern int g_wpa_mode;
@@ -55,53 +59,97 @@ uint8_t g_wifi_init_mode = 0;
  */
 int _at_cmd_wifi_cwmode_patch(char *buf, int len, int mode)
 {
-    int mode_;
+    int cwmode;
     char *argv[AT_MAX_CMD_ARGS] = {0};
     int argc = 0;
-
+    uint8_t ret = false;
+    
     _at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS);
-
+    
     switch(mode)
     {
         case AT_CMD_MODE_READ:
+        {
             msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wifi_init_mode);
-            msg_print_uart1("\r\nOK\r\n");
-            break;
-
-        case AT_CMD_MODE_EXECUTION:
-            //Do nothing
+            ret = true;
+        }
             break;
 
         case AT_CMD_MODE_SET:
             if(argc > 1) {
-                mode_ = atoi(argv[1]);
-                //we only support station mode
-                if (mode_ == 1)
-                {
-                    //wpa_set_wpa_mode(WPA_MODE_STA);
-                    g_wifi_init_mode = WPA_MODE_STA;
-                    
-                    //Initialize AT task (TCPIP data task, event loop task)
-                    at_wifi_net_task_init();
-                    msg_print_uart1("\r\nOK\r\n");
+                if (at_cmd_get_para_as_digital(argv[1], &cwmode) != 0) {
+                    goto exit;
                 }
-                else
+                
+                switch (cwmode)
                 {
-                    msg_print_uart1("\r\nERROR\r\n");
+                    case 0:
+                    {
+                        if (at_cmd_nvm_cw_ble_wifi_mode_set((uint8_t *)&cwmode))
+                            goto exit;
+                        
+                        g_wifi_init_mode = 0;
+                        
+                        ret = true;
+                    }
+                        break;
+                    
+                    case 1:
+                        if ((g_wifi_init_mode == AT_BLE_WIFI_MODE))
+                            goto exit;
+                        
+                        //wpa_set_wpa_mode(WPA_MODE_STA);
+                        g_wifi_init_mode = WPA_MODE_STA;
+                        
+                        //Initialize AT task (TCPIP data task, event loop task)
+                        at_wifi_net_task_init();
+                        
+                        ret = true;
+                        break;
+                        
+                    case 4:
+                    {
+                        if (g_wifi_init_mode == WPA_MODE_STA)
+                            goto exit;
+                        
+                        uint8_t enable = 1;
+                        if (at_cmd_nvm_cw_ble_wifi_mode_set(&enable))
+                            goto exit;
+                        
+                        g_wifi_init_mode = AT_BLE_WIFI_MODE;
+                        
+                        //Initialize BleWifi task
+                        at_blewifi_init();
+
+                        ret = true;
+                    }
+                        break;
+                    default:
+                        break;
                 }
             }
             break;
 
         case AT_CMD_MODE_TESTING:
             msg_print_uart1("\r\n+CWMODE:%d\r\n", g_wifi_init_mode);
-            msg_print_uart1("\r\nOK\r\n");
+            ret = true;
             break;
 
         default:
             break;
     }
 
-    return true;
+exit:
+    if (ret == true)
+    {
+        at_cmd_crlf_term_set(1); // Enable CR-LF termination for WiFi AT commands
+
+        msg_print_uart1("\r\nOK\r\n");
+    }
+    else 
+        msg_print_uart1("\r\nERROR\r\n");
+
+    return ret;
 }
 
 /*

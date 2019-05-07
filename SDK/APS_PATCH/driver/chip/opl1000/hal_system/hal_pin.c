@@ -566,6 +566,7 @@ uint8_t Hal_Pin_ConfigSet_IO_2(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_1:
+        case PIN_TYPE_SPI2_IO_MISO:
             tmp |= (0x0 << 8);
             break;
 
@@ -597,6 +598,7 @@ uint8_t Hal_Pin_ConfigSet_IO_2(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_1:
+        case PIN_TYPE_SPI2_IO_MISO:
             tmp = AOS->RG_PTS_INMUX_D;
             tmp &= ~(0xF << 4);
             tmp |= (0x0 << 4);
@@ -669,6 +671,7 @@ uint8_t Hal_Pin_ConfigSet_IO_3(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_0:
+        case PIN_TYPE_SPI2_IO_MOSI:
             tmp |= (0x0 << 12);
             break;
 
@@ -707,6 +710,7 @@ uint8_t Hal_Pin_ConfigSet_IO_3(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_0:
+        case PIN_TYPE_SPI2_IO_MOSI:
             tmp = AOS->RG_PTS_INMUX_D;
             tmp &= ~(0xF << 0);
             tmp |= (0x1 << 0);
@@ -1200,6 +1204,7 @@ uint8_t Hal_Pin_ConfigSet_IO_8(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI1_IO_0:
+        case PIN_TYPE_SPI1_IO_MOSI:
             tmp |= (0x0 << 0);
             break;
 
@@ -1238,6 +1243,7 @@ uint8_t Hal_Pin_ConfigSet_IO_8(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI1_IO_0:
+        case PIN_TYPE_SPI1_IO_MOSI:
             tmp = AOS->RG_PTS_INMUX_C;
             tmp &= ~(0xF << 16);
             tmp |= (0x0 << 16);
@@ -1314,6 +1320,7 @@ uint8_t Hal_Pin_ConfigSet_IO_9(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI1_IO_1:
+        case PIN_TYPE_SPI1_IO_MISO:
             tmp |= (0x0 << 4);
             break;
 
@@ -1352,6 +1359,7 @@ uint8_t Hal_Pin_ConfigSet_IO_9(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI1_IO_1:
+        case PIN_TYPE_SPI1_IO_MISO:
             tmp = AOS->RG_PTS_INMUX_C;
             tmp &= ~(0xF << 20);
             tmp |= (0x0 << 20);
@@ -1870,6 +1878,7 @@ uint8_t Hal_Pin_ConfigSet_IO_14(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI0_IO_0:
+        case PIN_TYPE_SPI0_IO_MOSI:
             tmp |= (0x0 << 24);
             break;
 
@@ -1901,6 +1910,7 @@ uint8_t Hal_Pin_ConfigSet_IO_14(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI0_IO_0:
+        case PIN_TYPE_SPI0_IO_MOSI:
             tmp = AOS->RG_PTS_INMUX_C;
             tmp &= ~(0xF << 0);
             tmp |= (0x0 << 0);
@@ -1973,6 +1983,7 @@ uint8_t Hal_Pin_ConfigSet_IO_15(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI0_IO_1:
+        case PIN_TYPE_SPI0_IO_MISO:
             tmp |= ((uint32_t)0x0 << 28);
             break;
 
@@ -2011,6 +2022,7 @@ uint8_t Hal_Pin_ConfigSet_IO_15(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI0_IO_1:
+        case PIN_TYPE_SPI0_IO_MISO:
             tmp = AOS->RG_PTS_INMUX_C;
             tmp &= ~(0xF << 4);
             tmp |= (0x0 << 4);
@@ -2537,6 +2549,7 @@ uint8_t Hal_Pin_ConfigSet_IO_20(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_0:
+        case PIN_TYPE_SPI2_IO_MOSI:
             tmp |= (0x5 << 16);
             break;
 
@@ -2586,6 +2599,7 @@ uint8_t Hal_Pin_ConfigSet_IO_20(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_0:
+        case PIN_TYPE_SPI2_IO_MOSI:
             tmp = AOS->RG_PTS_INMUX_D;
             tmp &= ~(0xF << 0);
             tmp |= (0x4 << 0);
@@ -2666,6 +2680,7 @@ uint8_t Hal_Pin_ConfigSet_IO_21(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_1:
+        case PIN_TYPE_SPI2_IO_MISO:
             tmp |= (0x5 << 20);
             break;
 
@@ -2708,6 +2723,7 @@ uint8_t Hal_Pin_ConfigSet_IO_21(uint16_t uwConfig)
             break;
 
         case PIN_TYPE_SPI2_IO_1:
+        case PIN_TYPE_SPI2_IO_MISO:
             tmp = AOS->RG_PTS_INMUX_D;
             tmp &= ~(0xF << 4);
             tmp |= (0x2 << 4);

@@ -81,6 +81,9 @@ extern const uint8_t g_tMwFimDefaultMacAddrWifiSTASrc;
 extern const uint8_t g_tMwFimDefaultMacAddrWifiSoftAPSrc;
 extern const uint8_t g_tMwFimDefaultMacAddrBleSrc;
 
+extern const T_RfCfg g_tMwFimDefaultRfConfig;
+extern const T_WifiCfg g_tMwFimDefaultWifiConfig;
+
 // Sec 5: declaration of global function prototype
 
 

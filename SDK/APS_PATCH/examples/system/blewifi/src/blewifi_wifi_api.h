@@ -99,6 +99,13 @@ typedef struct {
     unsigned long   DNS;                              /**< Device's DNS. */
 }__attribute__((packed)) blewifi_wifi_status_info_t;
 
+typedef int (*T_BleWifi_Wifi_EventHandler_Fp)(wifi_event_id_t event_id, void *data, uint16_t length);
+typedef struct
+{
+    uint32_t ulEventId;
+    T_BleWifi_Wifi_EventHandler_Fp fpFunc;
+} T_BleWifi_Wifi_EventHandlerTbl;
+
 #define BLEWIFI_WIFI_CONNECTED_DONE     0
 #define BLEWIFI_WIFI_CONNECTED_FAIL     1
 #define BLEWIFI_WIFI_DISCONNECTED_DONE  0
@@ -123,6 +130,8 @@ void BleWifi_Wifi_ReqConnectRetry(void);
 int BleWifi_Wifi_Rssi(int8_t *rssi);
 int BleWifi_Wifi_SetDTIM(uint32_t value);
 void BleWifi_Wifi_UpdateBeaconInfo(void);
+void BleWifi_Wifi_DtimTimeSet(uint32_t value);
+uint32_t BleWifi_Wifi_DtimTimeGet(void);
 	
 int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t length);
 void BleWifi_Wifi_Init(void);

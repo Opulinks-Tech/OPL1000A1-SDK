@@ -83,6 +83,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART0_TX
                                                     // PIN_TYPE_I2C_SDA
                                                     // PIN_TYPE_SPI2_IO_1
+                                                    // PIN_TYPE_SPI2_IO_MISO
                                                     // PIN_TYPE_AUX_2
                                                     // PIN_TYPE_UART_APS_TX
                                                     // PIN_TYPE_UART_MSQ_RX
@@ -96,6 +97,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART0_RX
                                                     // PIN_TYPE_I2C_SCL
                                                     // PIN_TYPE_SPI2_IO_0
+                                                    // PIN_TYPE_SPI2_IO_MOSI
                                                     // PIN_TYPE_AUX_3
                                                     // PIN_TYPE_UART_APS_RX
                                                     // PIN_TYPE_UART_MSQ_TX
@@ -164,6 +166,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART1_TX
                                                     // PIN_TYPE_I2C_SDA
                                                     // PIN_TYPE_SPI1_IO_0
+                                                    // PIN_TYPE_SPI1_IO_MOSI
                                                     // PIN_TYPE_AUX_8
                                                     // PIN_TYPE_UART_APS_TX
                                                     // PIN_TYPE_UART_MSQ_RX
@@ -178,6 +181,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART1_RX
                                                     // PIN_TYPE_I2C_SCL
                                                     // PIN_TYPE_SPI1_IO_1
+                                                    // PIN_TYPE_SPI1_IO_MISO
                                                     // PIN_TYPE_AUX_9
                                                     // PIN_TYPE_UART_APS_RX
                                                     // PIN_TYPE_UART_MSQ_TX
@@ -240,26 +244,28 @@ Head Block of The File
                                                     // PIN_TYPE_ICE_M3_CLK
                                                     // PIN_TYPE_ICE_M0_DAT
 
-#define HAL_PIN_TYPE_IO_14  PIN_TYPE_SPI0_IO_0      // PIN_TYPE_NONE
+#define HAL_PIN_TYPE_IO_14  PIN_TYPE_SPI0_IO_MOSI   // PIN_TYPE_NONE
                                                     // PIN_TYPE_GPIO_INPUT
                                                     // PIN_TYPE_GPIO_OUTPUT_LOW
                                                     // PIN_TYPE_GPIO_OUTPUT_HIGH
                                                     // PIN_TYPE_UART1_TX
                                                     // PIN_TYPE_I2C_SDA
                                                     // PIN_TYPE_SPI0_IO_0
+                                                    // PIN_TYPE_SPI0_IO_MOSI
                                                     // PIN_TYPE_AUX_14
                                                     // PIN_TYPE_UART_APS_TX
                                                     // PIN_TYPE_UART_MSQ_RX
                                                     // PIN_TYPE_ICE_M3_DAT
                                                     // PIN_TYPE_ICE_M0_CLK
 
-#define HAL_PIN_TYPE_IO_15  PIN_TYPE_SPI0_IO_1      // PIN_TYPE_NONE
+#define HAL_PIN_TYPE_IO_15  PIN_TYPE_SPI0_IO_MISO   // PIN_TYPE_NONE
                                                     // PIN_TYPE_GPIO_INPUT
                                                     // PIN_TYPE_GPIO_OUTPUT_LOW
                                                     // PIN_TYPE_GPIO_OUTPUT_HIGH
                                                     // PIN_TYPE_UART1_RX
                                                     // PIN_TYPE_I2C_SCL
                                                     // PIN_TYPE_SPI0_IO_1
+                                                    // PIN_TYPE_SPI0_IO_MISO
                                                     // PIN_TYPE_AUX_15
                                                     // PIN_TYPE_UART_APS_RX
                                                     // PIN_TYPE_UART_MSQ_TX
@@ -329,6 +335,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART1_RX
                                                     // PIN_TYPE_I2C_SCL
                                                     // PIN_TYPE_SPI2_IO_0
+                                                    // PIN_TYPE_SPI2_IO_MOSI
                                                     // PIN_TYPE_PWM_3
                                                     // PIN_TYPE_UART_APS_TX
                                                     // PIN_TYPE_UART_MSQ_RX
@@ -344,6 +351,7 @@ Head Block of The File
                                                     // PIN_TYPE_UART1_TX
                                                     // PIN_TYPE_I2C_SDA
                                                     // PIN_TYPE_SPI2_IO_1
+                                                    // PIN_TYPE_SPI2_IO_MISO
                                                     // PIN_TYPE_PWM_2
                                                     // PIN_TYPE_UART_APS_RX
                                                     // PIN_TYPE_UART_MSQ_TX

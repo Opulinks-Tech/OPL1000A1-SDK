@@ -46,6 +46,68 @@ typedef struct {
 
 blewifi_rx_packet_t g_rx_packet = {0};
 
+static void BleWifi_Ble_ProtocolHandler_Scan(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_Connect(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_Disconnect(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_Reconnect(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_ReadDeviceInfo(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_WriteDeviceInfo(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_WifiStatus(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_Reset(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_OtaVersion(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_OtaUpgrade(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_OtaRaw(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_OtaEnd(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_HttpOtaTrig(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_MpCalVbat(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_MpCalIoVoltage(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_MpCalTmpr(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_MpSysModeWrite(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_MpSysModeRead(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngSysReset(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngWifiMacWrite(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngWifiMacRead(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngBleMacWrite(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngBleMacRead(uint16_t type, uint8_t *data, int len);
+static void BleWifi_Ble_ProtocolHandler_EngBleCmd(uint16_t type, uint8_t *data, int len);
+static T_BleWifi_Ble_ProtocolHandlerTbl g_tBleProtocolHandlerTbl[] =
+{
+    {BLEWIFI_REQ_SCAN,                      BleWifi_Ble_ProtocolHandler_Scan},
+    {BLEWIFI_REQ_CONNECT,                   BleWifi_Ble_ProtocolHandler_Connect},
+    {BLEWIFI_REQ_DISCONNECT,                BleWifi_Ble_ProtocolHandler_Disconnect},
+    {BLEWIFI_REQ_RECONNECT,                 BleWifi_Ble_ProtocolHandler_Reconnect},
+    {BLEWIFI_REQ_READ_DEVICE_INFO,          BleWifi_Ble_ProtocolHandler_ReadDeviceInfo},
+    {BLEWIFI_REQ_WRITE_DEVICE_INFO,         BleWifi_Ble_ProtocolHandler_WriteDeviceInfo},
+    {BLEWIFI_REQ_WIFI_STATUS,               BleWifi_Ble_ProtocolHandler_WifiStatus},
+    {BLEWIFI_REQ_RESET,                     BleWifi_Ble_ProtocolHandler_Reset},
+    
+    {BLEWIFI_REQ_OTA_VERSION,               BleWifi_Ble_ProtocolHandler_OtaVersion},
+    {BLEWIFI_REQ_OTA_UPGRADE,               BleWifi_Ble_ProtocolHandler_OtaUpgrade},
+    {BLEWIFI_REQ_OTA_RAW,                   BleWifi_Ble_ProtocolHandler_OtaRaw},
+    {BLEWIFI_REQ_OTA_END,                   BleWifi_Ble_ProtocolHandler_OtaEnd},
+    
+    {BLEWIFI_REQ_HTTP_OTA_TRIG,             BleWifi_Ble_ProtocolHandler_HttpOtaTrig},
+    {BLEWIFI_REQ_HTTP_OTA_DEVICE_VERSION,   BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion},
+    {BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION,   BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion},
+    
+    {BLEWIFI_REQ_MP_CAL_VBAT,               BleWifi_Ble_ProtocolHandler_MpCalVbat},
+    {BLEWIFI_REQ_MP_CAL_IO_VOLTAGE,         BleWifi_Ble_ProtocolHandler_MpCalIoVoltage},
+    {BLEWIFI_REQ_MP_CAL_TMPR,               BleWifi_Ble_ProtocolHandler_MpCalTmpr},
+    {BLEWIFI_REQ_MP_SYS_MODE_WRITE,         BleWifi_Ble_ProtocolHandler_MpSysModeWrite},
+    {BLEWIFI_REQ_MP_SYS_MODE_READ,          BleWifi_Ble_ProtocolHandler_MpSysModeRead},
+    
+    {BLEWIFI_REQ_ENG_SYS_RESET,             BleWifi_Ble_ProtocolHandler_EngSysReset},
+    {BLEWIFI_REQ_ENG_WIFI_MAC_WRITE,        BleWifi_Ble_ProtocolHandler_EngWifiMacWrite},
+    {BLEWIFI_REQ_ENG_WIFI_MAC_READ,         BleWifi_Ble_ProtocolHandler_EngWifiMacRead},
+    {BLEWIFI_REQ_ENG_BLE_MAC_WRITE,         BleWifi_Ble_ProtocolHandler_EngBleMacWrite},
+    {BLEWIFI_REQ_ENG_BLE_MAC_READ,          BleWifi_Ble_ProtocolHandler_EngBleMacRead},
+    {BLEWIFI_REQ_ENG_BLE_CMD,               BleWifi_Ble_ProtocolHandler_EngBleCmd},
+    
+    {0xFFFFFFFF,                            NULL}
+};
+
 static void BleWifi_OtaSendVersionRsp(uint8_t status, uint16_t pid, uint16_t cid, uint16_t fid)
 {
 	uint8_t data[7];
@@ -430,144 +492,181 @@ static void BleWifi_Eng_BleCmd(uint8_t *data, int len)
     BleWifi_Ble_SendResponse(BLEWIFI_RSP_ENG_BLE_CMD, 0);
 }
 
+static void BleWifi_Ble_ProtocolHandler_Scan(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_SCAN \r\n");
+    BleWifi_Wifi_DoScan(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_Connect(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_CONNECT \r\n");
+    BleWifi_Wifi_DoConnect(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_Disconnect(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_DISCONNECT \r\n");
+    BleWifi_Wifi_DoDisconnect();
+}
+
+static void BleWifi_Ble_ProtocolHandler_Reconnect(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_RECONNECT \r\n");
+}
+
+static void BleWifi_Ble_ProtocolHandler_ReadDeviceInfo(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_READ_DEVICE_INFO \r\n");
+    BleWifi_Wifi_ReadDeviceInfo();
+}
+
+static void BleWifi_Ble_ProtocolHandler_WriteDeviceInfo(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_WRITE_DEVICE_INFO \r\n");
+    BleWifi_Wifi_WriteDeviceInfo(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_WifiStatus(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_WIFI_STATUS \r\n");
+    BleWifi_Wifi_SendStatusInfo(BLEWIFI_RSP_WIFI_STATUS);
+}
+
+static void BleWifi_Ble_ProtocolHandler_Reset(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_RESET \r\n");
+    BleWifi_Wifi_ResetRecord();
+}
+
+static void BleWifi_Ble_ProtocolHandler_OtaVersion(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_VERSION \r\n");
+    BleWifi_HandleOtaVersionReq(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_OtaUpgrade(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_UPGRADE \r\n");
+    BleWifi_HandleOtaUpgradeReq(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_OtaRaw(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_RAW \r\n");
+    BleWifi_HandleOtaRawReq(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_OtaEnd(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_END \r\n");
+    BleWifi_HandleOtaEndReq(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_HttpOtaTrig(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_TRIG \r\n");
+    BleWifi_Wifi_OtaTrigReq();
+}
+
+static void BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_DEVICE_VERSION \r\n");
+    BleWifi_Wifi_OtaDeviceVersionReq();
+}
+
+static void BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION \r\n");
+    BleWifi_Wifi_OtaServerVersionReq();
+}
+
+static void BleWifi_Ble_ProtocolHandler_MpCalVbat(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_VBAT \r\n");
+    BleWifi_MP_CalVbat(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_MpCalIoVoltage(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_IO_VOLTAGE \r\n");
+    BleWifi_MP_CalIoVoltage(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_MpCalTmpr(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_TMPR \r\n");
+    BleWifi_MP_CalTmpr(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_MpSysModeWrite(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_WRITE \r\n");
+    BleWifi_MP_SysModeWrite(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_MpSysModeRead(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_READ \r\n");
+    BleWifi_MP_SysModeRead(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngSysReset(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_SYS_RESET \r\n");
+    BleWifi_Eng_SysReset(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngWifiMacWrite(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_WRITE \r\n");
+    BleWifi_Wifi_MacAddrWrite(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngWifiMacRead(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_READ \r\n");
+    BleWifi_Wifi_MacAddrRead(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngBleMacWrite(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_WRITE \r\n");
+    BleWifi_Ble_MacAddrWrite(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngBleMacRead(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_READ \r\n");
+    BleWifi_Ble_MacAddrRead(data, len);
+}
+
+static void BleWifi_Ble_ProtocolHandler_EngBleCmd(uint16_t type, uint8_t *data, int len)
+{
+    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_CMD \r\n");
+    BleWifi_Eng_BleCmd(data, len);
+}
+
 // it is used in the ctrl task
 void BleWifi_Ble_ProtocolHandler(uint16_t type, uint8_t *data, int len)
 {
-    /* parsing header type and do action, ex: scan, connection, disconnect */
+    uint32_t i = 0;
 
-    switch(type)
+    while (g_tBleProtocolHandlerTbl[i].ulEventId != 0xFFFFFFFF)
     {
-        case BLEWIFI_REQ_SCAN:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_SCAN \r\n");
-            BleWifi_Wifi_DoScan(data, len);
+        // match
+        if (g_tBleProtocolHandlerTbl[i].ulEventId == type)
+        {
+            g_tBleProtocolHandlerTbl[i].fpFunc(type, data, len);
             break;
+        }
 
-        case BLEWIFI_REQ_CONNECT:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_CONNECT \r\n");
-            BleWifi_Wifi_DoConnect(data, len);
-            break;
+        i++;
+    }
 
-        case BLEWIFI_REQ_DISCONNECT:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_DISCONNECT \r\n");
-            BleWifi_Wifi_DoDisconnect();
-            break;
-
-        case BLEWIFI_REQ_RECONNECT:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_RECONNECT \r\n");
-            break;
-
-        case BLEWIFI_REQ_READ_DEVICE_INFO:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_READ_DEVICE_INFO \r\n");
-            BleWifi_Wifi_ReadDeviceInfo();
-            break;
-
-        case BLEWIFI_REQ_WRITE_DEVICE_INFO:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_WRITE_DEVICE_INFO \r\n");
-            BleWifi_Wifi_WriteDeviceInfo(data, len);
-            break;
-
-        case BLEWIFI_REQ_WIFI_STATUS:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_WIFI_STATUS \r\n");
-            BleWifi_Wifi_SendStatusInfo(BLEWIFI_RSP_WIFI_STATUS);
-            break;
-
-        case BLEWIFI_REQ_RESET:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_RESET \r\n");
-            BleWifi_Wifi_ResetRecord();
-            break;
-
-        case BLEWIFI_REQ_OTA_VERSION:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_VERSION \r\n");
-			BleWifi_HandleOtaVersionReq(data, len);
-            break;
-    
-		case BLEWIFI_REQ_OTA_UPGRADE:
-		    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_UPGRADE \r\n");
-			BleWifi_HandleOtaUpgradeReq(data, len);
-            break;
-
-		case BLEWIFI_REQ_OTA_RAW:
-		    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_RAW \r\n");
-			BleWifi_HandleOtaRawReq(data, len);
-		    break;
-    
-		case BLEWIFI_REQ_OTA_END:
-		    BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_END \r\n");
-			BleWifi_HandleOtaEndReq(data, len);
-            break;
-
-        case BLEWIFI_REQ_HTTP_OTA_TRIG:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_TRIG \r\n");
-            BleWifi_Wifi_OtaTrigReq();
-            break;
-
-        case BLEWIFI_REQ_HTTP_OTA_DEVICE_VERSION:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_DEVICE_VERSION \r\n");
-            BleWifi_Wifi_OtaDeviceVersionReq();
-            break;
-
-        case BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION \r\n");
-            BleWifi_Wifi_OtaServerVersionReq();
-            break;
-
-        case BLEWIFI_REQ_MP_CAL_VBAT:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_VBAT \r\n");
-            BleWifi_MP_CalVbat(data, len);
-            break;
-
-        case BLEWIFI_REQ_MP_CAL_IO_VOLTAGE:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_IO_VOLTAGE \r\n");
-            BleWifi_MP_CalIoVoltage(data, len);
-            break;
-
-        case BLEWIFI_REQ_MP_CAL_TMPR:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_CAL_TMPR \r\n");
-            BleWifi_MP_CalTmpr(data, len);
-            break;
-
-        case BLEWIFI_REQ_MP_SYS_MODE_WRITE:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_WRITE \r\n");
-            BleWifi_MP_SysModeWrite(data, len);
-            break;
-
-        case BLEWIFI_REQ_MP_SYS_MODE_READ:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_MP_SYS_MODE_READ \r\n");
-            BleWifi_MP_SysModeRead(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_SYS_RESET:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_SYS_RESET \r\n");
-            BleWifi_Eng_SysReset(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_WIFI_MAC_WRITE:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_WRITE \r\n");
-            BleWifi_Wifi_MacAddrWrite(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_WIFI_MAC_READ:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_WIFI_MAC_READ \r\n");
-            BleWifi_Wifi_MacAddrRead(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_BLE_MAC_WRITE:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_WRITE \r\n");
-            BleWifi_Ble_MacAddrWrite(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_BLE_MAC_READ:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_MAC_READ \r\n");
-            BleWifi_Ble_MacAddrRead(data, len);
-            break;
-
-        case BLEWIFI_REQ_ENG_BLE_CMD:
-            BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_ENG_BLE_CMD \r\n");
-            BleWifi_Eng_BleCmd(data, len);
-            break;
-
-        default:
-            break;
+    // not match
+    if (g_tBleProtocolHandlerTbl[i].ulEventId == 0xFFFFFFFF)
+    {
     }
 }
 

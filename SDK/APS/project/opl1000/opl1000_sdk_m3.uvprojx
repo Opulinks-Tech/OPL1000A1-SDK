@@ -1155,6 +1155,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\middleware\netlink\at\at_cmd_rf_patch.c</FilePath>
             </File>
+            <File>
+              <FileName>at_cmd_nvm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\middleware\netlink\at\at_cmd_nvm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1199,6 +1204,11 @@
               <FileName>hal_pin.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\driver\chip\opl1000\hal_system\hal_pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_spi_patch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\driver\chip\opl1000\hal_spi\hal_spi_patch.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2751,6 +2761,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\middleware\netlink\at\at_cmd_rf_patch.c</FilePath>
             </File>
+            <File>
+              <FileName>at_cmd_nvm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\middleware\netlink\at\at_cmd_nvm.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2795,6 +2810,11 @@
               <FileName>hal_pin.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\driver\chip\opl1000\hal_system\hal_pin.c</FilePath>
+            </File>
+            <File>
+              <FileName>hal_spi_patch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\driver\chip\opl1000\hal_spi\hal_spi_patch.c</FilePath>
             </File>
           </Files>
         </Group>

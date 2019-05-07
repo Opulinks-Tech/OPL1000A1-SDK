@@ -12,6 +12,7 @@
 #ifndef _CONTROLLER_WIFI_PATCH_H_
 #define _CONTROLLER_WIFI_PATCH_H_
 
+#define WIFI_CFG_TOUT_TIME      5000
 void wifi_ctrl_init_patch(void);
 
 #endif /* _CONTROLLER_WIFI_PATCH_H_ */

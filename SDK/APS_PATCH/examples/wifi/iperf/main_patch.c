@@ -47,8 +47,11 @@ Head Block of The File
 #include "hal_pin_config_project.h"
 #include "hal_system.h"
 #include "msg_patch.h"
-
+#include "hal_dbg_uart.h"
+#include "hal_uart.h"
 #include "iperf_example_main.h"
+
+#include "hal_wdt.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
@@ -81,6 +84,7 @@ Declaration of static Global Variables & Functions
 static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
 static void __Patch_EntryPoint(void) __attribute__((used));
 static void Main_FlashLayoutUpdate(void);
+static void Main_MiscModulesInit(void);
 static void Main_AppInit_patch(void);
 
 
@@ -114,6 +118,8 @@ static void __Patch_EntryPoint(void)
     // update the flash layout
     MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
     
+    // the initial of driver part for cold and warm boot
+    Sys_MiscModulesInit = Main_MiscModulesInit;
     // application init
     Sys_AppInit = Main_AppInit_patch;
 }
@@ -177,6 +183,26 @@ static void Main_PinMuxUpdate(void)
 static void Main_FlashLayoutUpdate(void)
 {
     // update here
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_MiscModulesInit
+*
+* DESCRIPTION:
+*   the initial of driver part for cold and warm boot
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_MiscModulesInit(void)
+{
+	  //Hal_Wdt_Stop();   //disable watchdog here.
+		Hal_DbgUart_RxIntEn(1);
 }
 
 /*************************************************************************

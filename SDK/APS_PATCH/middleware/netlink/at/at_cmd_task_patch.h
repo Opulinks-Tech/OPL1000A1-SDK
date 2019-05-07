@@ -18,5 +18,8 @@ extern osSemaphoreId g_tSwitchuartSem;
 void at_task_func_init_patch(void);
 int at_wifi_net_task_init(void);
 
+void at_cmd_crlf_term_set(uint8_t u8Enable);
+uint8_t at_cmd_crlf_term_get(void);
+
 #endif //__AT_CMD_TASK_PATCH_H__
 

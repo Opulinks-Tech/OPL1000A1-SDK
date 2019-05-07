@@ -25,7 +25,7 @@ extern "C" {
 // Sec 1: Include File
 #include "mw_fim.h"
 #include "mw_fim_default_group02.h"
-
+#include "at_cmd_nvm.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the file ID
@@ -44,6 +44,8 @@ typedef enum
     MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM,
     MW_FIM_IDX_DHCP_ARP_CHK,
     MW_FIM_IDX_MAC_TX_DATA_RATE,
+    MW_FIM_IDX_AT_TCPIP_TRANS_CFG,
+    MW_FIM_IDX_AT_BLE_WIFI,
     MW_FIM_IDX_GP02_PATCH_MAX
 } E_MwFimIdxGroup02_Patch;
 
@@ -61,6 +63,11 @@ Declaration of data structure
 #define MW_FIM_MAC_TX_DATA_RATE_NUM      1
 #define MW_FIM_MAC_TX_DATA_RATE_SIZE     1
 
+#define MW_FIM_AT_TCPIP_TRANS_CFG_NUM    1
+#define MW_FIM_AT_TCPIP_TRANS_CFG_SIZE   sizeof(at_nvm_trans_config_t)
+
+#define MW_FIM_AT_BLE_WIFI_NUM           1
+#define MW_FIM_AT_BLE_WIFI_SIZE          1
 
 /********************************************
 Declaration of Global Variables & Functions

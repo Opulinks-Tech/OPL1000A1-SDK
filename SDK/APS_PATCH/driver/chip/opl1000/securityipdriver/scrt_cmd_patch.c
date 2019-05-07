@@ -1249,5 +1249,54 @@ void nl_scrt_cmd_func_init_patch(void)
     return;
 }
 
+void aes_cmac_test(void)
+{
+    uint8_t u8aSk[16] = {0};
+    uint8_t u8aSwOutput[16] = {0};
+    uint8_t u8aHwOutput[16] = {0};
+    uint8_t u8aScrtAesCmacData[128] = {0};
+    uint32_t u32BufSize = sizeof(g_u8aScrtAesCmacData);
+    uint32_t u32DataLen = u32BufSize;
+    uint32_t u32SkLen = sizeof(u8aSk);
+    uint32_t u32Time = 0;
+    T_LeSmpUtilAesCmacFp fpSwAesCmac = (T_LeSmpUtilAesCmacFp)(0x00033281); //LeSmpUtilAesCmac_Impl
+
+    uint32_t u32Start = 0;
+    uint32_t u32End = 0;
+
+    memcpy(u8aSk, g_u8aScrtAesCmacSk, u32SkLen);
+    memcpy(u8aScrtAesCmacData, g_u8aScrtAesCmacData, u32DataLen);
+
+    u32Start = SCRT_CURR_TIME;
+
+    if(fpSwAesCmac(u8aSk, &(u8aScrtAesCmacData[0]), u32DataLen, u8aSwOutput))
+    {
+        tracer_cli(LOG_HIGH_LEVEL, "LeSmpUtilAesCmac fail\n");
+        goto done;
+    }
+
+    u32End = SCRT_CURR_TIME;
+    u32Time = u32End - u32Start;
+
+    printf("\nAES-CMAC: SW: %u us", u32Time);
+
+    u32Start = SCRT_CURR_TIME;
+
+    if(!nl_scrt_aes_cmac_get(u8aSk, u32SkLen, &(u8aScrtAesCmacData[0]), u32BufSize, u32DataLen, u8aHwOutput))
+    {
+        tracer_cli(LOG_HIGH_LEVEL, "nl_scrt_aes_cmac fail\n");
+        goto done;
+    }
+
+    u32End = SCRT_CURR_TIME;
+    u32Time = u32End - u32Start;
+
+    printf(" HW: %u us", u32Time);
+
+done:
+    printf("\n");
+    return;
+}
+
 #endif //#ifdef SCRT_CMD_PATCH
 

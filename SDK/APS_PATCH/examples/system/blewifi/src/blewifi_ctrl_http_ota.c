@@ -32,9 +32,6 @@
 
 osThreadId   BleWifCtrliHttpOtaTaskId;
 osMessageQId BleWifiCtrlHttpOtaQueueId;
-osPoolId     BleWifiCtrlHttpOtaMemPoolId;
-
-osPoolDef (BleWifiCtrlHttpOtaMemPoolId, BLEWIFI_CTRL_HTTP_OTA_QUEUE_SIZE, xBleWifiCtrlHttpOtaMessage_t); // memory pool object
 
 void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int len)
 {
@@ -46,13 +43,13 @@ void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int l
             BleWifi_Wifi_SetDTIM(0);
             if (ota_download_by_http(HTTP_GET_URL) != 0)
             {
-                BleWifi_Wifi_SetDTIM(BLEWIFI_WIFI_DTIM_INTERVAL);
+                BleWifi_Wifi_SetDTIM(BleWifi_Wifi_DtimTimeGet());
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_FAILURE);
                 BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL, NULL, 0);
             }
             else
             {
-                BleWifi_Wifi_SetDTIM(BLEWIFI_WIFI_DTIM_INTERVAL);
+                BleWifi_Wifi_SetDTIM(BleWifi_Wifi_DtimTimeGet());
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_SUCCESS);
                 BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF, NULL, 0);
             }
@@ -106,12 +103,11 @@ void blewifi_http_ota_task(void *args)
             continue;
             
         rxMsg = (xBleWifiCtrlHttpOtaMessage_t *)rxEvent.value.p;
-        blewifi_ctrl_http_ota_task_evt_handler(rxMsg->event, rxMsg->pcMessage, rxMsg->length);
+        blewifi_ctrl_http_ota_task_evt_handler(rxMsg->event, rxMsg->ucaMessage, rxMsg->length);
         
         /* Release buffer */
-        if(rxMsg->pcMessage != NULL)
-            free(rxMsg->pcMessage);
-        osPoolFree (BleWifiCtrlHttpOtaMemPoolId, rxMsg);
+        if (rxMsg != NULL)
+            free(rxMsg);
     }
 }
 
@@ -132,13 +128,6 @@ void blewifi_ctrl_http_ota_task_create(void)
         BLEWIFI_INFO("BLEWIFI: ctrl task create fail \r\n");
     }
     
-    /* create memory pool */
-    BleWifiCtrlHttpOtaMemPoolId = osPoolCreate(osPool(BleWifiCtrlHttpOtaMemPoolId));
-    if (!BleWifiCtrlHttpOtaMemPoolId)
-    {
-        BLEWIFI_ERROR("BLEWIFI: ctrl task mem pool create fail \r\n");
-    }
-    
     /* Create message queue*/
     blewifi_queue_def.item_sz = sizeof(xBleWifiCtrlHttpOtaMessage_t);
     blewifi_queue_def.queue_sz = BLEWIFI_CTRL_HTTP_OTA_QUEUE_SIZE;
@@ -149,40 +138,24 @@ void blewifi_ctrl_http_ota_task_create(void)
     }
 }
 
-int blewifi_ctrl_http_ota_task_send(xBleWifiCtrlHttpOtaMessage_t *txMsg)
+int blewifi_ctrl_http_ota_msg_send(int msg_type, uint8_t *data, int data_len)
 {
     int iRet = -1;
     xBleWifiCtrlHttpOtaMessage_t *pMsg = NULL;
     
-    if (txMsg == NULL)
-        goto done;
-        
-    /* Mem pool allocate */
-    pMsg = (xBleWifiCtrlHttpOtaMessage_t *)osPoolCAlloc(BleWifiCtrlHttpOtaMemPoolId);
-    
-    if(pMsg == NULL)
+    /* Mem allocate */
+    pMsg = malloc(sizeof(xBleWifiCtrlHttpOtaMessage_t) + data_len);
+    if (pMsg == NULL)
     {
+        BLEWIFI_ERROR("BLEWIFI: ctrl http ota task message allocate fail \r\n");
         goto done;
     }
     
-    pMsg->event = txMsg->event;
-    pMsg->length = txMsg->length;
-    pMsg->pcMessage = NULL;
-    
-    if((txMsg->pcMessage) && (txMsg->length))
+    pMsg->event = msg_type;
+    pMsg->length = data_len;
+    if (data_len > 0)
     {
-        /* Malloc buffer */
-        pMsg->pcMessage = (void *)malloc(txMsg->length);
-        
-        if(pMsg->pcMessage != NULL)
-        {
-            memcpy(pMsg->pcMessage, txMsg->pcMessage, txMsg->length);
-        }
-        else
-        {
-            BLEWIFI_ERROR("BLEWIFI: ctrl task message allocate fail \r\n");
-            goto done;
-        }
+        memcpy(pMsg->ucaMessage, data, data_len);
     }
     
     if (osMessagePut(BleWifiCtrlHttpOtaQueueId, (uint32_t)pMsg, osWaitForever) != osOK)
@@ -196,30 +169,11 @@ int blewifi_ctrl_http_ota_task_send(xBleWifiCtrlHttpOtaMessage_t *txMsg)
 done:
     if(iRet)
     {
-        if(pMsg)
+        if (pMsg != NULL)
         {
-            if(pMsg->pcMessage)
-            {
-                free(pMsg->pcMessage);
-            }
-            
-            osPoolFree(BleWifiCtrlHttpOtaMemPoolId, pMsg);
+            free(pMsg);
         }
     }
     
     return iRet;
 }
-
-int blewifi_ctrl_http_ota_msg_send(int msg_type, uint8_t *data, int data_len)
-{
-    xBleWifiCtrlHttpOtaMessage_t txMsg = {0};
-    
-    txMsg.event = msg_type;
-    txMsg.length = data_len;
-    txMsg.pcMessage = data;
-    
-    return (blewifi_ctrl_http_ota_task_send(&txMsg));
-}
-
-
-

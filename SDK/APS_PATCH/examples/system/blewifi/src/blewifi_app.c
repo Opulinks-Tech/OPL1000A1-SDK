@@ -25,13 +25,17 @@
 #include "ps_public.h"
 #include "mw_fim_default_group03.h"
 #include "mw_fim_default_group03_patch.h"
+#include "mw_fim_default_group08.h"
+#include "mw_fim_default_group08_project.h"
 #include "app_at_cmd.h"
+
 
 blewifi_ota_t *gTheOta = 0;
 
 void BleWifiAppInit(void)
 {
     T_MwFim_SysMode tSysMode;
+    T_MwFim_GP08_PowerSaving tPowerSaving;
     
 	gTheOta = 0;
 
@@ -40,6 +44,13 @@ void BleWifiAppInit(void)
     {
         // if fail, get the default value
         memcpy(&tSysMode, &g_tMwFimDefaultSysMode, MW_FIM_SYS_MODE_SIZE);
+    }
+
+    // get the settings of power saving
+	if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP08_PROJECT_POWER_SAVING, 0, MW_FIM_GP08_POWER_SAVING_SIZE, (uint8_t*)&tPowerSaving))
+    {
+        // if fail, get the default value
+        memcpy(&tPowerSaving, &g_tMwFimDefaultGp08PowerSaving, MW_FIM_GP08_POWER_SAVING_SIZE);
     }
 
     // only for the user mode
@@ -56,7 +67,7 @@ void BleWifiAppInit(void)
 
         /* Power saving settings */
         if (tSysMode.ubSysMode == MW_FIM_SYS_MODE_USER)
-            ps_smart_sleep(BLEWIFI_COM_POWER_SAVE_EN);
+            ps_smart_sleep(tPowerSaving.ubPowerSaving);
     }
 
     // update the system mode

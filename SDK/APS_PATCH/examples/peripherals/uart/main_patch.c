@@ -66,6 +66,8 @@ Head Block of The File
 #include "hal_pin_def.h"
 #include "hal_pin_config_project.h"
 
+//#include "hal_wdt.h"
+
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // the number of elements in the message queue
 #define APP_MESSAGE_Q_SIZE  16
@@ -114,12 +116,11 @@ static void Main_PinMuxUpdate(void);
 static void Main_FlashLayoutUpdate(void);
 void Main_AppInit_patch(void);
 static void Main_AppThread_1(void *argu);
-static void Main_AppThread_2(void *argu);
 static void Main_AppMessageQSend(uint32_t ulData);
 static void uart_int_test(void);
-static void uart_echo_test(void);
 
 
+static void Main_MiscModulesInit(void);
 /***********
 C Functions
 ***********/
@@ -149,6 +150,10 @@ static void __Patch_EntryPoint(void)
     
     // update the flash layout
     MwFim_FlashLayoutUpdate = Main_FlashLayoutUpdate;
+
+    // the initial of driver part for cold and warm boot
+    Sys_MiscModulesInit = Main_MiscModulesInit;
+
     
     // application init
     Sys_AppInit = Main_AppInit_patch;
@@ -217,6 +222,24 @@ static void Main_FlashLayoutUpdate(void)
     // update here
 }
 
+/*************************************************************************
+* FUNCTION:
+*   Main_MiscModulesInit
+*
+* DESCRIPTION:
+*   the initial of driver part for cold and warm boot
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_MiscModulesInit(void)
+{
+	  //Hal_Wdt_Stop();   //disable watchdog here.
+}
 
 /*************************************************************************
 * FUNCTION:
@@ -234,11 +257,13 @@ static void Main_FlashLayoutUpdate(void)
 *************************************************************************/
 void App_Pin_InitConfig(void)
 {
-	  uint8_t i; 
+	Hal_PinMux_Uart_Init(&OPL1000_periph.uart[0]);
+/*	  uint8_t i; 
 	  for (i=0;i<OPL1000_periph.uart_num;i++)
 	  {
 			Hal_PinMux_Uart_Init(&OPL1000_periph.uart[i]);
     }
+*/
 }
 
 /*************************************************************************
@@ -265,9 +290,6 @@ void Main_AppInit_patch(void)
 	
     // do the uart_int_test
     uart_int_test();
-    
-    // do the uart_echo_test
-    uart_echo_test();
 }
 
 /*************************************************************************
@@ -288,6 +310,7 @@ static void Main_AppThread_1(void *argu)
 {
     osEvent tEvent;
     S_MessageQ *ptMsgPool;
+	  //uint32_t ulData = 0x4743;
     
     while (1)
     {
@@ -298,7 +321,7 @@ static void Main_AppThread_1(void *argu)
             printf("To receive the message from AppMessageQ is fail.\n");
             continue;
         }
-        
+			
         // get the content of message
         ptMsgPool = (S_MessageQ *)tEvent.value.p;
         
@@ -307,10 +330,11 @@ static void Main_AppThread_1(void *argu)
         {
             case APP_EVENT_UART_RX:
                 // debug log
-                printf("uart0 read: %c\n", ptMsgPool->ulData);
+                //printf("uart0 read: %c\n", ptMsgPool->ulData);
                 
                 // write data to uart0
                 Hal_Uart_DataSend(UART_IDX_0, ptMsgPool->ulData);
+						    //Hal_Uart_DataSend(UART_IDX_1, ptMsgPool->ulData);
                 break;
             
             default:
@@ -319,38 +343,8 @@ static void Main_AppThread_1(void *argu)
         
         // free the memory pool
         osPoolFree(g_tAppMemPoolId, ptMsgPool);
-    }
-}
-
-/*************************************************************************
-* FUNCTION:
-*   Main_AppThread_2
-*
-* DESCRIPTION:
-*   the application thread 2
-*
-* PARAMETERS
-*   1. argu     : [In] the input argument
-*
-* RETURNS
-*   none
-*
-*************************************************************************/
-static void Main_AppThread_2(void *argu)
-{
-    uint32_t ulData;
-    
-    while (1)
-    {
-        // read data from uart1
-        if (0 == Hal_Uart_DataRecv(UART_IDX_1, &ulData))
-        {
-            // debug log
-            printf("uart1 read: %c\n", ulData);
-
-            // write data to uart1
-            Hal_Uart_DataSend(UART_IDX_1, ulData);
-        }
+				//osDelay(19);
+				
     }
 }
 
@@ -371,7 +365,7 @@ static void Main_AppThread_2(void *argu)
 static void Main_AppMessageQSend(uint32_t ulData)
 {
     S_MessageQ *ptMsgPool;
-    
+	
     // allocate the memory pool
     ptMsgPool = (S_MessageQ *)osPoolCAlloc(g_tAppMemPoolId);
     if (ptMsgPool == NULL)
@@ -393,7 +387,7 @@ static void Main_AppMessageQSend(uint32_t ulData)
         osPoolFree(g_tAppMemPoolId, ptMsgPool);
         goto done;
     }
-
+		
 done:
     return;
 }
@@ -456,35 +450,3 @@ static void uart_int_test(void)
     Hal_Uart_RxIntEn(UART_IDX_0, 1);
 }
 
-/*************************************************************************
-* FUNCTION:
-*   uart_echo_test
-*
-* DESCRIPTION:
-*   an example that read and write data on UART1, and the hardware flow
-*   control is turning on.
-*
-* PARAMETERS
-*   none
-*
-* RETURNS
-*   none
-*
-*************************************************************************/
-static void uart_echo_test(void)
-{
-    osThreadDef_t tThreadDef;
-    
-    // create the thread for AppThread_2
-    tThreadDef.name = "App_2";
-    tThreadDef.pthread = Main_AppThread_2;
-    tThreadDef.tpriority = OS_TASK_PRIORITY_APP;        // osPriorityNormal
-    tThreadDef.instances = 0;                           // reserved, it is no used
-    tThreadDef.stacksize = OS_TASK_STACK_SIZE_APP;      // (512), unit: 4-byte, the size is 512*4 bytes
-    g_tAppThread_2 = osThreadCreate(&tThreadDef, NULL);
-    if (g_tAppThread_2 == NULL)
-    {
-        printf("To create the thread for AppThread_2 is fail.\n");
-    }
-    
-}

@@ -14,7 +14,10 @@
 
 #include "at_cmd_data_process.h"
 
+#define AT_TCP_TRANS_LOCK_ID 0xFFFFFFFF
+
 int data_process_handler_impl(char *pbuf, int len);
+void data_process_lock_patch(int module, int data_len);
 
 #endif //__AT_CMD_DATA_PROCESS_PATCH_H__
 

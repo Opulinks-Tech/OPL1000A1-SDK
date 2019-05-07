@@ -1456,6 +1456,8 @@ int nl_scrt_init_patch(void)
 {
     int iRet = 0;
 
+    scrt_clk_enable(1, (SCRT_OTP_CLK_MSK | SCRT_IP_CLK_MSK));
+
     if(scrt_param_init())
     {
         SCRT_LOGE("[%s %d] scrt_param_init fail\n", __func__, __LINE__);
@@ -1468,8 +1470,6 @@ int nl_scrt_init_patch(void)
         goto done;
     }
 
-    scrt_clk_enable(1, (SCRT_OTP_CLK_MSK | SCRT_IP_CLK_MSK));
-
     if(scrt_mb_init())
     {
         SCRT_LOGE("[%s %d] scrt_mb_init fail\n", __func__, __LINE__);
@@ -1479,7 +1479,7 @@ int nl_scrt_init_patch(void)
     iRet = 1;
 
 done:
-    scrt_clk_enable(0, (SCRT_OTP_CLK_MSK | SCRT_IP_CLK_MSK));
+    //scrt_clk_enable(0, (SCRT_OTP_CLK_MSK | SCRT_IP_CLK_MSK));
     return iRet;
 }
 

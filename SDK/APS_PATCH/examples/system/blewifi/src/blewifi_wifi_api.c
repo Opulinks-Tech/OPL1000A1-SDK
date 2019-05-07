@@ -23,11 +23,33 @@
 #include "event_loop.h"
 #include "lwip_helper.h"
 #include "sys_common_api.h"
+#ifdef __BLEWIFI_TRANSPARENT__
+#include "at_cmd_app_patch.h"
+#endif
 
 extern uint8_t g_ubAppCtrlRequestRetryTimes;
 
 wifi_config_t wifi_config_req_connect;
 uint32_t g_ulBleWifi_Wifi_BeaconTime;
+uint32_t g_ulBleWifi_Wifi_DtimTime;
+
+static int BleWifi_Wifi_EventHandler_Start(wifi_event_id_t event_id, void *data, uint16_t length);
+static int BleWifi_Wifi_EventHandler_Connected(wifi_event_id_t event_id, void *data, uint16_t length);
+static int BleWifi_Wifi_EventHandler_Disconnected(wifi_event_id_t event_id, void *data, uint16_t length);
+static int BleWifi_Wifi_EventHandler_ScanComplete(wifi_event_id_t event_id, void *data, uint16_t length);
+static int BleWifi_Wifi_EventHandler_GotIp(wifi_event_id_t event_id, void *data, uint16_t length);
+static int BleWifi_Wifi_EventHandler_ConnectionFailed(wifi_event_id_t event_id, void *data, uint16_t length);
+static T_BleWifi_Wifi_EventHandlerTbl g_tWifiEventHandlerTbl[] =
+{
+    {WIFI_EVENT_STA_START,              BleWifi_Wifi_EventHandler_Start},
+    {WIFI_EVENT_STA_CONNECTED,          BleWifi_Wifi_EventHandler_Connected},
+    {WIFI_EVENT_STA_DISCONNECTED,       BleWifi_Wifi_EventHandler_Disconnected},
+    {WIFI_EVENT_SCAN_COMPLETE,          BleWifi_Wifi_EventHandler_ScanComplete},
+    {WIFI_EVENT_STA_GOT_IP,             BleWifi_Wifi_EventHandler_GotIp},
+    {WIFI_EVENT_STA_CONNECTION_FAILED,  BleWifi_Wifi_EventHandler_ConnectionFailed},
+    
+    {0xFFFFFFFF,                        NULL}
+};
 
 void BleWifi_Wifi_DoScan(uint8_t *data, int len)
 {
@@ -574,56 +596,109 @@ void BleWifi_Wifi_UpdateBeaconInfo(void)
         g_ulBleWifi_Wifi_BeaconTime = 100;
 }
 
-// it is used in the Wifi task
-int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t length)
+void BleWifi_Wifi_DtimTimeSet(uint32_t value)
+{
+    g_ulBleWifi_Wifi_DtimTime = value;
+    BleWifi_Wifi_SetDTIM(g_ulBleWifi_Wifi_DtimTime);
+}
+
+uint32_t BleWifi_Wifi_DtimTimeGet(void)
+{
+    return g_ulBleWifi_Wifi_DtimTime;
+}
+
+static int BleWifi_Wifi_EventHandler_Start(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    printf("\r\nWi-Fi Start \r\n");
+    
+    /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
+    lwip_network_init(WIFI_MODE_STA);
+    
+    /* DTIM */
+    BleWifi_Wifi_SetDTIM(0);
+    
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_INIT_COMPLETE, NULL, 0);
+
+    return 0;
+}
+
+static int BleWifi_Wifi_EventHandler_Connected(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    uint8_t reason = *((uint8_t*)data);
+    
+    printf("\r\nWi-Fi Connected, reason %d \r\n", reason);
+    lwip_net_start(WIFI_MODE_STA);
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_CONNECTION_IND, NULL, 0);
+
+    return 0;
+}
+
+static int BleWifi_Wifi_EventHandler_Disconnected(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    uint8_t reason = *((uint8_t*)data);
+    
+    printf("\r\nWi-Fi Disconnected , reason %d\r\n", reason);
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND, NULL, 0);
+
+    return 0;
+}
+
+static int BleWifi_Wifi_EventHandler_ScanComplete(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    printf("\r\nWi-Fi Scan Done \r\n");
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_SCAN_DONE_IND, NULL, 0);
+
+    return 0;
+}
+
+static int BleWifi_Wifi_EventHandler_GotIp(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    printf("\r\nWi-Fi Got IP \r\n");
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND, NULL, 0);
+
+    return 0;
+}
+
+static int BleWifi_Wifi_EventHandler_ConnectionFailed(wifi_event_id_t event_id, void *data, uint16_t length)
 {
     uint8_t reason = *((uint8_t*)data);
 
-    switch(event_id)
-    {
-        case WIFI_EVENT_STA_START:
-            printf("\r\nWi-Fi Start \r\n");
+    printf("\r\nWi-Fi Connected failed, reason %d\r\n", reason);
+    BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND, NULL, 0);
 
-            /* Tcpip stack and net interface initialization,  dhcp client process initialization. */
-            lwip_network_init(WIFI_MODE_STA);
-
-            /* DTIM */
-            BleWifi_Wifi_SetDTIM(0);
-            
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_INIT_COMPLETE, NULL, 0);
-            break;
-
-        case WIFI_EVENT_STA_CONNECTED:
-            printf("\r\nWi-Fi Connected, reason %d \r\n", reason);
-            lwip_net_start(WIFI_MODE_STA);
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_CONNECTION_IND, NULL, 0);
-            break;
-
-        case WIFI_EVENT_STA_DISCONNECTED:
-            printf("\r\nWi-Fi Disconnected , reason %d\r\n", reason);
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND, NULL, 0);
-            break;
-
-        case WIFI_EVENT_SCAN_COMPLETE:
-            printf("\r\nWi-Fi Scan Done \r\n");
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_SCAN_DONE_IND, NULL, 0);
-            break;
-
-        case WIFI_EVENT_STA_GOT_IP:
-            printf("\r\nWi-Fi Got IP \r\n");
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND, NULL, 0);
-            break;
-
-        case WIFI_EVENT_STA_CONNECTION_FAILED:
-            printf("\r\nWi-Fi Connected failed, reason %d\r\n", reason);
-            BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND, NULL, 0);
-            break;
-
-        default:
-            printf("\r\n Unknown Event %d \r\n", event_id);
-            break;
-    }
     return 0;
+}
+
+// it is used in the Wifi task
+int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t length)
+{
+    uint32_t i = 0;
+    int lRet = 0;
+
+#ifdef __BLEWIFI_TRANSPARENT__
+    at_wifi_event_update_status(event_id, data, length);
+#endif
+
+    while (g_tWifiEventHandlerTbl[i].ulEventId != 0xFFFFFFFF)
+    {
+        // match
+        if (g_tWifiEventHandlerTbl[i].ulEventId == event_id)
+        {
+            lRet = g_tWifiEventHandlerTbl[i].fpFunc(event_id, data, length);
+            break;
+        }
+
+        i++;
+    }
+
+    // not match
+    if (g_tWifiEventHandlerTbl[i].ulEventId == 0xFFFFFFFF)
+    {
+        printf("\r\n Unknown Event %d \r\n", event_id);
+        lRet = 1;
+    }
+
+    return lRet;
 }
 
 void BleWifi_Wifi_Init(void)
@@ -639,4 +714,7 @@ void BleWifi_Wifi_Init(void)
 
     /* Init the beacon time (ms) */
     g_ulBleWifi_Wifi_BeaconTime = 100;
+
+    /* Init the DTIM time (ms) */
+    g_ulBleWifi_Wifi_DtimTime = g_tAppCtrlWifiConnectSettings.ulDtimInterval;
 }

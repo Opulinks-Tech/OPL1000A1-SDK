@@ -35,9 +35,9 @@ extern "C" {
 //                     ^^^^ ^^^^ ^^^^ ^^^^ File ID, start from 0
 typedef enum
 {
-    MW_FIM_IDX_GP05_PTACH_START = 0x00050000,             // the start IDX of group 05
+    MW_FIM_IDX_GP05_PATCH_START = 0x00050000,             // the start IDX of group 05
     
-    MW_FIM_IDX_GP05_PTACH_MAX
+    MW_FIM_IDX_GP05_PATCH_MAX
 } E_MwFimIdxGroup05_Patch;
 
 

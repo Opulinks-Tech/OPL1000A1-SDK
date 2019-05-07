@@ -35,6 +35,7 @@
 #include "mw_fim_default_group03.h"
 #include "mw_fim_default_group03_patch.h"
 #include "sys_cfg.h"
+#include "at_cmd_task_patch.h"
 
 //#define AT_FLASH_CHECK_BEFORE_WRITE
 //#define AT_DEBUG
@@ -1218,6 +1219,57 @@ int at_cmd_sys_mode(char *buf, int len, int mode)
     return true;
 }
 
+int at_cmd_sys_crlf_term(char *buf, int len, int mode)
+{
+    int iRet = 0;
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    
+    if(!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+    {
+        goto done;
+    }
+    
+    switch(mode)
+    {
+        case AT_CMD_MODE_READ:
+            msg_print_uart1("AT_CRLF_TERM: %u\r\n", at_cmd_crlf_term_get());
+            break;
+
+        case AT_CMD_MODE_SET:
+        {
+            uint8_t u8Value = 0;
+
+            if(argc < 2)
+            {
+                AT_LOG("invalid param number\r\n");
+                goto done;
+            }
+
+            u8Value = (uint8_t)strtoul(argv[1], NULL, 10);
+            at_cmd_crlf_term_set((u8Value)?(1):(0));
+            break;
+        }
+
+        default:
+            goto done;
+    }
+
+    iRet = 1;
+
+done:
+    if(iRet)
+    {
+        msg_print_uart1("OK\r\n");
+    }
+    else
+    {
+        msg_print_uart1("ERROR\r\n");
+    }
+    
+    return iRet;
+}
+
 /**
   * @brief extern AT Command Table for All Module
   *
@@ -1247,5 +1299,6 @@ _at_command_t gAtCmdTbl_ext[] =
     { "at+mprst",               at_cmd_sys_mp_rst,        "Restart module (MP usage)"},
     { "at+slptmr",              at_cmd_at_slp_tmr,        "Got measured 32K XTAL freq"},
     { "at+sysmode",             at_cmd_sys_mode,          "Set the system mode"},
+    { "at+crlfterm",            at_cmd_sys_crlf_term,     "Enable/disable CRLF termination"},
     { NULL,                     NULL,                     NULL},
 };

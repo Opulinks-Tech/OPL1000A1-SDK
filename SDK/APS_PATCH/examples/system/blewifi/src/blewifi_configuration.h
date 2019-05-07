@@ -14,6 +14,11 @@
 
 // Common part
 /*
+FIM version
+*/
+#define MW_FIM_VER08_PROJECT            0x02    // 0x00 ~ 0xFF
+
+/*
 Smart sleep
 */
 #define BLEWIFI_COM_POWER_SAVE_EN       (0)     // 1: enable    0: disable
@@ -37,9 +42,10 @@ method 1: use prefix + mac address
 method 2: full name
     The max length of device name is 29 bytes.
 */
-#define BLEWIFI_BLE_DEVICE_NAME_METHOD  1           // 1 or 2
-#define BLEWIFI_BLE_DEVICE_NAME_PREFIX  "OPL_"      // for method 1
-#define BLEWIFI_BLE_DEVICE_NAME_FULL    "OPL1000"   // for method 2
+#define BLEWIFI_BLE_DEVICE_NAME_METHOD      1           // 1 or 2
+#define BLEWIFI_BLE_DEVICE_NAME_POST_COUNT  4           // for method 1 "OPL_33:44:55:66"
+#define BLEWIFI_BLE_DEVICE_NAME_PREFIX      "OPL_"      // for method 1 "OPL_33:44:55:66"
+#define BLEWIFI_BLE_DEVICE_NAME_FULL        "OPL1000"   // for method 2
 
 /* Advertisement Interval Calculation Method:
 1000 (ms) / 0.625 (ms) = 1600 = 0x640
@@ -73,12 +79,6 @@ if the auto connection is fail, the interval will be increased
 /* DTIM the times of Interval: ms
 */
 #define BLEWIFI_WIFI_DTIM_INTERVAL                  (2000)      // ms
-
-// Sensor part
-/* 
-Define polling time at once
-*/
-#define SENSOR_POLLING_DELAY_TIME_DEF               (6000)      // ms
 
 #endif /* __BLEWIFI_CONFIGURATION_H__ */
 

@@ -28,7 +28,7 @@ extern "C" {
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 // Task - Priority, the type of cmsis_os priority
-#define OS_TASK_PRIORITY_AGENT          osPriorityLow
+#define OS_TASK_PRIORITY_AGENT          osPriorityHigh
 
 // Task - Stack Size, the count of 4 bytes
 #define OS_TASK_STACK_SIZE_REFINED
@@ -47,9 +47,12 @@ extern "C" {
     #define OS_TASK_STACK_SIZE_EVENT_LOOP_PATCH     (372)
     #define OS_TASK_STACK_SIZE_TCPIP_PATCH          (484)
     #define OS_TASK_STACK_SIZE_TRACER_PATCH         (128)
-    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (128)
+    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (256)
+#if defined(__AT_CMD_SUPPORT__)
+    #define OS_TASK_STACK_SIZE_AT_WIFI_APP_PATCH    (512)
+#else
     #define OS_TASK_STACK_SIZE_AT_WIFI_APP_PATCH    (256) //(180)
-    
+#endif
     // Application Tasks
     #define OS_TASK_STACK_SIZE_BLEWIFI_CTRL         (400)
     #define OS_TASK_STACK_SIZE_BLEWIFI_USER_APP     (248)
@@ -70,7 +73,7 @@ extern "C" {
     #define OS_TASK_STACK_SIZE_EVENT_LOOP_PATCH     (512)
     #define OS_TASK_STACK_SIZE_TCPIP_PATCH          (512)
     #define OS_TASK_STACK_SIZE_TRACER_PATCH         (128)
-    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (128)
+    #define OS_TASK_STACK_SIZE_AGENT_PATCH          (256)
     #define OS_TASK_STACK_SIZE_AT_WIFI_APP_PATCH    (512)
     
     // Application Tasks

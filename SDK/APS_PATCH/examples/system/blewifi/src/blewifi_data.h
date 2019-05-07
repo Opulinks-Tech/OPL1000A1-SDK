@@ -122,6 +122,13 @@ typedef struct blewifi_hdr_tag
     uint8_t  data[]; //variable size
 }blewifi_hdr_t;
 
+typedef void (*T_BleWifi_Ble_ProtocolHandler_Fp)(uint16_t type, uint8_t *data, int len);
+typedef struct
+{
+    uint32_t ulEventId;
+    T_BleWifi_Ble_ProtocolHandler_Fp fpFunc;
+} T_BleWifi_Ble_ProtocolHandlerTbl;
+
 void BleWifi_Ble_DataRecvHandler(uint8_t *data, int len);
 void BleWifi_Ble_DataSendEncap(uint16_t type_id, uint8_t *data, int total_data_len);
 void BleWifi_Ble_SendResponse(uint16_t type_id, uint8_t status);

@@ -31,11 +31,14 @@
  */
 #define AT_VER_PATCH "1.0"
 
+typedef void (*at_cmd_switch_uart1_dbguart_fp_t)(void);
 
 void at_cmd_common_func_init_patch(void);
-void at_cmd_switch_uart1_dbguart(void);
+//void at_cmd_switch_uart1_dbguart(void);
 void at_io01_uart_mode_set(E_IO01_UART_MODE eMode);
+int at_cmd_get_para_as_digital(char *para, int *result);
 
+extern at_cmd_switch_uart1_dbguart_fp_t at_cmd_switch_uart1_dbguart;
 
 #endif /* __AT_CMD_COMMOM_PATCH_H__ */
 

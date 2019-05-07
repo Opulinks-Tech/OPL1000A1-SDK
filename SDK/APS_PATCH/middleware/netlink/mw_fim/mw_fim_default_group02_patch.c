@@ -78,6 +78,14 @@ uint32_t gMwFimAddrDhcpArpChk[MW_FIM_DHCP_ARP_CHK_NUM];
 const uint8_t gMwFimDefaultMacDataRate = 0xFF;
 uint32_t gMwFimAddrMacDataRate[MW_FIM_MAC_TX_DATA_RATE_NUM];
 
+/* AT TCPIP Transparent link data */
+const at_nvm_trans_config_t gMwFimDefaultTransLinkData = {0};
+uint32_t gMwFimAddrTransLinkData[MW_FIM_AT_TCPIP_TRANS_CFG_NUM];
+
+/* AT BLE WiFi mode */
+const uint8_t gMwFimDefaultAtBleWifi = 0;
+uint32_t gMwFimAddrAtBleWifi[MW_FIM_AT_BLE_WIFI_NUM];
+
 // the information table of group 02
 const T_MwFimFileInfo g_taMwFimGroupTable02_patch[] =
 {
@@ -89,6 +97,8 @@ const T_MwFimFileInfo g_taMwFimGroupTable02_patch[] =
     {MW_FIM_IDX_GP02_PATCH_STA_SKIP_DTIM, MW_FIM_STA_SKIP_DTIM_NUM,       MW_FIM_STA_SKIP_DTIM_SIZE,             (uint8_t*)&gMwFimDefaultwifiStaSkipDtim,   gMwFimAddrWifiStaSkipDtim}, 
     {MW_FIM_IDX_DHCP_ARP_CHK,             MW_FIM_DHCP_ARP_CHK_NUM,        MW_FIM_DHCP_ARP_CHK_SIZE,              (uint8_t*)&gMwFimDefaultDhcpArpChk,        gMwFimAddrDhcpArpChk},
     {MW_FIM_IDX_MAC_TX_DATA_RATE,         MW_FIM_MAC_TX_DATA_RATE_NUM,    MW_FIM_MAC_TX_DATA_RATE_SIZE,          (uint8_t*)&gMwFimDefaultMacDataRate,       gMwFimAddrMacDataRate},
+    {MW_FIM_IDX_AT_TCPIP_TRANS_CFG,       MW_FIM_AT_TCPIP_TRANS_CFG_NUM,  MW_FIM_AT_TCPIP_TRANS_CFG_SIZE,        (uint8_t*)&gMwFimDefaultTransLinkData,     gMwFimAddrTransLinkData},
+    {MW_FIM_IDX_AT_BLE_WIFI,              MW_FIM_AT_BLE_WIFI_NUM,         MW_FIM_AT_BLE_WIFI_SIZE,               (uint8_t*)&gMwFimDefaultAtBleWifi,         gMwFimAddrAtBleWifi},
     // the end, don't modify and remove it
     {0xFFFFFFFF,            0x00,              0x00,               NULL,                            NULL}
 };

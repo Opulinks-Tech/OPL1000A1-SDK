@@ -174,6 +174,7 @@ static void Sys_DriverInit_patch(void);
 static void Sys_ServiceInit_patch(void);
 static void SysInit_LibVersion(void);
 static void Sys_IdleHook_patch(void);
+static void Sys_PostInit_patch(void);
 
 /***********
 C Functions
@@ -210,6 +211,7 @@ void SysInit_EntryPoint(void)
     Sys_ClockSetup = Sys_ClockSetup_patch;
     Sys_DriverInit = Sys_DriverInit_patch;
     Sys_ServiceInit = Sys_ServiceInit_patch;
+    Sys_PostInit = Sys_PostInit_patch;
     Sys_IdleHook = Sys_IdleHook_patch;
 
     // FIM Default
@@ -436,33 +438,18 @@ static void Sys_DriverInit_patch(void)
     // Wait for M0 initialization to be completed
     Main_WaitforMsqReady();
 
-    // Init SPI 0/1/2
+    // Init SPI 0
     Hal_Spi_Init(SPI_IDX_0, SystemCoreClockGet()/2,
         SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
-    //Hal_Spi_Init(SPI_IDX_1, SystemCoreClockGet()/2,
-    //    SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
-    //Hal_Spi_Init(SPI_IDX_2, SystemCoreClockGet()/2,
-    //    SPI_CLK_PLOAR_HIGH_ACT, SPI_CLK_PHASE_START, SPI_FMT_MOTOROLA, SPI_DFS_08_bit, 1);
 
-    // Init flash on SPI 0/1/2
+    // Init flash on SPI 0
     Hal_Flash_Init(SPI_IDX_0);
-    //Hal_Flash_Init(SPI_IDX_1);
-    //Hal_Flash_Init(SPI_IDX_2);
 
     // FIM
     MwFim_Init();
 
     // Init UART0 / UART1
     Sys_UartInit();
-
-    // Init PWM
-    //Hal_Pwm_Init();
-
-    // Init AUXADC
-    Hal_Aux_Init();
-
-    // Other modules' init
-    Sys_MiscModulesInit();
 
     //-------------------------------------------------------------------------------------
     // Other driver config need by Task-level (sleep strategy)
@@ -472,8 +459,18 @@ static void Sys_DriverInit_patch(void)
     // cold boot
     if (0 == Boot_CheckWarmBoot())
     {
-        // the default is on
-        Hal_DbgUart_RxIntEn(1);
+        // ICE or JTag
+        if ((BOOT_MODE_ICE == Hal_Sys_StrapModeRead()) || (BOOT_MODE_JTAG == Hal_Sys_StrapModeRead()))
+        {
+            // the default is on
+            Hal_DbgUart_RxIntEn(1);
+        }
+        // others
+        else
+        {
+            // the default is off
+            Hal_DbgUart_RxIntEn(0);
+        }
     }
     // warm boot
     else
@@ -484,16 +481,13 @@ static void Sys_DriverInit_patch(void)
     // HCI and AT command
     uart1_mode_set_default();
 
-    // Other tasks' driver config
-    Sys_MiscDriverConfigSetup();
-
 	// power-saving module init
 	ps_init();
 
 	if (Boot_CheckWarmBoot())
 	{
 		ps_wait_xtal_ready();
-		Hal_Sys_ApsClkTreeSetup(ASP_CLKTREE_SRC_XTAL, 0, 0);
+		Hal_Sys_ApsClkResume();
 
 		// TODO: Revision will be provided by Ophelia after peripheral restore mechanism completed
 		uart1_mode_set_default();
@@ -511,6 +505,9 @@ static void Sys_DriverInit_patch(void)
         Hal_Wdt_Init(WDT_TIMEOUT_SECS * SystemCoreClockGet());
         NVIC_SetPriority(WDT_IRQn, IRQ_PRIORITY_WDT_PATCH);
     }
+
+    // Other modules' init
+    Sys_MiscModulesInit();
 }
 
 /*************************************************************************
@@ -575,8 +572,6 @@ static void Sys_ServiceInit_patch(void)
     auto_connect_init();
 #endif
 
-    wifi_sta_info_init();
-
     // Agent
     agent_init();
 
@@ -596,6 +591,25 @@ static void Sys_ServiceInit_patch(void)
     tcpip_config_dhcp_arp_check_init();
 }
 
+/*************************************************************************
+* FUNCTION:
+*   Sys_PostInit
+*
+* DESCRIPTION:
+*   the post initial for sys init
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+void Sys_PostInit_patch(void)
+{
+    sys_cfg_clk_init();
+    tracer_init();
+}
 
 /*************************************************************************
 * FUNCTION:

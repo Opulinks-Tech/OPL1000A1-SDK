@@ -15,7 +15,8 @@
 
 typedef enum
 {
-    AGENT_MSG_RF = 0,
+    AGENT_MSG_M0 = 0,
+    AGENT_MSG_UART1,
 
     AGENT_MSG_MAX
 } T_AgentMsgType;
@@ -23,17 +24,23 @@ typedef enum
 typedef struct
 {
     uint32_t u32Type;   // T_AgentMsgType
-    void *pParam;
-
-    // Todo
-    
+    uint32_t u32ParamLen;
+    uint8_t *pu8Param;
 } T_AgentMsg;
+
+typedef struct
+{
+    uint32_t u32Type;   // T_AgentMsgType
+    uint32_t u32ParamLen;
+    uint8_t pu8Param[];
+} T_AgentMsgInt;
 
 typedef enum
 {
     M3_MSG_RSP = 0,
     M3_MSG_RF_CFG_SET,
     M3_MSG_WIFI_CFG_SET,
+    M3_MSG_TS_CFG_SET,
 
     M3_MSG_MAX
 } T_M3MsgType;
@@ -41,8 +48,8 @@ typedef enum
 typedef enum
 {
     M0_MSG_RSP = 0,
-    M0_MSG_CFG_WRITE,
-    M0_MSG_CFG_READ,
+    M0_MSG_RF_CFG_WRITE,
+    M0_MSG_RF_CFG_READ,
 
     M0_MSG_MAX
 } T_M0MsgType;
@@ -70,15 +77,17 @@ typedef struct
 
 // internal
 typedef void (*T_AgentTaskMainFp)(void *pParam);
-typedef void (*T_AgentMsgFreeFp)(T_AgentMsg *ptMsg);
 
 // external
 typedef void (*T_AgengCommFp)(void);
 typedef int (*T_AgengMsgSendFp)(T_AgentMsg *ptMsg);
+typedef int (*T_AgentDataHandleFp)(uint32_t u32Type, uint8_t *u8aData, uint32_t u32DataLen, void *pParam);
+typedef void (*T_AgentDataHandleRegFp)(T_AgentDataHandleFp fpHandle, void *pParam);
 
 
 extern T_AgengCommFp agent_init;
 extern T_AgengMsgSendFp agent_msg_send;
+extern T_AgentDataHandleRegFp agent_data_handle_reg;
 
 void agent_patch_init(void);
 

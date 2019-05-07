@@ -41,6 +41,11 @@
 #include "wpa_cli_patch.h"
 #include "sys_common_api.h"
 #include "sys_os_config_patch.h"
+#include "at_cmd_common_patch.h"
+#include "at_cmd_data_process_patch.h"
+#include "at_cmd_nvm.h"
+
+extern void data_process_lock_patch(int module, int data_len);
 
 /******************************************************
  *                      Macros
@@ -68,7 +73,7 @@
 /******************************************************
  *                 Type Definitions
  ******************************************************/
-
+#define AT_TRANS_TERM_STR "+++"
 
 /******************************************************
  *                    Structures
@@ -87,7 +92,7 @@
 extern _at_command_t *_g_AtCmdTbl_Tcpip_Ptr;
 #if defined(__AT_CMD_SUPPORT__)
 extern volatile at_state_type_t mdState;
-extern volatile bool at_ip_mode;
+extern volatile bool at_ip_mode; // 0: normal transmission mode. 1:transparent transmission
 extern volatile bool at_ipMux;
 extern volatile bool ipd_info_enable;
 
@@ -109,9 +114,13 @@ extern osMessageQId at_tx_task_queue_id;
 extern osPoolId     at_tx_task_pool_id;
 
 extern const osPoolDef_t os_pool_def_at_tx_task_pool;
+extern uint8_t *pDataLine;
+extern uint8_t  at_data_line[];
 
 RET_DATA uint8_t g_server_mode;
 RET_DATA uint32_t g_server_port;
+
+RET_DATA TimerHandle_t at_trans_timer;
 
 /******************************************************
  *               Function Definitions
@@ -148,6 +157,59 @@ int at_close_client_patch(at_socket_t *link)
     return ret;
 }
 
+int at_create_tcp_client_trans(at_socket_t *link)
+{
+    struct sockaddr_in remote_addr;
+    int optval = 0;
+    int ret;
+    //struct timeval tv;
+
+    memset(&remote_addr, 0, sizeof(remote_addr));
+    remote_addr.sin_len = sizeof(remote_addr);
+    remote_addr.sin_family = AF_INET;
+    remote_addr.sin_port = lwip_htons(link->remote_port);
+    inet_addr_from_ip4addr(&remote_addr.sin_addr, ip_2_ip4(&link->remote_ip));
+
+    /* Create the socket */
+    link->sock = lwip_socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    if (link->sock < 0) {
+        at_show_socket_error_reason("TCP client create", link->sock);
+        return -1;
+    }
+
+    setsockopt(link->sock,SOL_SOCKET, SO_REUSEADDR ,&optval, sizeof(optval));
+    setsockopt(link->sock,SOL_SOCKET, SO_REUSEPORT, &optval, sizeof(optval));
+
+    if (link->keep_alive > 0) {
+        optval = 1;
+        setsockopt(link->sock,SOL_SOCKET, SO_KEEPALIVE, &optval, sizeof(optval));
+        optval = link->keep_alive;
+        setsockopt(link->sock,IPPROTO_TCP, TCP_KEEPIDLE,&optval, sizeof(optval));
+        optval = 1;
+        setsockopt(link->sock,IPPROTO_TCP, TCP_KEEPINTVL,&optval, sizeof(optval));
+        optval = 3;
+        setsockopt(link->sock,IPPROTO_TCP, TCP_KEEPCNT,&optval, sizeof(optval));
+    }
+
+    AT_LOGI("sock=%d, connecting to server IP:%s, Port:%d...",
+             link->sock, ipaddr_ntoa(&link->remote_ip), link->remote_port);
+
+    /* Connect */
+    ret = lwip_connect(link->sock, (struct sockaddr *)&remote_addr, sizeof(remote_addr));
+    if (ret < 0) {
+        at_show_socket_error_reason("TCP client connect", link->sock);
+        lwip_close(link->sock);
+        link->sock = -1;
+        return -1;
+    }
+    
+    AT_LOGI("Transparent Mode : socket create successful\r\n");
+    link->link_type = AT_LINK_TYPE_TCP;
+    link->link_state = AT_LINK_TRANSMIT_SEND;
+    
+    return ret;
+}
+
 void at_process_recv_socket_patch(at_socket_t *plink)
 {
     struct sockaddr_in sa;
@@ -157,14 +219,14 @@ void at_process_recv_socket_patch(at_socket_t *plink)
     char *rcv_buf = NULL;
     int len = 0;
     int32_t sock = -1;
-    char temp[40];
+    char temp[40] = {0};
 
     if (plink == NULL){
         return;
     }
 
     rcv_buf = plink->recv_buf;
-
+    
     //Poll read
     if (at_socket_read_set_timeout(plink, 10000) <= 0) {
         AT_LOGI("read timeout\r\n");
@@ -187,66 +249,58 @@ void at_process_recv_socket_patch(at_socket_t *plink)
         len = 0;
     }
 
-
     if (len > 0)
     {
         if (at_ip_mode == true) {
-
+            at_uart1_write_buffer(rcv_buf, len);
         } else {
-            char* data = (char*)malloc(40);
             uint32_t header_len = 0;
 
-            if (data) {
-                if (plink->link_type == AT_LINK_TYPE_UDP) {
-                    inet_addr_to_ip4addr(ip_2_ip4(&remote_ip), &sa.sin_addr);
-                    remote_port = htons(sa.sin_port);
+            if (plink->link_type == AT_LINK_TYPE_UDP) {
+                inet_addr_to_ip4addr(ip_2_ip4(&remote_ip), &sa.sin_addr);
+                remote_port = htons(sa.sin_port);
 
-                    if (plink->change_mode == 2) {
-                        plink->remote_ip = remote_ip;
-                        plink->remote_port = remote_port;
-                    } else if (plink->change_mode == 1) {
-                        plink->remote_ip = remote_ip;
-                        plink->remote_port = remote_port;
-                        plink->change_mode = 0;
-                    }
-                } else { //TCP
-                    remote_ip = plink->remote_ip;
-                    remote_port = plink->remote_port;
+                if (plink->change_mode == 2) {
+                    plink->remote_ip = remote_ip;
+                    plink->remote_port = remote_port;
+                } else if (plink->change_mode == 1) {
+                    plink->remote_ip = remote_ip;
+                    plink->remote_port = remote_port;
+                    plink->change_mode = 0;
                 }
+            } else { //TCP
+                remote_ip = plink->remote_ip;
+                remote_port = plink->remote_port;
+            }
 
-                if (ipd_info_enable == true) {
-                    if (at_ipMux) {
-                        header_len = sprintf(data, "\r\n+IPD,%d,%d,"IPSTR",%d:",plink->link_id, len,
-                                IP2STR(&remote_ip), remote_port);
-                    }
-                    else {
-                        header_len = sprintf(data, "\r\n+IPD,%d,"IPSTR",%d:", len,
-                                IP2STR(&remote_ip), remote_port);
-
-                    }
-                } else {
-                    if (at_ipMux) {
-                        header_len = sprintf(data,"\r\n+IPD,%d,%d:",plink->link_id, len);
-                    } else {
-                        header_len = sprintf(data,"\r\n+IPD,%d:",len);
-                    }
+            if (ipd_info_enable == true) {
+                if (at_ipMux) {
+                    header_len = sprintf(temp, "\r\n+IPD,%d,%d,"IPSTR",%d:",plink->link_id, len,
+                            IP2STR(&remote_ip), remote_port);
                 }
+                else {
+                    header_len = sprintf(temp, "\r\n+IPD,%d,"IPSTR",%d:", len,
+                            IP2STR(&remote_ip), remote_port);
 
-                // Send +IPD info
-                at_uart1_write_buffer(data, header_len);
-                // Send data
-                at_uart1_write_buffer(rcv_buf, len);
-                free(data);
-                data = NULL;
-
-                if (plink->link_state != AT_LINK_WAIT_SENDING) {
-                    plink->link_state = AT_LINK_CONNECTED;
-                }
-                if ((plink->sock >= 0) && (plink->terminal_type == AT_REMOTE_CLIENT)) {
-                    plink->server_timeout = 0;
                 }
             } else {
-                printf("alloc fail\r\n");
+                if (at_ipMux) {
+                    header_len = sprintf(temp,"\r\n+IPD,%d,%d:",plink->link_id, len);
+                } else {
+                    header_len = sprintf(temp,"\r\n+IPD,%d:",len);
+                }
+            }
+
+            // Send +IPD info
+            at_uart1_write_buffer(temp, header_len);
+            // Send data
+            at_uart1_write_buffer(rcv_buf, len);
+
+            if (plink->link_state != AT_LINK_WAIT_SENDING) {
+                plink->link_state = AT_LINK_CONNECTED;
+            }
+            if ((plink->sock >= 0) && (plink->terminal_type == AT_REMOTE_CLIENT)) {
+                plink->server_timeout = 0;
             }
         }
     }
@@ -255,8 +309,8 @@ void at_process_recv_socket_patch(at_socket_t *plink)
         //len = 0, Connection close
         //len < 0, error
         if(plink->sock >= 0) {
-            if ((at_ip_mode != TRUE) || (plink->link_state != AT_LINK_TRANSMIT_SEND)) {
-                if (at_ipMux == TRUE) {
+            if ((at_ip_mode != true) || (plink->link_state != AT_LINK_TRANSMIT_SEND)) {
+                if (at_ipMux == true) {
                     sprintf(temp,"%d,CLOSED\r\n", plink->link_id);
                 } else {
                     sprintf(temp,"CLOSED\r\n");
@@ -272,12 +326,19 @@ void at_process_recv_socket_patch(at_socket_t *plink)
                         close(sock);
                     }
                     plink->link_state = AT_LINK_DISCONNECTED;
-            	}
+                }
+            } else {
+                AT_LOGI("Transparent Mode : Socket closed\r\n");
+                if (plink->sock >= 0) {
+                    close(plink->sock);
+                    plink->sock = -1;
+                }
+                plink->link_type = AT_LINK_TYPE_INVALID;
+                plink->link_state = AT_LINK_DISCONNECTED;
+                plink->link_en = 0;
             }
         }
     }
-
-    free(rcv_buf);
 }
 
 int at_socket_client_cleanup_task_patch(at_socket_t* plink)
@@ -442,6 +503,57 @@ int at_socket_server_cleanup_task_patch(int sock)
     return 1;
 }
 
+void at_trans_timeout_cb( TimerHandle_t xTimer )
+{
+    uint32_t data_len = 0;
+    data_len = pDataLine - at_data_line;
+    pDataLine = at_data_line;
+    
+    if (data_len > 0) {
+        //When a single packet containing +++ is received,
+        //returns to normal command mode.
+        if (memcmp(&at_data_line[0], AT_TRANS_TERM_STR, 3) == 0) {
+            at_ip_mode = false;
+            atcmd_socket[0].send_mode = AT_SEND_MODE_IDLE;
+            pDataLine = at_data_line; //Point to index 0
+            data_process_unlock();
+            
+            if (at_trans_timer) {
+                xTimerStop(at_trans_timer, portMAX_DELAY);
+                xTimerDelete(at_trans_timer, portMAX_DELAY);
+                at_trans_timer = NULL;
+            }
+            
+            AT_LOGI("Transparent Mode : off\r\n");
+            return;
+        }
+        
+        at_event_msg_t msg = {0};
+
+        msg.event = AT_DATA_TX_EVENT;
+        msg.length = data_len;
+        msg.param = at_data_line;
+        at_data_task_send(&msg);
+    }
+}
+
+int at_cmd_trans_lock(void)
+{
+    data_process_lock_patch(LOCK_TCPIP, AT_TCP_TRANS_LOCK_ID);
+    
+    if (at_trans_timer == NULL) {
+        at_trans_timer = xTimerCreate("TransTimoutTmr",
+                                      (20 / portTICK_PERIOD_MS),
+                                      pdTRUE,
+                                      NULL,
+                                      at_trans_timeout_cb);
+        xTimerStart(at_trans_timer, 0);
+    }
+    
+    AT_LOGI("Transparent Mode : on\r\n");
+    
+    return 0;
+}
 
 /*
  * @brief Command at+at_cmd_tcpip_cipstatus
@@ -659,7 +771,12 @@ int _at_cmd_tcpip_cipstart_patch(char *buf, int len, int mode)
                 changType = atoi(argv[para++]); //last param
                 if((changType < 0) || (changType > 2))
                 {
-                     goto exit;
+                    goto exit;
+                }
+                
+                if ((at_ip_mode == true) && (changType != 0))
+                {
+                    goto exit;
                 }
                 AT_LOGI("changType %d\r\n", changType);
             }
@@ -717,6 +834,8 @@ int _at_cmd_tcpip_cipstart_patch(char *buf, int len, int mode)
             goto exit;
     }
 
+    at_create_tcpip_data_task();
+    
     if(at_ipMux)
     {
         at_sprintf(response,"%d,CONNECT\r\n", linkID);
@@ -769,7 +888,7 @@ int _at_cmd_tcpip_cipclose_patch(char *buf, int len, int mode)
             {
                 at_socket_client_cleanup_task(link);
                 at_sprintf(resp_buf,"%d,CLOSED\r\n", 0);
-            msg_print_uart1(resp_buf);
+                msg_print_uart1(resp_buf);
                 ret = AT_RESULT_CODE_OK;
             }
 
@@ -826,6 +945,88 @@ exit:
     at_response_result(ret);
 
     return true;
+}
+
+/*
+ * @brief Command at+cipmux
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int at_cmd_tcpip_cipmux_patch(char *buf, int len, int mode)
+{
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+    int  ipMux;
+    uint8_t ret = AT_RESULT_CODE_ERROR;
+
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+    {
+        AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
+        goto exit;
+    }
+    
+    switch (mode) {
+        case AT_CMD_MODE_READ:
+            msg_print_uart1("+CIPMUX:%d\r\n", at_ipMux);
+            break;
+
+        case AT_CMD_MODE_SET:
+
+            if (mdState == AT_STA_LINKED)
+            {
+                msg_print_uart1("link is builded\r\n");
+                goto exit;
+            }
+
+            if (at_cmd_get_para_as_digital(argv[1], &ipMux) != 0) {
+                goto exit;
+            }
+            
+            if (ipMux > 1 || ipMux < 0)
+            {
+                goto exit;
+            }
+            
+            if (ipMux == 1)
+            {
+                if (at_ip_mode == true)  // now serverEn is 0
+                {
+                    msg_print_uart1("IPMODE must be 0\r\n");
+                    goto exit;
+                }
+                at_ipMux = true;
+            }
+            else
+            {
+                if (tcp_server_socket >= 0)
+                {
+                    msg_print_uart1("CIPSERVER must be 0\r\n");
+                    goto exit;
+                }
+                if((at_ipMux == TRUE) && (mdState == AT_STA_LINKED))
+                {
+                    msg_print_uart1("Connection exists\r\n");
+                    goto exit;
+                }
+                at_ipMux = false;
+            }
+            break;
+
+        default :
+            ret = AT_RESULT_CODE_IGNORE;
+            goto exit;
+    }
+
+    ret = AT_RESULT_CODE_OK;
+exit:
+    at_response_result(ret);
+
+    return ret;
 }
 
 /*
@@ -950,11 +1151,184 @@ exit:
     return true;
 }
 
+
+
+/*
+ * @brief Command at+cipmode
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int at_cmd_tcpip_cipmode_patch(char *buf, int len, int mode)
+{
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+    uint8_t ret = AT_RESULT_CODE_ERROR;
+    
+    if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+    {
+        AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
+        goto exit;
+    }
+    
+    switch (mode) {
+        case AT_CMD_MODE_READ:
+            msg_print_uart1("+CIPMODE:%d\r\n", at_ip_mode);
+            ret = AT_RESULT_CODE_OK;
+            break;
+        case AT_CMD_MODE_SET:
+        {
+            int ip_mode;
+            
+            if (at_ipMux == true) {
+                goto exit;
+            }
+            
+            if (at_cmd_get_para_as_digital(argv[1], &ip_mode) != 0) {
+                goto exit;
+            }
+            
+            if (ip_mode > 1 || ip_mode < 0) {
+                goto exit;
+            }
+            
+            if (atcmd_socket[0].sock >= 0 && ip_mode == 1) {
+                if (atcmd_socket[0].link_type == AT_LINK_TYPE_UDP &&
+                    atcmd_socket[0].change_mode != 0) {
+                    goto exit;
+                }
+                
+                atcmd_socket[0].send_mode = AT_SEND_MODE_TRANSMIT;
+                atcmd_socket[0].link_state = AT_LINK_TRANSMIT_CONNECTED;
+            }
+            
+            at_ip_mode = ip_mode;
+            ret = AT_RESULT_CODE_OK;
+        }
+            break;
+        default:
+            ret = AT_RESULT_CODE_IGNORE;
+            break;
+    }
+    
+exit:
+    at_response_result(ret);
+    return true;
+}
+
+/*
+ * @brief Command at+cipsend
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int at_cmd_tcpip_cipsend_patch(char *buf, int len, int mode)
+{
+    char *param = NULL;
+    at_socket_t *link;
+    int send_id = 0;
+    int send_len = 0;
+    uint8_t ret = AT_RESULT_CODE_ERROR;
+
+    switch (mode) {
+        case AT_CMD_MODE_EXECUTION:
+            //TODO:start sending data in transparent transmission mode.
+            if (at_ipMux == true || at_ip_mode == false) {
+                goto exit;
+            }
+            
+            if (atcmd_socket[0].sock < 0) {
+                goto exit;
+            }
+            
+            atcmd_socket[0].link_state = AT_LINK_TRANSMIT_SEND;
+            
+            sending_id = send_id;
+            at_send_len = 0;
+            pDataLine = at_data_line;
+            
+            at_cmd_trans_lock();
+            
+            at_response_result(AT_RESULT_CODE_OK);
+            msg_print_uart1("\r\n> ");
+            ret = AT_RESULT_CODE_IGNORE;
+            break;
+
+        case AT_CMD_MODE_SET:  // AT+CIPSEND= link,<op>
+            param = strtok(buf, "=");
+            
+            if (at_ip_mode == true)
+            {
+                goto exit;
+            }
+            
+            if (at_ipMux) {
+                /* Multiple connections */
+                param = strtok(NULL, ",");
+                send_id = (uint8_t)atoi(param);
+                if (send_id >= AT_LINK_MAX_NUM) {
+                    goto exit;
+                }
+            } else {
+                send_id = 0;
+            }
+
+            link = at_link_get_id(send_id);
+            if (link->sock < 0) {
+                msg_print_uart1("link is not connected\r\n");
+                goto exit;
+            }
+
+            param = strtok(NULL, "\0");
+
+            send_len = atoi(param);
+            if (send_len > AT_DATA_LEN_MAX) {
+               msg_print_uart1("data length is too long\r\n");
+               goto exit;
+            }
+
+
+            if (link->link_type == AT_LINK_TYPE_UDP)
+            {
+              //TODO: Remote IP and ports can be set in UDP transmission:
+              //AT+CIPSEND=[<link ID>,]<length>[,<remote IP>,<remote port>]
+            }
+
+            //switch port input to TCP/IP module
+            sending_id = send_id;
+            at_send_len = send_len;
+            pDataLine = at_data_line;
+            data_process_lock(LOCK_TCPIP, at_send_len);
+            at_response_result(AT_RESULT_CODE_OK);
+            msg_print_uart1("\r\n> ");
+            ret = AT_RESULT_CODE_IGNORE;
+            break;
+
+        default :
+            break;
+    }
+
+exit:
+    at_response_result(ret);
+    return ret;
+}
+
 void at_create_tcpip_tx_task_patch(void)
 {
     osThreadDef_t task_def;
     osMessageQDef_t queue_def;
-
+    
+    if (at_tx_task_id != NULL)
+        return;
+    
     /* Create task */
     task_def.name = OS_TASK_NAME_AT_TX_DATA;
     task_def.stacksize = OS_TASK_STACK_SIZE_AT_TX_DATA_PATCH;
@@ -986,7 +1360,374 @@ void at_create_tcpip_tx_task_patch(void)
         printf("at_data Tx create queue fail \r\n");
     }
 }
-#endif
+
+int at_ip_send_data_patch(uint8_t *pdata, int send_len)
+{
+    at_socket_t *link = at_link_get_id(sending_id);
+    int actual_send = 0;
+    int i;
+    char buf[64];
+
+    if (at_ip_mode == false)
+    {
+        at_sprintf(buf, "\r\nRecv %d bytes\r\n", send_len);
+        msg_print_uart1(buf);
+    }
+    
+    for (i=0; i<send_len; i++) {
+        printf("%c", pdata[i]);
+    }
+    printf("\r\n");
+    
+    if(link->sock < 0)
+    {
+        link->link_state = AT_LINK_DISCONNECTED;
+        AT_LOGI("link_state is AT_LINK_DISCONNECTED\r\n");
+        return -1;
+    }
+
+    if (link->link_type == AT_LINK_TYPE_TCP) {
+        actual_send = lwip_write(link->sock, pdata, send_len);
+        if (actual_send <= 0) {
+            at_show_socket_error_reason("client send", link->sock);
+            return -1;
+        } else {
+            AT_LOGI("id:%d,Len:%d,dp:%p\r\n", sending_id, send_len, pdata);
+        }
+    } else if (link->link_type == AT_LINK_TYPE_UDP) {
+
+        struct sockaddr_in addr;
+        memset(&addr, 0x0, sizeof(addr));
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons(link->remote_port);
+        inet_addr_from_ip4addr(&addr.sin_addr, ip_2_ip4(&link->remote_ip));
+
+        AT_LOGI("sock=%d, udp send data to server IP:%s, Port:%d...",
+             link->sock, ipaddr_ntoa(&link->remote_ip), link->remote_port);
+
+
+        actual_send = sendto(link->sock, pdata, send_len, 0, (struct sockaddr *)&addr, sizeof(addr));
+        if (actual_send <= 0) {
+            at_show_socket_error_reason("client send", link->sock);
+            return -1;
+        } else {
+            AT_LOGI("id:%d,Len:%d,dp:%p\r\n", sending_id, send_len, pdata);
+        }
+    }
+
+    return 0;
+}
+
+void at_socket_process_task_patch(void *arg)
+{
+    at_socket_t* plink = (at_socket_t*)arg;
+    bool link_count_flag = false;
+
+    if (plink == NULL) {
+        plink->task_handle = NULL;
+        vTaskDelete(NULL);
+    }
+
+    //xSemaphoreTake(plink->sema,0);
+    if ((plink->link_type == AT_LINK_TYPE_TCP) || (plink->link_type == AT_LINK_TYPE_SSL)) {
+        link_count_flag = true;
+        at_update_link_count(1);
+    }
+
+    for(;;)
+    {
+        if ((plink->link_state == AT_LINK_DISCONNECTED) || (plink->link_state == AT_LINK_DISCONNECTING)) {
+            if (at_ip_mode == true) {
+                if (at_create_tcp_client_trans(plink) < 0) {
+                    vTaskDelay(300);
+                    continue;
+                }
+            }
+            else {
+                break;
+            }
+        }
+        at_process_recv_socket(plink);
+    }
+
+    if (link_count_flag) {
+        at_update_link_count(-1);
+    }
+
+    if (plink->recv_buf) {
+        free(plink->recv_buf);
+        plink->recv_buf = NULL;
+        AT_LOGI("plink->recv_buf=%p\r\n", plink->recv_buf);
+    }
+    
+    AT_LOGI("socket recv delete\r\n");
+
+    if(plink->link_state == AT_LINK_DISCONNECTING) {
+    	//xSemaphoreGive(plink->sema);
+        plink->link_state = AT_LINK_DISCONNECTED;
+    }
+
+    plink->task_handle = NULL;
+    vTaskDelete(NULL);
+}
+
+void at_data_tx_task_patch(void *arg)
+{
+    osEvent event;
+    at_event_msg_t *pMsg;
+
+    while(1)
+    {
+        event = osMessageGet(at_tx_task_queue_id, osWaitForever);
+        if (event.status == osEventMessage)
+        {
+            pMsg = (at_event_msg_t*) event.value.p;
+            switch(pMsg->event)
+            {
+                case AT_DATA_TX_EVENT:
+                    AT_LOGI("at data event: %02X\r\n", pMsg->event);
+                    if (at_ip_mode != true)
+                    {
+                        if (at_ip_send_data(pMsg->param, pMsg->length) < 0)
+                            msg_print_uart1("\r\nSEND FAIL\r\n");
+                        else
+                            msg_print_uart1("\r\nSEND OK\r\n");
+                        data_process_unlock();
+                    }
+                    else
+                    {
+                        at_ip_send_data(pMsg->param, pMsg->length);
+                    }
+                    break;
+                case AT_DATA_TIMER_EVENT:
+                    at_server_timeout_handler();
+                    break;
+                default:
+                    AT_LOGI("FATAL: unknow at event: %02X\r\n", pMsg->event);
+                    break;
+            }
+            if(pMsg->param != NULL)
+                free(pMsg->param);
+            osPoolFree(at_tx_task_pool_id, pMsg);
+        }
+    }
+}
+
+int at_trans_client_init(at_nvm_trans_config_t *trans_cfg)
+{
+    int ret = AT_RESULT_CODE_ERROR;
+    at_socket_t *plink = NULL;
+    
+    if (trans_cfg == NULL) {
+        goto exit;
+    }
+    
+    if ((trans_cfg->enable != true) || (at_ip_mode != true)) {
+        ret = AT_RESULT_CODE_OK;
+        AT_LOGI("No saved links.\r\n");
+        goto exit;
+    }
+    
+    if ((trans_cfg->link_id != 0) || 
+        (trans_cfg->link_type != AT_LINK_TYPE_TCP && trans_cfg->link_type != AT_LINK_TYPE_UDP) ||
+        (at_strlen(trans_cfg->remote_ip) == 0)) {
+        AT_LOGI("Saved links type error.\r\n");
+        goto exit;
+    }
+    
+    plink = at_link_get_id(trans_cfg->link_id);
+    plink->link_id       = trans_cfg->link_id;
+    plink->link_type     = trans_cfg->link_type;
+    plink->remote_port   = trans_cfg->remote_port;
+    plink->local_port    = trans_cfg->local_port;
+    plink->change_mode   = trans_cfg->change_mode;
+    plink->keep_alive    = trans_cfg->keep_alive;
+    plink->send_mode     = AT_SEND_MODE_TRANSMIT;
+    plink->terminal_type = AT_LOCAL_CLIENT;
+    plink->repeat_time   = 0;
+    plink->link_state    = AT_LINK_DISCONNECTED;
+    
+    switch (plink->link_type) {
+        case AT_LINK_TYPE_TCP:
+            if (at_create_tcp_client(plink, (char *)trans_cfg->remote_ip, plink->remote_port, 0) < 0)
+            {
+                AT_LOGI("Transparent create client failed.\r\n");
+                at_close_client(plink);
+                goto exit;
+            }
+            break;
+        case AT_LINK_TYPE_UDP:
+            if (at_create_udp_client(plink, (char *)trans_cfg->remote_ip, plink->remote_port, plink->local_port, 0) < 0)
+            {
+                AT_LOGI("Transparent create client failed.\r\n");
+                at_close_client(plink);
+                goto exit;
+            }
+            break;
+        default:
+            break;
+    }
+    
+    if ((plink->recv_buf = (char *)malloc(AT_DATA_RX_BUFSIZE * sizeof(char))) == NULL) {
+        AT_LOGI("rx buffer alloc fail\r\n");
+        goto exit;
+    }
+    
+    ret = AT_RESULT_CODE_OK;
+    
+    plink->link_state    = AT_LINK_TRANSMIT_SEND;
+    
+    at_socket_client_create_task(plink);
+    
+    at_create_tcpip_data_task();
+    
+exit:
+    return ret;
+}
+
+/*
+ * @brief Command at+savetranslink
+ *
+ * @param [in] argc count of parameters
+ *
+ * @param [in] argv parameters array
+ *
+ * @return 0 fail 1 success
+ *
+ */
+int at_cmd_tcpip_savetranslink_patch(char *buf, int len, int mode)
+{
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+    int argc = 0;
+    uint8_t ret = AT_RESULT_CODE_ERROR;
+    
+    at_nvm_trans_config_t cfg;
+    int enable = 0;
+    int remote_port;
+    uint8_t link_type = AT_LINK_TYPE_TCP;
+    uint32_t ipaddr = 0;
+    int keep_alive = 0;
+    int local_port = 0;
+    char *pStr = NULL;
+    char *remote_ip = NULL;
+    
+    switch (mode) {
+        case AT_CMD_MODE_READ:
+            break;
+        
+        case AT_CMD_MODE_SET:
+            if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS)) {
+                AT_LOGI("at_cmd_buf_to_argc_argv fail\r\n");
+                goto exit;
+            }
+            
+            if (at_cmd_get_para_as_digital(argv[1], &enable) != 0) {
+                goto exit;
+            }
+            
+            if (enable == 1) {
+                if (argc < 4) {
+                    goto exit;
+                }
+                
+                pStr = at_cmd_param_trim(argv[2]);
+                if(!pStr) {
+                    goto exit;
+                }
+                AT_LOGI("%s\r\n", pStr);
+                
+                remote_ip = pStr;
+                ipaddr = inet_addr((char*)pStr);
+                if (ipaddr == IPADDR_ANY)
+                {
+                    AT_LOGI("ipaddr is 0x%x\r\n", ipaddr);
+                    goto exit;
+                }
+                
+                if (ipaddr == IPADDR_NONE) {
+                    if (at_strcmp(pStr, "255.255.255.255") == 0) {
+                        AT_LOGI("ipaddr is 0x%x\r\n", ipaddr);
+                        goto exit;
+                    }
+                }
+                
+                if (at_cmd_get_para_as_digital(argv[3], &remote_port) != 0) {
+                    goto exit;
+                }
+                
+                if((remote_port <=0) || (remote_port > 65535))
+                {
+                    AT_LOGI("remote_port is %d\r\n", remote_port);
+                    goto exit;
+                }
+                
+                if (argc >= 5) {
+                    pStr = at_cmd_param_trim(argv[4]);
+                    if(!pStr) {
+                        goto exit;
+                    }
+                    
+                    if (at_strcmp(pStr, "TCP") == 0) {
+                        link_type = AT_LINK_TYPE_TCP;
+                    }
+                    else if (at_strcmp(pStr, "UDP") == 0) {
+                        link_type = AT_LINK_TYPE_UDP;
+                    }
+                    else {
+                        AT_LOGI("Link type ERROR\r\n");
+                        goto exit;
+                    }
+                }
+                
+                if (argc >= 6) {
+                    if (link_type == AT_LINK_TYPE_TCP) {
+                        if (at_cmd_get_para_as_digital(argv[5], &keep_alive) != 0) {
+                            goto exit;
+                        }
+                        
+                        if (keep_alive < 0 || keep_alive > 7200) {
+                            goto exit;
+                        }
+                    } else if (link_type == AT_LINK_TYPE_UDP) {
+                        if (at_cmd_get_para_as_digital(argv[5], &local_port) != 0) {
+                            goto exit;
+                        }
+                        
+                        if (local_port <= 0 || local_port > 65535) {
+                            goto exit;
+                        }
+                    }
+                }
+            }
+            
+            memset(&cfg, 0, sizeof(at_nvm_trans_config_t));
+            cfg.enable = enable;
+            cfg.link_id = 0;
+            cfg.link_type = link_type;
+            at_strncpy(cfg.remote_ip, remote_ip, sizeof(cfg.remote_ip));
+            cfg.remote_port = remote_port;
+            cfg.local_port  = local_port;
+            cfg.keep_alive = keep_alive;
+            
+            if (at_cmd_nvm_trans_config_set(&cfg)) {
+                AT_LOGI("Save transparent config failed. \r\n");
+                goto exit;
+            }
+            
+            ret = AT_RESULT_CODE_OK;
+            break;
+        
+        default :
+            ret = AT_RESULT_CODE_IGNORE;
+            break;
+    }
+    
+exit:
+    at_response_result(ret);
+    
+    return true;
+}
+#endif /* #if defined(__AT_CMD_SUPPORT__) */
 
 /*
  * @brief Command at+cipstamac
@@ -1090,6 +1831,7 @@ void _at_cmd_tcpip_func_init_patch(void)
     #if defined(__AT_CMD_SUPPORT__)
     g_server_mode = 0;
     g_server_port = 0;
+    at_trans_timer = NULL;
     
     at_update_link_count                = at_update_link_count_patch;
     at_close_client                     = at_close_client_patch;
@@ -1099,14 +1841,19 @@ void _at_cmd_tcpip_func_init_patch(void)
     at_socket_server_create_task        = at_socket_server_create_task_patch;
     at_socket_server_cleanup_task       = at_socket_server_cleanup_task_patch;
     at_create_tcpip_tx_task             = at_create_tcpip_tx_task_patch;
-
+    at_socket_process_task              = at_socket_process_task_patch;
+    at_data_tx_task                     = at_data_tx_task_patch;
+    at_ip_send_data                     = at_ip_send_data_patch;
+    
     /** Command Table (TCP/IP) */
     _g_AtCmdTbl_Tcpip_Ptr[0].cmd_handle  = _at_cmd_tcpip_cipstatus_patch;
     _g_AtCmdTbl_Tcpip_Ptr[2].cmd_handle  = _at_cmd_tcpip_cipstart_patch;
+    _g_AtCmdTbl_Tcpip_Ptr[3].cmd_handle  = at_cmd_tcpip_cipsend_patch;
     _g_AtCmdTbl_Tcpip_Ptr[5].cmd_handle  = _at_cmd_tcpip_cipclose_patch;
+    _g_AtCmdTbl_Tcpip_Ptr[7].cmd_handle  = at_cmd_tcpip_cipmux_patch;
     _g_AtCmdTbl_Tcpip_Ptr[8].cmd_handle  = _at_cmd_tcpip_cipserver_patch;
+    _g_AtCmdTbl_Tcpip_Ptr[9].cmd_handle  = at_cmd_tcpip_cipmode_patch;
+    _g_AtCmdTbl_Tcpip_Ptr[10].cmd_handle  = at_cmd_tcpip_savetranslink_patch;
     #endif
     _g_AtCmdTbl_Tcpip_Ptr[16].cmd_handle = _at_cmd_tcpip_cipstamac_patch;
 }
-
-
