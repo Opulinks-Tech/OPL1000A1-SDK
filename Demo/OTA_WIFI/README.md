@@ -10,8 +10,8 @@ This demo is used to evaluate OPL1000 device OTA function through WIFI path.  Us
 1. OPL1000-Demo-ota-wifi-guide.pdf: Guide document of how to run this demo. 
 2. http_server.exe:  PC program that provide http server function.  
 3. opl1000_app_m3_ota_wifi.bin: M3 bin file that build from SDK\APS_PATCH\examples\system\ota_wifi example.
-4. opl1000_m0.bin: M0 bin file. It is needed when pack M3  bin and M0 bin file to a whole firmware. This file is copied from FW_Binary folder. 
-5. opl1000_ota_loader.bin: OPL1000 boot agant bin file. It is used when creating OTA format image file.  This file is copied from FW_Binary folder. 
+4. opl1000_m0.bin: M0 bin file. It is needed when pack M3  bin and M0 bin file to a whole firmware. This file is copied from FW_Pack folder. 
+5. opl1000_ota_loader.bin: OPL1000 boot agant bin file. It is used when creating OTA format image file.  This file is copied from FW_Pack folder. 
 6. opl1000_ota.bin: OTA upgrade example image file. It shall be placed under the folder where http_server.exe locates. 
 7. PatchData.txt: Pack script file. 
 
