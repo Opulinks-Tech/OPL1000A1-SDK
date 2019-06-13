@@ -1367,8 +1367,8 @@ void Tracer_PatchInit(void)
     tracer_msg_free = tracer_msg_free_impl;
     */
     tracer_opt_entry_add = tracer_opt_entry_add_patch;
+    tracer_task_name_get = tracer_task_name_get_patch;
     /*
-    tracer_task_name_get = tracer_task_name_get_impl;
     tracer_task_main = tracer_task_main_impl;
     tracer_task_handle_get = tracer_task_handle_get_impl;
     tracer_level_get = tracer_level_get_impl;

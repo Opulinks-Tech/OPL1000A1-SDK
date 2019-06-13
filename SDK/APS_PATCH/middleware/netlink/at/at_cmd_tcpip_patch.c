@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include "cmsis_os.h"
+#include "hal_wdt.h"
 #include "at_cmd.h"
 #include "at_cmd_tcpip.h"
 #include "at_cmd_common.h"
@@ -553,6 +554,27 @@ int at_cmd_trans_lock(void)
     AT_LOGI("Transparent Mode : on\r\n");
     
     return 0;
+}
+
+void at_server_timeout_handler_patch(void)
+{
+    uint8_t loop = 0;
+    at_socket_t *link = NULL;
+    char resp_buf[32];
+    
+    for (loop = 0; loop < at_netconn_max_num; loop++) {
+        link = at_link_get_id(loop);
+        if ((link->sock >= 0) && (link->terminal_type == AT_REMOTE_CLIENT)) {
+            link->server_timeout++;
+
+            if (link->server_timeout >= server_timeover) {
+                at_socket_client_cleanup_task(link);
+                at_sprintf(resp_buf,"%d,CLOSED\r\n", loop);
+                msg_print_uart1(resp_buf);
+            }
+        }
+    }
+    AT_LOGI("at_server_timeout_handler\r\n");
 }
 
 /*
@@ -1122,6 +1144,7 @@ int _at_cmd_tcpip_cipserver_patch(char *buf, int len, int mode)
 
             if (g_server_mode == 1)
             {
+                at_create_tcpip_data_task();
                 at_create_tcp_server(g_server_port, 0);
             }
             else
@@ -1448,6 +1471,7 @@ void at_socket_process_task_patch(void *arg)
             }
         }
         at_process_recv_socket(plink);
+        Hal_Wdt_Clear();
     }
 
     if (link_count_flag) {
@@ -1622,6 +1646,10 @@ int at_cmd_tcpip_savetranslink_patch(char *buf, int len, int mode)
             }
             
             if (at_cmd_get_para_as_digital(argv[1], &enable) != 0) {
+                goto exit;
+            }
+            
+            if (enable > 1 || enable < 0) {
                 goto exit;
             }
             
@@ -1844,6 +1872,7 @@ void _at_cmd_tcpip_func_init_patch(void)
     at_socket_process_task              = at_socket_process_task_patch;
     at_data_tx_task                     = at_data_tx_task_patch;
     at_ip_send_data                     = at_ip_send_data_patch;
+    at_server_timeout_handler           = at_server_timeout_handler_patch;
     
     /** Command Table (TCP/IP) */
     _g_AtCmdTbl_Tcpip_Ptr[0].cmd_handle  = _at_cmd_tcpip_cipstatus_patch;

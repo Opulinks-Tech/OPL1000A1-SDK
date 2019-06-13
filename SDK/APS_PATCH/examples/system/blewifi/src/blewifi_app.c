@@ -17,10 +17,13 @@
  *
  */
 #include "blewifi_configuration.h"
+#include "blewifi_common.h"
 #include "blewifi_app.h"
 #include "blewifi_wifi_api.h"
 #include "blewifi_ble_api.h"
 #include "blewifi_ctrl.h"
+#include "blewifi_ctrl_http_ota.h"
+#include "iot_data.h"
 #include "sys_common_api.h"
 #include "ps_public.h"
 #include "mw_fim_default_group03.h"
@@ -38,6 +41,11 @@ void BleWifiAppInit(void)
     T_MwFim_GP08_PowerSaving tPowerSaving;
     
 	gTheOta = 0;
+
+#if (SNTP_FUNCTION_EN == 1)
+    g_ulSntpSecondInit = SNTP_SEC_2019;     // Initialize the Sntp Value
+    g_ulSystemSecondInit = 0;               // Initialize System Clock Time
+#endif
 
     // get the settings of system mode
 	if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP03_PATCH_SYS_MODE, 0, MW_FIM_SYS_MODE_SIZE, (uint8_t*)&tSysMode))
@@ -65,9 +73,22 @@ void BleWifiAppInit(void)
         /* blewifi "control" task Initialization */
         BleWifi_Ctrl_Init();
 
+        /* blewifi HTTP OTA */
+        #if (WIFI_OTA_FUNCTION_EN == 1)
+        blewifi_ctrl_http_ota_task_create();
+        #endif
+
+        /* IoT device Initialization */
+        #if (IOT_DEVICE_DATA_TX_EN == 1) || (IOT_DEVICE_DATA_RX_EN == 1)
+        Iot_Data_Init();
+        #endif
+
         /* Power saving settings */
         if (tSysMode.ubSysMode == MW_FIM_SYS_MODE_USER)
             ps_smart_sleep(tPowerSaving.ubPowerSaving);
+        
+        /* RF Power settings */
+        BleWifi_RFPowerSetting(tPowerSaving.ubRFPower);
     }
 
     // update the system mode

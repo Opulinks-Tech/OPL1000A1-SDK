@@ -23,7 +23,9 @@
 
 #define SCAN_ACTIVE_MIN_DUR_TIME_DEF  100
 #define SCAN_PASSIVE_MIN_DUR_TIME_DEF 150
+#define SCAN_PROBE_REQ_COUNTERS_DEF   1
 #define SCAN_MAX_NUM_OF_DUR_TIME      1500
+#define SCAN_MIN_DURATION_TIME        10
 
 #define MAX_WIFI_RECONNECTION 10
 int send_port_security_done_event(void);
@@ -53,7 +55,9 @@ typedef enum mlme_evt_type_patch
 #define SET_BIT(x,n) ((x)|=(1<<(n)))
 #define CHK_BIT(x,n) (((x)&(1<<(n)))!=0)
 
-#define WIFI_SCAN_BY_CFG_TOUT_TIME     22000   //20 seconds
+#define WIFI_SCAN_BY_CFG_TOUT_TIME     25000  /* SCAN_MAX_NUM_OF_DUR_TIME * WIFI_MLME_SCAN_MAX_NUM_CHANNELS +
+                                                 100 ms per channel if wifi connected.
+                                                 Basic scan time M0 needed : (1500 * 14) + (14 * 100) = 22400 ms */
 
 typedef enum
 {

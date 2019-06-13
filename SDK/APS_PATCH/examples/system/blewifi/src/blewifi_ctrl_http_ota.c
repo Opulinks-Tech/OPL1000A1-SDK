@@ -30,6 +30,7 @@
 #include "blewifi_ctrl.h"
 #include "blewifi_wifi_api.h"
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
 osThreadId   BleWifCtrliHttpOtaTaskId;
 osMessageQId BleWifiCtrlHttpOtaQueueId;
 
@@ -41,15 +42,15 @@ void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int l
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG \r\n");
             BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_ON, NULL, 0);
             BleWifi_Wifi_SetDTIM(0);
-            if (ota_download_by_http(HTTP_GET_URL) != 0)
+            if (ota_download_by_http(WIFI_OTA_HTTP_URL) != 0)
             {
-                BleWifi_Wifi_SetDTIM(BleWifi_Wifi_DtimTimeGet());
+                BleWifi_Wifi_SetDTIM(BleWifi_Ctrl_DtimTimeGet());
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_FAILURE);
                 BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL, NULL, 0);
             }
             else
             {
-                BleWifi_Wifi_SetDTIM(BleWifi_Wifi_DtimTimeGet());
+                BleWifi_Wifi_SetDTIM(BleWifi_Ctrl_DtimTimeGet());
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_SUCCESS);
                 BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_OFF, NULL, 0);
             }
@@ -72,7 +73,7 @@ void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int l
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_HTTP_OTA_MSG_SERVER_VERSION \r\n");
             uint16_t fid;
             
-            if (ota_download_by_http_get_server_version(HTTP_GET_URL, &fid) != 0)
+            if (ota_download_by_http_get_server_version(WIFI_OTA_HTTP_URL, &fid) != 0)
             {
                 fid = 0;
                 BleWifi_Wifi_OtaServerVersionRsp(fid);
@@ -177,3 +178,4 @@ done:
     
     return iRet;
 }
+#endif /* #if (WIFI_OTA_FUNCTION_EN == 1) */

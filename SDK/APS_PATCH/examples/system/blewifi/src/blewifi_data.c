@@ -54,13 +54,20 @@ static void BleWifi_Ble_ProtocolHandler_ReadDeviceInfo(uint16_t type, uint8_t *d
 static void BleWifi_Ble_ProtocolHandler_WriteDeviceInfo(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_WifiStatus(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_Reset(uint16_t type, uint8_t *data, int len);
+
+#if (BLE_OTA_FUNCTION_EN == 1)
 static void BleWifi_Ble_ProtocolHandler_OtaVersion(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_OtaUpgrade(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_OtaRaw(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_OtaEnd(uint16_t type, uint8_t *data, int len);
+#endif
+
+#if (WIFI_OTA_FUNCTION_EN == 1)
 static void BleWifi_Ble_ProtocolHandler_HttpOtaTrig(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion(uint16_t type, uint8_t *data, int len);
+#endif
+
 static void BleWifi_Ble_ProtocolHandler_MpCalVbat(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_MpCalIoVoltage(uint16_t type, uint8_t *data, int len);
 static void BleWifi_Ble_ProtocolHandler_MpCalTmpr(uint16_t type, uint8_t *data, int len);
@@ -82,16 +89,20 @@ static T_BleWifi_Ble_ProtocolHandlerTbl g_tBleProtocolHandlerTbl[] =
     {BLEWIFI_REQ_WRITE_DEVICE_INFO,         BleWifi_Ble_ProtocolHandler_WriteDeviceInfo},
     {BLEWIFI_REQ_WIFI_STATUS,               BleWifi_Ble_ProtocolHandler_WifiStatus},
     {BLEWIFI_REQ_RESET,                     BleWifi_Ble_ProtocolHandler_Reset},
-    
+
+#if (BLE_OTA_FUNCTION_EN == 1)
     {BLEWIFI_REQ_OTA_VERSION,               BleWifi_Ble_ProtocolHandler_OtaVersion},
     {BLEWIFI_REQ_OTA_UPGRADE,               BleWifi_Ble_ProtocolHandler_OtaUpgrade},
     {BLEWIFI_REQ_OTA_RAW,                   BleWifi_Ble_ProtocolHandler_OtaRaw},
     {BLEWIFI_REQ_OTA_END,                   BleWifi_Ble_ProtocolHandler_OtaEnd},
-    
+#endif
+
+#if (WIFI_OTA_FUNCTION_EN == 1)
     {BLEWIFI_REQ_HTTP_OTA_TRIG,             BleWifi_Ble_ProtocolHandler_HttpOtaTrig},
     {BLEWIFI_REQ_HTTP_OTA_DEVICE_VERSION,   BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion},
     {BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION,   BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion},
-    
+#endif
+
     {BLEWIFI_REQ_MP_CAL_VBAT,               BleWifi_Ble_ProtocolHandler_MpCalVbat},
     {BLEWIFI_REQ_MP_CAL_IO_VOLTAGE,         BleWifi_Ble_ProtocolHandler_MpCalIoVoltage},
     {BLEWIFI_REQ_MP_CAL_TMPR,               BleWifi_Ble_ProtocolHandler_MpCalTmpr},
@@ -108,6 +119,7 @@ static T_BleWifi_Ble_ProtocolHandlerTbl g_tBleProtocolHandlerTbl[] =
     {0xFFFFFFFF,                            NULL}
 };
 
+#if (BLE_OTA_FUNCTION_EN == 1)
 static void BleWifi_OtaSendVersionRsp(uint8_t status, uint16_t pid, uint16_t cid, uint16_t fid)
 {
 	uint8_t data[7];
@@ -382,7 +394,9 @@ static void BleWifi_HandleOtaEndReq(uint8_t *data, int len)
 err:
 	return;
 }
+#endif /* #if (BLE_OTA_FUNCTION_EN == 1) */
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
 void BleWifi_Wifi_OtaTrigReq(void)
 {
     blewifi_ctrl_http_ota_msg_send(BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG, NULL, 0);
@@ -424,6 +438,7 @@ void BleWifi_Wifi_OtaServerVersionRsp(uint16_t fid)
 
     BleWifi_Ble_DataSendEncap(BLEWIFI_RSP_HTTP_OTA_SERVER_VERSION, data, 2);
 }
+#endif /* #if (WIFI_OTA_FUNCTION_EN == 1) */
 
 static void BleWifi_MP_CalVbat(uint8_t *data, int len)
 {
@@ -539,6 +554,7 @@ static void BleWifi_Ble_ProtocolHandler_Reset(uint16_t type, uint8_t *data, int 
     BleWifi_Wifi_ResetRecord();
 }
 
+#if (BLE_OTA_FUNCTION_EN == 1)
 static void BleWifi_Ble_ProtocolHandler_OtaVersion(uint16_t type, uint8_t *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_VERSION \r\n");
@@ -562,7 +578,9 @@ static void BleWifi_Ble_ProtocolHandler_OtaEnd(uint16_t type, uint8_t *data, int
     BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_OTA_END \r\n");
     BleWifi_HandleOtaEndReq(data, len);
 }
+#endif
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
 static void BleWifi_Ble_ProtocolHandler_HttpOtaTrig(uint16_t type, uint8_t *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_TRIG \r\n");
@@ -580,6 +598,7 @@ static void BleWifi_Ble_ProtocolHandler_HttpOtaServerVersion(uint16_t type, uint
     BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_SERVER_VERSION \r\n");
     BleWifi_Wifi_OtaServerVersionReq();
 }
+#endif
 
 static void BleWifi_Ble_ProtocolHandler_MpCalVbat(uint16_t type, uint8_t *data, int len)
 {

@@ -47,4 +47,5 @@ extern ParseRegCtrlCommand_fp_t ParseRegCtrlCommand;
  */
 void diag_task_func_patch_init(void);
 void Diag_UserCmdSet(T_Cli_UserCmdProcess_fp ptUserCmdFunc);
+void uartdbg_rx_int_handler_patch(uint32_t u32Data);
 #endif

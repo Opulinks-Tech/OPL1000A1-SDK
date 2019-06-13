@@ -17,7 +17,7 @@
 #include "hal_flash.h"
 #include "at_cmd_task.h"
 #include "at_cmd_func_patch.h"
-#include "blewifi_wifi_api.h"
+#include "blewifi_ctrl.h"
 
 #include "agent.h"
 #include "mw_fim.h"
@@ -34,6 +34,9 @@
 #define AT_FLASH_BUF_SIZE           32
 
 /* For at_cmd_sys_write_fim */
+#define AT_FIM_DATA_LENGTH 2 /* EX: 2 = FF */
+#define AT_FIM_DATA_LENGTH_WITH_COMMA (AT_FIM_DATA_LENGTH + 1) /* EX: 3 = FF, */
+
 typedef struct
 {
     uint32_t u32Id;
@@ -414,10 +417,10 @@ int app_at_cmd_sys_read_fim(char *buf, int len, int mode)
             
             if(MW_FIM_OK == MwFim_FileRead(u32Id, u16Index, u16Size, readBuf))
             {
-                msg_print_uart1("0x%02X",readBuf[0]);
+                msg_print_uart1("%02X",readBuf[0]);
                 for(i = 1 ; i < u16Size ; i++)
                 {
-                    msg_print_uart1(",0x%02X",readBuf[i]);
+                    msg_print_uart1(",%02X",readBuf[i]);
                 }
             }
             else
@@ -469,7 +472,7 @@ int write_fim_handle(uint32_t u32Type, uint8_t *u8aData, uint32_t u32DataLen, vo
     {
         if(u8aData[i] != u8acmp[0])
         {
-            if(ptParam->u32StringIndex >= 4)
+            if(ptParam->u32StringIndex >= AT_FIM_DATA_LENGTH)
             {
                 ptParam->fIgnoreRestString = 1;
                 goto done;
@@ -481,13 +484,6 @@ int write_fim_handle(uint32_t u32Type, uint8_t *u8aData, uint32_t u32DataLen, vo
         }
         else
         {
-            /* if readbuf[0] is not 0 and readbuf[1] is not x then error. */
-            if((ptParam->u8aReadBuf[0] != '0' ) || (ptParam->u8aReadBuf[1] != 'x'))
-            {
-                ptParam->fIgnoreRestString = 1;
-                goto done;
-            }
-
             /* Convert string into Hex and store into array */
             ptParam->ResultBuf[ptParam->u16Resultindex] = (uint8_t)strtoul(ptParam->u8aReadBuf, NULL, 16);
             
@@ -499,16 +495,15 @@ int write_fim_handle(uint32_t u32Type, uint8_t *u8aData, uint32_t u32DataLen, vo
         }
     }
     
-    /* If encounter the last one comma */	
-    if((ptParam->u16Resultindex == (ptParam->u16DataTotalLen - 1)) && (ptParam->u32StringIndex >= 4))
+    /* If encounter the last one comma
+       1. AT_FIM_DATA_LENGTH:
+       Max character will pick up to compare.
+       
+       2. (ptParam->u16DataTotalLen - 1):
+       If total length minus 1 is equal (ptParam->u16Resultindex) mean there is no comma at the rest of string.
+    */	
+    if((ptParam->u16Resultindex == (ptParam->u16DataTotalLen - 1)) && (ptParam->u32StringIndex >= AT_FIM_DATA_LENGTH))
     {
-        /* if readbuf[0] is not 0 and readbuf[1] is not x then error. */
-        if((ptParam->u8aReadBuf[0] != '0' ) || (ptParam->u8aReadBuf[1] != 'x'))
-        {
-            ptParam->fIgnoreRestString = 1;
-            goto done;
-        }
-
         ptParam->ResultBuf[ptParam->u16Resultindex] = (uint8_t)strtoul(ptParam->u8aReadBuf, NULL, 16);
         
         /* Result index add one */
@@ -594,7 +589,7 @@ int app_at_cmd_sys_write_fim(char *buf, int len, int mode)
     {
         case AT_CMD_MODE_SET:
         {
-            tAtFimParam->TotalSize = (tAtFimParam->u16DataTotalLen * 5 - 1);
+            tAtFimParam->TotalSize = ((tAtFimParam->u16DataTotalLen * AT_FIM_DATA_LENGTH_WITH_COMMA) - 1);
             
             /* Memory allocate a memory block for pointer */
             tAtFimParam->ResultBuf = (uint8_t *)malloc(tAtFimParam->u16DataTotalLen);
@@ -619,7 +614,7 @@ int app_at_cmd_sys_write_fim(char *buf, int len, int mode)
 done:
     if(iRet)
     {
-        //msg_print_uart1("OK\r\n");
+        msg_print_uart1("OK\r\n");
     }
     else
     {
@@ -655,7 +650,7 @@ int app_at_cmd_sys_dtim_time(char *buf, int len, int mode)
     {
         case AT_CMD_MODE_READ:
         {
-            msg_print_uart1("DTIM Time: %d\r\n", BleWifi_Wifi_DtimTimeGet());
+            msg_print_uart1("DTIM Time: %d\r\n", BleWifi_Ctrl_DtimTimeGet());
             break;
         }
     
@@ -669,7 +664,7 @@ int app_at_cmd_sys_dtim_time(char *buf, int len, int mode)
             }
 
             ulDtimTime = strtoul(argv[1], NULL, 0);
-            BleWifi_Wifi_DtimTimeSet(ulDtimTime);
+            BleWifi_Ctrl_DtimTimeSet(ulDtimTime);
             break;
         }
 

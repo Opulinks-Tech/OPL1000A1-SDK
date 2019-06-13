@@ -27,10 +27,7 @@
 #include "blewifi_http_ota.h"
 #include "lwip/etharp_patch.h"
 
-
-int test(void);
-
-
+#if (WIFI_OTA_FUNCTION_EN == 1)
 /****************************************************************************
  * Static variables
  ****************************************************************************/
@@ -478,4 +475,4 @@ int ota_download_by_http(char *param)
     else
         return -1;
 }
-
+#endif /* #if (WIFI_OTA_FUNCTION_EN == 1) */

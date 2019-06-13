@@ -16,12 +16,55 @@
 /*
 FIM version
 */
-#define MW_FIM_VER08_PROJECT            0x02    // 0x00 ~ 0xFF
+#define MW_FIM_VER08_PROJECT            0x03    // 0x00 ~ 0xFF
 
 /*
 Smart sleep
 */
 #define BLEWIFI_COM_POWER_SAVE_EN       (0)     // 1: enable    0: disable
+
+/*
+RF Power
+
+.-----------------.----------------.----------------.
+|                 |  BLE Low Power | BLE High Power |
+:-----------------+----------------+----------------:
+| WIFI Low power  |  0x00          | 0x0F           |
+:-----------------+----------------+----------------:
+| WIFI High power |  0xF0          | 0xFF           |
+'-----------------'----------------'----------------'
+*/
+#define BLEWIFI_COM_RF_POWER_SETTINGS   (0xFF)
+
+/*
+SNTP
+*/
+#define SNTP_FUNCTION_EN      (0)                   // SNTP 1: enable / 0: disable
+#define SNTP_SERVER           "1.cn.pool.ntp.org"   // SNTP Server 
+#define SNTP_PORT_NUM         "123"                 // SNTP port Number
+#define SNTP_TIME_ZONE        (8)                   // Time zone: GMT+8
+
+/* 
+BLE OTA FLAG 
+*/
+#define BLE_OTA_FUNCTION_EN      (0)  // BLE OTA Function Enable (1: enable / 0: disable)
+
+/* 
+WIFI OTA FLAG 
+*/
+#define WIFI_OTA_FUNCTION_EN     (0)  // WIFI OTA Function Enable (1: enable / 0: disable)
+#define WIFI_OTA_HTTP_URL        "http://192.168.0.100/ota.bin"
+
+/*
+IoT device
+    1. if want to send data to server, set the Tx path to enable
+    2. if want to receive data from server, set the Rx path to enable
+*/
+#define IOT_DEVICE_DATA_TX_EN               (0)     // 1: enable / 0: disable
+#define IOT_DEVICE_DATA_RX_EN               (0)     // 1: enable / 0: disable
+#define IOT_DEVICE_DATA_TASK_STACK_SIZE_TX  (1024)
+#define IOT_DEVICE_DATA_TASK_STACK_SIZE_RX  (1024)
+#define IOT_DEVICE_DATA_QUEUE_SIZE_TX       (20)
 
 
 // BLE part

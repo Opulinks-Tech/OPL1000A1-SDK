@@ -376,18 +376,22 @@ int wpa_cli_scan_by_cfg(void *cfg)
 
     S_WIFI_MLME_SCAN_CFG *scan_cfg = (S_WIFI_MLME_SCAN_CFG *)cfg;
 
-    if (scan_cfg->u32ActiveScanDur < SCAN_ACTIVE_MIN_DUR_TIME_DEF || 
+    if (scan_cfg->u32ActiveScanDur < SCAN_MIN_DURATION_TIME || 
         scan_cfg->u32ActiveScanDur > SCAN_MAX_NUM_OF_DUR_TIME) {
         scan_cfg->u32ActiveScanDur = SCAN_ACTIVE_MIN_DUR_TIME_DEF;
     }
 
-    if (scan_cfg->u32PassiveScanDur < SCAN_PASSIVE_MIN_DUR_TIME_DEF ||
+    if (scan_cfg->u32PassiveScanDur < SCAN_MIN_DURATION_TIME ||
         scan_cfg->u32PassiveScanDur > SCAN_MAX_NUM_OF_DUR_TIME) {
         scan_cfg->u32PassiveScanDur = SCAN_PASSIVE_MIN_DUR_TIME_DEF;
     }
     
     if (scan_cfg->u8Channel > WIFI_MLME_SCAN_MAX_NUM_CHANNELS) {
         scan_cfg->u8Channel = WIFI_MLME_SCAN_ALL_CHANNELS;
+    }
+    
+    if (scan_cfg->u8ResendCnt == 0) {
+        scan_cfg->u8ResendCnt = SCAN_PROBE_REQ_COUNTERS_DEF;
     }
     
     wpa_driver_netlink_scan_by_cfg(scan_cfg);

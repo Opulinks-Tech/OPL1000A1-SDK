@@ -63,7 +63,7 @@ static int32_t wifi_station_connected_event_handler_patch(void *arg)
     /* reset to initial timeout value (1000 ms) */
     wakeup_event_timeouts = 1000;
 
-    printf("wifi connected\r\n");
+    printf("[lwip_helper] wifi connected\r\n");
     return 0;
 }
 
@@ -140,6 +140,21 @@ void lwip_network_init_patch(uint8_t opmode)
     }
 }
 
+/**
+  * @brief  wifi connect failed will call this callback function. set lwip status in this function
+  * @retval None
+  */
+int32_t wifi_station_connect_failed_event_handler(void *arg)
+{
+    LWIP_UNUSED_ARG(arg);
+    netif_set_link_down(&netif);
+    if(dhcp_config_init() == STA_IP_MODE_DHCP) {
+        netif_set_addr(&netif, IP4_ADDR_ANY4, IP4_ADDR_ANY4, IP4_ADDR_ANY4);
+    }
+    printf("[lwip_helper] wifi connect failed\r\n");
+    return 1;
+}
+
 /*-------------------------------------------------------------------------------------
  * Interface assignment
  *------------------------------------------------------------------------------------*/
@@ -148,8 +163,8 @@ void lwip_load_interface_lwip_helper_patch(void)
     /* Cold boot initialization for "zero_init" retention data */
     def_dhcp_retry = 1;
     
-    lwip_network_init   = lwip_network_init_patch;
+    lwip_network_init                       = lwip_network_init_patch;
     wifi_station_connected_event_handler    = wifi_station_connected_event_handler_patch;
-    ip_ready_callback    = ip_ready_callback_patch;
+    ip_ready_callback                       = ip_ready_callback_patch;
 }
 

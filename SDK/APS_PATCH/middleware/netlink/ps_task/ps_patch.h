@@ -49,6 +49,8 @@ typedef struct
 	uint8_t xtal_ready_cost;
 	uint8_t app_apply_deep;
 
+    uint32_t app_timer_sleep_duration;
+
 } t_ps_conf_patch;
 
 /******************** Function Prototype ********************/

@@ -49,6 +49,7 @@ Head Block of The File
 #endif
 #include "at_cmd_common_patch.h"
 #include "mw_fim.h"
+#include "hal_dbg_uart.h"
 
 #include "blewifi_app.h"
 #include "blewifi_configuration.h"
@@ -80,14 +81,16 @@ extern uint32_t g_ulMemPartTotalSize;
 Declaration of static Global Variables & Functions
 ***************************************************/
 // Sec 6: declaration of static global variable
+static E_IO01_UART_MODE g_eAppIO01UartMode;
 
 
 // Sec 7: declaration of static function prototype
-static void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
-static void __Patch_EntryPoint(void) __attribute__((used));
+void __Patch_EntryPoint(void) __attribute__((section(".ARM.__at_0x00420000")));
+void __Patch_EntryPoint(void) __attribute__((used));
 static void Main_PinMuxUpdate(void);
 static void Main_FlashLayoutUpdate(void);
 static void Main_MiscModulesInit(void);
+static void Main_AtUartDbgUartSwitch(void);
 static void Main_AppInit_patch(void);
 #ifdef __BLEWIFI_TRANSPARENT__
 static int Main_BleWifiInit(void);
@@ -112,7 +115,7 @@ C Functions
 *   none
 *
 *************************************************************************/
-static void __Patch_EntryPoint(void)
+void __Patch_EntryPoint(void)
 {
     // don't remove this code
     SysInit_EntryPoint();
@@ -125,6 +128,9 @@ static void __Patch_EntryPoint(void)
     
     // the initial of driver part for cold and warm boot
     Sys_MiscModulesInit = Main_MiscModulesInit;
+
+    // update the switch AT UART / dbg UART function
+    at_cmd_switch_uart1_dbguart = Main_AtUartDbgUartSwitch;
     
     // modify the heap size, from 0x43C000 to 0x44F000
     g_ucaMemPartAddr = (uint8_t*) 0x43C000;
@@ -178,7 +184,7 @@ static void Main_PinMuxUpdate(void)
     Hal_Pin_ConfigSet(22, HAL_PIN_TYPE_IO_22, HAL_PIN_DRIVING_IO_22);
     Hal_Pin_ConfigSet(23, HAL_PIN_TYPE_IO_23, HAL_PIN_DRIVING_IO_23);
     
-    at_io01_uart_mode_set(HAL_PIN_0_1_UART_MODE);
+    g_eAppIO01UartMode = HAL_PIN_0_1_UART_MODE;
 }
 
 /*************************************************************************
@@ -217,7 +223,47 @@ static void Main_FlashLayoutUpdate(void)
 *************************************************************************/
 static void Main_MiscModulesInit(void)
 {
-	  //Hal_Wdt_Stop();   //disable watchdog here.
+    //Hal_Wdt_Stop();   //disable watchdog here.
+}
+
+/*************************************************************************
+* FUNCTION:
+*   Main_AtUartDbgUartSwitch
+*
+* DESCRIPTION:
+*   switch the UART1 and dbg UART
+*
+* PARAMETERS
+*   none
+*
+* RETURNS
+*   none
+*
+*************************************************************************/
+static void Main_AtUartDbgUartSwitch(void)
+{
+    if (g_eAppIO01UartMode == IO01_UART_MODE_AT)
+    {
+        Hal_Pin_ConfigSet(0, PIN_TYPE_UART_APS_TX, PIN_DRIVING_FLOAT);
+        Hal_Pin_ConfigSet(1, PIN_TYPE_UART_APS_RX, PIN_DRIVING_LOW);
+
+        Hal_Pin_ConfigSet(8, PIN_TYPE_UART1_TX, PIN_DRIVING_FLOAT);
+        Hal_Pin_ConfigSet(9, PIN_TYPE_UART1_RX, PIN_DRIVING_HIGH);
+
+        Hal_DbgUart_RxIntEn(1);
+    }
+    else
+    {
+        Hal_DbgUart_RxIntEn(0);
+
+        Hal_Pin_ConfigSet(0, PIN_TYPE_UART1_TX, PIN_DRIVING_FLOAT);
+        Hal_Pin_ConfigSet(1, PIN_TYPE_UART1_RX, PIN_DRIVING_LOW);
+        
+        Hal_Pin_ConfigSet(8, PIN_TYPE_UART_APS_TX, PIN_DRIVING_FLOAT);
+        Hal_Pin_ConfigSet(9, PIN_TYPE_UART_APS_RX, PIN_DRIVING_HIGH);
+    }
+    
+    g_eAppIO01UartMode = (E_IO01_UART_MODE)!g_eAppIO01UartMode;
 }
 
 /*************************************************************************

@@ -31,7 +31,6 @@ extern uint8_t g_ubAppCtrlRequestRetryTimes;
 
 wifi_config_t wifi_config_req_connect;
 uint32_t g_ulBleWifi_Wifi_BeaconTime;
-uint32_t g_ulBleWifi_Wifi_DtimTime;
 
 static int BleWifi_Wifi_EventHandler_Start(wifi_event_id_t event_id, void *data, uint16_t length);
 static int BleWifi_Wifi_EventHandler_Connected(wifi_event_id_t event_id, void *data, uint16_t length);
@@ -596,17 +595,6 @@ void BleWifi_Wifi_UpdateBeaconInfo(void)
         g_ulBleWifi_Wifi_BeaconTime = 100;
 }
 
-void BleWifi_Wifi_DtimTimeSet(uint32_t value)
-{
-    g_ulBleWifi_Wifi_DtimTime = value;
-    BleWifi_Wifi_SetDTIM(g_ulBleWifi_Wifi_DtimTime);
-}
-
-uint32_t BleWifi_Wifi_DtimTimeGet(void)
-{
-    return g_ulBleWifi_Wifi_DtimTime;
-}
-
 static int BleWifi_Wifi_EventHandler_Start(wifi_event_id_t event_id, void *data, uint16_t length)
 {
     printf("\r\nWi-Fi Start \r\n");
@@ -714,7 +702,4 @@ void BleWifi_Wifi_Init(void)
 
     /* Init the beacon time (ms) */
     g_ulBleWifi_Wifi_BeaconTime = 100;
-
-    /* Init the DTIM time (ms) */
-    g_ulBleWifi_Wifi_DtimTime = g_tAppCtrlWifiConnectSettings.ulDtimInterval;
 }

@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "cmsis_os.h"
+#include "event_groups.h"
 #include "sys_os_config.h"
 #include "sys_os_config_patch.h"
 
@@ -43,15 +44,13 @@
 osThreadId   g_tAppCtrlTaskId;
 osMessageQId g_tAppCtrlQueueId;
 osTimerId    g_tAppCtrlAutoConnectTriggerTimer;
+EventGroupHandle_t g_tAppCtrlEventGroup;
 
 uint8_t g_ulAppCtrlSysMode;
 
-uint8_t g_ubAppCtrlBleStatus;     //true:BLE is connected false:BLE is idle
-uint8_t g_ubAppCtrlWifiStatus;    //true:Wifi is connected false:Wifi is idle
-uint8_t g_ubAppCtrlOtaStatus;
-
 uint8_t g_ubAppCtrlRequestRetryTimes;
 uint32_t g_ulAppCtrlAutoConnectInterval;
+uint32_t g_ulAppCtrlWifiDtimTime;
 
 T_MwFim_GP08_WifiConnectSettings g_tAppCtrlWifiConnectSettings;
 
@@ -109,32 +108,139 @@ uint8_t BleWifi_Ctrl_SysModeGet(void)
 
 void BleWifi_Ctrl_BleStatusSet(uint8_t status)
 {
-    g_ubAppCtrlBleStatus = status;
+    if (true == status)
+        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_BLE);
+    else
+        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_BLE);
 }
 
 uint8_t BleWifi_Ctrl_BleStatusGet(void)
 {
-    return g_ubAppCtrlBleStatus;
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
+    if (BLEWIFI_CTRL_EVENT_BIT_BLE == (BLEWIFI_CTRL_EVENT_BIT_BLE & tRetBit))
+        return true;
+
+    return false;
 }
 
 void BleWifi_Ctrl_WifiStatusSet(uint8_t status)
 {
-    g_ubAppCtrlWifiStatus = status;
+    if (true == status)
+        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_WIFI);
+    // !!! if the wifi connection is disconnected, the status of Got IP will be cleared, too.
+    else
+        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_WIFI | BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
 }
 
 uint8_t BleWifi_Ctrl_WifiStatusGet(void)
 {
-    return g_ubAppCtrlWifiStatus;
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
+    if (BLEWIFI_CTRL_EVENT_BIT_WIFI == (BLEWIFI_CTRL_EVENT_BIT_WIFI & tRetBit))
+        return true;
+
+    return false;
 }
 
 void BleWifi_Ctrl_OtaStatusSet(uint8_t status)
 {
-    g_ubAppCtrlOtaStatus = status;
+    if (true == status)
+        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_OTA);
+    else
+        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_OTA);
 }
 
 uint8_t BleWifi_Ctrl_OtaStatusGet(void)
 {
-    return g_ubAppCtrlOtaStatus;
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
+    if (BLEWIFI_CTRL_EVENT_BIT_OTA == (BLEWIFI_CTRL_EVENT_BIT_OTA & tRetBit))
+        return true;
+
+    return false;
+}
+
+void BleWifi_Ctrl_GotIpStatusSet(uint8_t status)
+{
+    if (true == status)
+        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
+    else
+        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
+}
+
+uint8_t BleWifi_Ctrl_GotIpStatusGet(void)
+{
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
+    if (BLEWIFI_CTRL_EVENT_BIT_GOT_IP == (BLEWIFI_CTRL_EVENT_BIT_GOT_IP & tRetBit))
+        return true;
+
+    return false;
+}
+
+uint8_t BleWifi_Ctrl_GotIpStatusWait(uint32_t millisec)
+{
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupWaitBits(g_tAppCtrlEventGroup,
+                                  BLEWIFI_CTRL_EVENT_BIT_GOT_IP,
+                                  pdFALSE,
+                                  pdFALSE,
+                                  millisec);
+    if (BLEWIFI_CTRL_EVENT_BIT_GOT_IP == (BLEWIFI_CTRL_EVENT_BIT_GOT_IP & tRetBit))
+        return true;
+
+    return false;
+}
+
+void BleWifi_Ctrl_IotInitStatusSet(uint8_t status)
+{
+    if (true == status)
+        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_IOT_INIT);
+    else
+        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_IOT_INIT);
+}
+
+uint8_t BleWifi_Ctrl_IotInitStatusGet(void)
+{
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
+    if (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT == (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT & tRetBit))
+        return true;
+
+    return false;
+}
+
+uint8_t BleWifi_Ctrl_IotInitStatusWait(uint32_t millisec)
+{
+    EventBits_t tRetBit;
+
+    tRetBit = xEventGroupWaitBits(g_tAppCtrlEventGroup,
+                                  BLEWIFI_CTRL_EVENT_BIT_IOT_INIT,
+                                  pdFALSE,
+                                  pdFALSE,
+                                  millisec);
+    if (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT == (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT & tRetBit))
+        return true;
+
+    return false;
+}
+
+void BleWifi_Ctrl_DtimTimeSet(uint32_t value)
+{
+    g_ulAppCtrlWifiDtimTime = value;
+    BleWifi_Wifi_SetDTIM(g_ulAppCtrlWifiDtimTime);
+}
+
+uint32_t BleWifi_Ctrl_DtimTimeGet(void)
+{
+    return g_ulAppCtrlWifiDtimTime;
 }
 
 void BleWifi_Ctrl_DoAutoConnect(void)
@@ -282,8 +388,8 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, 
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND \r\n");
     BleWifi_Ctrl_WifiStatusSet(false);
-    BleWifi_Wifi_SetDTIM(0);
-    
+    BleWifi_Wifi_SetDTIM(0);   
+
     // continue the connection retry
     if (g_ubAppCtrlRequestRetryTimes < g_tAppCtrlWifiConnectSettings.ubConnectRetry)
     {
@@ -321,8 +427,12 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, 
 static void BleWifi_Ctrl_TaskEvtHandler_WifiGotIpInd(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND \r\n");
+    BleWifi_Ctrl_GotIpStatusSet(true);
+#if (SNTP_FUNCTION_EN == 1)		    
+    BleWifi_SntpInit();
+#endif
     BleWifi_Wifi_UpdateBeaconInfo();
-    BleWifi_Wifi_SetDTIM(BleWifi_Wifi_DtimTimeGet());
+    BleWifi_Wifi_SetDTIM(BleWifi_Ctrl_DtimTimeGet());
     BleWifi_Wifi_SendStatusInfo(BLEWIFI_IND_IP_STATUS_NOTIFY);
 }
 
@@ -469,7 +579,7 @@ void BleWifi_Ctrl_Init(void)
         BLEWIFI_ERROR("BLEWIFI: ctrl task create queue fail \r\n");
     }
 
-    /* creat timer to trig auto connect */
+    /* create timer to trig auto connect */
     timer_auto_connect_def.ptimer = BleWifi_Ctrl_AutoConnectTrigger;
     g_tAppCtrlAutoConnectTriggerTimer = osTimerCreate(&timer_auto_connect_def, osTimerOnce, NULL);
     if(g_tAppCtrlAutoConnectTriggerTimer == NULL)
@@ -477,15 +587,15 @@ void BleWifi_Ctrl_Init(void)
         BLEWIFI_ERROR("BLEWIFI: ctrl task create auto-connection timer fail \r\n");
     }
 
+    /* Create the event group */
+    g_tAppCtrlEventGroup = xEventGroupCreate();
+    if(g_tAppCtrlEventGroup == NULL)
+    {
+        BLEWIFI_ERROR("BLEWIFI: ctrl task create event group fail \r\n");
+    }
+
     /* the init state of system mode is init */
     g_ulAppCtrlSysMode = MW_FIM_SYS_MODE_INIT;
-
-    /* the init state of BLE is idle */
-    g_ubAppCtrlBleStatus = false;
-    /* the init state of Wifi is idle */
-    g_ubAppCtrlWifiStatus = false;
-    /* the init state of OTA is idle */
-    g_ubAppCtrlOtaStatus = false;
 
     // get the settings of Wifi connect settings
 	if (MW_FIM_OK != MwFim_FileRead(MW_FIM_IDX_GP08_PROJECT_WIFI_CONNECT_SETTINGS, 0, MW_FIM_GP08_WIFI_CONNECT_SETTINGS_SIZE, (uint8_t*)&g_tAppCtrlWifiConnectSettings))
@@ -493,6 +603,8 @@ void BleWifi_Ctrl_Init(void)
         // if fail, get the default value
         memcpy(&g_tAppCtrlWifiConnectSettings, &g_tMwFimDefaultGp08WifiConnectSettings, MW_FIM_GP08_WIFI_CONNECT_SETTINGS_SIZE);
     }
+    /* Init the DTIM time (ms) */
+    g_ulAppCtrlWifiDtimTime = g_tAppCtrlWifiConnectSettings.ulDtimInterval;
 
     // the idle of the connection retry
     g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;

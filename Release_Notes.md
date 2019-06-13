@@ -1,4 +1,42 @@
 ## Release Version:
+SDK Package: MP v1.8
+Patch_Lib : 3603
+ROM_CODE: 1655 
+
+## Release Date: 2019/6/13
+
+## Function & Feature Update 
+1. Documents updating:
+1.1 OPL1000-SDK-Development-guide, R01-v15, Update Table 2, update bin file description
+1.2 OPL1000-AT-instruction-set-and-examples, R05-v0.36, Add chapter6.6,measure BLE throughput
+1.3 OPL1000-WIFI-BLE-API-guide, MP1.8, Add wifi_event_handler_ex function
+1.4 OPL1000-patch-download-tool-user-guide, R03-v06, Add download-RELEASE-XP.exe and move bin pack files from  FW-Binary to FW-Pack folder
+1.5 OPL1000-multiple-dev-download-tool-user-guide, R01-v04, Add OTA bin file check
+ 2. Tool version information and update:
+ 2.1 download tool: v0.25. No update; 
+ 2.2 pin-mux tool: v0.8. No update;
+ 2.3 MP_Tool: v1.3,  Add OTA type bin check..
+3. Update AT+CWLAP cmd to support WIFI scan by channel.
+4. Enhance Wi-Fi iPerf;
+5. Phase-in DCOC calibration
+6. Add new parameter for AT+CWLAPOPT to support historical Scan List, include 'scan repeat probe request counter' and 'scan interval'.
+7. add reseting M0, not bypassing M0 reset code in opl1000_app_m3.ini file for all projects;
+8. add KVCO calibration function
+
+## Bug Fix List 
+1. Fix "AT+SAVETRANSLINK set mode ERROR check" issue.
+2. Fix "AT+SLPTMR results in a large number" issue.
+3. Fix "caused watch dog expired when receive packet continuously" issue.
+4. Fix "Send data failed in CIPSERVER mode" issue.
+5. Fix "DBG-UART commands might fail when new-line mode is CR-LF" issue.
+6. Fix "Sometimes no got ip event after Wi-Fi reconnect" issue.
+
+
+## Notes List 
+
+*****
+
+## Release Version:
 SDK Package: MP v1.6
 Patch_Lib : 3486
 ROM_CODE: 1655 

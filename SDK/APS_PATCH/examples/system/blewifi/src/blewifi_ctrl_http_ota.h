@@ -20,6 +20,7 @@
 #ifndef _BLEWIFI_CTRL_HTTP_OTA_H_
 #define _BLEWIFI_CTRL_HTTP_OTA_H_
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
 #define BLEWIFI_CTRL_HTTP_OTA_QUEUE_SIZE         (20)
 
 typedef enum blewifi_wifi_ota_type_id
@@ -64,5 +65,6 @@ int blewifi_ctrl_http_ota_msg_send(int msg_type, uint8_t *data, int data_len);
   */
 void blewifi_ctrl_http_ota_task_create(void);
 
+#endif /* #if (WIFI_OTA_FUNCTION_EN == 1) */
 #endif /* _BLEWIFI_CTRL_HTTP_OTA_H_ */
 

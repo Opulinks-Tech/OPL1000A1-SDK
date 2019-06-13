@@ -15,7 +15,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#include "blewifi_configuration.h"
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
 #define LOG_I(tag, fmt, arg...)             printf("[%s]:" fmt "\r\n",tag , ##arg)
 #define LOG_E(tag, fmt, arg...)             printf("[%s]:" fmt "\r\n",tag , ##arg)
 
@@ -25,13 +27,10 @@ extern "C" {
 #define MAC2STR(a) (a)[0], (a)[1], (a)[2], (a)[3], (a)[4], (a)[5]
 #define MACSTR "%02x:%02x:%02x:%02x:%02x:%02x"
 
-#define HTTP_GET_URL    "http://joydoon-oss-cn.oss-cn-beijing.aliyuncs.com/wbb-wifi/_CBS_ota.bin"
-
 uint8_t ota_get_version(uint16_t *, uint16_t *, uint16_t *);
 int ota_download_by_http(char *);
 int ota_download_by_http_get_server_version(char *param, uint16_t *uwfid);
-
-int test(void);
+#endif  /* #if (WIFI_OTA_FUNCTION_EN == 1) */
 
 #ifdef __cplusplus
 }

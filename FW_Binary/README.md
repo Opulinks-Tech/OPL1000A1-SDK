@@ -2,14 +2,12 @@
 This folder contains binary firmware that used to:
 
 - Use AT command to evaluate OPL1000 functions
-- evaluate the RAM usage of  user's applications
 
 How to use these binary file and complete firmware pack, download operation, please refer document "OPL1000-patch-download-tool-user-guide.pdf" (Chinese version under .\Doc\zh_CN directory) or "OPL1000-patch-download-tool-user-guide_ENG.pdf" (English version under .\Doc\en directory)  to know detailed information. 
 
-# File list and brief description
-1. opl1000.bin:  OPL1000 minimum size firmware file. Users can use it to evaluate the RAM usage of  their applications.  
-2. opl1000_at.bin: OPL1000 integral firmware file that support AT command.  
-3. opl1000_at_ext_ldo.bin: OPL1000 integral firmware file that support AT command. It works with devkits using  external LDO power supply. 
+# File list and brief description  
+1. opl1000_at.bin: OPL1000 integral firmware file that support AT command.It is packed by m3.bin(generate by compiling blewifi example's transparent target ) and m0 binary file.  
+2. opl1000_at_ext_ldo.bin: OPL1000 integral firmware file that support AT command. It works with devkits using  external LDO power supply. It is packed by m3.bin(generate by compiling blewifi example's transparent target ) and ext_ldo_m0 binary file.  
 
 [Note] 
 

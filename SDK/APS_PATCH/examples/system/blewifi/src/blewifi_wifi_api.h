@@ -130,8 +130,6 @@ void BleWifi_Wifi_ReqConnectRetry(void);
 int BleWifi_Wifi_Rssi(int8_t *rssi);
 int BleWifi_Wifi_SetDTIM(uint32_t value);
 void BleWifi_Wifi_UpdateBeaconInfo(void);
-void BleWifi_Wifi_DtimTimeSet(uint32_t value);
-uint32_t BleWifi_Wifi_DtimTimeGet(void);
 	
 int BleWifi_Wifi_EventHandlerCb(wifi_event_id_t event_id, void *data, uint16_t length);
 void BleWifi_Wifi_Init(void);

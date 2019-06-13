@@ -38,6 +38,8 @@
 extern Boolean isMAC(char *s);
 extern char *g_wifi_argv[AT_MAX_CMD_ARGS];
 extern int g_wifi_argc;
+extern u16 g_scan_history_end;
+wifi_scan_info_t g_scan_history[16]={0};
 
 int at_compare_rssi_patch(const void *a, const void *b)
 {
@@ -122,7 +124,7 @@ void at_msg_ext_wifi_show_one_ap_patch(int argc, char *argv[])
     wifi_scan_get_ap_num(&apCount);
     
     if (apCount == 0) {
-        return;
+        goto Done;
     }
     
     scan_list = (wifi_scan_info_t *)malloc(sizeof(wifi_scan_info_t) * apCount);
@@ -257,6 +259,20 @@ void at_msg_ext_wifi_show_all_patch(int argc, char *argv[])
     free(scan_list);
 }
 
+#ifdef __ATCWLAP_SCAN_HISTORY_EN__
+void at_msg_ext_wifi_show_all_scan_history_patch(int argc, char *argv[])
+{
+    u16 apCount = 0;
+    
+    wifi_scan_get_ap_num(&apCount);
+    if(apCount == 0) return;
+    
+    wifi_scan_get_ap_records(&apCount, g_scan_history);
+    
+    at_msg_ext_wifi_scan_by_option(g_scan_history_end+1, g_scan_history);
+}
+#endif
+
 void _at_msg_ext_wifi_connect_patch(int cusType, int msg_code)
 {
     switch (cusType)
@@ -352,6 +368,9 @@ void at_msg_ext_init_patch(void)
     at_msg_ext_wifi_show_one_ap = at_msg_ext_wifi_show_one_ap_patch;
     at_msg_ext_wifi_show_all = at_msg_ext_wifi_show_all_patch;
     _at_msg_ext_wifi_connect = _at_msg_ext_wifi_connect_patch;
+    #ifdef __ATCWLAP_SCAN_HISTORY_EN__
+    at_msg_ext_wifi_show_all = at_msg_ext_wifi_show_all_scan_history_patch;
+    #endif
 
 }
 #endif

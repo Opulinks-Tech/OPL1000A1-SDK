@@ -178,12 +178,14 @@ int at_wifi_event_handler_cb_patch(wifi_event_id_t event_id, void *data, uint16_
         break;
     case WIFI_EVENT_STA_GOT_IP:
         mdState = AT_STA_GOT_IP;
-        at_wifi_status = WIFI_EVENT_STA_GOT_IP;
-        printf("\r\nWiFi Obtained IP!\r\n");
-        if (at_ip_mode != true) {
-            at_uart1_printf("WIFI GOT IP\r\n");
-            at_uart1_printf("\r\nOK\r\n");
+        if (at_wifi_status != WIFI_EVENT_STA_GOT_IP) {
+            at_wifi_status = WIFI_EVENT_STA_GOT_IP;
+            if (at_ip_mode != true) {
+                at_uart1_printf("WIFI GOT IP\r\n");
+                at_uart1_printf("\r\nOK\r\n");
+            }
         }
+        printf("\r\nWiFi Obtained IP!\r\n");
         break;
     case WIFI_EVENT_STA_CONNECTION_FAILED:
         printf("\r\nWiFi Connected failed\r\n");
@@ -200,6 +202,7 @@ int at_wifi_event_handler_cb_patch(wifi_event_id_t event_id, void *data, uint16_
                 at_msg_ext_wifi_dispatch_connect_reason(false, reason);
             }
         }
+        at_wifi_status = WIFI_EVENT_STA_DISCONNECTED;
         at_wifi_reason = STATION_CONNECT_FAIL;
         
         if (at_ip_mode == true) {

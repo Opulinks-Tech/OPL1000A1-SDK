@@ -455,7 +455,7 @@ static void Sys_DriverInit_patch(void)
     // Other driver config need by Task-level (sleep strategy)
 
     // Diag task
-    Hal_DbgUart_RxCallBackFuncSet(uartdbg_rx_int_handler);
+    Hal_DbgUart_RxCallBackFuncSet(uartdbg_rx_int_handler_patch);
     // cold boot
     if (0 == Boot_CheckWarmBoot())
     {

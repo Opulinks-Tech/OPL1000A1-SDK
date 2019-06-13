@@ -1171,8 +1171,8 @@ int at_cmd_at_slp_tmr(char *buf, int len, int mode)
     }
     u64SlpTmrEnd = Hal_Sys_SleepTimerGet();
     
-    msg_print_uart1("\r\n32K XTAL Freq: %lld\n\r", u64SlpTmrEnd - u64SlpTmrStart);
-    tracer_drct_printf("\r\n32K XTAL Freq: %lld\n\r", u64SlpTmrEnd - u64SlpTmrStart);
+    msg_print_uart1("\r\n32K XTAL Freq: %ld\n\r", (uint32_t) (u64SlpTmrEnd - u64SlpTmrStart));
+    tracer_drct_printf("\r\n32K XTAL Freq: %ld\n\r", (uint32_t) (u64SlpTmrEnd - u64SlpTmrStart));
     return true;
 }
 

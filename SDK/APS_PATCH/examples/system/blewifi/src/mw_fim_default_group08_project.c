@@ -38,7 +38,8 @@ Declaration of Global Variables & Functions
 const T_MwFim_GP08_PowerSaving g_tMwFimDefaultGp08PowerSaving =
 {
     BLEWIFI_COM_POWER_SAVE_EN,      // uint8_t ubPowerSaving;
-    0xFF, 0xFF, 0xFF                // uint8_t ubaReserved[3];
+    BLEWIFI_COM_RF_POWER_SETTINGS,  // uint8_t ubRFPower;
+    0xFF, 0xFF                      // uint8_t ubaReserved[2];
 };
 // the address buffer of power saving
 uint32_t g_ulaMwFimAddrBufferGp08PowerSaving[MW_FIM_GP08_POWER_SAVING_NUM];

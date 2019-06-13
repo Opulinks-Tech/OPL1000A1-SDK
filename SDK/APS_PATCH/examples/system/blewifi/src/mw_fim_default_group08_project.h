@@ -57,7 +57,8 @@ Declaration of data structure
 typedef struct
 {
     uint8_t ubPowerSaving;
-    uint8_t ubaReserved[3];
+    uint8_t ubRFPower;
+    uint8_t ubaReserved[2];
 } T_MwFim_GP08_PowerSaving;
 
 #define MW_FIM_GP08_POWER_SAVING_SIZE   sizeof(T_MwFim_GP08_PowerSaving)
