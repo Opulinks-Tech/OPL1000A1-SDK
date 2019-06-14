@@ -155,7 +155,7 @@ WT_SPA_FAIL_POINTS_LIMIT	= 5.12		// spectrum mask tolerance in %range (0 ~ 100)
 // RX verification - tester transmitter power in dbm, range (-100 ~ 0)
 //------------------------------------------------------------------------------
 //				54M		48M		36M		24M		18M		12M		9M		6M		11M		5.5M	2M		1M
-WT_PER_SENS_MIN_LEGACY		-65		-66		-70		-74		-77		-79		-81		-82		-76		-76		-76		-76
+WT_PER_SENS_MIN_LEGACY		-65		-66		-70		-74		-77		-79		-81		-82		-70		-70		-70		-80
 											
 //							54M		48M		36M		24M		18M		12M		9M		6M		11M		5.5M	2M		1M
 WT_PER_SENS_MIN_5G_11A		-65		-66		-70		-74		-77		-79		-81		-82		-76		-76		-76		-76
@@ -184,7 +184,7 @@ WT_PER_SENS_MIN_AC80_1S		-51		-53		-58		-59		-60		-64		-68		-71		-73		-76
 //------------------------------------------------------------------------------
 // RX verification - Package Error Rate(PER) success lower bound
 //------------------------------------------------------------------------------
-PER_MIN_PASS_LIMIT_DSSS		= 90		// 11b PER success rate in %, range (0 ~ 100)
+PER_MIN_PASS_LIMIT_DSSS		= 92		// 11b PER success rate in %, range (0 ~ 100)
 
 PER_MIN_PASS_LIMIT_OFDM		= 0	// 11a.g.n.ac PER success rate in %, range (0 ~ 100)
 

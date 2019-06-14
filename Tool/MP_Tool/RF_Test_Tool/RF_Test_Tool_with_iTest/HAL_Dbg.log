@@ -18065,3 +18065,761 @@
 2018-12-27 11:25:24  sock close, port: 6000
 2018-12-27 11:25:24  sock close, port: 6100
 
+2019-02-14 13:44:55  conn string : WT200-SERVERCONN
+2019-02-14 13:44:55  Connect OK! sock: 1412 , local IP:   192.168.10.99, port: 49204 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 13:44:55  conn string : WT200-SERVERCONN
+2019-02-14 13:44:55  Connect OK! sock: 1484 , local IP:   192.168.10.99, port: 49205 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 13:44:55  Connect server OK
+2019-02-14 13:44:55  IP: 192.168.10.254
+2019-02-14 13:44:55  TesterName: WT200B-20006
+2019-02-14 13:44:55  FW_Version: 2.2.1.47
+2019-02-14 13:44:55  RF_Version: 1.5
+2019-02-14 13:44:55  HW_Version: 2.0.0.21
+2019-02-14 13:44:55  
+2019-02-14 13:45:46  sock close, sock: 1412
+2019-02-14 13:45:46  sock close, sock: 1484
+2019-02-14 13:45:46  sock close, port: 6000
+2019-02-14 13:45:46  sock close, port: 6100
+
+2019-02-14 13:47:27  conn string : WT200-SERVERCONN
+2019-02-14 13:47:27  Connect OK! sock: 1380 , local IP:   192.168.10.99, port: 49207 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 13:47:27  conn string : WT200-SERVERCONN
+2019-02-14 13:47:27  Connect OK! sock: 1392 , local IP:   192.168.10.99, port: 49208 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 13:47:27  Connect server OK
+2019-02-14 13:47:27  IP: 192.168.10.254
+2019-02-14 13:47:27  TesterName: WT200B-20006
+2019-02-14 13:47:27  FW_Version: 2.2.1.47
+2019-02-14 13:47:27  RF_Version: 1.5
+2019-02-14 13:47:27  HW_Version: 2.0.0.21
+2019-02-14 13:47:27  
+2019-02-14 13:48:04  sock close, sock: 1380
+2019-02-14 13:48:04  sock close, sock: 1392
+2019-02-14 13:48:04  sock close, port: 6000
+2019-02-14 13:48:04  sock close, port: 6100
+
+2019-02-14 14:20:42  conn string : WT200-SERVERCONN
+2019-02-14 14:20:42  Connect OK! sock:  484 , local IP:   192.168.10.99, port: 49218 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:20:42  conn string : WT200-SERVERCONN
+2019-02-14 14:20:42  Connect OK! sock:  516 , local IP:   192.168.10.99, port: 49219 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:20:42  Connect server OK
+2019-02-14 14:20:42  IP: 192.168.10.254
+2019-02-14 14:20:42  TesterName: WT200B-20006
+2019-02-14 14:20:42  FW_Version: 2.2.1.47
+2019-02-14 14:20:42  RF_Version: 1.5
+2019-02-14 14:20:42  HW_Version: 2.0.0.21
+2019-02-14 14:20:42  
+2019-02-14 14:20:42  sock close, sock: 484
+2019-02-14 14:20:42  sock close, sock: 516
+2019-02-14 14:20:42  sock close, port: 6000
+2019-02-14 14:20:42  sock close, port: 6100
+
+2019-02-14 14:20:42  conn string : WT200-SERVERCONN
+2019-02-14 14:20:42  Connect OK! sock:  520 , local IP:   192.168.10.99, port: 49220 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:20:42  conn string : WT200-SERVERCONN
+2019-02-14 14:20:42  Connect OK! sock:  512 , local IP:   192.168.10.99, port: 49221 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:20:42  Connect server OK
+2019-02-14 14:20:42  IP: 192.168.10.254
+2019-02-14 14:20:42  TesterName: WT200B-20006
+2019-02-14 14:20:42  FW_Version: 2.2.1.47
+2019-02-14 14:20:42  RF_Version: 1.5
+2019-02-14 14:20:42  HW_Version: 2.0.0.21
+2019-02-14 14:20:42  
+2019-02-14 14:21:00  sock close, sock: 520
+2019-02-14 14:21:00  sock close, sock: 512
+2019-02-14 14:21:00  sock close, port: 6000
+2019-02-14 14:21:00  sock close, port: 6100
+
+2019-02-14 14:21:54  conn string : WT200-SERVERCONN
+2019-02-14 14:21:54  Connect OK! sock:  484 , local IP:   192.168.10.99, port: 49222 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:21:54  conn string : WT200-SERVERCONN
+2019-02-14 14:21:54  Connect OK! sock:  516 , local IP:   192.168.10.99, port: 49223 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:21:54  Connect server OK
+2019-02-14 14:21:54  IP: 192.168.10.254
+2019-02-14 14:21:54  TesterName: WT200B-20006
+2019-02-14 14:21:54  FW_Version: 2.2.1.47
+2019-02-14 14:21:54  RF_Version: 1.5
+2019-02-14 14:21:54  HW_Version: 2.0.0.21
+2019-02-14 14:21:54  
+2019-02-14 14:21:54  sock close, sock: 484
+2019-02-14 14:21:54  sock close, sock: 516
+2019-02-14 14:21:54  sock close, port: 6000
+2019-02-14 14:21:54  sock close, port: 6100
+
+2019-02-14 14:21:54  conn string : WT200-SERVERCONN
+2019-02-14 14:21:54  Connect OK! sock:  520 , local IP:   192.168.10.99, port: 49224 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:21:54  conn string : WT200-SERVERCONN
+2019-02-14 14:21:54  Connect OK! sock:  512 , local IP:   192.168.10.99, port: 49225 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:21:54  Connect server OK
+2019-02-14 14:21:54  IP: 192.168.10.254
+2019-02-14 14:21:54  TesterName: WT200B-20006
+2019-02-14 14:21:54  FW_Version: 2.2.1.47
+2019-02-14 14:21:54  RF_Version: 1.5
+2019-02-14 14:21:54  HW_Version: 2.0.0.21
+2019-02-14 14:21:54  
+2019-02-14 14:22:12  sock close, sock: 520
+2019-02-14 14:22:12  sock close, sock: 512
+2019-02-14 14:22:12  sock close, port: 6000
+2019-02-14 14:22:12  sock close, port: 6100
+
+2019-02-14 14:26:39  conn string : WT200-SERVERCONN
+2019-02-14 14:26:39  Connect OK! sock: 1388 , local IP:   192.168.10.99, port: 49226 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:26:39  conn string : WT200-SERVERCONN
+2019-02-14 14:26:39  Connect OK! sock: 1316 , local IP:   192.168.10.99, port: 49227 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:26:39  Connect server OK
+2019-02-14 14:26:39  IP: 192.168.10.254
+2019-02-14 14:26:39  TesterName: WT200B-20006
+2019-02-14 14:26:39  FW_Version: 2.2.1.47
+2019-02-14 14:26:39  RF_Version: 1.5
+2019-02-14 14:26:39  HW_Version: 2.0.0.21
+2019-02-14 14:26:39  
+2019-02-14 14:27:17  sock close, sock: 1388
+2019-02-14 14:27:17  sock close, sock: 1316
+2019-02-14 14:27:17  sock close, port: 6000
+2019-02-14 14:27:17  sock close, port: 6100
+
+2019-02-14 14:28:10  conn string : WT200-SERVERCONN
+2019-02-14 14:28:10  Connect OK! sock: 1392 , local IP:   192.168.10.99, port: 49228 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:28:10  conn string : WT200-SERVERCONN
+2019-02-14 14:28:10  Connect OK! sock: 1324 , local IP:   192.168.10.99, port: 49229 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:28:10  Connect server OK
+2019-02-14 14:28:10  IP: 192.168.10.254
+2019-02-14 14:28:10  TesterName: WT200B-20006
+2019-02-14 14:28:10  FW_Version: 2.2.1.47
+2019-02-14 14:28:10  RF_Version: 1.5
+2019-02-14 14:28:10  HW_Version: 2.0.0.21
+2019-02-14 14:28:10  
+2019-02-14 14:28:47  sock close, sock: 1392
+2019-02-14 14:28:47  sock close, sock: 1324
+2019-02-14 14:28:47  sock close, port: 6000
+2019-02-14 14:28:47  sock close, port: 6100
+
+2019-02-14 14:34:29  conn string : WT200-SERVERCONN
+2019-02-14 14:34:29  Connect OK! sock: 1392 , local IP:   192.168.10.99, port: 49230 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:34:29  conn string : WT200-SERVERCONN
+2019-02-14 14:34:29  Connect OK! sock: 1428 , local IP:   192.168.10.99, port: 49231 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:34:29  Connect server OK
+2019-02-14 14:34:29  IP: 192.168.10.254
+2019-02-14 14:34:29  TesterName: WT200B-20006
+2019-02-14 14:34:29  FW_Version: 2.2.1.47
+2019-02-14 14:34:29  RF_Version: 1.5
+2019-02-14 14:34:29  HW_Version: 2.0.0.21
+2019-02-14 14:34:29  
+2019-02-14 14:35:06  sock close, sock: 1392
+2019-02-14 14:35:06  sock close, sock: 1428
+2019-02-14 14:35:06  sock close, port: 6000
+2019-02-14 14:35:06  sock close, port: 6100
+
+2019-02-14 14:35:56  conn string : WT200-SERVERCONN
+2019-02-14 14:35:56  Connect OK! sock: 1468 , local IP:   192.168.10.99, port: 49232 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:35:56  conn string : WT200-SERVERCONN
+2019-02-14 14:35:56  Connect OK! sock: 1480 , local IP:   192.168.10.99, port: 49233 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:35:56  Connect server OK
+2019-02-14 14:35:56  IP: 192.168.10.254
+2019-02-14 14:35:56  TesterName: WT200B-20006
+2019-02-14 14:35:56  FW_Version: 2.2.1.47
+2019-02-14 14:35:56  RF_Version: 1.5
+2019-02-14 14:35:56  HW_Version: 2.0.0.21
+2019-02-14 14:35:56  
+2019-02-14 14:36:33  sock close, sock: 1468
+2019-02-14 14:36:33  sock close, sock: 1480
+2019-02-14 14:36:33  sock close, port: 6000
+2019-02-14 14:36:33  sock close, port: 6100
+
+2019-02-14 14:37:03  conn string : WT200-SERVERCONN
+2019-02-14 14:37:03  Connect OK! sock: 1364 , local IP:   192.168.10.99, port: 49234 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:37:03  conn string : WT200-SERVERCONN
+2019-02-14 14:37:03  Connect OK! sock: 1380 , local IP:   192.168.10.99, port: 49235 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:37:03  Connect server OK
+2019-02-14 14:37:03  IP: 192.168.10.254
+2019-02-14 14:37:03  TesterName: WT200B-20006
+2019-02-14 14:37:03  FW_Version: 2.2.1.47
+2019-02-14 14:37:03  RF_Version: 1.5
+2019-02-14 14:37:03  HW_Version: 2.0.0.21
+2019-02-14 14:37:03  
+2019-02-14 14:37:40  sock close, sock: 1364
+2019-02-14 14:37:40  sock close, sock: 1380
+2019-02-14 14:37:41  sock close, port: 6000
+2019-02-14 14:37:41  sock close, port: 6100
+
+2019-02-14 14:38:30  conn string : WT200-SERVERCONN
+2019-02-14 14:38:30  Connect OK! sock: 1436 , local IP:   192.168.10.99, port: 49238 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:38:30  conn string : WT200-SERVERCONN
+2019-02-14 14:38:30  Connect OK! sock: 1412 , local IP:   192.168.10.99, port: 49239 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:38:30  Connect server OK
+2019-02-14 14:38:30  IP: 192.168.10.254
+2019-02-14 14:38:30  TesterName: WT200B-20006
+2019-02-14 14:38:30  FW_Version: 2.2.1.47
+2019-02-14 14:38:30  RF_Version: 1.5
+2019-02-14 14:38:30  HW_Version: 2.0.0.21
+2019-02-14 14:38:30  
+2019-02-14 14:39:07  sock close, sock: 1436
+2019-02-14 14:39:07  sock close, sock: 1412
+2019-02-14 14:39:07  sock close, port: 6000
+2019-02-14 14:39:07  sock close, port: 6100
+
+2019-02-14 14:46:02  conn string : WT200-SERVERCONN
+2019-02-14 14:46:02  Connect OK! sock: 1452 , local IP:   192.168.10.99, port: 49242 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:46:02  conn string : WT200-SERVERCONN
+2019-02-14 14:46:02  Connect OK! sock:  580 , local IP:   192.168.10.99, port: 49243 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:46:02  Connect server OK
+2019-02-14 14:46:02  IP: 192.168.10.254
+2019-02-14 14:46:02  TesterName: WT200B-20006
+2019-02-14 14:46:02  FW_Version: 2.2.1.47
+2019-02-14 14:46:02  RF_Version: 1.5
+2019-02-14 14:46:02  HW_Version: 2.0.0.21
+2019-02-14 14:46:02  
+2019-02-14 14:46:39  sock close, sock: 1452
+2019-02-14 14:46:39  sock close, sock: 580
+2019-02-14 14:46:39  sock close, port: 6000
+2019-02-14 14:46:39  sock close, port: 6100
+
+2019-02-14 14:46:58  conn string : WT200-SERVERCONN
+2019-02-14 14:46:58  Connect OK! sock: 1392 , local IP:   192.168.10.99, port: 49244 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:46:58  conn string : WT200-SERVERCONN
+2019-02-14 14:46:58  Connect OK! sock: 1036 , local IP:   192.168.10.99, port: 49245 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:46:58  Connect server OK
+2019-02-14 14:46:58  IP: 192.168.10.254
+2019-02-14 14:46:58  TesterName: WT200B-20006
+2019-02-14 14:46:58  FW_Version: 2.2.1.47
+2019-02-14 14:46:58  RF_Version: 1.5
+2019-02-14 14:46:58  HW_Version: 2.0.0.21
+2019-02-14 14:46:58  
+2019-02-14 14:47:35  sock close, sock: 1392
+2019-02-14 14:47:35  sock close, sock: 1036
+2019-02-14 14:47:35  sock close, port: 6000
+2019-02-14 14:47:35  sock close, port: 6100
+
+2019-02-14 14:47:48  conn string : WT200-SERVERCONN
+2019-02-14 14:47:48  Connect OK! sock: 1028 , local IP:   192.168.10.99, port: 49246 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 14:47:48  conn string : WT200-SERVERCONN
+2019-02-14 14:47:48  Connect OK! sock: 1364 , local IP:   192.168.10.99, port: 49247 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 14:47:48  Connect server OK
+2019-02-14 14:47:48  IP: 192.168.10.254
+2019-02-14 14:47:48  TesterName: WT200B-20006
+2019-02-14 14:47:48  FW_Version: 2.2.1.47
+2019-02-14 14:47:48  RF_Version: 1.5
+2019-02-14 14:47:48  HW_Version: 2.0.0.21
+2019-02-14 14:47:48  
+2019-02-14 14:48:25  sock close, sock: 1028
+2019-02-14 14:48:25  sock close, sock: 1364
+2019-02-14 14:48:25  sock close, port: 6000
+2019-02-14 14:48:25  sock close, port: 6100
+
+2019-02-14 16:46:39  conn string : WT200-SERVERCONN
+2019-02-14 16:46:39  Connect OK! sock: 1360 , local IP:   192.168.10.99, port: 49317 ; server IP:  192.168.10.254, port: 6000
+2019-02-14 16:46:39  conn string : WT200-SERVERCONN
+2019-02-14 16:46:39  Connect OK! sock: 1324 , local IP:   192.168.10.99, port: 49318 ; server IP:  192.168.10.254, port: 6100
+2019-02-14 16:46:39  Connect server OK
+2019-02-14 16:46:39  IP: 192.168.10.254
+2019-02-14 16:46:39  TesterName: WT200B-20124
+2019-02-14 16:46:39  FW_Version: 2.2.1.48
+2019-02-14 16:46:39  RF_Version: 1.5
+2019-02-14 16:46:39  HW_Version: 2.0.0.21
+2019-02-14 16:46:39  
+2019-02-14 16:47:16  sock close, sock: 1360
+2019-02-14 16:47:16  sock close, sock: 1324
+2019-02-14 16:47:16  sock close, port: 6000
+2019-02-14 16:47:16  sock close, port: 6100
+
+2019-02-20 11:11:47  conn string : WT200-SERVERCONN
+2019-02-20 11:11:47  Connect OK! sock: 1360 , local IP:   192.168.10.99, port: 50646 ; server IP:  192.168.10.254, port: 6000
+2019-02-20 11:11:47  conn string : WT200-SERVERCONN
+2019-02-20 11:11:47  Connect OK! sock: 1424 , local IP:   192.168.10.99, port: 50647 ; server IP:  192.168.10.254, port: 6100
+2019-02-20 11:11:47  Connect server OK
+2019-02-20 11:11:47  IP: 192.168.10.254
+2019-02-20 11:11:47  TesterName: WT200B-20006
+2019-02-20 11:11:47  FW_Version: 2.2.1.47
+2019-02-20 11:11:47  RF_Version: 1.5
+2019-02-20 11:11:47  HW_Version: 2.0.0.21
+2019-02-20 11:11:47  
+2019-02-20 11:12:14  sock close, sock: 1360
+2019-02-20 11:12:14  sock close, sock: 1424
+2019-02-20 11:12:14  sock close, port: 6000
+2019-02-20 11:12:14  sock close, port: 6100
+
+2019-02-20 11:15:26  conn string : WT200-SERVERCONN
+2019-02-20 11:15:26  Connect OK! sock: 1364 , local IP:   192.168.10.99, port: 50661 ; server IP:  192.168.10.254, port: 6000
+2019-02-20 11:15:26  conn string : WT200-SERVERCONN
+2019-02-20 11:15:26  Connect OK! sock: 1416 , local IP:   192.168.10.99, port: 50662 ; server IP:  192.168.10.254, port: 6100
+2019-02-20 11:15:26  Connect server OK
+2019-02-20 11:15:26  IP: 192.168.10.254
+2019-02-20 11:15:26  TesterName: WT200B-20006
+2019-02-20 11:15:26  FW_Version: 2.2.1.47
+2019-02-20 11:15:26  RF_Version: 1.5
+2019-02-20 11:15:26  HW_Version: 2.0.0.21
+2019-02-20 11:15:26  
+2019-02-20 11:15:26  sock close, sock: 1364
+2019-02-20 11:15:26  sock close, sock: 1416
+2019-02-20 11:15:26  sock close, port: 6000
+2019-02-20 11:15:26  sock close, port: 6100
+
+2019-06-12 10:41:30  conn string : WT200-SERVERCONN
+2019-06-12 10:41:30  Connect OK! sock: 1468 , local IP:   192.168.10.99, port: 65396 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 10:41:30  conn string : WT200-SERVERCONN
+2019-06-12 10:41:30  Connect OK! sock: 1252 , local IP:   192.168.10.99, port: 65397 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 10:41:30  Connect server OK
+2019-06-12 10:41:30  IP: 192.168.10.254
+2019-06-12 10:41:30  TesterName: WT200B-20006
+2019-06-12 10:41:30  FW_Version: 2.2.1.47
+2019-06-12 10:41:30  RF_Version: 1.5
+2019-06-12 10:41:30  HW_Version: 2.0.0.21
+2019-06-12 10:41:30  
+2019-06-12 10:45:18  sock close, sock: 1468
+2019-06-12 10:45:18  sock close, sock: 1252
+2019-06-12 10:45:18  sock close, port: 6000
+2019-06-12 10:45:18  sock close, port: 6100
+
+2019-06-12 10:47:23  conn string : WT200-SERVERCONN
+2019-06-12 10:47:23  Connect OK! sock: 1616 , local IP:   192.168.10.99, port: 65429 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 10:47:23  conn string : WT200-SERVERCONN
+2019-06-12 10:47:23  Connect OK! sock: 1536 , local IP:   192.168.10.99, port: 65430 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 10:47:23  Connect server OK
+2019-06-12 10:47:23  IP: 192.168.10.254
+2019-06-12 10:47:23  TesterName: WT200B-20006
+2019-06-12 10:47:23  FW_Version: 2.2.1.47
+2019-06-12 10:47:23  RF_Version: 1.5
+2019-06-12 10:47:23  HW_Version: 2.0.0.21
+2019-06-12 10:47:23  
+2019-06-12 10:48:13  sock close, sock: 1616
+2019-06-12 10:48:13  sock close, sock: 1536
+2019-06-12 10:48:13  sock close, port: 6000
+2019-06-12 10:48:13  sock close, port: 6100
+
+2019-06-12 10:53:05  conn string : WT200-SERVERCONN
+2019-06-12 10:53:05  Connect OK! sock:  592 , local IP:   192.168.10.99, port: 65432 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 10:53:05  conn string : WT200-SERVERCONN
+2019-06-12 10:53:05  Connect OK! sock: 1400 , local IP:   192.168.10.99, port: 65433 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 10:53:05  Connect server OK
+2019-06-12 10:53:05  IP: 192.168.10.254
+2019-06-12 10:53:05  TesterName: WT200B-20006
+2019-06-12 10:53:05  FW_Version: 2.2.1.47
+2019-06-12 10:53:05  RF_Version: 1.5
+2019-06-12 10:53:05  HW_Version: 2.0.0.21
+2019-06-12 10:53:05  
+2019-06-12 10:55:56  sock close, sock: 592
+2019-06-12 10:55:56  sock close, sock: 1400
+2019-06-12 10:55:56  sock close, port: 6000
+2019-06-12 10:55:56  sock close, port: 6100
+
+2019-06-12 10:58:52  conn string : WT200-SERVERCONN
+2019-06-12 10:58:52  Connect OK! sock:  592 , local IP:   192.168.10.99, port: 65436 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 10:58:52  conn string : WT200-SERVERCONN
+2019-06-12 10:58:52  Connect OK! sock: 1164 , local IP:   192.168.10.99, port: 65437 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 10:58:52  Connect server OK
+2019-06-12 10:58:52  IP: 192.168.10.254
+2019-06-12 10:58:52  TesterName: WT200B-20006
+2019-06-12 10:58:52  FW_Version: 2.2.1.47
+2019-06-12 10:58:52  RF_Version: 1.5
+2019-06-12 10:58:52  HW_Version: 2.0.0.21
+2019-06-12 10:58:52  
+2019-06-12 10:59:29  sock close, sock: 592
+2019-06-12 10:59:29  sock close, sock: 1164
+2019-06-12 10:59:29  sock close, port: 6000
+2019-06-12 10:59:29  sock close, port: 6100
+
+2019-06-12 11:01:06  conn string : WT200-SERVERCONN
+2019-06-12 11:01:06  Connect OK! sock:  592 , local IP:   192.168.10.99, port: 65438 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:01:07  conn string : WT200-SERVERCONN
+2019-06-12 11:01:07  Connect OK! sock: 1632 , local IP:   192.168.10.99, port: 65439 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:01:07  Connect server OK
+2019-06-12 11:01:07  IP: 192.168.10.254
+2019-06-12 11:01:07  TesterName: WT200B-20006
+2019-06-12 11:01:07  FW_Version: 2.2.1.47
+2019-06-12 11:01:07  RF_Version: 1.5
+2019-06-12 11:01:07  HW_Version: 2.0.0.21
+2019-06-12 11:01:07  
+2019-06-12 11:01:48  sock close, sock: 592
+2019-06-12 11:01:48  sock close, sock: 1632
+2019-06-12 11:01:48  sock close, port: 6000
+2019-06-12 11:01:48  sock close, port: 6100
+
+2019-06-12 11:02:18  conn string : WT200-SERVERCONN
+2019-06-12 11:02:18  Connect OK! sock: 1540 , local IP:   192.168.10.99, port: 65440 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:02:18  conn string : WT200-SERVERCONN
+2019-06-12 11:02:18  Connect OK! sock: 1560 , local IP:   192.168.10.99, port: 65441 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:02:18  Connect server OK
+2019-06-12 11:02:18  IP: 192.168.10.254
+2019-06-12 11:02:18  TesterName: WT200B-20006
+2019-06-12 11:02:18  FW_Version: 2.2.1.47
+2019-06-12 11:02:18  RF_Version: 1.5
+2019-06-12 11:02:18  HW_Version: 2.0.0.21
+2019-06-12 11:02:18  
+2019-06-12 11:02:56  sock close, sock: 1540
+2019-06-12 11:02:56  sock close, sock: 1560
+2019-06-12 11:02:56  sock close, port: 6000
+2019-06-12 11:02:56  sock close, port: 6100
+
+2019-06-12 11:03:15  conn string : WT200-SERVERCONN
+2019-06-12 11:03:15  Connect OK! sock: 1648 , local IP:   192.168.10.99, port: 65442 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:03:15  conn string : WT200-SERVERCONN
+2019-06-12 11:03:15  Connect OK! sock: 1132 , local IP:   192.168.10.99, port: 65443 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:03:15  Connect server OK
+2019-06-12 11:03:15  IP: 192.168.10.254
+2019-06-12 11:03:15  TesterName: WT200B-20006
+2019-06-12 11:03:15  FW_Version: 2.2.1.47
+2019-06-12 11:03:15  RF_Version: 1.5
+2019-06-12 11:03:15  HW_Version: 2.0.0.21
+2019-06-12 11:03:15  
+2019-06-12 11:07:15  sock close, sock: 1648
+2019-06-12 11:07:15  sock close, sock: 1132
+2019-06-12 11:07:15  sock close, port: 6000
+2019-06-12 11:07:15  sock close, port: 6100
+
+2019-06-12 11:12:36  conn string : WT200-SERVERCONN
+2019-06-12 11:12:36  Connect OK! sock: 1176 , local IP:   192.168.10.99, port: 65459 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:12:36  conn string : WT200-SERVERCONN
+2019-06-12 11:12:36  Connect OK! sock: 1172 , local IP:   192.168.10.99, port: 65460 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:12:36  Connect server OK
+2019-06-12 11:12:36  IP: 192.168.10.254
+2019-06-12 11:12:36  TesterName: WT200B-20006
+2019-06-12 11:12:36  FW_Version: 2.2.1.47
+2019-06-12 11:12:36  RF_Version: 1.5
+2019-06-12 11:12:36  HW_Version: 2.0.0.21
+2019-06-12 11:12:36  
+2019-06-12 11:16:34  sock close, sock: 1176
+2019-06-12 11:16:34  sock close, sock: 1172
+2019-06-12 11:16:34  sock close, port: 6000
+2019-06-12 11:16:34  sock close, port: 6100
+
+2019-06-12 11:18:26  conn string : WT200-SERVERCONN
+2019-06-12 11:18:26  Connect OK! sock: 1576 , local IP:   192.168.10.99, port: 65478 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:18:26  conn string : WT200-SERVERCONN
+2019-06-12 11:18:26  Connect OK! sock: 1528 , local IP:   192.168.10.99, port: 65479 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:18:26  Connect server OK
+2019-06-12 11:18:26  IP: 192.168.10.254
+2019-06-12 11:18:26  TesterName: WT200B-20006
+2019-06-12 11:18:26  FW_Version: 2.2.1.47
+2019-06-12 11:18:26  RF_Version: 1.5
+2019-06-12 11:18:26  HW_Version: 2.0.0.21
+2019-06-12 11:18:26  
+2019-06-12 11:20:44  sock close, sock: 1576
+2019-06-12 11:20:44  sock close, sock: 1528
+2019-06-12 11:20:44  sock close, port: 6000
+2019-06-12 11:20:44  sock close, port: 6100
+
+2019-06-12 11:21:51  conn string : WT200-SERVERCONN
+2019-06-12 11:21:51  Connect OK! sock: 1360 , local IP:   192.168.10.99, port: 65489 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:21:51  conn string : WT200-SERVERCONN
+2019-06-12 11:21:51  Connect OK! sock: 1380 , local IP:   192.168.10.99, port: 65490 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:21:51  Connect server OK
+2019-06-12 11:21:51  IP: 192.168.10.254
+2019-06-12 11:21:51  TesterName: WT200B-20006
+2019-06-12 11:21:51  FW_Version: 2.2.1.47
+2019-06-12 11:21:51  RF_Version: 1.5
+2019-06-12 11:21:51  HW_Version: 2.0.0.21
+2019-06-12 11:21:51  
+2019-06-12 11:22:04  sock close, sock: 1360
+2019-06-12 11:22:04  sock close, sock: 1380
+2019-06-12 11:22:04  sock close, port: 6000
+2019-06-12 11:22:04  sock close, port: 6100
+
+2019-06-12 11:22:20  conn string : WT200-SERVERCONN
+2019-06-12 11:22:20  Connect OK! sock: 1380 , local IP:   192.168.10.99, port: 65491 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:22:20  conn string : WT200-SERVERCONN
+2019-06-12 11:22:20  Connect OK! sock: 1384 , local IP:   192.168.10.99, port: 65492 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:22:20  Connect server OK
+2019-06-12 11:22:20  IP: 192.168.10.254
+2019-06-12 11:22:20  TesterName: WT200B-20006
+2019-06-12 11:22:20  FW_Version: 2.2.1.47
+2019-06-12 11:22:20  RF_Version: 1.5
+2019-06-12 11:22:20  HW_Version: 2.0.0.21
+2019-06-12 11:22:20  
+2019-06-12 11:22:50  sock close, sock: 1380
+2019-06-12 11:22:50  sock close, sock: 1384
+2019-06-12 11:22:50  sock close, port: 6000
+2019-06-12 11:22:50  sock close, port: 6100
+
+2019-06-12 11:23:03  conn string : WT200-SERVERCONN
+2019-06-12 11:23:03  Connect OK! sock: 1416 , local IP:   192.168.10.99, port: 65498 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:23:03  conn string : WT200-SERVERCONN
+2019-06-12 11:23:03  Connect OK! sock:  584 , local IP:   192.168.10.99, port: 65499 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:23:03  Connect server OK
+2019-06-12 11:23:03  IP: 192.168.10.254
+2019-06-12 11:23:03  TesterName: WT200B-20006
+2019-06-12 11:23:03  FW_Version: 2.2.1.47
+2019-06-12 11:23:03  RF_Version: 1.5
+2019-06-12 11:23:03  HW_Version: 2.0.0.21
+2019-06-12 11:23:03  
+2019-06-12 11:23:14  sock close, sock: 1416
+2019-06-12 11:23:14  sock close, sock: 584
+2019-06-12 11:23:14  sock close, port: 6000
+2019-06-12 11:23:14  sock close, port: 6100
+
+2019-06-12 11:23:40  conn string : WT200-SERVERCONN
+2019-06-12 11:23:40  Connect OK! sock: 1412 , local IP:   192.168.10.99, port: 65501 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:23:40  conn string : WT200-SERVERCONN
+2019-06-12 11:23:40  Connect OK! sock: 1336 , local IP:   192.168.10.99, port: 65502 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:23:40  Connect server OK
+2019-06-12 11:23:40  IP: 192.168.10.254
+2019-06-12 11:23:40  TesterName: WT200B-20006
+2019-06-12 11:23:40  FW_Version: 2.2.1.47
+2019-06-12 11:23:40  RF_Version: 1.5
+2019-06-12 11:23:40  HW_Version: 2.0.0.21
+2019-06-12 11:23:40  
+2019-06-12 11:24:09  sock close, sock: 1412
+2019-06-12 11:24:09  sock close, sock: 1336
+2019-06-12 11:24:09  sock close, port: 6000
+2019-06-12 11:24:09  sock close, port: 6100
+
+2019-06-12 11:24:22  conn string : WT200-SERVERCONN
+2019-06-12 11:24:22  Connect OK! sock: 1428 , local IP:   192.168.10.99, port: 65508 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:24:22  conn string : WT200-SERVERCONN
+2019-06-12 11:24:22  Connect OK! sock: 1336 , local IP:   192.168.10.99, port: 65509 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:24:22  Connect server OK
+2019-06-12 11:24:22  IP: 192.168.10.254
+2019-06-12 11:24:22  TesterName: WT200B-20006
+2019-06-12 11:24:22  FW_Version: 2.2.1.47
+2019-06-12 11:24:22  RF_Version: 1.5
+2019-06-12 11:24:22  HW_Version: 2.0.0.21
+2019-06-12 11:24:22  
+2019-06-12 11:26:29  sock close, sock: 1428
+2019-06-12 11:26:29  sock close, sock: 1336
+2019-06-12 11:26:29  sock close, port: 6000
+2019-06-12 11:26:29  sock close, port: 6100
+
+2019-06-12 11:33:02  conn string : WT200-SERVERCONN
+2019-06-12 11:33:02  Connect OK! sock: 1460 , local IP:   192.168.10.99, port: 65527 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:33:02  conn string : WT200-SERVERCONN
+2019-06-12 11:33:02  Connect OK! sock: 1448 , local IP:   192.168.10.99, port: 65528 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:33:02  Connect server OK
+2019-06-12 11:33:02  IP: 192.168.10.254
+2019-06-12 11:33:02  TesterName: WT200B-20006
+2019-06-12 11:33:02  FW_Version: 2.2.1.47
+2019-06-12 11:33:02  RF_Version: 1.5
+2019-06-12 11:33:02  HW_Version: 2.0.0.21
+2019-06-12 11:33:02  
+2019-06-12 11:33:40  sock close, sock: 1460
+2019-06-12 11:33:40  sock close, sock: 1448
+2019-06-12 11:33:40  sock close, port: 6000
+2019-06-12 11:33:40  sock close, port: 6100
+
+2019-06-12 11:34:21  conn string : WT200-SERVERCONN
+2019-06-12 11:34:21  Connect OK! sock: 1508 , local IP:   192.168.10.99, port: 65534 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:34:21  conn string : WT200-SERVERCONN
+2019-06-12 11:34:21  Connect OK! sock: 1496 , local IP:   192.168.10.99, port: 49161 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:34:21  Connect server OK
+2019-06-12 11:34:21  IP: 192.168.10.254
+2019-06-12 11:34:21  TesterName: WT200B-20006
+2019-06-12 11:34:21  FW_Version: 2.2.1.47
+2019-06-12 11:34:21  RF_Version: 1.5
+2019-06-12 11:34:21  HW_Version: 2.0.0.21
+2019-06-12 11:34:21  
+2019-06-12 11:39:16  conn string : WT200-SERVERCONN
+2019-06-12 11:39:16  Connect OK! sock: 1448 , local IP:   192.168.10.99, port: 49171 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:39:16  conn string : WT200-SERVERCONN
+2019-06-12 11:39:16  Connect OK! sock: 1472 , local IP:   192.168.10.99, port: 49172 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:39:16  Connect server OK
+2019-06-12 11:39:16  IP: 192.168.10.254
+2019-06-12 11:39:16  TesterName: WT200B-20006
+2019-06-12 11:39:16  FW_Version: 2.2.1.47
+2019-06-12 11:39:16  RF_Version: 1.5
+2019-06-12 11:39:16  HW_Version: 2.0.0.21
+2019-06-12 11:39:16  
+2019-06-12 11:39:30  sock close, sock: 1448
+2019-06-12 11:39:30  sock close, sock: 1472
+2019-06-12 11:39:30  sock close, port: 6000
+2019-06-12 11:39:30  sock close, port: 6100
+
+2019-06-12 11:40:22  conn string : WT200-SERVERCONN
+2019-06-12 11:40:22  Connect OK! sock: 1456 , local IP:   192.168.10.99, port: 49183 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:40:22  conn string : WT200-SERVERCONN
+2019-06-12 11:40:22  Connect OK! sock: 1472 , local IP:   192.168.10.99, port: 49188 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:40:22  Connect server OK
+2019-06-12 11:40:22  IP: 192.168.10.254
+2019-06-12 11:40:22  TesterName: WT200B-20006
+2019-06-12 11:40:22  FW_Version: 2.2.1.47
+2019-06-12 11:40:22  RF_Version: 1.5
+2019-06-12 11:40:22  HW_Version: 2.0.0.21
+2019-06-12 11:40:22  
+2019-06-12 11:40:33  sock close, sock: 1456
+2019-06-12 11:40:33  sock close, sock: 1472
+2019-06-12 11:40:33  sock close, port: 6000
+2019-06-12 11:40:33  sock close, port: 6100
+
+2019-06-12 11:53:06  conn string : WT200-SERVERCONN
+2019-06-12 11:53:06  Connect OK! sock: 1452 , local IP:   192.168.10.99, port: 49273 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:53:06  conn string : WT200-SERVERCONN
+2019-06-12 11:53:06  Connect OK! sock: 1468 , local IP:   192.168.10.99, port: 49274 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:53:06  Connect server OK
+2019-06-12 11:53:06  IP: 192.168.10.254
+2019-06-12 11:53:06  TesterName: WT200B-20006
+2019-06-12 11:53:06  FW_Version: 2.2.1.47
+2019-06-12 11:53:06  RF_Version: 1.5
+2019-06-12 11:53:06  HW_Version: 2.0.0.21
+2019-06-12 11:53:06  
+2019-06-12 11:53:16  sock close, sock: 1452
+2019-06-12 11:53:16  sock close, sock: 1468
+2019-06-12 11:53:16  sock close, port: 6000
+2019-06-12 11:53:16  sock close, port: 6100
+
+2019-06-12 11:53:27  conn string : WT200-SERVERCONN
+2019-06-12 11:53:27  Connect OK! sock: 1480 , local IP:   192.168.10.99, port: 49275 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:53:27  conn string : WT200-SERVERCONN
+2019-06-12 11:53:27  Connect OK! sock: 1476 , local IP:   192.168.10.99, port: 49276 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:53:27  Connect server OK
+2019-06-12 11:53:27  IP: 192.168.10.254
+2019-06-12 11:53:27  TesterName: WT200B-20006
+2019-06-12 11:53:27  FW_Version: 2.2.1.47
+2019-06-12 11:53:27  RF_Version: 1.5
+2019-06-12 11:53:27  HW_Version: 2.0.0.21
+2019-06-12 11:53:27  
+2019-06-12 11:53:41  sock close, sock: 1480
+2019-06-12 11:53:41  sock close, sock: 1476
+2019-06-12 11:53:41  sock close, port: 6000
+2019-06-12 11:53:41  sock close, port: 6100
+
+2019-06-12 11:57:03  conn string : WT200-SERVERCONN
+2019-06-12 11:57:03  Connect OK! sock: 1356 , local IP:   192.168.10.99, port: 49292 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 11:57:03  conn string : WT200-SERVERCONN
+2019-06-12 11:57:03  Connect OK! sock: 1136 , local IP:   192.168.10.99, port: 49293 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 11:57:03  Connect server OK
+2019-06-12 11:57:03  IP: 192.168.10.254
+2019-06-12 11:57:03  TesterName: WT200B-20006
+2019-06-12 11:57:03  FW_Version: 2.2.1.47
+2019-06-12 11:57:03  RF_Version: 1.5
+2019-06-12 11:57:03  HW_Version: 2.0.0.21
+2019-06-12 11:57:03  
+2019-06-12 11:58:57  sock close, sock: 1356
+2019-06-12 11:58:57  sock close, sock: 1136
+2019-06-12 11:58:57  sock close, port: 6000
+2019-06-12 11:58:57  sock close, port: 6100
+
+2019-06-12 12:00:40  conn string : WT200-SERVERCONN
+2019-06-12 12:00:40  Connect OK! sock: 1384 , local IP:   192.168.10.99, port: 49299 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:00:40  conn string : WT200-SERVERCONN
+2019-06-12 12:00:40  Connect OK! sock: 1044 , local IP:   192.168.10.99, port: 49300 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:00:40  Connect server OK
+2019-06-12 12:00:40  IP: 192.168.10.254
+2019-06-12 12:00:40  TesterName: WT200B-20006
+2019-06-12 12:00:40  FW_Version: 2.2.1.47
+2019-06-12 12:00:40  RF_Version: 1.5
+2019-06-12 12:00:40  HW_Version: 2.0.0.21
+2019-06-12 12:00:40  
+2019-06-12 12:01:16  sock close, sock: 1384
+2019-06-12 12:01:16  sock close, sock: 1044
+2019-06-12 12:01:16  sock close, port: 6000
+2019-06-12 12:01:16  sock close, port: 6100
+
+2019-06-12 12:01:45  conn string : WT200-SERVERCONN
+2019-06-12 12:01:45  Connect OK! sock: 1432 , local IP:   192.168.10.99, port: 49303 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:01:45  conn string : WT200-SERVERCONN
+2019-06-12 12:01:45  Connect OK! sock: 1436 , local IP:   192.168.10.99, port: 49304 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:01:45  Connect server OK
+2019-06-12 12:01:45  IP: 192.168.10.254
+2019-06-12 12:01:45  TesterName: WT200B-20006
+2019-06-12 12:01:45  FW_Version: 2.2.1.47
+2019-06-12 12:01:45  RF_Version: 1.5
+2019-06-12 12:01:45  HW_Version: 2.0.0.21
+2019-06-12 12:01:45  
+2019-06-12 12:02:09  sock close, sock: 1432
+2019-06-12 12:02:09  sock close, sock: 1436
+2019-06-12 12:02:09  sock close, port: 6000
+2019-06-12 12:02:09  sock close, port: 6100
+
+2019-06-12 12:02:25  conn string : WT200-SERVERCONN
+2019-06-12 12:02:25  Connect OK! sock: 1436 , local IP:   192.168.10.99, port: 49317 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:02:25  conn string : WT200-SERVERCONN
+2019-06-12 12:02:25  Connect OK! sock: 1040 , local IP:   192.168.10.99, port: 49318 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:02:25  Connect server OK
+2019-06-12 12:02:25  IP: 192.168.10.254
+2019-06-12 12:02:25  TesterName: WT200B-20006
+2019-06-12 12:02:25  FW_Version: 2.2.1.47
+2019-06-12 12:02:25  RF_Version: 1.5
+2019-06-12 12:02:25  HW_Version: 2.0.0.21
+2019-06-12 12:02:25  
+2019-06-12 12:04:18  sock close, sock: 1436
+2019-06-12 12:04:18  sock close, sock: 1040
+2019-06-12 12:04:18  sock close, port: 6000
+2019-06-12 12:04:18  sock close, port: 6100
+
+2019-06-12 12:11:55  conn string : WT200-SERVERCONN
+2019-06-12 12:11:55  Connect OK! sock: 1432 , local IP:   192.168.10.99, port: 49328 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:11:56  conn string : WT200-SERVERCONN
+2019-06-12 12:11:56  Connect OK! sock: 1464 , local IP:   192.168.10.99, port: 49329 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:11:56  Connect server OK
+2019-06-12 12:11:56  IP: 192.168.10.254
+2019-06-12 12:11:56  TesterName: WT200B-20006
+2019-06-12 12:11:56  FW_Version: 2.2.1.47
+2019-06-12 12:11:56  RF_Version: 1.5
+2019-06-12 12:11:56  HW_Version: 2.0.0.21
+2019-06-12 12:11:56  
+2019-06-12 12:12:25  sock close, sock: 1432
+2019-06-12 12:12:25  sock close, sock: 1464
+2019-06-12 12:12:25  sock close, port: 6000
+2019-06-12 12:12:25  sock close, port: 6100
+
+2019-06-12 12:12:41  conn string : WT200-SERVERCONN
+2019-06-12 12:12:41  Connect OK! sock: 1464 , local IP:   192.168.10.99, port: 49330 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:12:41  conn string : WT200-SERVERCONN
+2019-06-12 12:12:41  Connect OK! sock: 1432 , local IP:   192.168.10.99, port: 49331 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:12:41  Connect server OK
+2019-06-12 12:12:41  IP: 192.168.10.254
+2019-06-12 12:12:41  TesterName: WT200B-20006
+2019-06-12 12:12:41  FW_Version: 2.2.1.47
+2019-06-12 12:12:41  RF_Version: 1.5
+2019-06-12 12:12:41  HW_Version: 2.0.0.21
+2019-06-12 12:12:41  
+2019-06-12 12:14:26  sock close, sock: 1464
+2019-06-12 12:14:26  sock close, sock: 1432
+2019-06-12 12:14:26  sock close, port: 6000
+2019-06-12 12:14:26  sock close, port: 6100
+
+2019-06-12 12:23:39  conn string : WT200-SERVERCONN
+2019-06-12 12:23:39  Connect OK! sock: 1432 , local IP:   192.168.10.99, port: 49332 ; server IP:  192.168.10.254, port: 6000
+2019-06-12 12:23:39  conn string : WT200-SERVERCONN
+2019-06-12 12:23:39  Connect OK! sock: 1132 , local IP:   192.168.10.99, port: 49333 ; server IP:  192.168.10.254, port: 6100
+2019-06-12 12:23:39  Connect server OK
+2019-06-12 12:23:39  IP: 192.168.10.254
+2019-06-12 12:23:39  TesterName: WT200B-20006
+2019-06-12 12:23:39  FW_Version: 2.2.1.47
+2019-06-12 12:23:39  RF_Version: 1.5
+2019-06-12 12:23:39  HW_Version: 2.0.0.21
+2019-06-12 12:23:39  
+2019-06-12 12:25:24  sock close, sock: 1432
+2019-06-12 12:25:24  sock close, sock: 1132
+2019-06-12 12:25:24  sock close, port: 6000
+2019-06-12 12:25:24  sock close, port: 6100
+
+2019-06-13 17:36:03  conn string : WT200-SERVERCONN
+2019-06-13 17:36:03  Connect OK! sock: 1380 , local IP:   192.168.10.99, port: 49488 ; server IP:  192.168.10.254, port: 6000
+2019-06-13 17:36:03  conn string : WT200-SERVERCONN
+2019-06-13 17:36:03  Connect OK! sock: 1408 , local IP:   192.168.10.99, port: 49489 ; server IP:  192.168.10.254, port: 6100
+2019-06-13 17:36:03  Connect server OK
+2019-06-13 17:36:03  IP: 192.168.10.254
+2019-06-13 17:36:03  TesterName: WT200B-20006
+2019-06-13 17:36:03  FW_Version: 2.2.1.47
+2019-06-13 17:36:03  RF_Version: 1.5
+2019-06-13 17:36:03  HW_Version: 2.0.0.21
+2019-06-13 17:36:03  
+2019-06-13 17:36:14  sock close, sock: 1380
+2019-06-13 17:36:14  sock close, sock: 1408
+2019-06-13 17:36:14  sock close, port: 6000
+2019-06-13 17:36:14  sock close, port: 6100
+
+2019-06-13 17:36:27  conn string : WT200-SERVERCONN
+2019-06-13 17:36:27  Connect OK! sock: 1412 , local IP:   192.168.10.99, port: 49491 ; server IP:  192.168.10.254, port: 6000
+2019-06-13 17:36:27  conn string : WT200-SERVERCONN
+2019-06-13 17:36:27  Connect OK! sock: 1420 , local IP:   192.168.10.99, port: 49492 ; server IP:  192.168.10.254, port: 6100
+2019-06-13 17:36:27  Connect server OK
+2019-06-13 17:36:27  IP: 192.168.10.254
+2019-06-13 17:36:27  TesterName: WT200B-20006
+2019-06-13 17:36:27  FW_Version: 2.2.1.47
+2019-06-13 17:36:27  RF_Version: 1.5
+2019-06-13 17:36:27  HW_Version: 2.0.0.21
+2019-06-13 17:36:27  
+2019-06-13 17:36:42  conn string : WT200-SERVERCONN
+2019-06-13 17:36:42  Connect OK! sock: 1376 , local IP:   192.168.10.99, port: 49493 ; server IP:  192.168.10.254, port: 6000
+2019-06-13 17:36:42  conn string : WT200-SERVERCONN
+2019-06-13 17:36:42  Connect OK! sock: 1404 , local IP:   192.168.10.99, port: 49494 ; server IP:  192.168.10.254, port: 6100
+2019-06-13 17:36:42  Connect server OK
+2019-06-13 17:36:42  IP: 192.168.10.254
+2019-06-13 17:36:42  TesterName: WT200B-20006
+2019-06-13 17:36:42  FW_Version: 2.2.1.47
+2019-06-13 17:36:42  RF_Version: 1.5
+2019-06-13 17:36:42  HW_Version: 2.0.0.21
+2019-06-13 17:36:42  
+2019-06-13 17:38:44  sock close, sock: 1376
+2019-06-13 17:38:44  sock close, sock: 1404
+2019-06-13 17:38:44  sock close, port: 6000
+2019-06-13 17:38:44  sock close, port: 6100
+

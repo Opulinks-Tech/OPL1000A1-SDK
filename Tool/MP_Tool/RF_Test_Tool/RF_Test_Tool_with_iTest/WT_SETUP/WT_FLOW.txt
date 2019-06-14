@@ -38,16 +38,23 @@
 //	CHAIN0	CHAIN1
 //
 //******************************************************************************
-WT_CONNECT_TESTER				//connect tester
+	WT_CONNECT_TESTER				//connect tester
 
 //WT_DELAY  5000					//delay time in msec
 
-WT_INSERT_DUT					//Insert DUT
+	WT_INSERT_DUT					//Insert DUT
+
+	WT_CHECK_XTAL
+
+	WT_CHECK_OTA
 
 
-//	WT_USER_COMMAND	[at+rst] []
-//	WT_DELAY  2000					//delay time in msec
-//	WT_USER_COMMAND	[at+mode=3] []
+
+	WT_USER_COMMAND	[at+sysmode=1] []
+	WT_DELAY  500
+	WT_USER_COMMAND	[at+mprst] []
+	WT_DELAY  2000					//delay time in msec
+	WT_USER_COMMAND	[at+mode=3] []
 	
 // BLE RX	
 	WT_VERIFY_BT_RX_PER    2402    BLE    CHAIN0   
@@ -55,17 +62,19 @@ WT_INSERT_DUT					//Insert DUT
     WT_VERIFY_BT_RX_PER    2478    BLE    CHAIN0
 	
 	WT_USER_COMMAND	[at+dtm=end] []
-	WT_USER_COMMAND	[at+rst] []
+	WT_DELAY  500					//delay time in msec
+	WT_USER_COMMAND	[at+mprst] []	
 	WT_DELAY  2000					//delay time in msec
-	
 	WT_USER_COMMAND	[at+mode=3] []
-	WT_USER_COMMAND	[at+vco] []	
-    WT_DELAY  2000	
+	WT_DELAY  500					//delay time in msec
+	WT_USER_COMMAND	[at+vco] []
 
 // WIFI RX	
 	WT_VERIFY_RX_PER    2412    11M    CHAIN0   
 	WT_VERIFY_RX_PER    2442    11M    CHAIN0   
-	WT_VERIFY_RX_PER    2484    11M    CHAIN0	
+	WT_VERIFY_RX_PER    2484    11M    CHAIN0
+
+	
 
 
 //******************************************************************************
@@ -89,7 +98,7 @@ WT_INSERT_DUT					//Insert DUT
 
 //------------------------------------------------------------------------------------
 // WIFI TX
-//	WT_USER_COMMAND	[at+rst] []
+//	WT_USER_COMMAND	[at+mprst] []
 //	WT_DELAY  2000					//delay time in msec
 	WT_USER_COMMAND	[at+rfhp=240] []
 	WT_USER_COMMAND	[at+mode=3] []		
@@ -114,7 +123,7 @@ WT_INSERT_DUT					//Insert DUT
  
 
 
-//	WT_USER_COMMAND	[at+rst] []
+//	WT_USER_COMMAND	[at+mprst] []
 //	WT_DELAY  2000					//delay time in msec
 	WT_USER_COMMAND	[at+rfhp=0] []
 	WT_DELAY  500
@@ -145,16 +154,15 @@ WT_INSERT_DUT					//Insert DUT
 //	WT_USER_COMMAND	[at+rst] []
 //	WT_DELAY  2000
 	WT_USER_COMMAND	[at+mode=4] []
-
+	WT_DELAY  500
 //------------------------------------------------------------------------------------
 	// BLE TX
-	WT_USER_COMMAND	[at+dtm=end] []
-	WT_DELAY  500
-	WT_USER_COMMAND	[at+rfhp=15] []
-	WT_DELAY  500
-	WT_VERIFY_BT_TX    2402    BLE    CHAIN0    1 27 0
-	WT_VERIFY_BT_TX    2440    BLE    CHAIN0    1 27 0
-	WT_VERIFY_BT_TX    2478    BLE    CHAIN0    1 27 0
+//	WT_USER_COMMAND	[at+rfhp=15] []
+//	WT_USER_COMMAND	[at+dtm=end] []
+//	WT_DELAY  500
+//	WT_VERIFY_BT_TX    2402    BLE    CHAIN0    1 27 0
+//	WT_VERIFY_BT_TX    2440    BLE    CHAIN0    1 27 0
+//	WT_VERIFY_BT_TX    2478    BLE    CHAIN0    1 27 0
 
 	WT_USER_COMMAND	[at+dtm=end] []
 	WT_DELAY  500
@@ -164,8 +172,13 @@ WT_INSERT_DUT					//Insert DUT
 	WT_VERIFY_BT_TX    2440    BLE    CHAIN0    0 27 0
 	WT_VERIFY_BT_TX    2478    BLE    CHAIN0    0 27 0
 	
+
+	WT_SET_MAC_ADDRESS
 	
-//------------------------------------------------------------------------------------
+	WT_USER_COMMAND	[at+macaddrdef=0,1] []
+	WT_USER_COMMAND	[at+macaddrdef=1,1] []
+	
+////------------------------------------------------------------------------------------
 
 
 //******************************************************************************

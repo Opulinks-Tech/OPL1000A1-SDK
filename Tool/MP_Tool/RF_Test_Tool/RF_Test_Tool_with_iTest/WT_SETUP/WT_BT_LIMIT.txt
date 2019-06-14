@@ -13,7 +13,7 @@ WT_TARGET_PWR_BLE_HIGH_POWER = 10
 // PER功率，取值范围(-100-0)
 //------------------------------------------------------------------------------
 //				BLE	 1M	 2M	 3M
-WT_PER_SENS_MIN_BT              -70	-70	-70	-70
+WT_PER_SENS_MIN_BT              -60	-70	-70	-70
 WT_BER_SENS_MIN_BT		-70	-70	-70	-70
 
 //BT BER测试中，测试仪发送的bit个数，取值范围(1-10000000)
@@ -111,7 +111,7 @@ WT_BTLE_TX_POWER_TOLERANCE_UP	  	= 2		//dBm,LE功率门限上限值，取值范围(0-50)
 WT_BTLE_TX_POWER_TOLERANCE_LOW	  	= 2		//dBm,LE功率门限下限值，取值范围(-50-50)
 
 //Delta F1 avg
-WT_BTLE_DELTA_F1_TOLERANCE_UP		= 275		// KHz，取值范围(大于or等于0)
+WT_BTLE_DELTA_F1_TOLERANCE_UP		= 278		// KHz，取值范围(大于or等于0)
 WT_BTLE_DELTA_F1_TOLERANCE_LOW		= 225		// KHz，取值范围(大于or等于0)
 
 //Delta F2 avg

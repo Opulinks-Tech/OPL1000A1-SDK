@@ -10,7 +10,7 @@
 // list all tech to flash MAC or not	1:flash	0:not flash, default = 0
 //------------------------------------------------------------------------------
 //						WIFI 	LAN 	WAN 	WIFI_5G   	BT   	WAN0_1    WAN0_2    WAN0_3   WAN0_4   WAN1_1  WAN1_2  WAN1_3   WAN1_4   EX0   EX1
-WT_MAC_WRITE_ENABLE		1		0		0		0	  		0      	0         0        0          0       0       0       0        0        0    0
+WT_MAC_WRITE_ENABLE		1		0		0		0	  		1      	0         0        0          0       0       0       0        0        0    0
 
 //MAC flash order, range(1-15)
 WT_MAC_WRITE_ORDER		1		2		3		4	  		5 	 	6         7        8          9       10      11      12       13       14    15 
@@ -22,7 +22,7 @@ WT_MAC_WIFI_INCREMENT 		= 1 	// WiFi MAC consume number
 WT_MAC_LAN_INCREMENT 		= 0 	// LAN consume number									
 WT_MAC_WAN_INCREMENT 		= 0 	// WAN consume number			
 WT_MAC_WIFI_INCREMENT_5G	= 0		// 5G WiFi consume number
-WT_MAC_BT_INCREMENT         = 0		// BT MAC
+WT_MAC_BT_INCREMENT         = 1		// BT MAC
 WT_MAC_WAN0_1_INCREMENT		= 0
 WT_MAC_WAN0_2_INCREMENT     = 0
 WT_MAC_WAN0_3_INCREMENT     = 0
@@ -61,7 +61,7 @@ WT_MAC_VENDOR_ID        = 8C882B        // Customer ID.In hex, the first six num
 // DUT1
 WT_MAC_RANGE_BEGIN_1 	= 000000        // product ID, In hex, the last six number of whole MAC.
 WT_MAC_RANGE_END_1 	= 3FFFFF
-WT_MAC_CURRENT_1	= 000000			// current ID
+WT_MAC_CURRENT_1	= 000012			// current ID
 //******************************************************************************
 
 // DUT2

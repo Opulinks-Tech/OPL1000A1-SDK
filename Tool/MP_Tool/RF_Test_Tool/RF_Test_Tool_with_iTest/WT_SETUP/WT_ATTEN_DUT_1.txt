@@ -7,17 +7,17 @@
 // Fixed attenation 
 //
 //------------------------------------------------------------------------------
-WT_FIXED_ATTEN_2_4_CHAIN0  	=  1.0
-WT_FIXED_ATTEN_2_4_CHAIN1  	=  1.0
+WT_FIXED_ATTEN_2_4_CHAIN0  	=  2.5
+WT_FIXED_ATTEN_2_4_CHAIN1  	=  3.5
 WT_FIXED_ATTEN_2_4_CHAIN2  	=  3.5
 WT_FIXED_ATTEN_2_4_CHAIN3  	=  3.5
 
-WT_FIXED_ATTEN_5_CHAIN0  	=  21.5
-WT_FIXED_ATTEN_5_CHAIN1  	=  21.5
+WT_FIXED_ATTEN_5_CHAIN0  	=  3.5
+WT_FIXED_ATTEN_5_CHAIN1  	=  3.5
 WT_FIXED_ATTEN_5_CHAIN2  	=  3.5
 WT_FIXED_ATTEN_5_CHAIN3  	=  3.5
 
-WT_FIXED_ATTEN_BT               =  1
+WT_FIXED_ATTEN_BT               =  1.5
 
 WT_FIXED_ATTEN_ZIGBEE          	=  3.5
 //------------------------------------------------------------------------------
@@ -28,20 +28,20 @@ WT_FIXED_ATTEN_ZIGBEE          	=  3.5
 //Ch  CHAIN0  CHAIN1
 WT_DELTA_ATTEN_2_4_BEGIN
 
-CH1     0		0		0    		0    	// 2412 MHz
-CH2     0		0		0    		0    	// 2417 MHz
-CH3     0		0		0    		0    	// 2422 MHz
-CH4     0		0		0    		0    	// 2427 MHz
-CH5     0		0		0    		0    	// 2432 MHz
-CH6     0		0		0    		0    	// 2437 MHz
-CH7     0		0		0    		0    	// 2442 MHz
-CH8     0		0		0    		0    	// 2447 MHz
-CH9     0		0		0    		0    	// 2452 MHz
-CH10    0		0		0    		0    	// 2457 MHz
-CH11    0		0		0    		0    	// 2462 MHz
-CH12    0		0		0    		0    	// 2467 MHz
-CH13    0		0		0    		0    	// 2472 MHz
-CH14    0		0		0    		0    	// 2484 MHz
+CH1     0.0		0		0    		0    	// 2412 MHz
+CH2     0.0 		0		0    		0    	// 2417 MHz
+CH3     0.1		0		0    		0    	// 2422 MHz
+CH4     0.1		0		0    		0    	// 2427 MHz
+CH5     0.1		0		0    		0    	// 2432 MHz
+CH6     0.1		0		0    		0    	// 2437 MHz
+CH7     0.1		0		0    		0    	// 2442 MHz
+CH8     0.1		0		0    		0    	// 2447 MHz
+CH9     0.1		0		0    		0    	// 2452 MHz
+CH10    0.1		0		0    		0    	// 2457 MHz
+CH11    0.1		0		0    		0    	// 2462 MHz
+CH12    0.1		0		0    		0    	// 2467 MHz
+CH13    0.1		0		0    		0    	// 2472 MHz
+CH14    0.1		0		0    		0    	// 2484 MHz
 
 WT_DELTA_ATTEN_2_4_END
 
