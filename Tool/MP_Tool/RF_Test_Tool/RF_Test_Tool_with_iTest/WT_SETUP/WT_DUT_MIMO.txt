@@ -224,10 +224,10 @@ WT_FAIL_LOG_NAME_FORMAT		= 0		//Log name format when test result is FAIL
 WT_SAVE_TEST_STATISTIC		= 1	// save test result while facility is turning off.
 						// 1:save
 						// 0:do not save
-WT_PASS_NUMBER			= 1
+WT_PASS_NUMBER			= 0
 WT_FAIL_NUMBER			= 0		
 
-WT_PASS_NUMBER_1		= 1
+WT_PASS_NUMBER_1		= 0
 WT_FAIL_NUMBER_1		= 0
 
 WT_PASS_NUMBER_2		= 0

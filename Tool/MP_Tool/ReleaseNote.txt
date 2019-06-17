@@ -18,3 +18,5 @@ v2.1
 a. add OTA FW Check which detect OTA FW support or not
 b. add XTAL Check
 c. add CR+LF to end of AT command
+v2.2 
+a. modified AT command from at+bleaddr to at+mpbleaddr
