@@ -1,4 +1,22 @@
 ## Release Version:
+
+SDK Package: MP v1.8.1
+Patch_Lib : 3603
+ROM_CODE: 1655 
+
+## Release Date: 2019/6/17
+
+## Function & Feature Update 
+
+1. MP_Tool is updated to  v2.2,  refer Tool\MP_Too\ReleaseNotes.txt to know detailed information. 
+2. Firmware files under FW_Binary folder are updated to OTA image format.   
+
+## Notes List 
+
+------
+
+## Release Version:
+
 SDK Package: MP v1.8
 Patch_Lib : 3603
 ROM_CODE: 1655 
