@@ -64,7 +64,7 @@ void wifi_install_default_event_handlers(void);
 /**
   * @brief register wifi event handelrt (internal use)
   *
-  * @param[in] idx: one of the enums of bt_scan_mode_t
+  * @param[in] idx: one of the enums of wifi_event_t
   * @param[in] handler: the Wi-Fi event handler
   *
   * @return    0  : success
