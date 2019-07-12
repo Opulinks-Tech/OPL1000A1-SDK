@@ -393,7 +393,7 @@ static void Main_AppThread_1(void *argu)
     while (1)
     {
         printf("demo_app1: %d\r\n",ulCount);
-        osDelay(2000);      // delay 1000ms (1sec)
+        osDelay(2000);      // delay 2000ms (2sec)
         ulCount++;
     }
 }
@@ -479,7 +479,7 @@ static void Main_AppThread_2(void *argu)
             
             g_execution_count++;
         }
-        osDelay(2000);      // delay 1000ms (1sec)
+        osDelay(2000);      // delay 2000ms (2sec)
         ulCount++; 
     }
 }
