@@ -146,11 +146,10 @@ void App_Log_Config(uint8_t log_idx, char* app_name , uint8_t level_set)
 }
 
 void Internal_Module_Log_Config(bool on_off_set)
-{   
-	  
-    Internal_Module_Log_Set("opl_wifi_mac",true);			
-    Internal_Module_Log_Set("opl_controller_task",true);
-    Internal_Module_Log_Set("opl_event_loop",true);	
+{    
+    Internal_Module_Log_Set("opl_wifi_mac",on_off_set);			
+    Internal_Module_Log_Set("opl_controller_task",on_off_set);
+    Internal_Module_Log_Set("opl_event_loop",on_off_set);	
 }
 
 /*************************************************************************
