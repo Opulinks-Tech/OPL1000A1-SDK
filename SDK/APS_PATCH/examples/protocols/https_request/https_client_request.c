@@ -280,7 +280,7 @@ static int ssl_client_start( void )
 
         if (ret == 0)
         {
-            LOG_I(TAG,, "connection closed");
+            LOG_I(TAG, "connection closed");
             break;
         }
 
