@@ -16,7 +16,7 @@
 /*
 FIM version
 */
-#define MW_FIM_VER08_PROJECT            0x03    // 0x00 ~ 0xFF
+#define MW_FIM_VER08_PROJECT            0x04    // 0x00 ~ 0xFF
 
 /*
 Smart sleep
@@ -34,7 +34,7 @@ RF Power
 | WIFI High power |  0xF0          | 0xFF           |
 '-----------------'----------------'----------------'
 */
-#define BLEWIFI_COM_RF_POWER_SETTINGS   (0xFF)
+#define BLEWIFI_COM_RF_POWER_SETTINGS   (0xF0)
 
 /*
 SNTP
@@ -47,12 +47,12 @@ SNTP
 /* 
 BLE OTA FLAG 
 */
-#define BLE_OTA_FUNCTION_EN      (0)  // BLE OTA Function Enable (1: enable / 0: disable)
+#define BLE_OTA_FUNCTION_EN      (1)  // BLE OTA Function Enable (1: enable / 0: disable)
 
 /* 
 WIFI OTA FLAG 
 */
-#define WIFI_OTA_FUNCTION_EN     (0)  // WIFI OTA Function Enable (1: enable / 0: disable)
+#define WIFI_OTA_FUNCTION_EN     (1)  // WIFI OTA Function Enable (1: enable / 0: disable)
 #define WIFI_OTA_HTTP_URL        "http://192.168.0.100/ota.bin"
 
 /*

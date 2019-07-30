@@ -72,7 +72,7 @@ typedef struct
 #define BLEWIFI_CTRL_EVENT_BIT_WIFI     0x00000002U
 #define BLEWIFI_CTRL_EVENT_BIT_OTA      0x00000004U
 #define BLEWIFI_CTRL_EVENT_BIT_GOT_IP   0x00000008U
-#define BLEWIFI_CTRL_EVENT_BIT_IOT_INIT 0x00008000U
+#define BLEWIFI_CTRL_EVENT_BIT_IOT_INIT 0x00000010U
 
 typedef void (*T_BleWifi_Ctrl_EvtHandler_Fp)(uint32_t evt_type, void *data, int len);
 typedef struct
@@ -88,18 +88,9 @@ extern T_MwFim_GP08_WifiConnectSettings g_tAppCtrlWifiConnectSettings;
 
 void BleWifi_Ctrl_SysModeSet(uint8_t mode);
 uint8_t BleWifi_Ctrl_SysModeGet(void);
-void BleWifi_Ctrl_BleStatusSet(uint8_t status);
-uint8_t BleWifi_Ctrl_BleStatusGet(void);
-void BleWifi_Ctrl_WifiStatusSet(uint8_t status);
-uint8_t BleWifi_Ctrl_WifiStatusGet(void);
-void BleWifi_Ctrl_OtaStatusSet(uint8_t status);
-uint8_t BleWifi_Ctrl_OtaStatusGet(void);
-void BleWifi_Ctrl_GotIpStatusSet(uint8_t status);
-uint8_t BleWifi_Ctrl_GotIpStatusGet(void);
-uint8_t BleWifi_Ctrl_GotIpStatusWait(uint32_t millisec);
-void BleWifi_Ctrl_IotInitStatusSet(uint8_t status);
-uint8_t BleWifi_Ctrl_IotInitStatusGet(void);
-uint8_t BleWifi_Ctrl_IotInitStatusWait(uint32_t millisec);
+void BleWifi_Ctrl_EventStatusSet(uint32_t dwEventBit, uint8_t status);
+uint8_t BleWifi_Ctrl_EventStatusGet(uint32_t dwEventBit);
+uint8_t BleWifi_Ctrl_EventStatusWait(uint32_t dwEventBit, uint32_t millisec);
 void BleWifi_Ctrl_DtimTimeSet(uint32_t value);
 uint32_t BleWifi_Ctrl_DtimTimeGet(void);
 int BleWifi_Ctrl_MsgSend(int msg_type, uint8_t *data, int data_len);

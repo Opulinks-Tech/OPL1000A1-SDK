@@ -458,11 +458,13 @@ int data_process_handler_impl(char *pbuf, int len)
         {
             set_echo_on(false);
             msg_print_uart1("\r\nOK\r\n");
+            return true;
         }
         else if(strstr(pbuf, "ATE1") != NULL)
         {
             set_echo_on(true);
             msg_print_uart1("\r\nOK\r\n");
+            return true;
         }
     }
 

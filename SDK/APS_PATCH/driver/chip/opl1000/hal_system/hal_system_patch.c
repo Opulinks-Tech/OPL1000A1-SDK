@@ -38,6 +38,7 @@ Head Block of The File
 #include "hal_system_patch.h"
 #include "hal_wdt.h"
 #include "hal_spi.h"
+#include "hal_spi_patch.h"
 #include "hal_i2c.h"
 #include "hal_dbg_uart.h"
 #include "hal_pin.h"
@@ -752,11 +753,11 @@ void Hal_Sys_ApsClkChangeApply_patch(void)
 
     // SPI
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_0_PCLK)
-        Hal_Spi_BaudRateSet(SPI_IDX_0, Hal_Spi_BaudRateGet( SPI_IDX_0 ) );
+        Hal_Spi_DividerUpdate(SPI_IDX_0);
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_1_PCLK)
-        Hal_Spi_BaudRateSet(SPI_IDX_1, Hal_Spi_BaudRateGet( SPI_IDX_1 ) );
+        Hal_Spi_DividerUpdate(SPI_IDX_1);
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_SPI_2_PCLK)
-        Hal_Spi_BaudRateSet(SPI_IDX_2, Hal_Spi_BaudRateGet( SPI_IDX_2 ) );
+        Hal_Spi_DividerUpdate(SPI_IDX_2);
     
     // I2C
     if (AOS->R_M3CLK_SEL & AOS_APS_CLK_EN_I2C_PCLK)
@@ -812,6 +813,20 @@ void Hal_Sys_DisableClock_impl(void)
     AOS->R_M3CLK_SEL = AOS->R_M3CLK_SEL & ~u32DisClk;    
     
 }
+
+
+/**
+ * @brief Get APS PCLK frequency
+ * @return PCLK frequency
+ */
+uint32_t Hal_Sys_ApsPclkGet(void)
+{
+    if (AOS->R_M3CLK_SEL & AOS_APS_PCLK_DIV2)
+        return SystemCoreClockGet() >> 1;
+    return SystemCoreClockGet();
+}
+
+
 
 /*************************************************************************
 * FUNCTION:

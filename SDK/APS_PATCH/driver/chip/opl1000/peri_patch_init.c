@@ -48,6 +48,7 @@ Head Block of The File
 #include "hal_auxadc.h"
 #include "hal_auxadc_internal.h"
 
+#include "hal_gpio.h"
 #include "hal_flash_patch.h"
 #include "hal_system_patch.h"
 #include "hal_auxadc_patch.h"
@@ -113,6 +114,8 @@ void peripheral_patch_init(void)
 {
     // vic and GPIO
     Hal_Vic_Func_Patch();
+    Hal_Gpio_Init();
+
 
     // system (AOS+sys_reg)
     Hal_Sys_PowerDefaultSettings = Hal_Sys_PowerDefaultSettings_patch;
@@ -132,6 +135,7 @@ void peripheral_patch_init(void)
 
     // spi
     Hal_Spi_BaudRateSet = Hal_Spi_BaudRateSet_patch;
+    Hal_Spi_BaudRateGet = Hal_Spi_BaudRateGet_patch;
 
     // flash
     Hal_Flash_AddrProgram_Internal = Hal_Flash_AddrProgram_Internal_patch;

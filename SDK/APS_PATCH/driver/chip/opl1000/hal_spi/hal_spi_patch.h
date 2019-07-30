@@ -36,7 +36,7 @@ Head Block of The File
 // Sec 0: Comment block of the file
 
 // Sec 1: Include File 
-
+#include "hal_spi.h"
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 
 /********************************************
@@ -63,5 +63,7 @@ C Functions
 ***********/
 // Sec 8: C Functions
 uint32_t Hal_Spi_BaudRateSet_patch(E_SpiIdx_t eSpiIdx, uint32_t u32Baud);
+uint32_t Hal_Spi_BaudRateGet_patch(E_SpiIdx_t eSpiIdx);
+uint32_t Hal_Spi_DividerUpdate(E_SpiIdx_t eSpiIdx);
 
 #endif

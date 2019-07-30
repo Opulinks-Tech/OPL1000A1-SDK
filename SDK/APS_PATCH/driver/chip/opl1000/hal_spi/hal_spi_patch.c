@@ -37,7 +37,8 @@ Head Block of The File
 
 // Sec 1: Include File 
 #include "opl1000.h"
-#include "hal_spi.h"
+#include "hal_spi_patch.h"
+#include "hal_system_patch.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define SPI_0     ((S_Spi_Reg_t *) SPI0_BASE)
@@ -112,6 +113,7 @@ Declaration of Global Variables & Functions
 ********************************************/
 // Sec 4: declaration of global  variable
 extern uint32_t u32SpiSpeed[SPI_IDX_MAX];
+S_Spi_Reg_t *g_Spi_psaSpiReg[SPI_IDX_MAX] = {SPI_0, SPI_1, SPI_2};
 
 // Sec 5: declaration of global function prototype
 
@@ -149,46 +151,84 @@ C Functions
 *************************************************************************/
 uint32_t Hal_Spi_BaudRateSet_patch(E_SpiIdx_t eSpiIdx, uint32_t u32Baud)
 {
-    S_Spi_Reg_t *pSpi = 0;
-    uint32_t u32Temp = 0;
+    S_Spi_Reg_t *pSpi;
+    uint32_t u32Div;
+    uint32_t u32SsiEnr;
+    uint32_t u32Ret = 1;
     
-    if(eSpiIdx == SPI_IDX_0)
-	{
-        pSpi = SPI_0;
-	}
-    else if(eSpiIdx == SPI_IDX_1)
-    {
-        pSpi = SPI_1;
-    }
-    else if(eSpiIdx == SPI_IDX_2)
-    {
-        pSpi = SPI_2;
-    }
-    else
-    {
+    if(eSpiIdx >= SPI_IDX_MAX)
         return 1;
-    }
-
-    // Round
-    u32Temp = ( SystemCoreClockGet() + u32Baud/2 )/ u32Baud;
-
-    // Round for even
-    u32Temp = u32Temp + 1;
     
-    // Page 106, range is 0x0002~0xFFFE, even only (ie. last bit always truncated)
-    if( u32Temp < SPI_BUADR_MIN )
-    {
-        pSpi->BAUDR = SPI_BUADR_MIN;
+    if (u32Baud == 0)
         return 1;
-    }else if( u32Temp >= SPI_BUADR_MAX )
-    {
-        pSpi->BAUDR = SPI_BUADR_MAX;
-        return 1;
-    }else{
-        pSpi->BAUDR = u32Temp;
-    }
-
+    
+    pSpi = g_Spi_psaSpiReg[eSpiIdx];
+    
+    /* Disable SPI first */
+    u32SsiEnr = pSpi->SSIENR;
+    pSpi->SSIENR = 0;
+    
+    /* Find closet even value. Bit 0 is always truncated
+     * Page 106, range is 0x0002~0xFFFE, even only (ie. last bit always truncated)
+     * SPI source clock is from APS PCLK */
+    u32Div = ( Hal_Sys_ApsPclkGet() + u32Baud - 1 )/ u32Baud;
+    
+    if( u32Div < SPI_BUADR_MIN )
+        u32Div = SPI_BUADR_MIN;
+    else if( u32Div > SPI_BUADR_MAX )
+        u32Div = SPI_BUADR_MAX;
+    else    /* Valid range */
+        u32Ret = 0;
+    
+    /* Set baud rate and store it */
+    pSpi->BAUDR = u32Div;
     u32SpiSpeed[eSpiIdx] = u32Baud;
+    
+    /* Recover SPI */
+    pSpi->SSIENR = u32SsiEnr;
+    
+    return u32Ret;
+}
 
+
+/**
+ * @brief Get SPI working baud rate
+ *        SPI baud rate = (SPI source clock) / (SPI divider)
+ *        This value might not equal to the setting baud rate in Hal_Spi_BaudRateSet
+ * @param eSpiIdx [in] Index of SPI.
+ *                      SPI_IDX_0, SPI_IDX_1, SPI_IDX_2
+ * @return Baud rate
+ * @retval 1 Invalid index
+ */
+uint32_t Hal_Spi_BaudRateGet_patch(E_SpiIdx_t eSpiIdx)
+{  
+    S_Spi_Reg_t *pSpi;
+
+    if(eSpiIdx >= SPI_IDX_MAX)
+        return 1;
+    
+    pSpi = g_Spi_psaSpiReg[eSpiIdx];    
+    return Hal_Sys_ApsPclkGet() / pSpi->BAUDR;
+}
+
+
+
+/**
+ * @brief Update SPI divider.
+ *        When SPI clock source changed, call this function to update SPI divider.
+ *        This function will use previous SPI setting baud rate to update divider.
+ * @param eSpiIdx [in] Index of SPI.
+ *                      SPI_IDX_0, SPI_IDX_1, SPI_IDX_2
+ * @return Setting status
+ * @retval 0 setting complete
+ * @retval 1 error 
+ */
+uint32_t Hal_Spi_DividerUpdate(E_SpiIdx_t eSpiIdx)
+{  
+    if (eSpiIdx >= SPI_IDX_MAX)
+        return 1;
+    
+    Hal_Spi_BaudRateSet_patch(eSpiIdx, u32SpiSpeed[eSpiIdx]);
     return 0;
 }
+

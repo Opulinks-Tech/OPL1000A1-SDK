@@ -41,7 +41,12 @@
 #define IPC_M3_MSG_BUF_NUM              4
 #define IPC_M3_MSG_QUEUE_END            (IPC_M3_MSG_QUEUE_START + (IPC_M3_MSG_BUF_SIZE * IPC_M3_MSG_BUF_NUM))
 
-#define IPC_SHM_AVAIL_ADDR              IPC_M3_MSG_QUEUE_END
+// For GPIO sleep IO state
+#define IPC_SLEEP_IO_START    		    IPC_ADDR_ALIGN(IPC_M3_MSG_QUEUE_END, 4)
+#define IPC_SLEEP_IO_LEN         	    sizeof(S_SLEEP_IO_CFG)
+#define IPC_SLEEP_IO_END          	    (IPC_SLEEP_IO_START + IPC_SLEEP_IO_LEN)
+
+#define IPC_SHM_AVAIL_ADDR              IPC_SLEEP_IO_END
 
 typedef struct
 {

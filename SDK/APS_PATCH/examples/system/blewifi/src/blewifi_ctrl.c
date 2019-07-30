@@ -23,6 +23,7 @@
 #include "event_groups.h"
 #include "sys_os_config.h"
 #include "sys_os_config_patch.h"
+#include "at_cmd_common.h"
 
 #include "blewifi_common.h"
 #include "blewifi_configuration.h"
@@ -106,127 +107,66 @@ uint8_t BleWifi_Ctrl_SysModeGet(void)
     return g_ulAppCtrlSysMode;
 }
 
-void BleWifi_Ctrl_BleStatusSet(uint8_t status)
+void BleWifi_Ctrl_EventStatusSet(uint32_t dwEventBit, uint8_t status)
 {
-    if (true == status)
-        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_BLE);
+// ISR mode is not supported.
+#if 0
+    BaseType_t xHigherPriorityTaskWoken, xResult;
+    
+    // check if it is ISR mode or not
+    if (0 != __get_IPSR())
+    {
+        if (true == status)
+        {
+            // xHigherPriorityTaskWoken must be initialised to pdFALSE.
+    		xHigherPriorityTaskWoken = pdFALSE;
+
+            // Set bit in xEventGroup.
+            xResult = xEventGroupSetBitsFromISR(g_tAppCtrlEventGroup, dwEventBit, &xHigherPriorityTaskWoken);
+            if( xResult == pdPASS )
+    		{
+    			// If xHigherPriorityTaskWoken is now set to pdTRUE then a context
+    			// switch should be requested.  The macro used is port specific and
+    			// will be either portYIELD_FROM_ISR() or portEND_SWITCHING_ISR() -
+    			// refer to the documentation page for the port being used.
+    			portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    		}
+        }
+        else
+            xEventGroupClearBitsFromISR(g_tAppCtrlEventGroup, dwEventBit);
+    }
+    // Taske mode
     else
-        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_BLE);
+#endif
+    {
+        if (true == status)
+            xEventGroupSetBits(g_tAppCtrlEventGroup, dwEventBit);
+        else
+            xEventGroupClearBits(g_tAppCtrlEventGroup, dwEventBit);
+    }
 }
 
-uint8_t BleWifi_Ctrl_BleStatusGet(void)
+uint8_t BleWifi_Ctrl_EventStatusGet(uint32_t dwEventBit)
 {
     EventBits_t tRetBit;
 
     tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
-    if (BLEWIFI_CTRL_EVENT_BIT_BLE == (BLEWIFI_CTRL_EVENT_BIT_BLE & tRetBit))
+    if (dwEventBit == (dwEventBit & tRetBit))
         return true;
 
     return false;
 }
 
-void BleWifi_Ctrl_WifiStatusSet(uint8_t status)
-{
-    if (true == status)
-        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_WIFI);
-    // !!! if the wifi connection is disconnected, the status of Got IP will be cleared, too.
-    else
-        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_WIFI | BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
-}
-
-uint8_t BleWifi_Ctrl_WifiStatusGet(void)
-{
-    EventBits_t tRetBit;
-
-    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
-    if (BLEWIFI_CTRL_EVENT_BIT_WIFI == (BLEWIFI_CTRL_EVENT_BIT_WIFI & tRetBit))
-        return true;
-
-    return false;
-}
-
-void BleWifi_Ctrl_OtaStatusSet(uint8_t status)
-{
-    if (true == status)
-        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_OTA);
-    else
-        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_OTA);
-}
-
-uint8_t BleWifi_Ctrl_OtaStatusGet(void)
-{
-    EventBits_t tRetBit;
-
-    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
-    if (BLEWIFI_CTRL_EVENT_BIT_OTA == (BLEWIFI_CTRL_EVENT_BIT_OTA & tRetBit))
-        return true;
-
-    return false;
-}
-
-void BleWifi_Ctrl_GotIpStatusSet(uint8_t status)
-{
-    if (true == status)
-        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
-    else
-        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_GOT_IP);
-}
-
-uint8_t BleWifi_Ctrl_GotIpStatusGet(void)
-{
-    EventBits_t tRetBit;
-
-    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
-    if (BLEWIFI_CTRL_EVENT_BIT_GOT_IP == (BLEWIFI_CTRL_EVENT_BIT_GOT_IP & tRetBit))
-        return true;
-
-    return false;
-}
-
-uint8_t BleWifi_Ctrl_GotIpStatusWait(uint32_t millisec)
+uint8_t BleWifi_Ctrl_EventStatusWait(uint32_t dwEventBit, uint32_t millisec)
 {
     EventBits_t tRetBit;
 
     tRetBit = xEventGroupWaitBits(g_tAppCtrlEventGroup,
-                                  BLEWIFI_CTRL_EVENT_BIT_GOT_IP,
+                                  dwEventBit,
                                   pdFALSE,
                                   pdFALSE,
                                   millisec);
-    if (BLEWIFI_CTRL_EVENT_BIT_GOT_IP == (BLEWIFI_CTRL_EVENT_BIT_GOT_IP & tRetBit))
-        return true;
-
-    return false;
-}
-
-void BleWifi_Ctrl_IotInitStatusSet(uint8_t status)
-{
-    if (true == status)
-        xEventGroupSetBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_IOT_INIT);
-    else
-        xEventGroupClearBits(g_tAppCtrlEventGroup, BLEWIFI_CTRL_EVENT_BIT_IOT_INIT);
-}
-
-uint8_t BleWifi_Ctrl_IotInitStatusGet(void)
-{
-    EventBits_t tRetBit;
-
-    tRetBit = xEventGroupGetBits(g_tAppCtrlEventGroup);
-    if (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT == (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT & tRetBit))
-        return true;
-
-    return false;
-}
-
-uint8_t BleWifi_Ctrl_IotInitStatusWait(uint32_t millisec)
-{
-    EventBits_t tRetBit;
-
-    tRetBit = xEventGroupWaitBits(g_tAppCtrlEventGroup,
-                                  BLEWIFI_CTRL_EVENT_BIT_IOT_INIT,
-                                  pdFALSE,
-                                  pdFALSE,
-                                  millisec);
-    if (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT == (BLEWIFI_CTRL_EVENT_BIT_IOT_INIT & tRetBit))
+    if (dwEventBit == (dwEventBit & tRetBit))
         return true;
 
     return false;
@@ -256,7 +196,7 @@ void BleWifi_Ctrl_DoAutoConnect(void)
         return;
 
     // BLE is disconnect and Wifi is disconnect, too.
-    if ((false == BleWifi_Ctrl_BleStatusGet()) && (false == BleWifi_Ctrl_WifiStatusGet()))
+    if ((false == BleWifi_Ctrl_EventStatusGet(BLEWIFI_CTRL_EVENT_BIT_BLE)) && (false == BleWifi_Ctrl_EventStatusGet(BLEWIFI_CTRL_EVENT_BIT_WIFI)))
     {
         // start to scan
         // after scan, do the auto-connect
@@ -304,7 +244,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_BleAdvertisingTimeChangeCfm(uint32_t evt
 static void BleWifi_Ctrl_TaskEvtHandler_BleConnectionComplete(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_BLE_CONNECTION_COMPLETE \r\n");
-    BleWifi_Ctrl_BleStatusSet(true);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_BLE, true);
     
     /* BLE Init Step 4: BLE said it's connected with a peer BLE device */
 }
@@ -318,7 +258,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_BleConnectionFail(uint32_t evt_type, voi
 static void BleWifi_Ctrl_TaskEvtHandler_BleDisconnect(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_BLE_DISCONNECT \r\n");
-    BleWifi_Ctrl_BleStatusSet(false);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_BLE, false);
     BleWifi_Ble_StartAdvertising();
     
     /* start to do auto-connection. */
@@ -376,7 +316,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiScanDoneInd(uint32_t evt_type, void 
 static void BleWifi_Ctrl_TaskEvtHandler_WifiConnectionInd(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_CONNECTION_IND \r\n");
-    BleWifi_Ctrl_WifiStatusSet(true);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_WIFI, true);
     
     // return to the idle of the connection retry
     g_ubAppCtrlRequestRetryTimes = BLEWIFI_CTRL_AUTO_CONN_STATE_IDLE;
@@ -387,7 +327,8 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiConnectionInd(uint32_t evt_type, voi
 static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_DISCONNECTION_IND \r\n");
-    BleWifi_Ctrl_WifiStatusSet(false);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_WIFI, false);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_GOT_IP, false);
     BleWifi_Wifi_SetDTIM(0);   
 
     // continue the connection retry
@@ -405,7 +346,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, 
         BleWifi_Ble_SendResponse(BLEWIFI_RSP_CONNECT, BLEWIFI_WIFI_CONNECTED_FAIL);
     
         /* do auto-connection. */
-        if (false == BleWifi_Ctrl_BleStatusGet())
+        if (false == BleWifi_Ctrl_EventStatusGet(BLEWIFI_CTRL_EVENT_BIT_BLE))
         {
             osTimerStop(g_tAppCtrlAutoConnectTriggerTimer);
             osTimerStart(g_tAppCtrlAutoConnectTriggerTimer, g_ulAppCtrlAutoConnectInterval);
@@ -416,7 +357,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, 
         BleWifi_Ble_SendResponse(BLEWIFI_RSP_DISCONNECT, BLEWIFI_WIFI_DISCONNECTED_DONE);
     
         /* do auto-connection. */
-        if (false == BleWifi_Ctrl_BleStatusGet())
+        if (false == BleWifi_Ctrl_EventStatusGet(BLEWIFI_CTRL_EVENT_BIT_BLE))
         {
             osTimerStop(g_tAppCtrlAutoConnectTriggerTimer);
             osTimerStart(g_tAppCtrlAutoConnectTriggerTimer, g_ulAppCtrlAutoConnectInterval);
@@ -427,7 +368,7 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiDisconnectionInd(uint32_t evt_type, 
 static void BleWifi_Ctrl_TaskEvtHandler_WifiGotIpInd(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_WIFI_GOT_IP_IND \r\n");
-    BleWifi_Ctrl_GotIpStatusSet(true);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_GOT_IP, true);
 #if (SNTP_FUNCTION_EN == 1)		    
     BleWifi_SntpInit();
 #endif
@@ -445,13 +386,14 @@ static void BleWifi_Ctrl_TaskEvtHandler_WifiAutoConnectInd(uint32_t evt_type, vo
 static void BleWifi_Ctrl_TaskEvtHandler_OtherOtaOn(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_ON \r\n");
-    BleWifi_Ctrl_OtaStatusSet(true);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_OTA, true);
 }
 
 static void BleWifi_Ctrl_TaskEvtHandler_OtherOtaOff(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_OFF \r\n");
-    BleWifi_Ctrl_OtaStatusSet(false);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_OTA, false);
+    msg_print_uart1("OK\r\n");
     
     // restart the system
     osDelay(BLEWIFI_CTRL_RESET_DELAY);
@@ -461,7 +403,8 @@ static void BleWifi_Ctrl_TaskEvtHandler_OtherOtaOff(uint32_t evt_type, void *dat
 static void BleWifi_Ctrl_TaskEvtHandler_OtherOtaOffFail(uint32_t evt_type, void *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_MSG_OTHER_OTA_OFF_FAIL \r\n");
-    BleWifi_Ctrl_OtaStatusSet(false);
+    BleWifi_Ctrl_EventStatusSet(BLEWIFI_CTRL_EVENT_BIT_OTA, false);
+    msg_print_uart1("ERROR\r\n");
 }
 
 void BleWifi_Ctrl_TaskEvtHandler(uint32_t evt_type, void *data, int len)

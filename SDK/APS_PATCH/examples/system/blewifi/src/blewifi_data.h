@@ -133,7 +133,7 @@ void BleWifi_Ble_DataRecvHandler(uint8_t *data, int len);
 void BleWifi_Ble_DataSendEncap(uint16_t type_id, uint8_t *data, int total_data_len);
 void BleWifi_Ble_SendResponse(uint16_t type_id, uint8_t status);
 
-void BleWifi_Wifi_OtaTrigReq(void);
+void BleWifi_Wifi_OtaTrigReq(uint8_t *data);
 void BleWifi_Wifi_OtaTrigRsp(uint8_t status);
 void BleWifi_Wifi_OtaDeviceVersionReq(void);
 void BleWifi_Wifi_OtaDeviceVersionRsp(uint16_t fid);

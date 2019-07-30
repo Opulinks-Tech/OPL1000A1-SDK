@@ -31,6 +31,7 @@ Head Block of The File
 
 // Sec 1: Include File 
 #include "hal_vic_patch.h"
+#include "hal_gpio.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define PIN             ((S_App_Pin_Config_t *) (AOS_BASE + 0x090))
@@ -186,6 +187,8 @@ void Hal_Vic_GpioDirection_patch(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection)
 *************************************************************************/
 void Hal_Vic_GpioPinmux_patch(E_GpioIdx_t eIdx, E_GpioDirection_t tDirection, E_GpioLevel_t tOutputLevel)
 {
+    Hal_Gpio_SleepIoAutoCtrlSet(eIdx, SLEEP_OUTPUT_DISABLE);
+    
     //input enable
     REG_BB_WRITE(&PIN->RG_PD_IE, eIdx, 1);
     // pull-up / pull-down disable

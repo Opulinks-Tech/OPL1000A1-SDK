@@ -482,6 +482,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\APS_PATCH\middleware\third_party\aliyun\wrappers\os\freertos\HAL_OS_Freertos.c</FilePath>
             </File>
+            <File>
+              <FileName>HAL_TCP_Freertos.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\APS_PATCH\middleware\third_party\aliyun\wrappers\os\freertos\HAL_TCP_Freertos.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -17,7 +17,9 @@
 #include "hal_flash.h"
 #include "at_cmd_task.h"
 #include "at_cmd_func_patch.h"
+#include "blewifi_configuration.h"
 #include "blewifi_ctrl.h"
+#include "blewifi_data.h"
 
 #include "agent.h"
 #include "mw_fim.h"
@@ -687,6 +689,32 @@ done:
     return iRet;
 }
 
+#if (WIFI_OTA_FUNCTION_EN == 1)
+int app_at_cmd_sys_do_wifi_ota(char *buf, int len, int mode)
+{
+    int argc = 0;
+    char *argv[AT_MAX_CMD_ARGS] = {0};
+
+    if (AT_CMD_MODE_EXECUTION == mode)
+    {
+        BleWifi_Wifi_OtaTrigReq(WIFI_OTA_HTTP_URL);
+        //msg_print_uart1("OK\r\n");
+    }
+    else if (AT_CMD_MODE_SET == mode)
+    {
+        if (!_at_cmd_buf_to_argc_argv(buf, &argc, argv, AT_MAX_CMD_ARGS))
+        {
+            return false;
+        }
+
+        BleWifi_Wifi_OtaTrigReq((uint8_t*)(argv[1]));
+        //msg_print_uart1("OK\r\n");
+    }
+
+    return true;
+}
+#endif
+
 _at_command_t g_taAppAtCmd[] =
 {
     { "at+readflash",   app_at_cmd_sys_read_flash,  "Read flash" },
@@ -695,6 +723,9 @@ _at_command_t g_taAppAtCmd[] =
     { "at+readfim",     app_at_cmd_sys_read_fim,    "Read FIM data" },
     { "at+writefim",    app_at_cmd_sys_write_fim,   "Write FIM data" },
     { "at+dtim",        app_at_cmd_sys_dtim_time,   "Wifi DTIM" },
+#if (WIFI_OTA_FUNCTION_EN == 1)
+    { "at+ota",         app_at_cmd_sys_do_wifi_ota, "Do Wifi OTA" },
+#endif
     { NULL,             NULL,                       NULL},
 };
 

@@ -36,6 +36,7 @@ Head Block of The File
 #include "hal_pin_def.h"
 #include "hal_pin.h"
 #include "hal_vic.h"
+#include "hal_gpio.h"
 
 // Sec 2: Constant Definitions, Imported Symbols, miscellaneous
 #define AOS             ((S_Aos_Reg_t *) AOS_BASE)
@@ -143,6 +144,7 @@ RET_DATA T_Hal_Pin_IoConfigSet_Fp g_taHal_Pin_IoConfigTbl[HAL_PIN_IO_COUNT];
 
 // Internal
 
+void Hal_Pin_SetAutoControl(uint8_t ubIoIdx, uint16_t uwConfig);
 // Sec 5: declaration of global function prototype
 uint8_t Hal_Pin_ConfigSet_IO_0(uint16_t uwConfig);
 uint8_t Hal_Pin_ConfigSet_IO_1(uint16_t uwConfig);
@@ -211,11 +213,13 @@ uint8_t Hal_Pin_ConfigSet_impl(uint8_t ubIoIdx, uint16_t uwConfig, uint8_t ubDri
     // check the function pointer
     if (NULL == g_taHal_Pin_IoConfigTbl[ubIoIdx])
         goto done;
-
+    
     // set the IO config
     if (HAL_PIN_OK != g_taHal_Pin_IoConfigTbl[ubIoIdx](uwConfig))
         goto done;
 
+    Hal_Pin_SetAutoControl(ubIoIdx, uwConfig);
+    
     // pull-up / pull-down
     tmp = AOS->RG_PD_PE;
     tmp &= ~(0x1 << ubIoIdx);
@@ -2990,6 +2994,65 @@ uint8_t Hal_Pin_ConfigSet_IO_23(uint16_t uwConfig)
 
     return HAL_PIN_OK;
 }
+
+
+/**
+ * @brief According the pinmux, set auto control
+ * @param ubIoIdx [In] the index of IO
+ * @param uwConfig [In] the type config of IO
+ */
+void Hal_Pin_SetAutoControl(uint8_t ubIoIdx, uint16_t uwConfig)
+{
+    switch (uwConfig)
+    {
+        /* Auto pull high */
+        /* UART */
+        case PIN_TYPE_UART0_TX:
+        case PIN_TYPE_UART0_RTS:
+        case PIN_TYPE_UART1_TX:
+        case PIN_TYPE_UART1_RTS:
+        case PIN_TYPE_UART_APS_TX:
+        case PIN_TYPE_UART_MSQ_TX:
+        
+        /* SPI */
+        case PIN_TYPE_SPI0_CS:
+        case PIN_TYPE_SPI0_IO_0:
+        case PIN_TYPE_SPI0_IO_1:
+        case PIN_TYPE_SPI0_IO_2:
+        case PIN_TYPE_SPI0_IO_3:
+        case PIN_TYPE_SPI0_IO_MOSI:
+        case PIN_TYPE_SPI1_CS:
+        case PIN_TYPE_SPI1_IO_0:
+        case PIN_TYPE_SPI1_IO_1:
+        case PIN_TYPE_SPI1_IO_2:
+        case PIN_TYPE_SPI1_IO_3:
+        case PIN_TYPE_SPI1_IO_MOSI:
+        case PIN_TYPE_SPI2_CS:
+        case PIN_TYPE_SPI2_IO_0:
+        case PIN_TYPE_SPI2_IO_1:
+        case PIN_TYPE_SPI2_IO_2:
+        case PIN_TYPE_SPI2_IO_3:
+        case PIN_TYPE_SPI2_IO_MOSI:
+        /* I2C */
+        case PIN_TYPE_I2C_SCL:
+        case PIN_TYPE_I2C_SDA:
+            Hal_Gpio_SleepIoAutoCtrlSet((E_GpioIdx_t)ubIoIdx, SLEEP_OUTPUT_ENABLE_HIGH);
+            break;
+        
+        /* Auto pull low */
+        /* SPI */
+        case PIN_TYPE_SPI0_CLK:
+        case PIN_TYPE_SPI1_CLK:
+        case PIN_TYPE_SPI2_CLK:
+            Hal_Gpio_SleepIoAutoCtrlSet((E_GpioIdx_t)ubIoIdx, SLEEP_OUTPUT_ENABLE_LOW);
+            break;
+        /* No auto control */
+        default:
+            Hal_Gpio_SleepIoAutoCtrlSet((E_GpioIdx_t)ubIoIdx, SLEEP_OUTPUT_DISABLE);
+    }
+}
+
+
 
 /*************************************************************************
 * FUNCTION:

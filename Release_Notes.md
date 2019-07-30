@@ -1,4 +1,36 @@
 ## Release Version:
+SDK Package: MP v1.11
+Patch_Lib : 3877
+ROM_CODE: 1655 
+
+## Release Date: 2019/7/30
+
+## Function & Feature Update 
+1. Documents updating:
+    1.1 Update OPL1000-Demo-BLE-setup-network-guide document to R1-v07, introduce IOS APP operation and wechat ini-program application. Change its name to OPL1000-Demo-BLE-setup-network-and-BLE-OTA-guide.pdf.  
+    1.2 Add a new document OPL1000-Demo-MQTT-guide.pdf to introduce private MQTT demo application.
+    1.3 OPL1000-BLEWIFI-Application-Dev-Guide, R01-v07,Modify blewifi example location path .
+    1.4 OPL1000-DEVKIT-getting-start-guide, R02-v06,Update FW_Binary folder to FW_Pack folder 
+    1.5 OPL1000-SDK-getting-start-guide,R02-v07, modify FW_Binary folder to FW_Pack folder 
+    1.6 OPL1000-Demo-ota-wifi-guide,R01-v03, modify FW_Binary folder to FW_Pack folder 
+    1.7 OPL1000-Demo-tcp-client-guide, R01-v04,Update dtim description to sync with example
+2. Tool version information and update:
+   2.1 download tool: update to v0.26 to compatiable with different brand flash device.  
+   2.2 pin-mux tool: v0.8. No update;
+   2.3 MP_Tool: update to v2.2, update BLE address write function.   
+3. Add a new MQTT example under SDK\APS_PATCH\examples\protocols\mqtt folder; This example shows how to establish a private MQTT service in local area network. 
+4. Add a new demo "MQTT" under Demo\MQTT to show how to use "MQTT" example to establish a local MQTT service in LAN. Here EMQ is used as MQTT broker. 
+5. In "BLE_Config_AP" demo folder wechat mini-program source code is provided for reference.   
+
+## Bug Fix List 
+1. Fix "wifi connection would be not recoverable sometimes after broken" issue.
+2. Fix "deep sleep wakeup by gpio failed" issue
+
+## Notes List 
+
+## 
+
+## Release Version:
 
 SDK Package: MP v1.8.1
 Patch_Lib : 3603

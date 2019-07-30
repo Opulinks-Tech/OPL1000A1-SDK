@@ -5,6 +5,10 @@ This folder contains binary firmware that used to:
 
 How to use these binary file and complete firmware pack, download operation, please refer document "OPL1000-patch-download-tool-user-guide.pdf" (Chinese version under .\Doc\zh_CN directory) or "OPL1000-patch-download-tool-user-guide_ENG.pdf" (English version under .\Doc\en directory)  to know detailed information. 
 
+[Note]
+
+1. The function of AT and APS serial ports would be conversed since MP1.8 version . That is, AT port would act as APS port, and vice versa. 
+
 # File list and brief description  
 1. opl1000_at.bin: OPL1000 integral firmware file that support AT command.It is packed by m3.bin(generate by compiling blewifi example's transparent target ) and m0 binary file.  
 2. opl1000_at_ext_ldo.bin: OPL1000 integral firmware file that support AT command. It works with devkits using  external LDO power supply. It is packed by m3.bin(generate by compiling blewifi example's transparent target ) and ext_ldo_m0 binary file.  

@@ -44,6 +44,7 @@ Head Block of The File
 #include "hal_pwm.h"
 #include "hal_auxadc.h"
 #include "hal_wdt.h"
+#include "hal_gpio.h"
 #include "mw_fim\mw_fim.h"
 #include "at_cmd_common.h"
 #include "ipc.h"
@@ -406,14 +407,13 @@ static void Sys_DriverInit_patch(void)
     // Set system clock
     Sys_ClockSetup();
 
-    // Set pin-mux
     // cold boot
-    if (0 == Boot_CheckWarmBoot())
-        Hal_SysPinMuxAppInit();
-
-    // Init VIC at cold-boot
     if (!Boot_CheckWarmBoot())
     {
+        // Set pin-mux
+        Hal_SysPinMuxAppInit();
+
+        // Init VIC at cold-boot
         Hal_Vic_Init();
         
         // Init GPIO

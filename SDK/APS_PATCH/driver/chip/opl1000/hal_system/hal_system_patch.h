@@ -123,6 +123,7 @@ uint32_t Hal_Sys_ApsClkTreeSetup_patch(E_ApsClkTreeSrc_t eClkTreeSrc, uint8_t u8
 uint32_t Hal_Sys_MsqClkTreeSetup_patch(E_MsqClkTreeSrc_t eClkTreeSrc, uint8_t u8ClkDivEn );
 void Hal_Sys_ApsClkChangeApply_patch(void);
 void Hal_Sys_DisableClock_impl(void);
+uint32_t Hal_Sys_ApsPclkGet(void);
 extern T_Hal_Sys_DisableClock Hal_Sys_DisableClock;
 
 void Hal_Sys_ApsClkStore( void );

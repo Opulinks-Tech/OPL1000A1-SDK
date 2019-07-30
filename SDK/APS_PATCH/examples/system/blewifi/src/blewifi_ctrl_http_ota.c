@@ -42,7 +42,7 @@ void blewifi_ctrl_http_ota_task_evt_handler(uint32_t evt_type, void *data, int l
             BLEWIFI_INFO("BLEWIFI: MSG BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG \r\n");
             BleWifi_Ctrl_MsgSend(BLEWIFI_CTRL_MSG_OTHER_OTA_ON, NULL, 0);
             BleWifi_Wifi_SetDTIM(0);
-            if (ota_download_by_http(WIFI_OTA_HTTP_URL) != 0)
+            if (ota_download_by_http(data) != 0)
             {
                 BleWifi_Wifi_SetDTIM(BleWifi_Ctrl_DtimTimeGet());
                 BleWifi_Wifi_OtaTrigRsp(BLEWIFI_WIFI_OTA_FAILURE);

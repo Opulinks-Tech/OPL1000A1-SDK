@@ -397,9 +397,10 @@ err:
 #endif /* #if (BLE_OTA_FUNCTION_EN == 1) */
 
 #if (WIFI_OTA_FUNCTION_EN == 1)
-void BleWifi_Wifi_OtaTrigReq(void)
+void BleWifi_Wifi_OtaTrigReq(uint8_t *data)
 {
-    blewifi_ctrl_http_ota_msg_send(BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG, NULL, 0);
+    // data length = string length + 1 (\n)
+    blewifi_ctrl_http_ota_msg_send(BLEWIFI_CTRL_HTTP_OTA_MSG_TRIG, data, strlen((char*)data) + 1);
 }
 
 void BleWifi_Wifi_OtaTrigRsp(uint8_t status)
@@ -584,7 +585,7 @@ static void BleWifi_Ble_ProtocolHandler_OtaEnd(uint16_t type, uint8_t *data, int
 static void BleWifi_Ble_ProtocolHandler_HttpOtaTrig(uint16_t type, uint8_t *data, int len)
 {
     BLEWIFI_INFO("BLEWIFI: Recv BLEWIFI_REQ_HTTP_OTA_TRIG \r\n");
-    BleWifi_Wifi_OtaTrigReq();
+    BleWifi_Wifi_OtaTrigReq(WIFI_OTA_HTTP_URL);
 }
 
 static void BleWifi_Ble_ProtocolHandler_HttpOtaDeviceVersion(uint16_t type, uint8_t *data, int len)
