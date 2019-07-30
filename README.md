@@ -1,5 +1,5 @@
-# OPL1000-SDK
-- OPL1000-SDK is Opulinks official software development kit for OPL1000 chip.
+# OPL1000A1-SDK
+- OPL1000A1-SDK is Opulinks official software development kit for OPL1000 A1 chip.
 - Provide 33 documents under "Doc" folder, includes Chinese and English version. Content covers DEVKIT use, SDK getting start and development, Chip boot mode, Flash use, Adaptive DTIM solution, API use introduction etc. 
 - Provide three sets of tools for Pin multiplexing Settings, firmware download and mass production. 
 - Provide 29 examples include WIFI, BLE, Peripheral, protocols and OTA examples. 
