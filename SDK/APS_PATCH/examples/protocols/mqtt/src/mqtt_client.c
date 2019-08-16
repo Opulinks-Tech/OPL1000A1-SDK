@@ -229,11 +229,17 @@ void mqtt_client(void )
 								{
 										printf("... Got IP again\n");
 										osDelay(100);
-										continue;
+										wifi_alive_count = 0;
 								}					
 						}
             osDelay(600);
-            MQTT_Connect();
+            rc = MQTT_Connect();
+			if( rc == -1 )
+			{
+			    osDelay(1000);
+				printf("[ERR]: MQTT_Connect return fail.\n");
+				continue;
+			}
             osDelay(600);
             MQTT_Publish(MQTT_PUB_TOPIC, MQTT_PUB_MSG);
             osDelay(600);

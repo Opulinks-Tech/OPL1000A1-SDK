@@ -133,10 +133,11 @@ int  MQTT_Connect(void)
     
     while(t)
     {
-			  t--;
-        if(connect(MQTT_Socket, (struct sockaddr *)&MQTT_ServerAdd, sizeof(MQTT_ServerAdd)) != 0) 
+	    t--;
+		rc = connect(MQTT_Socket, (struct sockaddr *)&MQTT_ServerAdd, sizeof(MQTT_ServerAdd));
+        if( rc != 0) 
         {
-            printf("... socket connect failed errno=%d \r\n", errno);
+            printf("... socket connect failed errno=%d \r\n", rc);
             //close(MQTT_Socket);20190628-Update.
             osDelay((5 - t) * 2000);
             continue;
@@ -239,7 +240,7 @@ int MQTT_Disconnect()
 int MQTT_Publish(char *topick, char *message)
 {
     uint16_t i = 0;
-    uint8_t  buf[512] = {0};
+    uint8_t  buf[256] = {0};
     int32_t len=0;
     int rc = 0;
     int buflen = sizeof(buf);  
@@ -258,7 +259,7 @@ int MQTT_Publish(char *topick, char *message)
     printf("message : %s\n",message);
 //    osDelay(100);
     rc = tcp_write_data(buf, len);
-    printf("mqtt pub ok, topic:%s; len:%d\n", topick, rc);
+    printf("mqtt pub topic:%s; len:%d\n", topick, rc);
     for(i=0; i<rc; i++)
     {
         printf("%02X ", buf[i]);
