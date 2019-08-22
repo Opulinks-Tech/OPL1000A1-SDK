@@ -59,6 +59,7 @@ void App_Entry(void *args)
     if(true == BleWifi_Ctrl_EventStatusWait(BLEWIFI_CTRL_EVENT_BIT_GOT_IP, 0xFFFFFFFF)) // start mqtt client after got IP.
     {
         printf("... Got IP\n");
+			  BleWifi_Wifi_SetDTIM(BleWifi_Ctrl_DtimTimeGet());
         mqtt_client();
     }	
 }

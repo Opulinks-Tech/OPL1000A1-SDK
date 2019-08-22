@@ -19,9 +19,8 @@ extern "C" {
 #include <stdbool.h>
 
 // MQTT server ip & port.
-#define  TCP_SERVER_ADDR      "39.100.86.134" 
-//#define  TCP_SERVER_ADDR      "192.168.1.102"
-//#define  TCP_SERVER_PORT      61613        //1883   8181
+#define  TCP_SERVER_ADDR      "192.168.1.102"
+
 #define  TCP_SERVER_PORT      1883
 
 // Topic names & msgs.

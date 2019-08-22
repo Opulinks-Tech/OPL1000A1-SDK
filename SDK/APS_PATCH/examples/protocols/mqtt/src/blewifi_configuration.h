@@ -87,7 +87,7 @@ method 2: full name
 */
 #define BLEWIFI_BLE_DEVICE_NAME_METHOD      1           // 1 or 2
 #define BLEWIFI_BLE_DEVICE_NAME_POST_COUNT  4           // for method 1 "OPL_33:44:55:66"
-#define BLEWIFI_BLE_DEVICE_NAME_PREFIX      "OPL_"      // for method 1 "OPL_33:44:55:66"
+#define BLEWIFI_BLE_DEVICE_NAME_PREFIX      "mqtt_"      // for method 1 "OPL_33:44:55:66"
 #define BLEWIFI_BLE_DEVICE_NAME_FULL        "OPL1000"   // for method 2
 
 /* Advertisement Interval Calculation Method:
@@ -121,7 +121,7 @@ if the auto connection is fail, the interval will be increased
 
 /* DTIM the times of Interval: ms
 */
-#define BLEWIFI_WIFI_DTIM_INTERVAL                  (2000)      // ms
+#define BLEWIFI_WIFI_DTIM_INTERVAL                  (1000)      // ms
 
 #endif /* __BLEWIFI_CONFIGURATION_H__ */
 

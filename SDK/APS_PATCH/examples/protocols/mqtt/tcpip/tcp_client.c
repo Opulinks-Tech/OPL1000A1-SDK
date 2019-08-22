@@ -38,9 +38,8 @@ Head Block of The File
 int tcp_write_data(unsigned char* buf, int buflen)
 {
 	int rc = 0;
-//    rc = mqtt_tcp.send(buf,buflen);
     rc = write(MQTT_Socket, buf, buflen);
-	  printf("..[] rc = %d\n", rc);
+	  printf("rc = %d\n", rc);
     if(rc < 0) 
     {
         printf("... socket send failed rc = %d\n", rc);
@@ -60,5 +59,5 @@ int tcp_read_data(unsigned char* buf, int count)
     res = read(MQTT_Socket, buf, count);
     if(res == -1)
         res = 0;
-	return res;//mqtt_tcp.recv(buf,count);
+	return res;
 }

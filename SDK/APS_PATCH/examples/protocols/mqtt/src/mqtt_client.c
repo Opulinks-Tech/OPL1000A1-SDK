@@ -130,7 +130,7 @@ void mqtt_client(void )
     MQTT_Subscribe(OPL1000_SUB_TOPIC);
     
     osDelay(1000);
-    receiving_timeout.tv_sec = 1;
+    receiving_timeout.tv_sec = 2;
     receiving_timeout.tv_usec = 0;
     
     if(setsockopt(MQTT_Socket, SOL_SOCKET, SO_RCVTIMEO, &receiving_timeout, sizeof(receiving_timeout)) < 0) 
@@ -149,7 +149,7 @@ void mqtt_client(void )
 		
     while(1)
     {
-				if(MQTT_SocketStatus == 1) //20190628-Update.
+				if(MQTT_SocketStatus == 1) 
         {
             last_ping_time++;
 					  wifi_alive_count = 0; // clear the wifi connection count.
@@ -183,7 +183,6 @@ void mqtt_client(void )
 						do
 						{
 							tmp = MQTTPacket_read(MQTT_RevBuf, buflen,tcp_read_data);
-			        //printf("rev pack = %d, ping counter = %d\n", tmp, last_ping_time);
 							if(tmp == PUBLISH)
 							{               
 									rc = MQTTDeserialize_publish(&dup, &qos, &retained, &msgid, &receivedTopic, &payload_in, &payloadlen_in, MQTT_RevBuf, buflen);
@@ -218,13 +217,12 @@ void mqtt_client(void )
 						}
 						while(tmp != -1);
         }
-        else //20190628-Update.  MQTT_SocketStatus == 0
+        else // MQTT_SocketStatus == 0
         {
             printf("Socket conn closed, retry connect\n");
 					  wifi_alive_count++;
 					  if(wifi_alive_count > 4) //if SocketStatus=0 for sometime, positively set g_connection_flag = false to indicate the wifi connection is broken.
 						{
-								//20190628-Update.
 								if(true == BleWifi_Ctrl_EventStatusWait(BLEWIFI_CTRL_EVENT_BIT_GOT_IP,0xFFFFFFFF))
 								{
 										printf("... Got IP again\n");
